@@ -4,8 +4,5 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
-    polinomio.cpp
 
 HEADERS += \
-    polinomio.h
-
