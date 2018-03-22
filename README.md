@@ -1,4 +1,4 @@
 # Kalk
 
-
-![](Kalk.jpg)
+Diagramma
+![](Kalk.png)
