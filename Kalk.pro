@@ -4,5 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.cpp \
+    retta.cpp \
+    main.cpp
 
 HEADERS += \
+    retta.h
