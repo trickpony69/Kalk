@@ -1,5 +1,5 @@
-#include "punto.h"
+#include "dependency.h"
 
 QPoint punto::formatToQtPainter(punto p){
-    return Qpoint(p.x,p.y);
+    return QPoint(p.x,p.y);
 }

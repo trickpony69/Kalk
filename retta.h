@@ -1,7 +1,8 @@
 #ifndef RETTA_H
 #define RETTA_H
 
-
+#include <QVector>
+#include "punto.h"
 class retta
 {
 private:
@@ -14,7 +15,7 @@ public:
     double GetB(){ return b; }
     double GetC(){ return c; }
     /*ritorna un vector di puntatori a punti che sono le coordinate calcolate*/
-    vector<punto*> print(retta);
+    QVector<punto*> print(retta);
 
 };
 

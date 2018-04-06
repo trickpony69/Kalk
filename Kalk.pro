@@ -1,11 +1,13 @@
 TEMPLATE = app
-CONFIG += console c++11
-CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG += c++11
+QT += core gui
 
-SOURCES += main.cpp \
+TARGET = Kalk
+SOURCES += \
     retta.cpp \
-    main.cpp
+    main.cpp \
+    punto.cpp \
 
 HEADERS += \
-    retta.h
+    retta.h \
+    punto.h
