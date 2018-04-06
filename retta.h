@@ -4,7 +4,9 @@
 #include "punto.h"
 
 class retta;
+
 static double puntoRetta(punto,retta);
+static retta rettaFromTwoPoints(punto,punto);
 
 class retta{
      friend double puntoRetta(punto,retta);
@@ -17,8 +19,7 @@ public:
     double GetA(){ return a; }
     double GetB(){ return b; }
     double GetC(){ return c; }
-    /*ritorna un vector di puntatori a punti che sono le coordinate calcolate*/
-    QVector<punto*> print();
+    QVector<punto*> print(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     //bool isImplicita();
 
 };
