@@ -1,10 +1,13 @@
 #ifndef RETTA_H
 #define RETTA_H
 
-#include <QVector>
 #include "punto.h"
-class retta
-{
+
+class retta;
+static double puntoRetta(punto,retta);
+
+class retta{
+     friend double puntoRetta(punto,retta);
 private:
     double a;
     double b;
@@ -15,7 +18,8 @@ public:
     double GetB(){ return b; }
     double GetC(){ return c; }
     /*ritorna un vector di puntatori a punti che sono le coordinate calcolate*/
-    QVector<punto*> print(retta);
+    QVector<punto*> print();
+    //bool isImplicita();
 
 };
 

@@ -5,15 +5,22 @@
 #include <QPoint>
 #include <QVector>
 #include <list>
+#include "math.h"
+
+class punto;
+
+static double distanceTwoPoints(punto, punto);
 
 class punto{
-    distanceTwoPoints(punto p1, punto p2);
+    friend double distanceTwoPoints(punto, punto);
 
 private:
     double x,y;
 public:
     punto(double a, double b) : x(a),y(b) {}
     QPoint formatToQtPainter(punto);
+    double getX(){return x;};
+    double getY(){return y;};
 };
 
 #endif // PUNTO_H
