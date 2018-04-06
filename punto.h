@@ -7,6 +7,8 @@
 #include <list>
 
 class punto{
+    distanceTwoPoints(punto p1, punto p2);
+
 private:
     double x,y;
 public:

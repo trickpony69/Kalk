@@ -2,13 +2,16 @@ classe punto:
   attributi:
     x,y;
   metodi:
-    distanza tra due punti (distanza dall'origine);
+	conversione da punto a Qpoint
+
 
 Funzioni esterne;
-distanza punto-retta;
-intersezioni tra rette (ritorna != 0 -> perpendicolari);
-retta passante per due punti e ritorna una retta;
-
+	distanza punto-retta;
+    	distanza tra due punti (distanza dall'origine);
+	distanza retta-retta
+	intersezioni tra rette (ritorna != 0 -> perpendicolari);
+	retta passante per due punti e ritorna una retta;
+	
 classe retta:
   attributi:
     double a;
