@@ -5,11 +5,14 @@
 
 class retta;
 
-static double puntoRetta(punto,retta);
+static double distancePuntoRetta(punto,retta);
 static retta rettaFromTwoPoints(punto,punto);
+ostream& operator<<(ostream&, const retta&);
 
 class retta{
-     friend double puntoRetta(punto,retta);
+     friend double distancePuntoRetta(punto,retta);
+     friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
+
 private:
     double a;
     double b;
@@ -19,7 +22,7 @@ public:
     double GetA(){ return a; }
     double GetB(){ return b; }
     double GetC(){ return c; }
-    QVector<punto*> print(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
+    QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     //bool isImplicita();
 
 };

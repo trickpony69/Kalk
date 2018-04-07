@@ -13,3 +13,6 @@ static double distanceTwoPoints(punto p1,punto p2){
 }
 
 
+ostream& operator<<(ostream& buffer, const punto& p){
+    return buffer<<"("<<p.x<<","<<p.y<<")"<<std::endl;
+}

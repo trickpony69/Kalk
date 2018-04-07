@@ -1,6 +1,6 @@
 #include "retta.h"
 
-static double puntoRetta(punto p,retta r){
+static double distancePuntoRetta(punto p,retta r){
     return ((abs(r.a * p.getX() - r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
@@ -9,3 +9,6 @@ static retta rettaFromTwoPoints(punto p1,punto p2){
     return retta(-m,1,((-p2.getY())) + (m*(p2.getX())));
 }
 
+ostream& operator<<(ostream& buffer, const retta& r){
+    return buffer<<r.a<<"x+"<<r.b<<"y+"<<r.c<<std::endl;
+}
