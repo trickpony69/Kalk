@@ -13,11 +13,9 @@ using std::cout;
 
 class punto;
 
-static double distanceTwoPoints(punto, punto);
 ostream& operator<<(ostream&, const punto&);
 
 class punto{
-    friend double distanceTwoPoints(punto, punto);
     friend ostream& operator<<(ostream&, const punto&);
 
 private:
@@ -27,6 +25,7 @@ public:
     QPoint formatToQtPainter(punto);
     double getX();
     double getY();
+    static double distanceTwoPoints(punto, punto);
 };
 
 #endif // PUNTO_H
