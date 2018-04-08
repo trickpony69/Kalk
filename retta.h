@@ -22,6 +22,8 @@ public:
     static retta rettaFromTwoPoints(punto,punto);
     QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     //bool isImplicita();
+    double distanceRettaRetta(retta&);
+    static bool isParallels(retta&,retta&);
 
 };
 
