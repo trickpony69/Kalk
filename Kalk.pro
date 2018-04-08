@@ -1,6 +1,7 @@
 TEMPLATE = app
 CONFIG += c++11
 QT += core gui
+QT += widgets
 
 TARGET = Kalk
 SOURCES += \

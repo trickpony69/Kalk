@@ -1,7 +1,7 @@
 #ifndef PUNTO_H
 #define PUNTO_H
 
-
+#include <QtWidgets>
 #include <QPoint>
 #include <QVector>
 #include <list>
