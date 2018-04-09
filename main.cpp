@@ -17,6 +17,11 @@ int main(){
     if(retta::isParallels(r1,r2)){
         std::cout<<"la distanza tra r1 e r2 e' "<<r1.distanceRettaRetta(r2)<<std::endl;
     }else std::cout<<"Le rette sono incidenti nel punto : "/*<<r1.incidentRettaRetta(r2)*/<<std::endl;
+
+    cout<<std::endl;
+    razionale rz1(7,4),rz2(5,8);
+
+    cout<<"stampo due razionali "<<std::endl<<rz1<<rz2<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
 }
 
 /*primi test gui grafica
