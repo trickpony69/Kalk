@@ -1,20 +1,25 @@
-//#include "retta.h"
-//// includere un entry point dove partire
+#include "retta.h"
+// includere un entry point dove partire
 
-//int main(){
+int main(){
 
-//    punto p1(2,4);
-//    punto p2(5,6);
-//    retta r1(2,3,5);
-//    retta rp = retta::rettaFromTwoPoints(p1,p2); //da un errore strano
-//    cout<<"p1"<<p1<<"p2"<<p2;
-//    cout<<"r1 "<<r1;
-//    cout<<"la distanza tra p1 e r1 è "<<retta::distancePuntoRetta(p1,r1)<<std::endl;//stesso errore di rettaFromTwoPoints
-//    cout<<"la retta tra p1 e p2 è "<<rp;
-//    cout<<"la distanza tra p1 e p2 è "<<punto::distanceTwoPoints(p1,p2);
-//}
+    punto p1(2,4);
+    punto p2(5,6);
+    retta r1(2,3,0);
+    retta r2(2,5,5);
+    retta rp = retta::rettaFromTwoPoints(p1,p2); //da un errore strano
+    cout<<"p1"<<p1<<"p2"<<p2;
+    cout<<"r1 "<<r1;
+    cout<<"r2 "<<r2;
+    cout<<"la distanza tra p1 e r1 e' "<<retta::distancePuntoRetta(p1,r1)<<std::endl;//stesso errore di rettaFromTwoPoints
+    cout<<"la retta tra p1 e p2 e' "<<rp;
+    cout<<"la distanza tra p1 e p2 e' "<<punto::distanceTwoPoints(p1,p2)<<std::endl;
+    if(retta::isParallels(r1,r2)){
+        std::cout<<"la distanza tra r1 e r2 e' "<<r1.distanceRettaRetta(r2)<<std::endl;
+    }else std::cout<<"Le rette sono incidenti nel punto : "/*<<r1.incidentRettaRetta(r2)*/<<std::endl;
+}
 
-//primi test gui grafica
+/*primi test gui grafica
 #include <QApplication>
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -63,4 +68,4 @@ int main(int argc, char* argv[])
 
     // Event loop
     return app.exec();
-}
+}*/

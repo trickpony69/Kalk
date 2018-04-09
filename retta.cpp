@@ -21,13 +21,17 @@ ostream& operator<<(ostream& buffer, const retta& r){
 }
 
 double retta::distanceRettaRetta(retta& r2) {
-    if(!isParallels(*this,r2)){
-        return distancePuntoRetta(punto(1,(-1)*(r2.GetA()/r2.GetB()) - r2.GetC()/r2.GetB()),*this);
+    if(isParallels(*this,r2)){
+        //std::cout<<"(0,"<<(0)*(r2.GetA()/r2.GetB()) - r2.GetC()/r2.GetB()<<")"<<std::endl;
+        //std::cout<<"(0,"<<(0)*(GetA()/GetB()) - GetC()/GetB()<<")"<<std::endl;
+        return distancePuntoRetta(punto(0,(0)*(r2.GetA()/r2.GetB()) - r2.GetC()/r2.GetB()),*this);
     }
     else return 0;
 }
 
 bool retta::isParallels(retta& r1 , retta& r2 ){
     //std::cout<<(-1)*(r1.GetA()/r1.GetB())<< " " << (-1)*(r2.GetA()/r2.GetB());
-    return (-1)*(r1.GetA()/r1.GetB()) == (-1)*(r2.GetA()/r2.GetB());
+    double coeffA = (-1)*(r1.GetA()/r1.GetB());
+    double coeffB = (-1)*(r2.GetA()/r2.GetB());
+    return coeffA == coeffB;
 }

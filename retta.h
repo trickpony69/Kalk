@@ -8,7 +8,7 @@ class retta;
 //ostream& operator<<(ostream&, const retta&); non serve, come mai ??
 
 class retta{
-     friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
+    friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
 private:
     double a;
     double b;
