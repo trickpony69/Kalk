@@ -17,7 +17,22 @@ retta retta::rettaFromTwoPoints(punto p1,punto p2){
 }
 
 ostream& operator<<(ostream& buffer, const retta& r){
-    return buffer<<"("<<r.a<<"x+"<<r.b<<"y+"<<r.c<<")"<<std::endl;
+    buffer<<"(";
+    if(r.a != 0)
+        buffer<<r.a<<"x";
+
+    if(r.b > 0) buffer<<"+";
+    if(r.b != 0){
+        buffer<<r.b<<"y";
+    }
+
+    if(r.c > 0) buffer<<"+";
+    if(r.c != 0){
+        buffer<<r.c;
+    }
+
+    buffer<<" =0 )";
+    return buffer;
 }
 
 double retta::distanceRettaRetta(retta& r2) {
@@ -34,4 +49,33 @@ bool retta::isParallels(retta& r1 , retta& r2 ){
     double coeffA = (-1)*(r1.GetA()/r1.GetB());
     double coeffB = (-1)*(r2.GetA()/r2.GetB());
     return coeffA == coeffB;
+}
+
+retta retta::RettaPerpendicolare( retta& r , punto& p ){
+    //m è già il nuovo coefficente angolare
+    double m = 0;
+    if(r.GetB() != 0 && r.GetA() != 0){
+        m = (-1)/(r.GetA()/(-1)*r.GetB());
+        return retta(m,-1,(-1)*m*p.getX()+p.getY());
+    }else{
+        if(r.GetA() == 0){
+           return retta(-1,0,p.getX());
+        }
+        else return retta(0,-1,p.getY());
+    }
+}
+
+retta retta::RettaParallella( retta& r , punto& p ){
+    double m = 0;
+    if(r.GetB() != 0 && r.GetA() != 0){
+        m = (r.GetA()/(-1)*r.GetB());
+        return retta(m,-1,(-1)*m*p.getX()+p.getY());
+    }
+    else{
+        if(r.GetA() == 0){
+            return retta(0,-1,p.getY());
+        }
+        else return retta(-1,0,p.getX());
+    }
+
 }

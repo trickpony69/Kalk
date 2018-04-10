@@ -24,6 +24,8 @@ public:
     //bool isImplicita();
     double distanceRettaRetta(retta&);
     static bool isParallels(retta&,retta&);
+    static retta RettaPerpendicolare(retta&,punto&);
+    static retta RettaParallella(retta&,punto&);
 
 };
 
