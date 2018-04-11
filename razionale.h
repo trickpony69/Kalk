@@ -2,6 +2,7 @@
 #define RAZIONALE_H
 
 #include<iostream>
+#include "math.h"
 
 class razionale;
 
@@ -14,6 +15,9 @@ private:
     //meglio rappresentazioni non minimali di un razionale
 public:
     razionale(int =0, int =1); // agisce anche da convertitore int => Raz
+    razionale(double);
+    void riduzione();
+    int conteggio(double);
     razionale inverso() const;//gira la frazione
     operator double() const; //cast operatore double
     razionale operator+(const razionale&) const;
