@@ -42,5 +42,8 @@ double razionale::converti()const {
 
 std::ostream& operator<<(std::ostream& os, const razionale& r) {
   //return os << "Il razionale rappresentato come un double e'" << r.operator double();
-    return os<<r.num<<"/"<<r.den;
+    if(r.den == 1) os<<r.num;
+    else os<<r.num<<"/"<<r.den;
+
+    return os;
 }
