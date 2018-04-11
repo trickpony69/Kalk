@@ -1,11 +1,11 @@
 #include "retta.h"
 
 
-double retta::GetA(){ return a; }
+double retta::GetA() const { return a; }
 
-double retta::GetB(){ return b; }
+double retta::GetB() const { return b; }
 
-double retta::GetC(){ return c; }
+double retta::GetC() const { return c; }
 
 double retta::distancePuntoRetta(punto p, retta r){
     return ((abs(r.a * p.getX() - r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));

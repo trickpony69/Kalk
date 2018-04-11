@@ -1,8 +1,8 @@
 #include "punto.h"
 
-double punto::getX(){return x;}
+razionale punto::getX() const {return x;}
 
-double punto::getY(){return y;}
+razionale punto::getY() const {return y;}
 
 QPoint punto::formatToQtPainter(punto p){
     return QPoint(p.x,p.y);

@@ -21,12 +21,12 @@ class punto{
     friend ostream& operator<<(ostream&, const punto&);
 
 private:
-    double x,y;
+    razionale x,y;
 public:
-    punto(double a, double b) : x(a),y(b) {}
+    punto( razionale a , razionale b ) : x(a),y(b) {}
     virtual QPoint formatToQtPainter(punto);
-    double getX();
-    double getY();
+    razionale getX() const;
+    razionale getY() const;
     static double distanceTwoPoints(punto, punto);
 };
 
