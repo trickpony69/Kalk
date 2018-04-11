@@ -36,6 +36,10 @@ bool razionale::operator==(const razionale& r) const {
   return num*r.den ==r.num*den;
 }
 
+bool razionale::operator==(const double& d) const {
+  return num/den == d;
+}
+
 double razionale::converti()const {
     return (this)->operator double();
 }

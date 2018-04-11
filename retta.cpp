@@ -58,8 +58,7 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
         m = (-1)/(r.GetA()/(-1)*r.GetB());
         return retta(m,-1,(-1)*m*p.getX()+p.getY());
     }else{
-        razionale ug(0,1);
-        if(r.GetA() == ug){
+        if(r.GetA() == 0){
            return retta(-1,0,p.getX());
         }
         else return retta(0,-1,p.getY());
@@ -73,11 +72,14 @@ retta retta::RettaParallella( retta& r , punto& p ){
         return retta(m,-1,(-1)*m*p.getX()+p.getY());
     }
     else{
-        razionale ug(0,1);
-        if(r.GetA() == ug){
+        if(r.GetA() == 0){
             return retta(0,-1,p.getY());
         }
         else return retta(-1,0,p.getX());
     }
+}
 
+double retta::Intersect(retta& r1, retta& r2) {
+   double x = ((((r1.GetC()*r2.GetB())/r1.GetB())/((r2.GetA()-r1.GetA()*r2.GetB())/r1.GetB())) - ((r2.GetC()/(r2.GetA()-r1.GetA()*r2.GetB())/r1.GetB())));
+   return x;
 }

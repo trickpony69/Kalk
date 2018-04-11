@@ -21,6 +21,7 @@ public:
     razionale& operator++();// incremento prefisso
     razionale operator++(int);// incremento postfisso
     bool operator==(const razionale&) const;
+    bool operator==(const double&) const;
     double converti() const;
 };
 

@@ -6,8 +6,8 @@ int main(){
 
     punto p1(2,4);
     punto p2(5,6);
-    retta r1(2,3,0);
-    retta r2(2,5,5);
+    retta r1(2,1,-3);
+    retta r2(1,-1,0);
     retta rp = retta::rettaFromTwoPoints(p1,p2); //da un errore strano
     cout<<"p1"<<p1<<"p2"<<p2;
     cout<<"r1 "<<r1;
@@ -17,7 +17,7 @@ int main(){
     cout<<"la distanza tra p1 e p2 e' "<<punto::distanceTwoPoints(p1,p2)<<std::endl;
     if(retta::isParallels(r1,r2)){
         std::cout<<"la distanza tra r1 e r2 e' "<<r1.distanceRettaRetta(r2)<<std::endl;
-    }else std::cout<<"Le rette sono incidenti nel punto : "/*<<r1.incidentRettaRetta(r2)*/<<std::endl;
+    }else std::cout<<"Le rette"<<r1<<" "<<r2<<" sono incidenti nel punto : "<<r1.Intersect(r1,r2)<<std::endl;
 
     punto p3(4,1);
     retta r3(0,-1,3);
