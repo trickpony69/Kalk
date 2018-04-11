@@ -26,7 +26,7 @@ public:
     static bool isParallels(retta&,retta&);
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
-    static double Intersect(retta&,retta&);
+    static punto Intersect(retta&,retta&);
 };
 
 #endif // RETTA_H
