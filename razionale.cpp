@@ -45,6 +45,10 @@ razionale razionale::operator+(const razionale& r) const {
   return razionale(num*r.den + den*r.num, den*r.den);
 }
 
+razionale razionale::operator*(const double& r) const {
+  return razionale(num*r, den);
+}
+
 razionale razionale::operator*(const razionale& r) const {
   return razionale(num*r.num, den*r.den);
 }

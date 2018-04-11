@@ -88,8 +88,9 @@ punto retta::Intersect(retta& r1, retta& r2) {
     }
     else
     {
-        //trovare la y oppure utilizzare il metodo del confronto
-        razionale x = ((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
+        razionale x((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
+        double coordY = (r1.GetA()*x)/((-1)*(r1.GetB())) + r1.GetC()/((-1)*(r1.GetB()));
+        razionale y(coordY,1);
         return punto(x,y);
     }
 }

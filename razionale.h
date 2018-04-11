@@ -22,6 +22,7 @@ public:
     operator double() const; //cast operatore double
     razionale operator+(const razionale&) const;
     razionale operator*(const razionale&) const;
+    razionale operator*(const double&) const;
     razionale& operator++();// incremento prefisso
     razionale operator++(int);// incremento postfisso
     bool operator==(const razionale&) const;
