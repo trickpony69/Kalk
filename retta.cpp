@@ -79,7 +79,20 @@ retta retta::RettaParallella( retta& r , punto& p ){
     }
 }
 
-double retta::Intersect(retta& r1, retta& r2) {
-   double x = ((((r1.GetC()*r2.GetB())/r1.GetB())/((r2.GetA()-r1.GetA()*r2.GetB())/r1.GetB())) - ((r2.GetC()/(r2.GetA()-r1.GetA()*r2.GetB())/r1.GetB())));
-   return x;
+punto retta::Intersect(retta& r1, retta& r2) {
+    int Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
+    if(Det != 0){
+        int DetX = r1.GetC()*(-1)*r2.GetB() - r2.GetC()*(-1)*r1.GetB();
+        int DetY = r1.GetA()*(-1)*r2.GetC() - r2.GetA()*(-1)*r1.GetC();
+        return punto(razionale(DetX,Det),razionale(DetY,Det));
+    }
+    else
+    {
+        //trovare la y oppure utilizzare il metodo del confronto
+        razionale x = ((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
+        return punto(x,y);
+    }
 }
+
+
+
