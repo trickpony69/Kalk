@@ -27,7 +27,7 @@ int main(){
     cout<<std::endl;
     razionale rz1(7,4),rz2(5,8);
 
-    cout<<"stampo due razionali "<<std::endl<<rz1<<rz2<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
+    cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
 }
 
 /*primi test gui grafica

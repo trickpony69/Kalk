@@ -10,14 +10,14 @@ class retta;
 class retta{
     friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
 private:
-    double a;
-    double b;
-    double c;
+    razionale a;
+    razionale b;
+    razionale c;
 public:
     retta(double x=0 , double y = 0 , double l = 0) : a(x),b(y),c(l) {} ;
-    double GetA();
-    double GetB();
-    double GetC();
+    razionale GetA() const ;
+    razionale GetB() const ;
+    razionale GetC() const ;
     static double distancePuntoRetta(punto,retta);
     static retta rettaFromTwoPoints(punto,punto);
     QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate

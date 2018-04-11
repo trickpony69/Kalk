@@ -1,11 +1,11 @@
 #include "retta.h"
 
 
-double retta::GetA() const { return a; }
+razionale retta::GetA() const { return a; }
 
-double retta::GetB() const { return b; }
+razionale retta::GetB() const { return b; }
 
-double retta::GetC() const { return c; }
+razionale retta::GetC() const { return c; }
 
 double retta::distancePuntoRetta(punto p, retta r){
     return ((abs(r.a * p.getX() - r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
@@ -58,7 +58,8 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
         m = (-1)/(r.GetA()/(-1)*r.GetB());
         return retta(m,-1,(-1)*m*p.getX()+p.getY());
     }else{
-        if(r.GetA() == 0){
+        razionale ug(0,1);
+        if(r.GetA() == ug){
            return retta(-1,0,p.getX());
         }
         else return retta(0,-1,p.getY());
@@ -72,7 +73,8 @@ retta retta::RettaParallella( retta& r , punto& p ){
         return retta(m,-1,(-1)*m*p.getX()+p.getY());
     }
     else{
-        if(r.GetA() == 0){
+        razionale ug(0,1);
+        if(r.GetA() == ug){
             return retta(0,-1,p.getY());
         }
         else return retta(-1,0,p.getX());
