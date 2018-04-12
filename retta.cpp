@@ -11,9 +11,23 @@ double retta::distancePuntoRetta(punto& p, retta& r){
     return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
-retta retta::rettaFromTwoPoints(punto p1,punto p2){
-    double m = ((p2.getY()-p1.getY())/(p2.getX()-p1.getX()));
-    return retta(-m,1,((-p2.getY())) + (m*(p2.getX())));
+retta retta::rettaFromTwoPoints(punto& p1,punto& p2){
+    if(p1.getX() == p2.getX() && p1.getY() != p2.getY()){
+        return retta(-1,0,p1.getX());
+    }
+    else if(p1.getX() != p2.getX() && p1.getY() == p2.getY()){
+        return retta(0,-1,p1.getY());
+    }
+    else{
+        razionale d1(p2.getX() - p1.getX());
+        razionale d2(p2.getY() - p1.getY());
+        razionale a = d2;
+        razionale b = d1;
+        razionale c = (d2*p1.getX()*(-1)) + (d1*p1.getY());
+        return retta(a,b*(-1),c);
+    }
+    /*double m = ((p2.getY()-p1.getY())/(p2.getX()-p1.getX()));
+    return retta(-m,1,((-p2.getY())) + (m*(p2.getX())));*/
 }
 
 ostream& operator<<(ostream& buffer, const retta& r){
@@ -67,9 +81,11 @@ bool retta::isPerpendicolari(retta& r1 , retta& r2){
 retta retta::RettaPerpendicolare( retta& r , punto& p ){
     //m è già il nuovo coefficente angolare
     if(r.GetB() != 0 && r.GetA() != 0){
+        //trovo il coefficente angolare
         razionale m(r.GetA()*(-1),r.GetB());
+        //trovo l'antireciproco del coefficente angolare
         razionale new_m = m.inverso()*(-1);
-        //cout<<m<<"  "<<new_m;
+        //trovo c => y1 + m*x1
         razionale c(new_m*p.getX());
         c=(c*(-1))+p.getY();
         //cout<<c;
@@ -85,8 +101,12 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
 retta retta::RettaParallella( retta& r , punto& p ){
     double m = 0;
     if(r.GetB() != 0 && r.GetA() != 0){
-        m = (r.GetA()/(-1)*r.GetB());
-        return retta(m,-1,(-1)*m*p.getX()+p.getY());
+        //trovo il coefficente angolare
+        razionale m(r.GetA()*(-1),r.GetB());
+        //trovo c => y1 + m*x1
+        razionale c(m*p.getX());
+        c=(c*(-1))+p.getY();
+        return retta(m,-1,c);
     }
     else{
         if(r.GetA() == 0){

@@ -19,7 +19,7 @@ public:
     razionale GetB() const ;
     razionale GetC() const ;
     static double distancePuntoRetta(punto&,retta&);
-    static retta rettaFromTwoPoints(punto,punto);
+    static retta rettaFromTwoPoints(punto&,punto&);
     QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     //bool isImplicita();
     double distanceRettaRetta(retta&);
