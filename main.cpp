@@ -28,26 +28,26 @@ int main(){
     razionale rz1(7,4),rz2(5,8);
 
     cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
+    cout<<"costruttore razionale con double "<<razionale(0.50)<<std::endl;
 }
 
-/*primi test gui grafica
-#include <QApplication>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+//primi test gui grafica
+//#include <QApplication>
+//#include <QPushButton>
+//#include <QHBoxLayout>
+//#include <QVBoxLayout>
 
-int main(int argc, char* argv[])
-{
-    QApplication app(argc, argv);
+//int main(int argc, char* argv[]){
+    //QApplication app(argc, argv);
 
     // Horizontal layout with 3 buttons
-    QHBoxLayout *hLayout = new QHBoxLayout;
-    QPushButton *b1 = new QPushButton("A");
-    QPushButton *b2 = new QPushButton("B");
-    QPushButton *b3 = new QPushButton("C");
-    hLayout->addWidget(b1);
-    hLayout->addWidget(b2);
-    hLayout->addWidget(b3);
+    //QHBoxLayout *hLayout = new QHBoxLayout;
+    //QPushButton *b1 = new QPushButton("A");
+    //QPushButton *b2 = new QPushButton("B");
+    //QPushButton *b3 = new QPushButton("C");
+    //hLayout->addWidget(b1);
+    //hLayout->addWidget(b2);
+    //hLayout->addWidget(b3);
 
 //    // Vertical layout with 3 buttons
 //    QVBoxLayout *vLayout = new QVBoxLayout;
@@ -59,24 +59,24 @@ int main(int argc, char* argv[])
 //    vLayout->addWidget(b6);
 
 //    // Outer Layer
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    //QVBoxLayout *mainLayout = new QVBoxLayout;
 
 //    // Add the previous two inner layouts
-    mainLayout->addLayout(hLayout);
+     // mainLayout->addLayout(hLayout);
 //    mainLayout->addLayout(vLayout);
 
     // Create a widget
-    QWidget *w = new QWidget();
+    //QWidget *w = new QWidget();
 
     // Set the outer layout as a main layout of the widget
-    w->setLayout(mainLayout);
+    //w->setLayout(mainLayout);
 
     // Window title
-    w->setWindowTitle("layouts");
+   // w->setWindowTitle("layouts");
 
     // Display
-    w->show();
+    //w->show();
 
     // Event loop
-    return app.exec();
-}*/
+    //return app.exec();
+//}
