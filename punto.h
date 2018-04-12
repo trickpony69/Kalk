@@ -23,6 +23,7 @@ class punto{
 private:
     razionale x,y;
 public:
+    punto() {}
     punto( razionale a , razionale b ) : x(a),y(b) {}
     virtual QPoint formatToQtPainter(punto);
     razionale getX() const;

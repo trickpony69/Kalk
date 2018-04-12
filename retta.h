@@ -18,12 +18,13 @@ public:
     razionale GetA() const ;
     razionale GetB() const ;
     razionale GetC() const ;
-    static double distancePuntoRetta(punto,retta);
+    static double distancePuntoRetta(punto&,retta&);
     static retta rettaFromTwoPoints(punto,punto);
     QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     //bool isImplicita();
     double distanceRettaRetta(retta&);
     static bool isParallels(retta&,retta&);
+    static bool isPerpendicolari(retta&,retta&);
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
     static punto Intersect(retta&,retta&);

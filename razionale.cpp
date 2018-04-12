@@ -1,7 +1,7 @@
 #include "razionale.h"
 
 razionale::razionale(int n, int d): num(n), den(d) {
-  if(den==0) {num=0; den=1;}
+  if(den==0) {num=0; den=1;} //eccezione
   else{
     riduzione();
     if(num<0 && den <0){
@@ -9,6 +9,14 @@ razionale::razionale(int n, int d): num(n), den(d) {
         den=abs(den);
     }
   }
+}
+
+razionale::razionale(const razionale& r1 , const razionale& r2) : num(r1.num*r2.den) , den(r2.num*r1.den){
+    if((den < 0 && num > 0) || (den < 0 && num < 0)){
+        den = den*(-1);
+        num = num*(-1);
+    }
+    riduzione();
 }
 
 int razionale::conteggio(double d){
@@ -20,22 +28,24 @@ int razionale::conteggio(double d){
 
 void razionale::riduzione(){
     if(num==den)
-            num=den=1;
+        num=den=1;
     else if(num!=0){
         int aux=abs(num)<abs(den)?abs(num):abs(den);
-        for(int i=2; i<=aux; i++)
+        for(int i=2; i<=aux; i++){
             if(num%i==0 && den%i==0){
                 num=num/i;
                 den=den/i;
-                aux=(num<den)?num:den;
-                i--;
+                aux=abs(num)<abs(den)?abs(num):abs(den);
+                --i;
             }
+        }
     }
     else
         den=1;
 }
 
 razionale::razionale(double d): num(d*pow(10,conteggio(d))),den(pow(10,conteggio(d))) {
+    //std::cout<<num<<" "<<den;
     riduzione();
     if(num<0 && den <0){
         num=abs(num);

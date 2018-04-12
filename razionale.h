@@ -18,6 +18,7 @@ private:
 public:
     razionale(int =0, int =1); // agisce anche da convertitore int => Raz
     razionale(double);
+    razionale(const razionale&,const razionale&);
     void riduzione();
     int conteggio(double);
     razionale inverso() const;//gira la frazione

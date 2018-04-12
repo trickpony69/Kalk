@@ -7,8 +7,8 @@ razionale retta::GetB() const { return b; }
 
 razionale retta::GetC() const { return c; }
 
-double retta::distancePuntoRetta(punto p, retta r){
-    return ((abs(r.a * p.getX() - r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
+double retta::distancePuntoRetta(punto& p, retta& r){
+    return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
 retta retta::rettaFromTwoPoints(punto p1,punto p2){
@@ -36,27 +36,44 @@ ostream& operator<<(ostream& buffer, const retta& r){
 }
 
 double retta::distanceRettaRetta(retta& r2) {
-    if(isParallels(*this,r2)){
-        //std::cout<<"(0,"<<(0)*(r2.GetA()/r2.GetB()) - r2.GetC()/r2.GetB()<<")"<<std::endl;
-        //std::cout<<"(0,"<<(0)*(GetA()/GetB()) - GetC()/GetB()<<")"<<std::endl;
-        return distancePuntoRetta(punto(0,(0)*(r2.GetA()/r2.GetB()) - r2.GetC()/r2.GetB()),*this);
+    //trovo il punto con x = 0 di r2:
+    if(r2.GetA() == 0){
+        punto x (0,(-1)*(r2.GetC()/r2.GetB()));
+        return distancePuntoRetta(x,*this);
     }
-    else return 0;
+    else if(r2.GetB() == 0){
+        punto x ((r2.GetC()/r2.GetA())*(-1),0);
+        return distancePuntoRetta(x,*this);
+    }
+    else{
+        punto x (0,(-1)*(r2.GetA()/r2.GetB())*(0) - r2.GetC()/r2.GetB());
+        return distancePuntoRetta(x,*this);
+    }
+
 }
 
 bool retta::isParallels(retta& r1 , retta& r2 ){
-    //std::cout<<(-1)*(r1.GetA()/r1.GetB())<< " " << (-1)*(r2.GetA()/r2.GetB());
     double coeffA = (-1)*(r1.GetA()/r1.GetB());
     double coeffB = (-1)*(r2.GetA()/r2.GetB());
     return coeffA == coeffB;
 }
 
+bool retta::isPerpendicolari(retta& r1 , retta& r2){
+    if((-1)*(r1.GetA()/r1.GetB()) == -1/((-1)*(r2.GetA()/r2.GetB())))
+        return true;
+    else return false;
+}
+
 retta retta::RettaPerpendicolare( retta& r , punto& p ){
     //m è già il nuovo coefficente angolare
-    double m = 0;
     if(r.GetB() != 0 && r.GetA() != 0){
-        m = (-1)/(r.GetA()/(-1)*r.GetB());
-        return retta(m,-1,(-1)*m*p.getX()+p.getY());
+        razionale m(r.GetA()*(-1),r.GetB());
+        razionale new_m = m.inverso()*(-1);
+        //cout<<m<<"  "<<new_m;
+        razionale c(new_m*p.getX());
+        c=(c*(-1))+p.getY();
+        //cout<<c;
+        return retta(new_m,-1,c);
     }else{
         if(r.GetA() == 0){
            return retta(-1,0,p.getX());
