@@ -6,8 +6,8 @@ int main(){
 
     punto p1(2,4);
     punto p2(5,6);
-    retta r1(2,1,-3);
-    retta r2(1,-1,0);
+    retta r1(-7,3,2);
+    retta r2(8,-4,-6);
     retta rp = retta::rettaFromTwoPoints(p1,p2); //da un errore strano
     cout<<"p1"<<p1<<"p2"<<p2;
     cout<<"r1 "<<r1;
@@ -28,7 +28,7 @@ int main(){
     razionale rz1(7,4),rz2(5,8);
 
     cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
-    cout<<"costruttore razionale con double "<<razionale(0.50)<<std::endl;
+    cout<<" prova con costruttore "<<razionale(-10,-4)<<std::endl;
 }
 
 //primi test gui grafica

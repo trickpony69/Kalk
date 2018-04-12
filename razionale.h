@@ -2,7 +2,9 @@
 #define RAZIONALE_H
 
 #include<iostream>
-#include "math.h"
+#include <cmath>
+
+using std::abs;
 
 class razionale;
 
