@@ -9,10 +9,12 @@ SOURCES += \
     main.cpp \
     punto.cpp \
     razionale.cpp \
-    poligono.cpp
+    poligono.cpp \
+    mainGui.cpp
 
 HEADERS += \
     retta.h \
     punto.h \
     razionale.h \
-    poligono.h
+    poligono.h \
+    mainGui.h
