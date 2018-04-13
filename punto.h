@@ -12,6 +12,7 @@
 
 using std::ostream;
 using std::cout;
+using std::cin;
 
 class punto;
 

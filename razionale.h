@@ -2,6 +2,7 @@
 #define RAZIONALE_H
 
 #include<iostream>
+using std::istream;
 #include <cmath>
 
 using std::abs;
@@ -11,6 +12,7 @@ class razionale;
 std::ostream& operator<<(std::ostream&, const razionale&);
 
 class razionale {
+    friend istream& operator>>(istream&,razionale&);
     friend std::ostream& operator<<(std::ostream&, const razionale&);
 private:
     int num, den; //den != 0

@@ -1,4 +1,5 @@
 #include "retta.h"
+#include <string>
 
 
 razionale retta::GetA() const { return a; }
@@ -26,27 +27,6 @@ retta retta::rettaFromTwoPoints(punto& p1,punto& p2){
         razionale c = (d2*p1.getX()*(-1)) + (d1*p1.getY());
         return retta(a,b*(-1),c);
     }
-    /*double m = ((p2.getY()-p1.getY())/(p2.getX()-p1.getX()));
-    return retta(-m,1,((-p2.getY())) + (m*(p2.getX())));*/
-}
-
-ostream& operator<<(ostream& buffer, const retta& r){
-    buffer<<"(";
-    if(r.a != 0)
-        buffer<<r.a<<"x";
-
-    if(r.b > 0) buffer<<"+";
-    if(r.b != 0){
-        buffer<<r.b<<"y";
-    }
-
-    if(r.c > 0) buffer<<"+";
-    if(r.c != 0){
-        buffer<<r.c;
-    }
-
-    buffer<<" =0 )";
-    return buffer;
 }
 
 double retta::distanceRettaRetta(retta& r2) {
@@ -99,7 +79,6 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
 }
 
 retta retta::RettaParallella( retta& r , punto& p ){
-    double m = 0;
     if(r.GetB() != 0 && r.GetA() != 0){
         //trovo il coefficente angolare
         razionale m(r.GetA()*(-1),r.GetB());
@@ -117,10 +96,11 @@ retta retta::RettaParallella( retta& r , punto& p ){
 }
 
 punto retta::Intersect(retta& r1, retta& r2) {
-    int Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
+    razionale Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
+
     if(Det != 0){
-        int DetX = r1.GetC()*(-1)*r2.GetB() - r2.GetC()*(-1)*r1.GetB();
-        int DetY = r1.GetA()*(-1)*r2.GetC() - r2.GetA()*(-1)*r1.GetC();
+        razionale DetX = r1.GetC()*(-1)*r2.GetB() - r2.GetC()*(-1)*r1.GetB();
+        razionale DetY = r1.GetA()*(-1)*r2.GetC() - r2.GetA()*(-1)*r1.GetC();
 
         return punto(razionale(DetX,Det),razionale(DetY,Det));
     }
@@ -131,6 +111,56 @@ punto retta::Intersect(retta& r1, retta& r2) {
         razionale y(coordY,1);
         return punto(x,y);
     }
+}
+
+//-----------------------OVERLOAD OPERATORI---------------------------------------------------
+
+ostream& operator<<(ostream& buffer, const retta& r){
+    buffer<<"(";
+    if(r.a != 0)
+        buffer<<r.a<<"x";
+
+    if(r.b > 0) buffer<<"+";
+    if(r.b != 0){
+        buffer<<r.b<<"y";
+    }
+
+    if(r.c > 0) buffer<<"+";
+    if(r.c != 0){
+        buffer<<r.c;
+    }
+
+    buffer<<" =0 )";
+    return buffer;
+}
+
+istream& operator>>(istream& is, retta& r){
+    std::string rect;
+    //mi serve per prendere anche gli spazi
+    std::getline(is, rect);
+
+    int len = rect.length();
+    //cout<<len;
+    std::string a;
+    for(int i=0;i<len;i++){
+        if(rect[i] != '+' && rect[i] != '*' && rect[i] != '=' && rect[i] != '-' && rect[i] != '*' && rect[i] != ' ')
+        {
+            //cout<<a<<std::endl;
+            a=a+rect[i];
+        }
+        else {
+            cout<<a<<std::endl;
+            a = ' ';
+        }
+    }
+
+    /*cout<<"coeff x :";
+    is >> r.a;
+    cout<<"coeff y :";
+    is >> r.b;
+    cout<<"termine noto :";
+    is >> r.c;*/
+    return is;
 }
 
 
