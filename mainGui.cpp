@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),vecButton(0), errorLabel(new QLabel("mi dispiace ma non puoi più di 3 aggiungere funzioni :(, daje accontentati")){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),vecButton(0), errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")){
     hLay->addWidget(add);
     hLay->addWidget(remove);
     add->setFixedSize(140,60);
@@ -22,10 +22,13 @@ void mainGui::push_qle(){
         qle->setPlaceholderText("inserisci la funzione");
         vec.push_back(qle);
         hFunLay->addWidget(qle);
-
+        QFont font("Times", 25);
+        qle->setFixedSize(300,60);
+        qle->setFont(font);
         QPushButton* b = new QPushButton("conferma");
         vecButton.push_back(b);
         hFunLay->addWidget(b);
+        b->setFixedSize(90,60);
     }
     else{
         add->setDisabled(true);
@@ -43,7 +46,7 @@ void mainGui::remove_qle(){
         hFunLay->removeWidget(vecButton[vecButton.size()-1]);
         vec.removeLast();
         vecButton.removeLast();
-        if(vec.size() < 3)
+        if(vec.size() <= 2)
             add->setDisabled(false);
 
         if(vec.size() == 1)

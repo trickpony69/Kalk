@@ -10,12 +10,13 @@
 #include <QVBoxLayout>
 #include <QIcon>
 #include <QLabel>
+#include <QMainWindow>
 
 class mainGui: public QWidget{
 
 Q_OBJECT
 
-public:
+private:
     QPushButton* add;
     QPushButton* remove;
     QLabel* errorLabel;
@@ -25,10 +26,12 @@ public:
     QVBoxLayout* hFunLay;
     QVector<QLineEdit*> vec;
     QVector<QPushButton*> vecButton;
-    mainGui(const QString& ="aggiungi funzione", QWidget* =0); //miaclasse(const QString& ="+",QWidget* = 0);
-    virtual ~mainGui(){};
 
-public slots:
+public:    
+    mainGui(const QString& ="aggiungi funzione", QWidget* =0); //miaclasse(const QString& ="+",QWidget* = 0);
+    virtual ~mainGui(){}
+
+public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
 };
