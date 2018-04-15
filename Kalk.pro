@@ -2,10 +2,11 @@ TEMPLATE = app
 CONFIG += c++11
 QT += core gui
 QT += widgets
+QT += charts
 
 TARGET = Kalk
 SOURCES += \
-    retta.cpp \
+    #retta.cpp \
     main.cpp \
     punto.cpp \
     razionale.cpp \

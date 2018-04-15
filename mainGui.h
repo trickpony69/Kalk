@@ -11,6 +11,10 @@
 #include <QIcon>
 #include <QLabel>
 #include <QMainWindow>
+#include <QChartView>
+#include <QLineSeries>
+
+using namespace QtCharts;
 
 class mainGui: public QWidget{
 

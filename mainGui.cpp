@@ -4,11 +4,31 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     add->setFixedSize(140,60);
     remove->setFixedSize(140,60);
     enter->setFixedSize(140,60);
+    //---------------PRIME PROVE GRAFICO----------------
+    QLineSeries *series = new QLineSeries();
+
+    series->append(0, 6);
+    series->append(2, 4);
+    series->append(3, 8);
+    series->append(7, 4);
+    series->append(10, 5);
+    *series << QPointF(11, 1) << QPointF(13, 3) << QPointF(17, 6) << QPointF(18, 3) << QPointF(20, 2);
+
+    QChart *chart = new QChart();
+    chart->legend()->hide();
+    chart->addSeries(series);
+    chart->createDefaultAxes();
+    chart->setTitle("prove coordinate, non cambiano in base all'input");
+
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    //-----------------------------
     enter->setDisabled(true);
     remove->setDisabled(true);
     hLay->addWidget(add);
     hLay->addWidget(remove);
     hLay->addWidget(enter);
+    hFunLay->addWidget(chartView);
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
@@ -50,12 +70,12 @@ void mainGui::remove_qle(){
     if(vec.size() > 1){
         hFunLay->removeWidget(vec[vec.size()-1]);
         delete vec[vec.size()-1];
-        vec.remove((vec.size())-1);
-
-        if(vec.size() < 2){
-            errorLabel->setVisible(false);
-        }
+        vec.remove((vec.size())-1);   
     }
+
+    if(vec.size() < 2)
+        errorLabel->setVisible(false);
+
     if(vec.size() < 1)
         enter->setDisabled(false);
 

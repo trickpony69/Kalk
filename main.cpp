@@ -3,11 +3,11 @@
 
 // includere un entry point dove partire
 
-int main(){
-      retta prova;
-      cout<<"inserisci: "<<std::endl;
-      cin>>prova;
-      cout<<prova;
+//int main(){
+//      retta prova;
+//      cout<<"inserisci: "<<std::endl;
+//      cin>>prova;
+//      cout<<prova;
 //    punto p1(-2,3);
 //    punto p2(1,-5);
 //    retta r1(-7,3,2);
@@ -43,14 +43,14 @@ int main(){
 //}
 
 //primi test gui grafica
-/*#include <QApplication>
+#include <QApplication>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <mainGui.h>
 
-int main(int argc, char* argv[]){*/
+int main(int argc, char* argv[]){
     //QApplication app(argc, argv);
 
     //Horizontal layout with 3 buttons
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]){*/
     //QVBoxLayout *mainLayout = new QVBoxLayout;
 
 //    // Add the previous two inner layouts
-   // mainLayout->addLayout(hLayout);
+ // mainLayout->addLayout(hLayout);
 //  mainLayout->addLayout(vLayout);
 
     // Create a widget
@@ -97,9 +97,9 @@ int main(int argc, char* argv[]){*/
     //return app.exec();
 
     //mainGui
-    /*QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
     mainGui m;
 
-    return a.exec();*/
+    return a.exec();
 }
