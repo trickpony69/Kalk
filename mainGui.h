@@ -19,13 +19,15 @@ Q_OBJECT
 private:
     QPushButton* add;
     QPushButton* remove;
+    QPushButton* enter;
+    QVector<QLineEdit*> vec;
     QLabel* errorLabel;
+    QVector<QString*> returnInput;
     QVBoxLayout *mainLayout;
     QVBoxLayout* vLay;
     QHBoxLayout* hLay;
     QVBoxLayout* hFunLay;
-    QVector<QLineEdit*> vec;
-    QVector<QPushButton*> vecButton;
+
 
 public:    
     mainGui(const QString& ="aggiungi funzione", QWidget* =0); //miaclasse(const QString& ="+",QWidget* = 0);
@@ -34,6 +36,8 @@ public:
 public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
+    void returnedInput();
+
 };
 
 #endif // MIACLASSE_H
