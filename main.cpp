@@ -1,5 +1,7 @@
 #include "retta.h"
 #include "razionale.h"
+#include <QApplication>
+#include <finestra.h>
 
 // includere un entry point dove partire
 
@@ -42,64 +44,14 @@
 //    cout<<" prova con costruttore "<<razionale(-10,-4)<<std::endl;
 //}
 
-//primi test gui grafica
-#include <QApplication>
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <mainGui.h>
-
+//test gui grafica
 int main(int argc, char* argv[]){
-    //QApplication app(argc, argv);
 
-    //Horizontal layout with 3 buttons
-    //QHBoxLayout *hLayout = new QHBoxLayout;
-   // QLineEdit* primaFunzione = new QLineEdit();
-    //primaFunzione->setPlaceholderText("inserisci la prima funzione");
+    QApplication app(argc, argv);
 
-    //QPushButton *b1 = new QPushButton("+");
-    //QPushButton *b2 = new QPushButton("B");
-    //QPushButton *b3 = new QPushButton("C");
-   // hLayout->addWidget(b1);
-    //hLayout->addWidget(b2);
-    //hLayout->addWidget(b3);
-    //hLayout->addWidget(primaFunzione);
-//    // Vertical layout with 3 buttons
-//    QVBoxLayout *vLayout = new QVBoxLayout;
-//    QPushButton *b4 = new QPushButton("D");
-//    QPushButton *b5 = new QPushButton("E");
-//    QPushButton *b6 = new QPushButton("F");
-//    vLayout->addWidget(b4);
-//    vLayout->addWidget(b5);
-//    vLayout->addWidget(b6);
+    finestra finestrone;
 
-    // Outer Layer
-    //QVBoxLayout *mainLayout = new QVBoxLayout;
+    finestrone.show();
 
-//    // Add the previous two inner layouts
- // mainLayout->addLayout(hLayout);
-//  mainLayout->addLayout(vLayout);
-
-    // Create a widget
-    //QWidget *w = new QWidget();
-
-    // Set the outer layout as a main layout of the widget
-    //w->setLayout(mainLayout);
-
-    // Window title
-    //w->setWindowTitle("mok");
-
-    // Display
-    //w->show();
-
-    // Event loop
-    //return app.exec();
-
-    //mainGui
-    QApplication a(argc, argv);
-
-    mainGui m;
-
-    return a.exec();
+    return app.exec();
 }

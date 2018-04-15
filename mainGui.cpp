@@ -37,8 +37,6 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     mainLayout->addLayout(vLay);
     mainLayout->addLayout(hFunLay);
     setLayout(mainLayout);
-    this->setWindowTitle("mok");
-    this->show();
     resize(700,300);
 }
 
