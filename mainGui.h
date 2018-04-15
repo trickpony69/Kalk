@@ -33,8 +33,8 @@ private:
     QVBoxLayout* hFunLay;
 
 
-public:    
-    mainGui(const QString& ="aggiungi funzione", QWidget* =0); //miaclasse(const QString& ="+",QWidget* = 0);
+public:
+    mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
 
 public slots: //private o public slots ?

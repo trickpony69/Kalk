@@ -5,7 +5,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     remove->setFixedSize(140,60);
     enter->setFixedSize(140,60);
     //---------------PRIME PROVE GRAFICO----------------
-    QLineSeries *series = new QLineSeries();
+    QLineSeries* series = new QLineSeries();
 
     series->append(0, 6);
     series->append(2, 4);
@@ -18,6 +18,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     chart->legend()->hide();
     chart->addSeries(series);
     chart->createDefaultAxes();
+    chart->setTheme(QChart::ChartThemeBlueIcy);
     chart->setTitle("prove coordinate, non cambiano in base all'input");
 
     QChartView *chartView = new QChartView(chart);
