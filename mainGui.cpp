@@ -12,8 +12,8 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
-    mainLayout->addLayout(vLay);
     mainLayout->addLayout(hLay);
+    mainLayout->addLayout(vLay);
     mainLayout->addLayout(hFunLay);
     setLayout(mainLayout);
     this->setWindowTitle("mok");
@@ -33,7 +33,8 @@ void mainGui::push_qle(){
     }
     else{
         add->setDisabled(true);
-        hLay->addWidget(errorLabel);
+        vLay->addWidget(errorLabel);
+        errorLabel->setVisible(true);
     }
 
     if(vec.size() <= 1)
@@ -51,10 +52,9 @@ void mainGui::remove_qle(){
         delete vec[vec.size()-1];
         vec.remove((vec.size())-1);
 
-        /*if(vec.size() < 2){
-            hLay->removeWidget(errorLabel);
-            qDebug("toglie il messaggio d'errore");
-        }*/
+        if(vec.size() < 2){
+            errorLabel->setVisible(false);
+        }
     }
     if(vec.size() < 1)
         enter->setDisabled(false);
