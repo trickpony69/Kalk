@@ -52,6 +52,6 @@ int main(int argc, char* argv[]){
     finestra finestrone;
 
     finestrone.show();
-
+    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
     return app.exec();
 }

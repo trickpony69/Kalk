@@ -13,6 +13,8 @@
 #include <QMainWindow>
 #include <QChartView>
 #include <QLineSeries>
+#include <QToolBar>
+#include <QIcon>
 
 using namespace QtCharts;
 

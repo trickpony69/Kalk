@@ -4,6 +4,10 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     add->setFixedSize(140,60);
     remove->setFixedSize(140,60);
     enter->setFixedSize(140,60);
+    QPixmap pix(":/add.png");
+    QIcon icon(pix);
+    add->setIcon(icon);
+    QWidget::style();
     //---------------PRIME PROVE GRAFICO----------------
     QLineSeries* series = new QLineSeries();
 
@@ -23,6 +27,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
 
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
+    //chartView->setFixedSize(700,500);
     //-----------------------------
     enter->setDisabled(true);
     remove->setDisabled(true);
@@ -37,7 +42,6 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     mainLayout->addLayout(vLay);
     mainLayout->addLayout(hFunLay);
     setLayout(mainLayout);
-    resize(700,300);
 }
 
 void mainGui::push_qle(){
@@ -72,7 +76,7 @@ void mainGui::remove_qle(){
         vec.remove((vec.size())-1);   
     }
 
-    if(vec.size() < 2)
+    if(vec.size() <= 2)
         errorLabel->setVisible(false);
 
     if(vec.size() < 1)

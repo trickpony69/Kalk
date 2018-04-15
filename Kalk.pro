@@ -21,3 +21,4 @@ HEADERS += \
     poligono.h \
     mainGui.h \
     finestra.h
+
