@@ -27,7 +27,7 @@ void mainGui::push_qle(){
         qle->setPlaceholderText("inserisci la funzione");
         vec.push_back(qle);
         hFunLay->addWidget(qle);
-        QFont font("Times", 25);
+        QFont font("Arial", 25);
         qle->setFixedSize(300,60);
         qle->setFont(font);
     }
@@ -48,8 +48,8 @@ void mainGui::push_qle(){
 void mainGui::remove_qle(){
     if(vec.size() > 1){
         hFunLay->removeWidget(vec[vec.size()-1]);
-        vec.removeLast();
-
+        delete vec[vec.size()-1];
+        vec.remove((vec.size())-1);
 
         /*if(vec.size() < 2){
             hLay->removeWidget(errorLabel);
@@ -58,7 +58,6 @@ void mainGui::remove_qle(){
     }
     if(vec.size() < 1)
         enter->setDisabled(false);
-    else enter->setDisabled(true);
 
     if(vec.size() <= 2)
         add->setDisabled(false);
