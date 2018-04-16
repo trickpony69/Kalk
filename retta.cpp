@@ -134,43 +134,77 @@ ostream& operator<<(ostream& buffer, const retta& r){
     return buffer;
 }
 
+
+
 istream& operator>>(istream& is, retta& r){
     std::string rect;
-    //mi serve per prendere anche gli spazi
+
+    //input per prendere anche gli spazi
     std::getline(is, rect);
 
     int len = rect.length();
-    //cout<<len;
+
     std::string s;
-    int n=0,d=0;
+    bool raz = false;
+    int n=0,d=0,a=0,b=0,c=0;
 
     for(int i=0;i<len;i++){
-        if(rect[i] != '+' && rect[i] != '*' && rect[i] != '=' && rect[i] != '-' && rect[i] != '*' && rect[i] != ' ')
+        if(rect[i] != '+' && rect[i] != '*' && rect[i] != '=' && rect[i] != '*' && rect[i] != ' ')
         {
             //se è un razionale lo creo
             if(rect[i] == '/'){
-                n = std::stoi( s );
-                s = rect[i];
+                n = stoi( s );
+                s = ' ';
+                raz = true;
             }
-            else s=s+rect[i];
+            else {
+                //fine del coefficente
+                if(rect[i] == 'x'){
+                    r.a = razionale(a,1);
+                    s = ' ';
+                }else if(rect[i] == 'y'){
+                    r.b = razionale(b,1);
+                    s = ' ';
+                }
+                else{
+                    if(raz == true){
+                        //vuol dire che sono a denominatore
+                        while(rect[i] != 'x' && rect[i] != 'y' && rect[i] != '=' )
+                        {
+                            s = s+rect[i];
+                            i++;
+                        }
+
+                        d = stoi( s );
+
+                        if(rect[i] == 'x'){
+                            r.a = razionale(n,d);
+                            //cout<<n<<" / "<<d<<"x"<<endl;
+                        }else if(rect[i] == 'y'){
+                            r.b = razionale(n,d);
+                            //cout<<n<<" / "<<d<<"y"<<endl;
+                        }else {
+                            r.c = razionale(n,d);
+                            //cout<<n<<" / "<<d<<endl;
+                            break;
+                        }
+                        s = ' ';
+                        raz = false;
+                    }
+                    else{
+                        s = s+rect[i];
+                    }
+                }
+            }
         }
-        else {
-            if(n!=0){
-                d = std::stoi( s );
-            }
-            cout<<s<<std::endl;
-            if(rect[i] == 'x'){
-                r.a = razionale(std::stoi( s ),1);
-            }else if(rect[i] == 'y'){
-                r.b = razionale(std::stoi( s ),1);
-            }else{
-                r.c = razionale(std::stoi( s ),1);
-            }
+        else if(rect[i] == '='){
+            r.c = razionale(c,1);
+            break;
+        }else {
             s = ' ';
             n=0;d=0;
         }
     }
-
     return is;
 }
 
