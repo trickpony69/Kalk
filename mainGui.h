@@ -1,7 +1,6 @@
 #ifndef MIACLASSE_H
 #define MIACLASSE_H
 
-#include <iostream>
 #include <QWidget>
 #include <QVector>
 #include <QLineEdit>
@@ -12,13 +11,11 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QToolBar>
-#include <QIcon>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QPointF>
 #include <QVector>
 #include <QGraphicsItem>
-#include <QAction>
 
 class mainGui: public QWidget{
 
