@@ -1,15 +1,15 @@
 #include "retta.h"
 #include "razionale.h"
-#include <QApplication>
-#include <finestra.h>
+//#include <QApplication>
+//#include <finestra.h>
 
 // includere un entry point dove partire
 
-//int main(){
-//      retta prova;
-//      cout<<"inserisci: "<<std::endl;
-//      cin>>prova;
-//      cout<<prova;
+int main(){
+      retta prova;
+      cout<<"inserisci: "<<std::endl;
+      cin>>prova;
+      cout<<prova;
 //    punto p1(-2,3);
 //    punto p2(1,-5);
 //    retta r1(-7,3,2);
@@ -42,8 +42,8 @@
 
 //    cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
 //    cout<<" prova con costruttore "<<razionale(-10,-4)<<std::endl;
-//}
-
+}
+/*
 //test gui grafica
 int main(int argc, char* argv[]){
 
@@ -54,4 +54,4 @@ int main(int argc, char* argv[]){
     finestrone.show();
     app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
     return app.exec();
-}
+}*/
