@@ -15,6 +15,10 @@
 //#include <QLineSeries>
 #include <QToolBar>
 #include <QIcon>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QPointF>
+#include <QVector>
 
 //using namespace QtCharts;
 
