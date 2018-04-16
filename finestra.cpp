@@ -9,10 +9,10 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     QPixmap newpix(":/zoomIn.png");
     QPixmap openpix("open.png");
     QPixmap quitpix("quit.png");
-    auto tb = new QToolBar();
+    QToolBar* tb = new QToolBar();
     tb->addWidget(dummy1);
-    QAction* zoomIn = new QAction("zoom in");
-    QAction* zoomOut = new QAction("zoom out");
+    QAction* zoomIn = new QAction("zoom in",this);
+    QAction* zoomOut = new QAction("zoom out",this);
     tb->addAction(zoomIn);
     tb->addAction(zoomOut);
     tb->addAction("aiuto");
