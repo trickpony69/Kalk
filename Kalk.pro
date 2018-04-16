@@ -6,7 +6,7 @@ QT += widgets
 
 TARGET = Kalk
 SOURCES += \
-    #retta.cpp \
+    retta.cpp \
     main.cpp \
     punto.cpp \
     razionale.cpp \
