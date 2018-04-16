@@ -141,25 +141,36 @@ istream& operator>>(istream& is, retta& r){
 
     int len = rect.length();
     //cout<<len;
-    std::string a;
+    std::string s;
+    int n=0,d=0;
+
     for(int i=0;i<len;i++){
         if(rect[i] != '+' && rect[i] != '*' && rect[i] != '=' && rect[i] != '-' && rect[i] != '*' && rect[i] != ' ')
         {
-            //cout<<a<<std::endl;
-            a=a+rect[i];
+            //se è un razionale lo creo
+            if(rect[i] == '/'){
+                n = std::stoi( s );
+                s = rect[i];
+            }
+            else s=s+rect[i];
         }
         else {
-            cout<<a<<std::endl;
-            a = ' ';
+            if(n!=0){
+                d = std::stoi( s );
+            }
+            cout<<s<<std::endl;
+            if(rect[i] == 'x'){
+                r.a = razionale(std::stoi( s ),1);
+            }else if(rect[i] == 'y'){
+                r.b = razionale(std::stoi( s ),1);
+            }else{
+                r.c = razionale(std::stoi( s ),1);
+            }
+            s = ' ';
+            n=0;d=0;
         }
     }
 
-    /*cout<<"coeff x :";
-    is >> r.a;
-    cout<<"coeff y :";
-    is >> r.b;
-    cout<<"termine noto :";
-    is >> r.c;*/
     return is;
 }
 
