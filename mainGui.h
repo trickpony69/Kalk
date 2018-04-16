@@ -11,21 +11,19 @@
 #include <QIcon>
 #include <QLabel>
 #include <QMainWindow>
-//#include <QChartView>
-//#include <QLineSeries>
 #include <QToolBar>
 #include <QIcon>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QPointF>
 #include <QVector>
-
-//using namespace QtCharts;
+#include <QGraphicsItem>
+#include <QAction>
 
 class mainGui: public QWidget{
 
-Q_OBJECT
-
+    friend class finestra;
+    Q_OBJECT
 private:
     QPushButton* add;
     QPushButton* remove;
@@ -35,10 +33,10 @@ private:
     QVector<QString*> returnInput;
     QVBoxLayout *mainLayout;
     QVBoxLayout* vLay;
-    QHBoxLayout* hLay;
     QVBoxLayout* hFunLay;
-
-
+    QGraphicsScene* scene;
+    QGraphicsView* view;
+    QHBoxLayout* hLay;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
@@ -47,7 +45,6 @@ public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
     void returnedInput();
-
 };
 
 #endif // MIACLASSE_H

@@ -7,7 +7,6 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     QPixmap pix(":/add.png");
     QIcon icon(pix);
     add->setIcon(icon);
-    QWidget::style();
     //---------------PRIME PROVE GRAFICO----------------
 
     //***************VERSIONE TROPPO AGGIORNATA*********
@@ -34,17 +33,19 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     QVector <QPointF> points;
 
     // Fill in points with n number of points
-    for(int i = 0; i< 100; i++)
-       points.append(QPointF(i*5, i*5));
+    //for(int i = 0; i< 100; i++)
+    //   points.append(QPointF(i*5, i*5));
 
     // Create a view, put a scene in it and add tiny circles
     // in the scene
-    QGraphicsView * view = new QGraphicsView();
-    QGraphicsScene * scene = new QGraphicsScene();
+    view = new QGraphicsView();
+    scene = new QGraphicsScene();
+    view->setAlignment(Qt::AlignBottom|Qt::AlignLeft);
     view->setDragMode(QGraphicsView::ScrollHandDrag);
     view->setScene(scene);
-    for(int i = 0; i< points.size(); i++)
-        scene->addEllipse(points[i].x(), points[i].y(), 1, 1);
+    scene->addRect(200, 360, 300, 100);
+    //for(int i = 0; i< points.size(); i++)
+    //    scene->addEllipse(points[i].x(), points[i].y(), 1, 1);
     //---------------------------------------
     enter->setDisabled(true);
     remove->setDisabled(true);
@@ -111,6 +112,8 @@ void mainGui::returnedInput(){
         QString* entry = new QString(vec[i]->displayText());
         returnInput.push_back(entry);
     }
-    for(unsigned int i = 0; i < returnInput.size(); i++)
+    for(unsigned int i = 0; i < returnInput.size(); i++){
         qDebug(returnInput[i]->toLatin1());
+    }
 }
+
