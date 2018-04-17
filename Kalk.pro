@@ -6,13 +6,14 @@ QT += widgets
 
 TARGET = Kalk
 SOURCES += \
-    retta.cpp \
+    #retta.cpp \
     main.cpp \
     punto.cpp \
     razionale.cpp \
     poligono.cpp \
     mainGui.cpp \
-    finestra.cpp
+    finestra.cpp \
+    grafico.cpp
 
 HEADERS += \
     retta.h \
@@ -20,5 +21,6 @@ HEADERS += \
     razionale.h \
     poligono.h \
     mainGui.h \
-    finestra.h
+    finestra.h \
+    grafico.h
 

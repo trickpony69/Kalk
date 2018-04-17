@@ -3,14 +3,14 @@
 finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui){
     setWindowTitle("mok");
     setCentralWidget(widgetCentrale);
-    auto dummy1 = new QWidget(this);
-    dummy1->setFixedHeight(40);
-    //dummy1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QPixmap newpix(":/zoomIn.png");
-    QPixmap openpix("open.png");
-    QPixmap quitpix("quit.png");
+    auto spaziatore1 = new QWidget(this);
+    //auto spaziatore2 = new QWidget(this);
+    spaziatore1->setFixedHeight(30);
+    //spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //spaziatore2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QToolBar* tb = new QToolBar();
-    tb->addWidget(dummy1);
+    tb->addWidget(spaziatore1);
+    //tb->addWidget(spaziatore2)
     QAction* zoomIn = new QAction("zoom in",this);
     QAction* zoomOut = new QAction("zoom out",this);
     tb->addAction(zoomIn);
@@ -25,9 +25,9 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
 }
 
 void finestra::zoomIn(){
-     widgetCentrale->view->scale(qreal(1.2), qreal(1.2));
+     widgetCentrale->graficoElementi->scale(qreal(1.2), qreal(1.2));
 }
 
 void finestra::zoomOut(){
-     widgetCentrale->view->scale(qreal(0.8), qreal(0.8));
+     widgetCentrale->graficoElementi->scale(qreal(0.8), qreal(0.8));
 }

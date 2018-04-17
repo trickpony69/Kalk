@@ -16,6 +16,8 @@
 #include <QPointF>
 #include <QVector>
 #include <QGraphicsItem>
+#include <QPolygonF>
+#include <grafico.h>
 
 class mainGui: public QWidget{
 
@@ -30,10 +32,9 @@ private:
     QVector<QString*> returnInput;
     QVBoxLayout *mainLayout;
     QVBoxLayout* vLay;
-    QVBoxLayout* hFunLay;
-    QGraphicsScene* scene;
-    QGraphicsView* view;
+    QVBoxLayout* hFunLay;  
     QHBoxLayout* hLay;
+    grafico* graficoElementi;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
