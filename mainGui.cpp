@@ -1,12 +1,12 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), enter(new QPushButton("calcola",this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), enter(new QPushButton("calcola",this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label(NULL){
     add->setFixedSize(140,60);
     remove->setFixedSize(140,60);
     enter->setFixedSize(140,60);
     /*--------------- PROVE GRAFICO----------------
 
-                  Fatta classe esterna
+                  Fatta classe graficoElementi
 
     ---------------------------------------------*/
     enter->setDisabled(true);
@@ -15,6 +15,9 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     hLay->addWidget(remove);
     hLay->addWidget(enter);
     hFunLay->addWidget(graficoElementi);
+    QFrame* myFrame = new QFrame();
+    myFrame->setFrameShape(QFrame::HLine);
+    vLay->addWidget(myFrame);
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
@@ -70,12 +73,25 @@ void mainGui::remove_qle(){
 }
 
 void mainGui::returnedInput(){
+    if(label) delete label;
     for(unsigned int i = 0; i < vec.size(); i++){
         QString* entry = new QString(vec[i]->displayText());
         returnInput.push_back(entry);
     }
     for(unsigned int i = 0; i < returnInput.size(); i++){
         qDebug(returnInput[i]->toLatin1());
+    }
+    QRegularExpression in("x=([0-9])*;y=([0-9])*");
+    QRegularExpressionMatch match = in.match(returnInput[0]); //->toLatin; serve o no ?
+    if(match.hasMatch()){
+        qDebug("è un punto");
+        label = new QLabel("è un punto");
+        vLay->addWidget(label);
+    }
+    else {
+        label = new QLabel("non è un punto");
+        vLay->addWidget(label);
+        qDebug("non è un punto");
     }
 }
 

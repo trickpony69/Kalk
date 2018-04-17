@@ -16,8 +16,9 @@
 #include <QPointF>
 #include <QVector>
 #include <QGraphicsItem>
-#include <QPolygonF>
 #include <grafico.h>
+#include <QRegularExpression>
+#include <QDebug>
 
 class mainGui: public QWidget{
 
@@ -35,6 +36,7 @@ private:
     QVBoxLayout* hFunLay;  
     QHBoxLayout* hLay;
     grafico* graficoElementi;
+    QLabel* label;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
