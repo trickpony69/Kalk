@@ -1,5 +1,7 @@
 #include "retta.h"
-#include <string>
+
+#include <iostream>
+#include <locale>
 
 
 razionale retta::GetA() const { return a; }
@@ -142,29 +144,53 @@ istream& operator>>(istream& is, retta& r){
     //input per prendere anche gli spazi
     std::getline(is, rect);
 
-    int len = rect.length();
+    r.parser(rect);
+    return is;
+}
+
+void retta::parser(string rect)
+{
+    unsigned int len = rect.length();
+    for (unsigned int var = 0; var < len; ++var) {
+        if(rect[var] == ' '){
+            rect.erase(rect.begin()+var);
+            var--;
+        }
+    }
 
     std::string s;
-    bool raz = false;
-    int n=0,d=0,a=0,b=0,c=0;
+    retta r;
 
-    for(int i=0;i<len;i++){
-        if(rect[i] != '+' && rect[i] != '*' && rect[i] != '=' && rect[i] != '*' && rect[i] != ' ')
+    bool raz = false;
+    int n=0,d=0,x=0,y=0,tn=0;
+
+    int sign = 1;
+
+    for(unsigned int i=0;i<len;i++){
+        if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
         {
-            //se è un razionale lo creo
+            if(rect[i] == '-'){
+                sign = -1;
+            }
             if(rect[i] == '/'){
-                n = stoi( s );
-                s = ' ';
+                n = std::stoi( s );
+                s.erase(s.begin(),s.end());
                 raz = true;
             }
             else {
                 //fine del coefficente
                 if(rect[i] == 'x'){
-                    r.a = razionale(a,1);
-                    s = ' ';
+                    if(s.length() == 0) s='1';
+                    x = std::stoi( s );
+                    a = razionale(sign*x,1);
+                    sign = 1;
+                    s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
-                    r.b = razionale(b,1);
-                    s = ' ';
+                    if(s.length() == 0) s='1';
+                    y = std::stoi( s );
+                    b = razionale(sign*y,1);
+                    sign = 1;
+                    s.erase(s.begin(),s.end());
                 }
                 else{
                     if(raz == true){
@@ -174,39 +200,53 @@ istream& operator>>(istream& is, retta& r){
                             s = s+rect[i];
                             i++;
                         }
-
-                        d = stoi( s );
+                        d = std::stoi( s );
 
                         if(rect[i] == 'x'){
-                            r.a = razionale(n,d);
-                            //cout<<n<<" / "<<d<<"x"<<endl;
+                            a = razionale(sign*n,d);
+                            sign = 1;
                         }else if(rect[i] == 'y'){
-                            r.b = razionale(n,d);
-                            //cout<<n<<" / "<<d<<"y"<<endl;
+                            b = razionale(sign*n,d);
+                            sign = 1;
                         }else {
-                            r.c = razionale(n,d);
-                            //cout<<n<<" / "<<d<<endl;
+                            c = razionale(sign*n,d);
+                            sign = 1;
                             break;
                         }
-                        s = ' ';
+                        s.erase(s.begin(),s.end());
                         raz = false;
                     }
                     else{
-                        s = s+rect[i];
+                        std::locale loc;
+                        if (isdigit(rect[i],loc))
+                        {
+                          s = s+rect[i];
+                        }
+
                     }
                 }
             }
         }
-        else if(rect[i] == '='){
-            r.c = razionale(c,1);
-            break;
+        else if(rect[i] == '=' || rect[i+1] == '='){
+            //termine noto ==> tn
+             if(s.length() > 0){
+                tn = std::stoi( s );
+                c = razionale(sign*tn,1);
+                s.erase(s.begin(),s.end());
+              }
+              sign = 1;
+              break;
         }else {
-            s = ' ';
+            s.erase(s.begin(),s.end());
             n=0;d=0;
         }
     }
-    return is;
+    if(x == 0 && y == 0){
+        cout<<"eccezione"<<std::endl;
+    }
 }
+
+
 
 
 
