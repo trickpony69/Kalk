@@ -8,7 +8,7 @@ class finestra : public QMainWindow{
 private:
     mainGui* widgetCentrale;
 public:
-    explicit finestra(QWidget *parent = nullptr);//explicit o no ?
+    explicit finestra(QWidget *parent = NULL);//explicit o no ?
 public slots:
     void zoomIn();
     void zoomOut();

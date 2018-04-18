@@ -3,7 +3,7 @@
 finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui){
     setWindowTitle("mok");
     setCentralWidget(widgetCentrale);
-    auto spaziatore1 = new QWidget(this);
+    QWidget* spaziatore1 = new QWidget(this);
     //auto spaziatore2 = new QWidget(this);
     spaziatore1->setFixedHeight(30);
     //spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);

@@ -81,17 +81,6 @@ void mainGui::returnedInput(){
     for(unsigned int i = 0; i < returnInput.size(); i++){
         qDebug(returnInput[i]->toLatin1());
     }
-    QRegularExpression in("x=([0-9])*;y=([0-9])*");
-    QRegularExpressionMatch match = in.match(returnInput[0]); //->toLatin; serve o no ?
-    if(match.hasMatch()){
-        qDebug("è un punto");
-        label = new QLabel("è un punto");
-        vLay->addWidget(label);
-    }
-    else {
-        label = new QLabel("non è un punto");
-        vLay->addWidget(label);
-        qDebug("non è un punto");
-    }
+
 }
 

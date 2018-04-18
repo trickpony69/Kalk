@@ -2,7 +2,9 @@
 #define RETTA_H
 
 #include "punto.h"
+#include <string>
 using std::istream;
+using std::string;
 
 
 class retta;
@@ -33,7 +35,7 @@ public:
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
     static punto Intersect(retta&,retta&);
-
+    void parser(string);
 };
 
 #endif // RETTA_H
