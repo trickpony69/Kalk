@@ -167,9 +167,6 @@ void retta::pars_rect(string rect)
 
     int sign = 1;
 
-   /* std::string Text = "456";
-    int Number;
-    if ( ! (std::istringstream(Text) >> Number) ) Number = 0;*/
 
     for(unsigned int i = 0 ; i < rect.length() ; i++){
         if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
@@ -178,7 +175,6 @@ void retta::pars_rect(string rect)
                 sign = -1;
             }
             if(rect[i] == '/'){
-                //std::istringstream(s) >> n;
                 n = std::stoi( s );
                 s.erase(s.begin(),s.end());
                 raz = true;
@@ -187,15 +183,13 @@ void retta::pars_rect(string rect)
                 //fine del coefficente
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
-                    std::istringstream(s) >> x;
-                    //x = std::stoi( s );
+                    x = std::stoi( s );
                     a = razionale(sign*x,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
-                    std::istringstream(s) >> y;
-                    //y = std::stoi( s );
+                    y = std::stoi( s );
                     b = razionale(sign*y,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
@@ -208,8 +202,8 @@ void retta::pars_rect(string rect)
                             s = s+rect[i];
                             i++;
                         }
-                        std::istringstream(s) >> d;
-                        //d = std::stoi( s );
+
+                        d = std::stoi( s );
 
                         if(rect[i] == 'x'){
                             a = razionale(sign*n,d);
@@ -239,8 +233,7 @@ void retta::pars_rect(string rect)
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
              if(s.length() > 0){
-                //tn = std::stoi( s );
-                std::istringstream(s) >> tn;
+                tn = std::stoi( s );
                  c = razionale(sign*tn,1);
                 s.erase(s.begin(),s.end());
               }
