@@ -149,6 +149,78 @@ istream& operator>>(istream& is, retta& r){
 }
 
 //funziona da ridurre
+/*void retta::pars_rect(string rect)
+{
+    unsigned int len = rect.length();
+    for (unsigned int var = 0; var < len; ++var) {
+        if(rect[var] == ' '){
+            rect.erase(rect.begin()+var);
+            var--;
+        }
+    }
+
+    std::string s;
+    retta r;
+
+    //bool raz = false;
+    int n=0,d=0,x=0,y=0,tn=0;
+
+    int sign = 1;
+
+    for(unsigned int i = 0 ; i < rect.length() ; i++){
+        if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
+        {
+            std::locale loc;
+            if(rect[i] == '-' || rect[i] == '+'){
+                if(s.length() > 0){
+                    n = std::stoi( s );
+                    c = razionale(sign*n,d);
+                    sign =1;
+                    s.erase(s.begin(),s.end());
+                }
+                if(rect[i] == '-') sign = -1;
+            }
+            else if(isdigit(rect[i],loc))
+            {
+              s = s+rect[i];
+            }
+            else if(rect[i] == '/'){
+                if(s.length() == 0) cout<<'eccezione numeratore inesistente'<<std::endl;
+                n = std::stoi( s );
+                s.erase(s.begin(),s.end());
+            }
+            else if(rect[i] == 'x' || rect[i] == 'y' || rect[i] == '='){
+                //fine del coeff
+                    if(n != 0){
+                        //sono al denominatore
+                        if(s.length() == 0) {
+                            cout<<'eccezione denominatore inesistente'<<std::endl;
+                            break;
+                        }
+                        else d = std::stoi( s );
+                    }
+                    else{
+                        if(s.length() == 0 && rect[i] != '=') s='1';
+                        else s = '0';
+                        n = std::stoi( s );
+                    }
+                    if(rect[i] == 'x'){
+                        a = razionale(sign*n,d);
+                    }else if(rect[i] == 'y'){
+                        b = razionale(sign*n,d);
+                    }
+                    else{
+                        c = razionale(sign*n,d);
+                    }
+                    s.erase(s.begin(),s.end());
+                    sign = 1;
+                    n=0;
+                    d=1;
+                }
+        }
+    }
+}*/
+
 void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();
@@ -167,14 +239,19 @@ void retta::pars_rect(string rect)
 
     int sign = 1;
 
-
     for(unsigned int i = 0 ; i < rect.length() ; i++){
-        if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
+        if(rect[i] != '*' && rect[i] != '=')
         {
-            if(rect[i] == '-'){
-                sign = -1;
+            if(rect[i] == '-' || rect[i] == '+'){
+                if(s.length() > 0){
+                    n = std::stoi( s );
+                    c = razionale(sign*n,1);
+                    sign =1;
+                    s.erase(s.begin(),s.end());
+                }
+                if(rect[i] == '-') sign = -1;
             }
-            if(rect[i] == '/'){
+            else if(rect[i] == '/'){
                 n = std::stoi( s );
                 s.erase(s.begin(),s.end());
                 raz = true;
@@ -197,7 +274,7 @@ void retta::pars_rect(string rect)
                 else{
                     if(raz == true){
                         //vuol dire che sono a denominatore
-                        while(rect[i] != 'x' && rect[i] != 'y' && rect[i] != '=' )
+                        while(rect[i] != 'x' && rect[i] != 'y' && rect[i] != '=' && rect[i] != '+' && rect[i] != '-')
                         {
                             s = s+rect[i];
                             i++;
@@ -214,8 +291,9 @@ void retta::pars_rect(string rect)
                         }else {
                             c = razionale(sign*n,d);
                             sign = 1;
-                            break;
                         }
+                        if(rect[i] == '-' || rect[i] == '+') --i;
+                        n=0;d=1;
                         s.erase(s.begin(),s.end());
                         raz = false;
                     }
@@ -225,16 +303,16 @@ void retta::pars_rect(string rect)
                         {
                           s = s+rect[i];
                         }
-
                     }
                 }
             }
         }
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
+            cout<<"s:"<<s<<std::endl;
              if(s.length() > 0){
                 tn = std::stoi( s );
-                 c = razionale(sign*tn,1);
+                c = razionale(sign*tn,1);
                 s.erase(s.begin(),s.end());
               }
               sign = 1;
@@ -248,7 +326,6 @@ void retta::pars_rect(string rect)
         cout<<"eccezione"<<std::endl;
     }
 }
-
 
 
 

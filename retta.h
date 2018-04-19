@@ -20,7 +20,6 @@ private:
     razionale c;
 public:
     retta() {}
-    retta(razionale& x , razionale& y , razionale& l ) : a(x),b(y),c(l) {} ;
     retta(razionale x , razionale y , razionale l ) : a(x),b(y),c(l) {} ;
     razionale GetA() const ;
     razionale GetB() const ;

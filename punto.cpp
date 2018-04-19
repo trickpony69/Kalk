@@ -40,32 +40,39 @@ void punto::pars_point(string p){
     }
     string s;
     int n=0,d=1,sign=1;
-    bool raz = false;
+
     for(unsigned int cont = 0 ; cont < p.length() ; ++cont){
 
         if(p[cont] != '('){
-            //cout<<p;
             if(p[cont] == '-'){
                 sign = -1;
             }
             else if(p[cont] == '/'){
+                if(s.length() == 0) cout<<'eccezione numeratore inesistente'<<std::endl;
                 std::istringstream(s) >> n;
                 s.erase(s.begin(),s.end());
-                raz = true;
-            }
-            else if(raz == true){
-                s = s+p[cont];
             }
             else if(p[cont] == ';' || p[cont] == ')'){
                 if(s.length() == 0){
                     std::cout<<"eccezione"<<std::endl;
+                    break;
                 }
-                std::istringstream(s) >> d;
-                //cout<<"s"<<s<<std::endl;
-                if(p[cont] == ';') x = razionale(n*sign,d);
-                else y = razionale(n*sign,d);
-                cout<<x;
-                cout<<y;
+
+                if(n!=0){
+                    if(s.length() == 0) cout<<'eccezione denominatore inesistente'<<std::endl;
+                    std::istringstream(s) >> d;
+                }else{
+                    if(s.length() == 0) cout<<'eccezione denominatore inesistente'<<std::endl;
+                    std::istringstream(s) >> n;
+                }
+                if(p[cont] == ';'){
+                    x = razionale(n*sign,d);
+                }
+                else{
+                    y = razionale(n*sign,d);
+                }
+                d=1;n=0;
+
                 s.erase(s.begin(),s.end());
                 sign = 1;
             }
@@ -74,7 +81,10 @@ void punto::pars_point(string p){
                 if (isdigit(p[cont],loc))
                 {
                   s = s+p[cont];
-                  cout<<s;
+                }
+                else {
+                    cout<<"eccezione simbolo sbagliato"<<std::endl;
+                    break;
                 }
             }
         }
