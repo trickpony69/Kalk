@@ -144,12 +144,12 @@ istream& operator>>(istream& is, retta& r){
     //input per prendere anche gli spazi
     std::getline(is, rect);
 
-    r.parser(rect);
+    r.pars_rect(rect);
     return is;
 }
 
 //funziona da ridurre
-void retta::parser(string rect)
+void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();
     for (unsigned int var = 0; var < len; ++var) {
@@ -171,15 +171,15 @@ void retta::parser(string rect)
     int Number;
     if ( ! (std::istringstream(Text) >> Number) ) Number = 0;*/
 
-    for(unsigned int i=0;i<len;i++){
+    for(unsigned int i = 0 ; i < rect.length() ; i++){
         if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
         {
             if(rect[i] == '-'){
                 sign = -1;
             }
             if(rect[i] == '/'){
-                std::istringstream(s) >> n;
-                //n = std::stoi( s );
+                //std::istringstream(s) >> n;
+                n = std::stoi( s );
                 s.erase(s.begin(),s.end());
                 raz = true;
             }

@@ -35,7 +35,7 @@ public:
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
     static punto Intersect(retta&,retta&);
-    void parser(string);
+    void pars_rect(string);
 };
 
 #endif // RETTA_H

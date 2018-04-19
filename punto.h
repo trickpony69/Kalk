@@ -11,8 +11,10 @@
 #include "razionale.h"
 
 using std::ostream;
+using std::istream;
 using std::cout;
 using std::cin;
+using std::string;
 
 class punto;
 
@@ -20,7 +22,7 @@ ostream& operator<<(ostream&, const punto&);
 
 class punto{
     friend ostream& operator<<(ostream&, const punto&);
-
+    friend istream& operator>>(istream&, punto&);
 private:
     razionale x,y;
 public:
@@ -30,6 +32,7 @@ public:
     razionale getX() const;
     razionale getY() const;
     static double distanceTwoPoints(punto, punto);
+    void pars_point(string);
 };
 
 #endif // PUNTO_H
