@@ -56,7 +56,7 @@ void mainGui::remove_qle(){
     if(vec.size() > 1){
         hFunLay->removeWidget(vec[vec.size()-1]);
         delete vec[vec.size()-1];
-        vec.remove((vec.size())-1);   
+        vec.remove((vec.size())-1);
     }
 
     if(vec.size() <= 2)
@@ -73,13 +73,15 @@ void mainGui::remove_qle(){
 }
 
 void mainGui::returnedInput(){
-    if(label) delete label;
+    if(label) {vLay->removeWidget(label); delete label;}
     for(unsigned int i = 0; i < vec.size(); i++){
         QString* entry = new QString(vec[i]->displayText());
         returnInput.push_back(entry);
-    }
-    for(unsigned int i = 0; i < returnInput.size(); i++){
-        qDebug(returnInput[i]->toLatin1());
+        retta r;
+        r.pars_rect(entry->toStdString());
+        std::cout<<r;
+        label = new QLabel(*entry);
+        vLay->addWidget(label);
     }
 
 }

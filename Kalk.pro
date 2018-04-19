@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 QT += core gui
 QT += widgets
 TARGET = Kalk

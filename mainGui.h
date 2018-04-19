@@ -17,7 +17,7 @@
 #include <QVector>
 #include <QGraphicsItem>
 #include <grafico.h>
-
+#include <retta.h>
 #include <QDebug>
 
 class mainGui: public QWidget{
