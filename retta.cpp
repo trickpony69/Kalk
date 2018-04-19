@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <locale>
-
+#include <sstream>
 
 razionale retta::GetA() const { return a; }
 
@@ -148,6 +148,7 @@ istream& operator>>(istream& is, retta& r){
     return is;
 }
 
+//funziona da ridurre
 void retta::parser(string rect)
 {
     unsigned int len = rect.length();
@@ -166,6 +167,10 @@ void retta::parser(string rect)
 
     int sign = 1;
 
+   /* std::string Text = "456";
+    int Number;
+    if ( ! (std::istringstream(Text) >> Number) ) Number = 0;*/
+
     for(unsigned int i=0;i<len;i++){
         if(rect[i] != '*' && rect[i] != '=' && rect[i] != ' ')
         {
@@ -173,7 +178,8 @@ void retta::parser(string rect)
                 sign = -1;
             }
             if(rect[i] == '/'){
-                n = std::stoi( s );
+                std::istringstream(s) >> n;
+                //n = std::stoi( s );
                 s.erase(s.begin(),s.end());
                 raz = true;
             }
@@ -181,13 +187,15 @@ void retta::parser(string rect)
                 //fine del coefficente
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
-                    x = std::stoi( s );
+                    std::istringstream(s) >> x;
+                    //x = std::stoi( s );
                     a = razionale(sign*x,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
-                    y = std::stoi( s );
+                    std::istringstream(s) >> y;
+                    //y = std::stoi( s );
                     b = razionale(sign*y,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
@@ -200,7 +208,8 @@ void retta::parser(string rect)
                             s = s+rect[i];
                             i++;
                         }
-                        d = std::stoi( s );
+                        std::istringstream(s) >> d;
+                        //d = std::stoi( s );
 
                         if(rect[i] == 'x'){
                             a = razionale(sign*n,d);
@@ -230,8 +239,9 @@ void retta::parser(string rect)
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
              if(s.length() > 0){
-                tn = std::stoi( s );
-                c = razionale(sign*tn,1);
+                //tn = std::stoi( s );
+                std::istringstream(s) >> tn;
+                 c = razionale(sign*tn,1);
                 s.erase(s.begin(),s.end());
               }
               sign = 1;
