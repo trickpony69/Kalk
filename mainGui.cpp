@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), enter(new QPushButton("calcola",this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label(NULL){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), enter(new QPushButton("calcola",this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
     add->setFixedSize(140,60);
     remove->setFixedSize(140,60);
     enter->setFixedSize(140,60);
@@ -15,6 +15,9 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     hLay->addWidget(remove);
     hLay->addWidget(enter);
     hFunLay->addWidget(graficoElementi);
+    vLay->addWidget(label0);
+    vLay->addWidget(label1);
+    vLay->addWidget(label2);
     QFrame* myFrame = new QFrame();
     myFrame->setFrameShape(QFrame::HLine);
     vLay->addWidget(myFrame);
@@ -73,16 +76,37 @@ void mainGui::remove_qle(){
 }
 
 void mainGui::returnedInput(){
-    if(label) {vLay->removeWidget(label); delete label;}
+    if(label0 && label0->text().isEmpty()){
+        label0->clear();
+        delete label0;
+    }
+    if(label1 && label1->text().isEmpty()){
+        label1->clear();
+        delete label1;
+    }
+    if(label2 && label2->text().isEmpty()){
+        label2->clear();
+        delete label2;
+    }
     for(unsigned int i = 0; i < vec.size(); i++){
-        QString* entry = new QString(vec[i]->displayText());
+        QString* entry = new QString(vec[i]->text());
         returnInput.push_back(entry);
         retta r;
         r.pars_rect(entry->toStdString());
         std::cout<<r;
-        label = new QLabel(*entry);
-        vLay->addWidget(label);
     }
+//    if(!returnInput.isEmpty()){
+//        label0->setText(*returnInput[0]);
+//        //label0->show();
+//    }
+//    if(returnInput.size()>1){
+//        label1->setText(*returnInput[1]);
+//        label1->show();
+//    }
+//    if(returnInput.size()>2){
+//        label2->setText(*returnInput[2]);
+//        label2->show();
+//    }
 
 }
 

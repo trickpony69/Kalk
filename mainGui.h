@@ -36,7 +36,9 @@ private:
     QVBoxLayout* hFunLay;  
     QHBoxLayout* hLay;
     grafico* graficoElementi;
-    QLabel* label;
+    QLabel* label0;
+    QLabel* label1;
+    QLabel* label2;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
