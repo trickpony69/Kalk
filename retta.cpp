@@ -299,10 +299,12 @@ void retta::pars_rect(string rect)
                     }
                     else{
                         std::locale loc;
+                        //verifico se rect[i] == numero
                         if (isdigit(rect[i],loc))
                         {
                           s = s+rect[i];
                         }
+                        else cout<<rect[i];
                     }
                 }
             }
@@ -322,7 +324,7 @@ void retta::pars_rect(string rect)
             n=0;d=0;
         }
     }
-    if(x == 0 && y == 0){
+    if(a.GetNum() == 0 && b.GetNum() == 0){
         cout<<"eccezione"<<std::endl;
     }
 }

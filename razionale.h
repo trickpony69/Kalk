@@ -19,6 +19,8 @@ private:
     //meglio rappresentazioni non minimali di un razionale
 public:
     razionale(int =0, int =1); // agisce anche da convertitore int => Raz
+    int GetNum() const;
+    int GetDen() const;
     razionale(double);
     razionale(const razionale&,const razionale&);
     void riduzione();

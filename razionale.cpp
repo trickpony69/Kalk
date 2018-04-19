@@ -1,5 +1,13 @@
 #include "razionale.h"
 
+int razionale::GetNum() const {
+    return num;
+}
+
+int razionale::GetDen() const {
+    return den;
+}
+
 razionale::razionale(int n, int d): num(n), den(d) {
   if(den==0) {num=0; den=1;} //eccezione
   else{
