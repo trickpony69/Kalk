@@ -30,6 +30,19 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton
     setLayout(mainLayout);
 }
 
+void mainGui::clear(){
+    if(returnInput.size()!=0)
+        qDebug("non lo è ");
+
+    for(int i = 0; i<returnInput.size(); i++)
+        delete returnInput[i];
+
+    returnInput.clear();
+
+    if(returnInput.size()==0)
+        qDebug("vuoto");
+}
+
 void mainGui::push_qle(){
     if(vec.size() <= 2){
         QLineEdit* qle = new QLineEdit(this);
@@ -56,11 +69,13 @@ void mainGui::push_qle(){
 }
 
 void mainGui::remove_qle(){
-    if(vec.size() > 1){
+    if(!vec.isEmpty()){
         hFunLay->removeWidget(vec[vec.size()-1]);
         delete vec[vec.size()-1];
         vec.remove((vec.size())-1);
     }
+    if(vec.isEmpty())
+        qDebug("vec vuoto");
 
     if(vec.size() <= 2)
         errorLabel->setVisible(false);
@@ -71,42 +86,36 @@ void mainGui::remove_qle(){
     if(vec.size() <= 2)
         add->setDisabled(false);
 
-    if(vec.size() == 1)
+    if(vec.size() == 0)
         remove->setDisabled(true);
 }
 
 void mainGui::returnedInput(){
-    if(label0 && label0->text().isEmpty()){
-        label0->clear();
-        delete label0;
-    }
-    if(label1 && label1->text().isEmpty()){
-        label1->clear();
-        delete label1;
-    }
-    if(label2 && label2->text().isEmpty()){
-        label2->clear();
-        delete label2;
-    }
-    for(unsigned int i = 0; i < vec.size(); i++){
+
+    clear();
+
+    for(unsigned int i = 0; i <vec.size(); i++){
         QString* entry = new QString(vec[i]->text());
         returnInput.push_back(entry);
-        retta r;
-        r.pars_rect(entry->toStdString());
-        std::cout<<r;
+        //retta r;
+        //r.pars_rect(entry->toStdString());
+        //std::cout<<r;
     }
-//    if(!returnInput.isEmpty()){
-//        label0->setText(*returnInput[0]);
-//        //label0->show();
-//    }
-//    if(returnInput.size()>1){
-//        label1->setText(*returnInput[1]);
-//        label1->show();
-//    }
-//    if(returnInput.size()>2){
-//        label2->setText(*returnInput[2]);
-//        label2->show();
-//    }
+    QFont font("Arial", 25);
+    if(returnInput.size()>0){
+        label0->setText(*returnInput[0]);
+        label0->setFont(font);
+    }
+    if((returnInput.size()>1)){
+        label1->setText(*returnInput[1]);
+        label1->setFont(font);
+    }
+
+    if((returnInput.size()>2)){
+        label2->setText(*returnInput[2]);
+        label2->setFont(font);
+    }
+
 
 }
 
