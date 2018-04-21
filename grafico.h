@@ -2,6 +2,7 @@
 #define GRAFICO_H
 #include <QGraphicsView>
 #include <QGraphicsScene>
+#include <QGraphicsLineItem>
 
 
 class grafico : public QGraphicsView{

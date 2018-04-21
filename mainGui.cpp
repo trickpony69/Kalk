@@ -1,9 +1,9 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs, this)), remove(new QPushButton("rimuovi funzione", this)), enter(new QPushButton("calcola",this)), vLay(new QVBoxLayout(this)), hLay(new QHBoxLayout(this)), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
-    add->setFixedSize(140,60);
-    remove->setFixedSize(140,60);
-    enter->setFixedSize(140,60);
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
+    add->setFixedSize(140,40);
+    remove->setFixedSize(140,40);
+    enter->setFixedSize(140,40);
     /*--------------- PROVE GRAFICO----------------
 
                   Fatta classe graficoElementi

@@ -31,10 +31,10 @@ private:
     QVector<QLineEdit*> vec;
     QLabel* errorLabel;
     QVector<QString*> returnInput;
-    QVBoxLayout *mainLayout;
     QVBoxLayout* vLay;
-    QVBoxLayout* hFunLay;  
     QHBoxLayout* hLay;
+    QVBoxLayout* hFunLay;
+    QVBoxLayout *mainLayout;
     grafico* graficoElementi;
     QLabel* label0;
     QLabel* label1;

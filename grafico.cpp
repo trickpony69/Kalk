@@ -14,9 +14,10 @@ grafico::grafico() : scene(new QGraphicsScene()){
     setScene(scene);
     //if(view->isTransformed())
     //    qDebug("transformaaa")
-    scene->addRect(0, 0, 300, 100);
-    scene->addRect(50, 0, 300, 200);
-    //scene->addLine(0, 0, 100, 100);
+    //scene->addRect(0, 0, 300, 100);
+    //scene->addRect(50, 0, 300, 200);
+    QGraphicsLineItem linea(0,0,100,100);
+    scene->addLine(0,0,100,-100);
     //for(int i = 0; i< points.size(); i++)
     //    scene->addEllipse(points[i].x(), points[i].y(), 1, 1);
     //---------------------------------------
