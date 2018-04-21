@@ -106,16 +106,18 @@ void mainGui::returnedInput(){
         label0->setText(*returnInput[0]);
         label0->setFont(font);
     }
+    else label0->clear();
+
     if((returnInput.size()>1)){
         label1->setText(*returnInput[1]);
         label1->setFont(font);
     }
+    else label1->clear();
 
     if((returnInput.size()>2)){
         label2->setText(*returnInput[2]);
         label2->setFont(font);
     }
-
-
+    else label2->clear();
 }
 
