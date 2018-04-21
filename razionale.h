@@ -34,6 +34,7 @@ public:
     razionale operator++(int);// incremento postfisso
     bool operator==(const razionale&) const;
     bool operator==(const double&) const;
+    bool operator==(const int&) const;
     double converti() const;
 };
 

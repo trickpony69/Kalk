@@ -101,6 +101,10 @@ bool razionale::operator==(const double& d) const {
   return num/den == d;
 }
 
+bool razionale::operator==(const int& i) const{
+    return num/den==i;
+}
+
 double razionale::converti()const {
     return (this)->operator double();
 }

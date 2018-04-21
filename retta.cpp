@@ -26,8 +26,8 @@ retta retta::rettaFromTwoPoints(punto& p1,punto& p2){
         razionale d2(p2.getY() - p1.getY());
         razionale a = d2;
         razionale b = d1;
-        razionale c = (d2*p1.getX()*(-1)) + (d1*p1.getY());
-        return retta(a,b*(-1),c);
+        razionale c = (d2*p1.getX()*(razionale(-1,1))) + (d1*p1.getY());
+        return retta(a,b*(razionale(-1,1)),c);
     }
 }
 
@@ -38,7 +38,7 @@ double retta::distanceRettaRetta(retta& r2) {
         return distancePuntoRetta(x,*this);
     }
     else if(r2.GetB() == 0){
-        punto x ((r2.GetC()/r2.GetA())*(-1),0);
+        punto x ((r2.GetC()/r2.GetA())*(razionale(-1,1)),0);
         return distancePuntoRetta(x,*this);
     }
     else{
@@ -64,12 +64,12 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
     //m è già il nuovo coefficente angolare
     if(r.GetB() != 0 && r.GetA() != 0){
         //trovo il coefficente angolare
-        razionale m(r.GetA()*(-1),r.GetB());
+        razionale m(r.GetA()*(razionale(-1,1)),r.GetB());
         //trovo l'antireciproco del coefficente angolare
-        razionale new_m = m.inverso()*(-1);
+        razionale new_m = m.inverso()*(razionale(-1,1));
         //trovo c => y1 + m*x1
         razionale c(new_m*p.getX());
-        c=(c*(-1))+p.getY();
+        c=(c*(razionale(-1,1)))+p.getY();
         //cout<<c;
         return retta(new_m,-1,c);
     }else{
@@ -83,10 +83,10 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
 retta retta::RettaParallella( retta& r , punto& p ){
     if(r.GetB() != 0 && r.GetA() != 0){
         //trovo il coefficente angolare
-        razionale m(r.GetA()*(-1),r.GetB());
+        razionale m(r.GetA()*(razionale(-1,1)),r.GetB());
         //trovo c => y1 + m*x1
         razionale c(m*p.getX());
-        c=(c*(-1))+p.getY();
+        c=(c*(razionale(-1,1)))+p.getY();
         return retta(m,-1,c);
     }
     else{
@@ -101,8 +101,8 @@ punto retta::Intersect(retta& r1, retta& r2) {
     razionale Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
 
     if(Det != 0){
-        razionale DetX = r1.GetC()*(-1)*r2.GetB() - r2.GetC()*(-1)*r1.GetB();
-        razionale DetY = r1.GetA()*(-1)*r2.GetC() - r2.GetA()*(-1)*r1.GetC();
+        razionale DetX = r1.GetC()*(razionale(-1,1))*r2.GetB() - r2.GetC()*(razionale(-1,1))*r1.GetB();
+        razionale DetY = r1.GetA()*(razionale(-1,1))*r2.GetC() - r2.GetA()*(razionale(-1,1))*r1.GetC();
 
         return punto(razionale(DetX,Det),razionale(DetY,Det));
     }
