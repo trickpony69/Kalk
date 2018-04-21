@@ -3,8 +3,10 @@
 
 #include "punto.h"
 #include <string>
+#include<vector>
 using std::istream;
 using std::string;
+using std::vector;
 
 
 class retta;
@@ -26,8 +28,7 @@ public:
     razionale GetC() const ;
     static double distancePuntoRetta(punto&,retta&);
     static retta rettaFromTwoPoints(punto&,punto&);
-    QVector<punto*> printCoord(); //ritorna un vector di puntatori a punti che sono le coordinate calcolate
-    //bool isImplicita();
+    vector<razionale> printCoord() const; //ritorna un vector di puntatori a punti che sono le coordinate calcolate
     double distanceRettaRetta(retta&);
     static bool isParallels(retta&,retta&);
     static bool isPerpendicolari(retta&,retta&);

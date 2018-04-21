@@ -3,6 +3,7 @@
 #include <iostream>
 #include <locale>
 #include <sstream>
+using std::vector;
 
 razionale retta::GetA() const { return a; }
 
@@ -113,6 +114,20 @@ punto retta::Intersect(retta& r1, retta& r2) {
         razionale y(coordY,1);
         return punto(x,y);
     }
+}
+
+//ritorna un vector di razionali: indice dispari = x , indice pari = y
+vector<razionale> retta::printCoord() const{
+    razionale x1(1,1); //prima x su cui calcolare le coordinate
+    razionale x2(0,1);//seconda x su cui calcolare le coordinate
+    vector<razionale> v;
+    v.push_back(x1);
+    razionale y1(((GetA()*(-1))*(1) + GetC()*(-1)),GetB());
+    v.push_back(y1);
+    v.push_back(x2);
+    razionale y2((GetA()*(-1)*0 + GetC()*(-1)),GetB());
+    v.push_back(y2);
+    return v;
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
