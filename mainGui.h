@@ -11,30 +11,30 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QToolBar>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QPointF>
 #include <QVector>
 #include <QGraphicsItem>
 #include <grafico.h>
 #include <retta.h>
 #include <QDebug>
+#include <QGridLayout>
 
 class mainGui: public QWidget{
 
     friend class finestra;
     Q_OBJECT
 private:
+    QHBoxLayout* griglia;
+    QVBoxLayout* vLay;
+    QHBoxLayout* hLay;
+    QHBoxLayout* funEGrafico;
+    QVBoxLayout* hFunLay;
+    QVBoxLayout *mainLayout;
     QPushButton* add;
     QPushButton* remove;
     QPushButton* enter;
     QVector<QLineEdit*> vec;
     QLabel* errorLabel;
     QVector<QString*> returnInput;
-    QVBoxLayout* vLay;
-    QHBoxLayout* hLay;
-    QVBoxLayout* hFunLay;
-    QVBoxLayout *mainLayout;
     grafico* graficoElementi;
     QLabel* label0;
     QLabel* label1;

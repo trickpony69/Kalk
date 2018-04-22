@@ -1,32 +1,40 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()),label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
     add->setFixedSize(140,40);
     remove->setFixedSize(140,40);
     enter->setFixedSize(140,40);
-    /*--------------- PROVE GRAFICO----------------
-
-                  Fatta classe graficoElementi
-
-    ---------------------------------------------*/
     enter->setDisabled(true);
     remove->setDisabled(true);
     hLay->addWidget(add);
     hLay->addWidget(remove);
     hLay->addWidget(enter);
-    hFunLay->addWidget(graficoElementi);
-    vLay->addWidget(label0);
-    vLay->addWidget(label1);
-    vLay->addWidget(label2);
+    hFunLay->addWidget(label0);
+    hFunLay->addWidget(label1);
+    hFunLay->addWidget(label2);
     QFrame* myFrame = new QFrame();
     myFrame->setFrameShape(QFrame::HLine);
     vLay->addWidget(myFrame);
+    QLineEdit* qle = new QLineEdit(this);
+    qle->setPlaceholderText("inserisci la funzione");
+    vec.push_back(qle);
+    hFunLay->addWidget(qle);
+    QFont font("Arial", 25);
+    qle->setFixedSize(300,60);
+    qle->setFont(font);
+    funEGrafico->addLayout(hFunLay);
+    //--------------- PROVE GRAFICO----------------
+
+            funEGrafico->addWidget(graficoElementi);
+
+    //---------------------------------------------
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     mainLayout->addLayout(hLay);
+    griglia->addLayout(funEGrafico);
+    mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
-    mainLayout->addLayout(hFunLay);
     setLayout(mainLayout);
 }
 
@@ -97,10 +105,15 @@ void mainGui::returnedInput(){
     for(unsigned int i = 0; i <vec.size(); i++){
         QString* entry = new QString(vec[i]->text());
         returnInput.push_back(entry);
-        //retta r;
-        //r.pars_rect(entry->toStdString());
-        //std::cout<<r;
     }
+    retta r;
+    r.pars_rect(returnInput[0]->toStdString());
+    vector<razionale> vCoord = r.printCoord();
+    for(unsigned int i = 0; i<vCoord.size(); i++)
+        cout<<vCoord[i]<<" ";
+
+    graficoElementi->scene->addLine(vCoord[0],vCoord[1],vCoord[2],vCoord[3]);
+
     QFont font("Arial", 25);
     if(returnInput.size()>0){
         label0->setText(*returnInput[0]);

@@ -19,7 +19,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     tb->setFloatable(false);
     tb->setMovable(false);
     addToolBar(tb);
-    resize(600,400);
+    resize(700,500);
     QObject::connect(zoomIn, SIGNAL(triggered()), this, SLOT(zoomIn()));
     QObject::connect(zoomOut, SIGNAL(triggered()), this, SLOT(zoomOut()));
 }

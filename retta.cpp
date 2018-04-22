@@ -122,10 +122,10 @@ vector<razionale> retta::printCoord() const{
     razionale x2(0,1);//seconda x su cui calcolare le coordinate
     vector<razionale> v;
     v.push_back(x1);
-    razionale y1(((GetA()*(-1))*(1) + GetC()*(-1)),GetB());
+    razionale y1(((GetA()*(razionale(-1,1)))*(razionale(1,1)) + GetC()*(razionale(-1,1))),GetB());
     v.push_back(y1);
     v.push_back(x2);
-    razionale y2((GetA()*(-1)*0 + GetC()*(-1)),GetB());
+    razionale y2((GetA()*(razionale(-1,1))*(razionale(0,0)) + GetC()*(razionale(-1,1))),GetB());
     v.push_back(y2);
     return v;
 }
