@@ -32,6 +32,7 @@ private:
     QPushButton* add;
     QPushButton* remove;
     QPushButton* enter;
+    QPushButton* cancel;
     QVector<QLineEdit*> vec;
     QLabel* errorLabel;
     QVector<QString*> returnInput;
@@ -39,7 +40,7 @@ private:
     QLabel* label0;
     QLabel* label1;
     QLabel* label2;
-    void clear();
+    void clearInput();
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
@@ -48,7 +49,6 @@ public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
     void returnedInput();
-
 };
 
 #endif // MIACLASSE_H
