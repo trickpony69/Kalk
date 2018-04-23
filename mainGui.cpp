@@ -111,8 +111,11 @@ void mainGui::returnedInput(){
     clearInput();
 
     for(unsigned int i = 0; i <vec.size(); i++){
-        QString* entry = new QString(vec[i]->text());
-        returnInput.push_back(entry);
+        QString input = vec[i]->text();
+        if(!input.isEmpty()){
+            QString* entry = new QString(vec[i]->text());
+            returnInput.push_back(entry);
+        }
     }
 
     retta r0,r1,r2;
