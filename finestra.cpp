@@ -25,9 +25,9 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
 }
 
 void finestra::zoomIn(){
-     widgetCentrale->graficoElementi->scale(qreal(1.2), qreal(1.2));
+     //widgetCentrale->graficoElementi->scale(qreal(1.2), qreal(1.2));
 }
 
 void finestra::zoomOut(){
-     widgetCentrale->graficoElementi->scale(qreal(0.8), qreal(0.8));
+     //widgetCentrale->graficoElementi->scale(qreal(0.8), qreal(0.8));
 }

@@ -18,6 +18,7 @@
 #include <QDebug>
 #include <QGridLayout>
 #include <QPainterPath>
+#include "qcustomplot.h"
 
 class mainGui: public QWidget{
 

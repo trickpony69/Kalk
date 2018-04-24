@@ -3,19 +3,27 @@
 ######################################################################
 
 TEMPLATE = app
-QMAKE_CXXFLAGS += -std=c++11
+CONFIG += c++11
 QT += core gui
-QT += widgets
+QT += widgets printsupport
 TARGET = Kalk
 INCLUDEPATH += .
 
 # Input
-HEADERS += finestra.h grafico.h mainGui.h poligono.h punto.h razionale.h retta.h
-SOURCES += finestra.cpp \
-           grafico.cpp \
-           main.cpp \
-           mainGui.cpp \
-           poligono.cpp \
-           punto.cpp \
-           razionale.cpp \
-           retta.cpp
+HEADERS +=  finestra.h \
+            grafico.h \
+            mainGui.h \
+            poligono.h \
+            punto.h \
+            qcustomplot.h \
+            razionale.h \
+            retta.h
+SOURCES +=  finestra.cpp \
+            grafico.cpp \
+            main.cpp \
+            mainGui.cpp \
+            poligono.cpp \
+            punto.cpp \
+            razionale.cpp \
+            retta.cpp \
+            qcustomplot.cpp
