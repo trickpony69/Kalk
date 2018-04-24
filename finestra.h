@@ -10,8 +10,6 @@ private:
 public:
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
 public slots:
-    void zoomIn();
-    void zoomOut();
 };
 
 #endif // FINESTRA_H
