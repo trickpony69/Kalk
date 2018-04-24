@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
+#include <QPainter>
 
 
 class grafico : public QGraphicsView{

@@ -17,6 +17,7 @@
 #include <retta.h>
 #include <QDebug>
 #include <QGridLayout>
+#include <QPainterPath>
 
 class mainGui: public QWidget{
 

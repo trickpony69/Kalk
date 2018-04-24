@@ -123,19 +123,25 @@ void mainGui::returnedInput(){
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
         vector<razionale> vCoord0 = r0.printCoord();
-        graficoElementi->scene->addLine(vCoord0[0],vCoord0[1],vCoord0[2],vCoord0[3]);
+        QLineF linea(vCoord0[0],vCoord0[1],vCoord0[2],vCoord0[3]);
+        QColor blu(30,144,255);
+        graficoElementi->scene->addLine(linea,blu);
      }
 
     if(returnInput.size() > 1){
         r1.pars_rect(returnInput[1]->toStdString());
         vector<razionale> vCoord1 = r1.printCoord();
-        graficoElementi->scene->addLine(vCoord1[0],vCoord1[1],vCoord1[2],vCoord1[3]);
+        QColor rosso(220,20,60);
+        QPainterPath straightLineInit(QPoint(vCoord1[0],vCoord1[1]));
+        straightLineInit.lineTo(vCoord1[2],vCoord1[3]);
+        graficoElementi->scene->addPath((straightLineInit),rosso);
     }
 
     if(returnInput.size() > 2){
         r2.pars_rect(returnInput[2]->toStdString());
         vector<razionale> vCoord2 = r2.printCoord();
-        graficoElementi->scene->addLine(vCoord2[0],vCoord2[1],vCoord2[2],vCoord2[3]);
+        QColor verde(34,139,34);
+        graficoElementi->scene->addLine(vCoord2[0],vCoord2[1],vCoord2[2],vCoord2[3],verde);
     }
 
     QFont font("Arial", 25);
