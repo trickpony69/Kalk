@@ -43,17 +43,7 @@ grafico::grafico(){
       graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
       addGraph();
       graph()->setPen(QPen(Qt::red));
-      QVector<double> x(500), y0(500), y1(500);
-      for (int i=0; i<500; ++i)
-      {
-        x[i] = (i/499.0-0.5)*10;
-        y0[i] = qExp(-x[i]*x[i]*0.25)*qSin(x[i]*5)*5;
-        y1[i] = qExp(-x[i]*x[i]*0.25)*5;
-      }
-      graph(0)->setData(x, y0);
-      graph(1)->setData(x, y1);
       axisRect()->setupFullAxesBox(true);
       setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-
 }
 

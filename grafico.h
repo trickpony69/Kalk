@@ -9,7 +9,7 @@
 class grafico : public QCustomPlot{
     Q_OBJECT
 public:
-    explicit grafico();
+    grafico(); //epxlicit o no ?
 signals:
 
 public slots:

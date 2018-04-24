@@ -36,7 +36,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
-    //QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi->scene, SLOT(clear()));
+    QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(clearGraphs()));
     mainLayout->addLayout(hLay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
@@ -54,7 +54,6 @@ void mainGui::clearInput(){
 
     if(returnInput.size()==0)
         qDebug("vuoto");
-
 }
 
 void mainGui::push_qle(){
@@ -125,7 +124,15 @@ void mainGui::returnedInput(){
         vector<razionale> vCoord0 = r0.printCoord();
         QLineF linea(vCoord0[0],vCoord0[1],vCoord0[2],vCoord0[3]);
         QColor blu(30,144,255);
-        //graficoElementi->scene->addLine(linea,blu);
+        //graficoElementi->add addLine(linea,blu);
+        QVector<double> x(2), y(2); // initialize with entries 0..100
+        for (int i=0; i<2; i++){
+          x[i] = vCoord0[i];
+          y[i] = vCoord0[i+1];
+          i++;
+        }
+        graficoElementi->graph()->setData(x, y);
+        graficoElementi->replot();
      }
 
     if(returnInput.size() > 1){
