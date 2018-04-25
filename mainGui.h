@@ -51,6 +51,7 @@ public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
     void returnedInput();
+    void clearEntry();
 };
 
 #endif // MIACLASSE_H

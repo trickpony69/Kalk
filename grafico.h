@@ -13,6 +13,7 @@ public:
 signals:
 
 public slots:
+    void pulisci();
 };
 
 #endif // GRAFICO_H

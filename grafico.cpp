@@ -47,3 +47,8 @@ grafico::grafico(){
       setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
 
+void grafico::pulisci(){
+    clearGraphs();
+    addGraph();
+    replot();
+}

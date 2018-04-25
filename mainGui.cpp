@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), cancel(new QPushButton("cancella grafico")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
     add->setFixedSize(140,40);
     remove->setFixedSize(140,40);
     enter->setFixedSize(140,40);
@@ -36,7 +36,8 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
-    QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(clearGraphs()));
+    QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
+    QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
     mainLayout->addLayout(hLay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
@@ -51,7 +52,6 @@ void mainGui::clearInput(){
         delete returnInput[i];
 
     returnInput.clear();
-
     if(returnInput.size()==0)
         qDebug("vuoto");
 }
@@ -125,11 +125,11 @@ void mainGui::returnedInput(){
         QLineF linea(vCoord0[0],vCoord0[1],vCoord0[2],vCoord0[3]);
         QColor blu(30,144,255);
         //graficoElementi->add addLine(linea,blu);
-        QVector<double> x(2), y(2); // initialize with entries 0..100
+        QVector<double> x(10), y(10); // initialize with entries 0..100
         for (int i=0; i<2; i++){
-          x[i] = vCoord0[i];
-          y[i] = vCoord0[i+1];
-          i++;
+            x[i] = vCoord0[i];
+            y[i] = vCoord0[i+1];
+            i++;
         }
         graficoElementi->graph()->setData(x, y);
         graficoElementi->replot();
@@ -169,4 +169,12 @@ void mainGui::returnedInput(){
         label2->setFont(font);
     }
     else label2->clear();
+}
+
+void mainGui::clearEntry(){
+    for(unsigned int i=0; i<vec.size(); i++)
+        vec[i]->clear();
+    label0->clear();
+    label1->clear();
+    label2->clear();
 }
