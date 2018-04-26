@@ -8,7 +8,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     primoSettaggio = new QVBoxLayout;
     secondoSettaggio = new QVBoxLayout;
     terzoSettaggio = new QVBoxLayout;
-    layout = new QVBoxLayout();
+    mainlayout = new QVBoxLayout();
     QLabel* scritta = new QLabel("Scegli i colori per il grafico");
     colori.push_back(Qt::blue);
     colori.push_back(Qt::red);
@@ -31,6 +31,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     labelColori0.push_back(colore00);
     labelColori0.push_back(colore01);
     labelColori0.push_back(colore02);
+    //labelColori1 = clone(labelColori0);//non funziona, forse non si può clonare un QRadioButton
     labelColori1.push_back(colore10);
     labelColori1.push_back(colore11);
     labelColori1.push_back(colore12);
@@ -38,29 +39,44 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     labelColori2.push_back(colore21);
     labelColori2.push_back(colore22);
     titolo->addWidget(scritta);
-    layout->addLayout(titolo);
+    mainlayout->addLayout(titolo);
     settaggi->addLayout(primoSettaggio);
     settaggi->addLayout(secondoSettaggio);
     settaggi->addLayout(terzoSettaggio);
-    layout->addLayout(settaggi);
-    setLayout(layout);
+    mainlayout->addLayout(settaggi);
+    setLayout(mainlayout);
     primoSettaggio->addWidget(slot0);
     for(unsigned int i=0; i<3; i++){
         primoSettaggio->addWidget(labelColori0[i]);
-        cambioColori.push_back(new(QRadioButton));
-        primoSettaggio->addWidget(cambioColori[i]);
+        cambioColori0.push_back(new QRadioButton);
+        primoSettaggio->addWidget(cambioColori0[i]);
     }
     secondoSettaggio->addWidget(slot1);
-    for(unsigned int i=3,k=0; i<6,k<3; i++,k++){
-        secondoSettaggio->addWidget(labelColori1[k]);
-        cambioColori.push_back(new(QRadioButton));
-        secondoSettaggio->addWidget(cambioColori[i]);
+    for(unsigned int i=0; i<3; i++){
+        secondoSettaggio->addWidget(labelColori1[i]);
+        cambioColori1.push_back(new QRadioButton);
+        secondoSettaggio->addWidget(cambioColori1[i]);
     }
     terzoSettaggio->addWidget(slot2);
-    for(unsigned int i=6,k=0; i<9,k<3; i++,k++){
-        terzoSettaggio->addWidget(labelColori2[k]);
-        cambioColori.push_back(new(QRadioButton));
-        terzoSettaggio->addWidget(cambioColori[i]);
+    for(unsigned int i=0; i<3; i++){
+        terzoSettaggio->addWidget(labelColori2[i]);
+        cambioColori2.push_back(new QRadioButton);
+        terzoSettaggio->addWidget(cambioColori2[i]);
     }
+    //cambioColori0[0]->setAutoExclusive(false);
+    //cambioColori0[1]->setAutoExclusive(false);
+    //cambioColori0[2]->setAutoExclusive(false);
+    //cambioColori1[0]->setAutoExclusive(false);
+    //cambioColori1[1]->setAutoExclusive(false);
+    //cambioColori1[2]->setAutoExclusive(false);
+    //cambioColori2[0]->setAutoExclusive(false);
+
 }
 
+QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){
+    QVector<QLabel*> vett;
+    for(unsigned int i=0; i<v1.size(); i++){
+        auto contenuto = new QLabel(v1[i]);
+        vett.push_back(contenuto);
+    }
+}
