@@ -118,8 +118,8 @@ void mainGui::returnedInput(){
     }
 
     retta r0,r1,r2;
-    razionale min(0,1);
-    razionale max(1,1);
+    razionale min(-30,1);
+    razionale max(30,1);
 
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
@@ -127,8 +127,8 @@ void mainGui::returnedInput(){
         QLineF linea(vCoord0[0].getX(),vCoord0[0].getY(),vCoord0[1].getX(),vCoord0[1].getY());
         QColor blu(30,144,255);
         //graficoElementi->add addLine(linea,blu);
-        QVector<double> x(10), y(10); // initialize with entries 0..100
-        for (int i=0; i<2; i++){
+        QVector<double> x(60), y(60); // initialize with entries 0..100
+        for (int i=0; i<vCoord0.size(); i++){
             x[i] = vCoord0[i].getX();
             y[i] = vCoord0[i].getY();
             i++;
