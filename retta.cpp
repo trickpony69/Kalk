@@ -118,8 +118,17 @@ punto retta::Intersect(retta& r1, retta& r2) {
 
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
 punto retta::printCoord(razionale x) const{
-    razionale y(((GetA()*(razionale(-1,1)))*x + GetC()*(razionale(-1,1))),GetB());
-    return punto(x,y);
+    if(GetB() == 0 && GetA() == 0){
+        cout<<"exception";
+    }
+    else if(GetB() == 0){
+        razionale x( GetC()*(razionale(-1,1)),GetA());
+        return punto(x,razionale(1,1));
+    }
+    else{
+        razionale y(((GetA()*(razionale(-1,1)))*x + GetC()*(razionale(-1,1))),GetB());
+        return punto(x,y);
+    }
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------

@@ -48,7 +48,7 @@ public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
     // i due razionali passati per riferimento sono rideriti al range di stampa delle coordinate
-    vector<punto> print_rect(retta&,razionale&,razionale&) const;
+    static vector<punto> print_rect(retta&,razionale&,razionale&);
 
 public slots: //private o public slots ?
     void push_qle();

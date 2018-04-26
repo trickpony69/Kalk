@@ -182,11 +182,13 @@ void mainGui::clearEntry(){
 }
 
 //per ora distanza standard tra i punti : 1 cm (modificabile ??)
-vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max) const{
+vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
     vector<punto> pt;
     razionale start = min;
+
     for(; start < max ; start = start + razionale(1,1)){
         pt.push_back(r.printCoord(start));
+        cout<<r.printCoord(start)<<std::endl;
     }
     return pt;
 }
