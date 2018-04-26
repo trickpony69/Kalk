@@ -178,3 +178,13 @@ void mainGui::clearEntry(){
     label1->clear();
     label2->clear();
 }
+
+//per ora distanza standard tra i punti : 1 cm (modificabile ??)
+QVector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max) const{
+    QVector<punto> pt;
+    razionale start = min;
+    for(; start < max ; start = start + razionale(1,1)){
+        pt.push_back(r.printCoord(start));
+    }
+    return pt;
+}

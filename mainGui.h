@@ -18,6 +18,7 @@
 #include <QDebug>
 #include <QGridLayout>
 #include <QPainterPath>
+#include <vector>
 #include "qcustomplot.h"
 
 class mainGui: public QWidget{
@@ -46,12 +47,15 @@ private:
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
+    // i due razionali passati per riferimento sono rideriti al range di stampa delle coordinate
+    QVector<punto> print_rect(retta&,razionale&,razionale&) const;
 
 public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
     void returnedInput();
     void clearEntry();
+
 };
 
 #endif // MIACLASSE_H
