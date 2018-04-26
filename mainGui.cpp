@@ -118,17 +118,19 @@ void mainGui::returnedInput(){
     }
 
     retta r0,r1,r2;
+    razionale min(0,1);
+    razionale max(1,1);
 
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
-        vector<razionale> vCoord0 = r0.printCoord();
-        QLineF linea(vCoord0[0],vCoord0[1],vCoord0[2],vCoord0[3]);
+        vector<punto> vCoord0 = print_rect(r0,min,max);
+        QLineF linea(vCoord0[0].getX(),vCoord0[0].getY(),vCoord0[1].getX(),vCoord0[1].getY());
         QColor blu(30,144,255);
         //graficoElementi->add addLine(linea,blu);
         QVector<double> x(10), y(10); // initialize with entries 0..100
         for (int i=0; i<2; i++){
-            x[i] = vCoord0[i];
-            y[i] = vCoord0[i+1];
+            x[i] = vCoord0[i].getX();
+            y[i] = vCoord0[i].getY();
             i++;
         }
         graficoElementi->graph()->setData(x, y);
@@ -137,16 +139,16 @@ void mainGui::returnedInput(){
 
     if(returnInput.size() > 1){
         r1.pars_rect(returnInput[1]->toStdString());
-        vector<razionale> vCoord1 = r1.printCoord();
+        vector<punto> vCoord1 = print_rect(r1,min,max);
         QColor rosso(220,20,60);
-        QPainterPath straightLineInit(QPoint(vCoord1[0],vCoord1[1]));
-        straightLineInit.lineTo(vCoord1[2],vCoord1[3]);
+        QPainterPath straightLineInit(QPoint(vCoord1[0].getX(),vCoord1[0].getY()));
+        straightLineInit.lineTo(vCoord1[1].getX(),vCoord1[1].getY());
         //graficoElementi->scene->addPath((straightLineInit),rosso);
     }
 
     if(returnInput.size() > 2){
         r2.pars_rect(returnInput[2]->toStdString());
-        vector<razionale> vCoord2 = r2.printCoord();
+        vector<punto> vCoord2 = print_rect(r2,min,max);
         QColor verde(34,139,34);
         //graficoElementi->scene->addLine(vCoord2[0],vCoord2[1],vCoord2[2],vCoord2[3],verde);
     }
@@ -180,8 +182,8 @@ void mainGui::clearEntry(){
 }
 
 //per ora distanza standard tra i punti : 1 cm (modificabile ??)
-QVector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max) const{
-    QVector<punto> pt;
+vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max) const{
+    vector<punto> pt;
     razionale start = min;
     for(; start < max ; start = start + razionale(1,1)){
         pt.push_back(r.printCoord(start));

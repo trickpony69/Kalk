@@ -117,9 +117,9 @@ punto retta::Intersect(retta& r1, retta& r2) {
 }
 
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
-punto& retta::printCoord(razionale x) const{
+punto retta::printCoord(razionale x) const{
     razionale y(((GetA()*(razionale(-1,1)))*x + GetC()*(razionale(-1,1))),GetB());
-    return punto p(x,y);
+    return punto(x,y);
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
