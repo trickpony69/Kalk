@@ -254,7 +254,6 @@ void retta::pars_rect(string rect)
         }
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
-            cout<<"s:"<<s<<std::endl;
              if(s.length() > 0){
                 tn = std::stoi( s );
                 c = razionale(sign*tn,1);

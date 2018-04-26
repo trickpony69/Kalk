@@ -129,7 +129,6 @@ void mainGui::returnedInput(){
         for (int i=0; i<vCoord0.size(); i++){
             x[i] = vCoord0[i].getX();
             y[i] = vCoord0[i].getY();
-            i++;
         }
         graficoElementi->addGraph();
         graficoElementi->graph(0)->setPen(QPen(Qt::blue));
@@ -144,7 +143,6 @@ void mainGui::returnedInput(){
          for (int i=0; i<vCoord0.size(); i++){
              x[i] = vCoord0[i].getX();
              y[i] = vCoord0[i].getY();
-             i++;
          }
          graficoElementi->graph(1)->setPen(QPen(Qt::red));
          graficoElementi->graph(1)->setData(x, y);
