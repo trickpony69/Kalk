@@ -7,24 +7,42 @@
 #include <QVector>
 #include <QLabel>
 #include <QRadioButton>
-
+#include <QGroupBox>
+#include <QButtonGroup>
 class impostazioni : public QWidget{
     Q_OBJECT
 private:
-    static QVector<QLabel*> clone(QVector<QLabel*>);
-public:
-    explicit impostazioni(QWidget *parent = nullptr);
-
+    //----------prima configurazione------
+    QGroupBox *contenitorone;//si può usare ??
+    QButtonGroup gruppo0;
+    QButtonGroup gruppo1;
+    QButtonGroup gruppo2;
     QVector<QRadioButton*> cambioColori0;
     QVector<QRadioButton*> cambioColori1;
     QVector<QRadioButton*> cambioColori2;
     QVector<QColor> colori;
-    QHBoxLayout* titolo;
+    QHBoxLayout* titoloImpostazione0;
     QHBoxLayout* settaggi;
     QVBoxLayout* primoSettaggio;
     QVBoxLayout* secondoSettaggio;
     QVBoxLayout* terzoSettaggio;
     QVBoxLayout* mainlayout;
+    //----------seconda configurazione------
+    QHBoxLayout* titoloImpostazione1;
+
+
+
+
+
+
+
+
+
+    //----------------------------------------
+    static QVector<QLabel*> clone(QVector<QLabel*>);
+public:
+    explicit impostazioni(QWidget *parent = nullptr);
+
 signals:
 
 public slots:

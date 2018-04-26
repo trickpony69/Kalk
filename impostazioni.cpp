@@ -2,14 +2,17 @@
 
 impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     show();
+    //setFixedSize(300,300);
     resize(200,200);
-    titolo = new QHBoxLayout();
+    titoloImpostazione0 = new QHBoxLayout();
+    titoloImpostazione1 = new QHBoxLayout();
     settaggi = new QHBoxLayout();
     primoSettaggio = new QVBoxLayout;
     secondoSettaggio = new QVBoxLayout;
     terzoSettaggio = new QVBoxLayout;
     mainlayout = new QVBoxLayout();
-    QLabel* scritta = new QLabel("Scegli i colori per il grafico");
+    QLabel* scritta0 = new QLabel("Scegli i colori del grafico");
+    QLabel* scritta1 = new QLabel("Cambia il range del grafico");
     colori.push_back(Qt::blue);
     colori.push_back(Qt::red);
     colori.push_back(Qt::green);
@@ -21,13 +24,13 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     QVector<QLabel*> labelColori2;
     QLabel* colore00 = new QLabel("blu");
     QLabel* colore01 = new QLabel("rosso");
-    QLabel* colore02 = new QLabel("vedre");
+    QLabel* colore02 = new QLabel("verde");
     QLabel* colore10 = new QLabel("blu");
     QLabel* colore11 = new QLabel("rosso");
-    QLabel* colore12 = new QLabel("vedre");
+    QLabel* colore12 = new QLabel("verde");
     QLabel* colore20 = new QLabel("blu");
     QLabel* colore21 = new QLabel("rosso");
-    QLabel* colore22 = new QLabel("vedre");
+    QLabel* colore22 = new QLabel("verde");
     labelColori0.push_back(colore00);
     labelColori0.push_back(colore01);
     labelColori0.push_back(colore02);
@@ -38,8 +41,9 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     labelColori2.push_back(colore20);
     labelColori2.push_back(colore21);
     labelColori2.push_back(colore22);
-    titolo->addWidget(scritta);
-    mainlayout->addLayout(titolo);
+    titoloImpostazione0->addWidget(scritta0);
+    titoloImpostazione1->addWidget(scritta1);
+    mainlayout->addLayout(titoloImpostazione0);
     settaggi->addLayout(primoSettaggio);
     settaggi->addLayout(secondoSettaggio);
     settaggi->addLayout(terzoSettaggio);
@@ -50,27 +54,33 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
         primoSettaggio->addWidget(labelColori0[i]);
         cambioColori0.push_back(new QRadioButton);
         primoSettaggio->addWidget(cambioColori0[i]);
+        gruppo0.addButton(cambioColori0[i]);
+
     }
     secondoSettaggio->addWidget(slot1);
     for(unsigned int i=0; i<3; i++){
         secondoSettaggio->addWidget(labelColori1[i]);
         cambioColori1.push_back(new QRadioButton);
         secondoSettaggio->addWidget(cambioColori1[i]);
+        gruppo1.addButton(cambioColori1[i]);
+
     }
     terzoSettaggio->addWidget(slot2);
     for(unsigned int i=0; i<3; i++){
         terzoSettaggio->addWidget(labelColori2[i]);
         cambioColori2.push_back(new QRadioButton);
         terzoSettaggio->addWidget(cambioColori2[i]);
+        gruppo2.addButton(cambioColori2[i]);
     }
-    //cambioColori0[0]->setAutoExclusive(false);
-    //cambioColori0[1]->setAutoExclusive(false);
-    //cambioColori0[2]->setAutoExclusive(false);
-    //cambioColori1[0]->setAutoExclusive(false);
-    //cambioColori1[1]->setAutoExclusive(false);
-    //cambioColori1[2]->setAutoExclusive(false);
-    //cambioColori2[0]->setAutoExclusive(false);
 
+    mainlayout->addLayout(titoloImpostazione1);
+
+    gruppo0.setExclusive(true);
+    gruppo1.setExclusive(true);
+    gruppo2.setExclusive(true);
+    cambioColori0[0]->setChecked(true);
+    cambioColori1[1]->setChecked(true);
+    cambioColori2[2]->setChecked(true);
 }
 
 QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){
@@ -79,4 +89,5 @@ QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){
         auto contenuto = new QLabel(v1[i]);
         vett.push_back(contenuto);
     }
+    return vett;
 }
