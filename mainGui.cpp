@@ -28,7 +28,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     qle->setFont(font);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
-    //--------------- PROVE GRAFICO----------------
+    //---------------GRAFICO----------------
 
             funEGrafico->addWidget(graficoElementi);
 
@@ -108,6 +108,7 @@ void mainGui::returnedInput(){
     cancel->setDisabled(false);
 
     clearInput();
+    graficoElementi->clearGraphs(); //non sono sicuro serva
 
     for(unsigned int i = 0; i <vec.size(); i++){
         QString input = vec[i]->text();
@@ -124,53 +125,58 @@ void mainGui::returnedInput(){
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
         vector<punto> vCoord0 = print_rect(r0,min,max);
-        QLineF linea(vCoord0[0].getX(),vCoord0[0].getY(),vCoord0[1].getX(),vCoord0[1].getY());
-        QColor blu(30,144,255);
-        //graficoElementi->add addLine(linea,blu);
         QVector<double> x(60), y(60); // initialize with entries 0..100
         for (int i=0; i<vCoord0.size(); i++){
             x[i] = vCoord0[i].getX();
             y[i] = vCoord0[i].getY();
             i++;
         }
-        graficoElementi->graph()->setData(x, y);
+        graficoElementi->addGraph();
+        graficoElementi->graph(0)->setPen(QPen(Qt::blue));
+        graficoElementi->graph(0)->setData(x, y);
         graficoElementi->replot();
      }
-
-    if(returnInput.size() > 1){
-        r1.pars_rect(returnInput[1]->toStdString());
-        vector<punto> vCoord1 = print_rect(r1,min,max);
-        QColor rosso(220,20,60);
-        QPainterPath straightLineInit(QPoint(vCoord1[0].getX(),vCoord1[0].getY()));
-        straightLineInit.lineTo(vCoord1[1].getX(),vCoord1[1].getY());
-        //graficoElementi->scene->addPath((straightLineInit),rosso);
-    }
-
-    if(returnInput.size() > 2){
-        r2.pars_rect(returnInput[2]->toStdString());
-        vector<punto> vCoord2 = print_rect(r2,min,max);
-        QColor verde(34,139,34);
-        //graficoElementi->scene->addLine(vCoord2[0],vCoord2[1],vCoord2[2],vCoord2[3],verde);
-    }
+     if(returnInput.size() > 1){
+         r1.pars_rect(returnInput[1]->toStdString());
+         vector<punto> vCoord0 = print_rect(r1,min,max);
+         graficoElementi->addGraph();
+         QVector<double> x(60), y(60); // initialize with entries 0..100
+         for (int i=0; i<vCoord0.size(); i++){
+             x[i] = vCoord0[i].getX();
+             y[i] = vCoord0[i].getY();
+             i++;
+         }
+         graficoElementi->graph(1)->setPen(QPen(Qt::red));
+         graficoElementi->graph(1)->setData(x, y);
+         graficoElementi->replot();
+      }
 
     QFont font("Arial", 25);
     if(returnInput.size()>0){
         label0->setText(*returnInput[0]);
         label0->setFont(font);
     }
-    else label0->clear();
+    else{label0->setText("primo slot vuoto");
+         label0->setFont(font);
+    }
 
     if((returnInput.size()>1)){
         label1->setText(*returnInput[1]);
         label1->setFont(font);
     }
-    else label1->clear();
+    else{
+        label1->setText("secondo slot vuoto");
+        label1->setFont(font);
+    }
 
     if((returnInput.size()>2)){
         label2->setText(*returnInput[2]);
         label2->setFont(font);
     }
-    else label2->clear();
+    else{
+        label2->setText("terzo slot vuoto");
+        label2->setFont(font);
+    }
 }
 
 void mainGui::clearEntry(){

@@ -31,24 +31,23 @@ grafico::grafico(){
     addGraph();
     graph(0)->setData(x, y);
     // give the axes some labels:
-    xAxis->setLabel("x");
-    yAxis->setLabel("y");
+
     // set axes ranges, so we see all data:
     xAxis->setRange(-1, 1);
     yAxis->setRange(0, 1);
     replot();*/
     // The following plot setup is mostly taken from the plot demos:
-      addGraph();
-      graph()->setPen(QPen(Qt::blue));
-      graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
-      addGraph();
-      graph()->setPen(QPen(Qt::red));
-      axisRect()->setupFullAxesBox(true);
-      setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
+    //addGraph();
+    //graph()->setPen(QPen(Qt::blue));
+      //graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
+      //graph()->setPen(QPen(Qt::red));
+        xAxis->setLabel("x");
+        yAxis->setLabel("y");
+        axisRect()->setupFullAxesBox(true);
+        setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
 }
 
 void grafico::pulisci(){
     clearGraphs();
-    addGraph();
     replot();
 }
