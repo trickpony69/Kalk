@@ -11,11 +11,17 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     QToolBar* tb = new QToolBar();
     tb->addWidget(spaziatore1);
     //tb->addWidget(spaziatore2)
-    QAction* zoomIn = new QAction("zoom in",this);
-    QAction* zoomOut = new QAction("zoom out",this);
+    QAction* opzioni = new QAction("opzioni",this);
     tb->addAction("aiuto");
+    tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
     addToolBar(tb);
     resize(700,500);
+    connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
+}
+
+void finestra::showOption(){
+
+    QWidget* finestraOpzioni = new impostazioni();
 }

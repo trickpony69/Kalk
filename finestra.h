@@ -3,6 +3,8 @@
 
 #include <mainGui.h>
 #include <QAction>
+#include "impostazioni.h"
+
 class finestra : public QMainWindow{
     Q_OBJECT
 private:
@@ -10,6 +12,7 @@ private:
 public:
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
 public slots:
+    void showOption();
 };
 
 #endif // FINESTRA_H

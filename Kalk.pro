@@ -17,7 +17,8 @@ HEADERS +=  finestra.h \
             punto.h \
             qcustomplot.h \
             razionale.h \
-            retta.h
+            retta.h \
+    impostazioni.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \
@@ -26,4 +27,5 @@ SOURCES +=  finestra.cpp \
             punto.cpp \
             razionale.cpp \
             retta.cpp \
-            qcustomplot.cpp
+            qcustomplot.cpp \
+    impostazioni.cpp
