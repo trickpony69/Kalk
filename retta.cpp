@@ -117,7 +117,7 @@ punto retta::Intersect(retta& r1, retta& r2) {
 }
 
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
-punto retta::printCoord(razionale x) const{
+punto retta::printCoord_x(razionale x) const{
     if(GetB() == 0 && GetA() == 0){
         cout<<"exception";
     }
@@ -130,6 +130,7 @@ punto retta::printCoord(razionale x) const{
         return punto(x,y);
     }
 }
+
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
 

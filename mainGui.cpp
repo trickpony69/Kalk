@@ -126,7 +126,7 @@ void mainGui::returnedInput(){
         r0.pars_rect(returnInput[0]->toStdString());
         vector<punto> vCoord0 = print_rect(r0,min,max);
         QVector<double> x(60), y(60); // initialize with entries 0..100
-        for (int i=0; i<vCoord0.size(); i++){
+        for (unsigned int i=0; i<vCoord0.size(); i++){
             x[i] = vCoord0[i].getX();
             y[i] = vCoord0[i].getY();
         }
@@ -140,7 +140,7 @@ void mainGui::returnedInput(){
          vector<punto> vCoord0 = print_rect(r1,min,max);
          graficoElementi->addGraph();
          QVector<double> x(60), y(60); // initialize with entries 0..100
-         for (int i=0; i<vCoord0.size(); i++){
+         for (unsigned int i=0; i<vCoord0.size(); i++){
              x[i] = vCoord0[i].getX();
              y[i] = vCoord0[i].getY();
          }
@@ -189,10 +189,17 @@ void mainGui::clearEntry(){
 vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
     vector<punto> pt;
     razionale start = min;
-
-    for(; start < max ; start = start + razionale(1,1)){
-        pt.push_back(r.printCoord(start));
-        cout<<r.printCoord(start)<<std::endl;
+    if(r.GetB() == 0){
+        for(; start < max ; start = start + razionale(1,1)){
+            punto p(razionale(-1,1)*razionale(r.GetC(),r.GetA()),start);
+            pt.push_back(p);
+        }
+    }
+    else{
+        for(; start < max ; start = start + razionale(1,1)){
+            pt.push_back(r.printCoord_x(start));
+            //cout<<r.printCoord_x(start)<<std::endl;
+        }
     }
     return pt;
 }

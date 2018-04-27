@@ -28,7 +28,7 @@ public:
     razionale GetC() const ;
     static double distancePuntoRetta(punto&,retta&);
     static retta rettaFromTwoPoints(punto&,punto&);
-    punto printCoord(razionale) const; //ritorna un vector di puntatori a punti che sono le coordinate calcolate
+    punto printCoord_x(razionale) const; //ritorna un vector di punti che sono le coordinate calcolate
     double distanceRettaRetta(retta&);
     static bool isParallels(retta&,retta&);
     static bool isPerpendicolari(retta&,retta&);
