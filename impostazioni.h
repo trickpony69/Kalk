@@ -10,6 +10,7 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include <QSettings>
+#include <mainGui.h>
 
 class impostazioni : public QWidget{
     Q_OBJECT

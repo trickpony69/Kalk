@@ -131,7 +131,7 @@ void mainGui::returnedInput(){
             y[i] = vCoord0[i].getY();
         }
         graficoElementi->addGraph();
-        graficoElementi->graph(0)->setPen(QPen(Qt::blue));
+        //graficoElementi->graph(0)->setPen(QPen(Qt::blue));
         graficoElementi->graph(0)->setData(x, y);
         graficoElementi->replot();
      }
@@ -144,8 +144,21 @@ void mainGui::returnedInput(){
              x[i] = vCoord0[i].getX();
              y[i] = vCoord0[i].getY();
          }
-         graficoElementi->graph(1)->setPen(QPen(Qt::red));
+         //graficoElementi->graph(1)->setPen(QPen(Qt::red));
          graficoElementi->graph(1)->setData(x, y);
+         graficoElementi->replot();
+      }
+     if(returnInput.size() > 2){
+         r2.pars_rect(returnInput[2]->toStdString());
+         vector<punto> vCoord0 = print_rect(r2,min,max);
+         graficoElementi->addGraph();
+         QVector<double> x(60), y(60); // initialize with entries 0..100
+         for (unsigned int i=0; i<vCoord0.size(); i++){
+             x[i] = vCoord0[i].getX();
+             y[i] = vCoord0[i].getY();
+         }
+         //graficoElementi->graph(2)->setPen(QPen(Qt::red));
+         graficoElementi->graph(2)->setData(x, y);
          graficoElementi->replot();
       }
 

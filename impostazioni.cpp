@@ -1,9 +1,9 @@
 #include "impostazioni.h"
 
 impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
-    show();
     //setFixedSize(300,300);
     resize(200,200);
+    setWindowTitle("Impostazioni");
     titoloImpostazione0 = new QHBoxLayout();
     titoloImpostazione1 = new QHBoxLayout();
     settaggi = new QHBoxLayout();
@@ -83,6 +83,11 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     cambioColori2[2]->setChecked(true);
 
     loadSettings();
+
+    //connect(cambioColori0[0],SIGNAL(clicked()),this,SLOT(setText()));
+    //connect(cambioColori0[1],SIGNAL(clicked()),this,SLOT(setText_2()));
+    //connect(cambioColori0[2],SIGNAL(clicked()),this,SLOT(setText_2()));
+
 }
 
 QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){

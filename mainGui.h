@@ -22,7 +22,6 @@
 #include "qcustomplot.h"
 
 class mainGui: public QWidget{
-
     friend class finestra;
     Q_OBJECT
 private:
