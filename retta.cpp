@@ -163,8 +163,8 @@ istream& operator>>(istream& is, retta& r){
 
     try{r.pars_rect(rect);}
 
-    catch(int i){
-        std::cout << " the integer exception was caught, with value: " << i << '\n';
+    catch(input_error){
+        std::cout << "errore input "<<std::endl;
     }
 
     return is;
