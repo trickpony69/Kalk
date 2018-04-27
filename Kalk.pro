@@ -18,7 +18,8 @@ HEADERS +=  finestra.h \
             qcustomplot.h \
             razionale.h \
             retta.h \
-    impostazioni.h
+            impostazioni.h \
+            exception.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \

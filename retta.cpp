@@ -161,7 +161,11 @@ istream& operator>>(istream& is, retta& r){
     //input per prendere anche gli spazi
     std::getline(is, rect);
 
-    r.pars_rect(rect);
+    try{r.pars_rect(rect);}
+    catch(input_error){
+        cout<<"retta non corretta.";
+        std::getline(is, rect);
+    }
     return is;
 }
 
@@ -187,6 +191,7 @@ void retta::pars_rect(string rect)
         if(rect[i] != '*' && rect[i] != '=')
         {
             if(rect[i] == '-' || rect[i] == '+'){
+                //verifico se il termine noto è a primo o secondo membro
                 if(s.length() > 0){
                     n = std::stoi( s );
                     c = razionale(sign*n,1);
@@ -201,7 +206,6 @@ void retta::pars_rect(string rect)
                 raz = true;
             }
             else {
-                //fine del coefficente
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
                     x = std::stoi( s );
@@ -248,7 +252,8 @@ void retta::pars_rect(string rect)
                         {
                           s = s+rect[i];
                         }
-                        else cout<<rect[i];
+                        else throw input_error();
+                        //inserito un imput errato: carattere non riconosciuto
                     }
                 }
             }
@@ -268,7 +273,7 @@ void retta::pars_rect(string rect)
         }
     }
     if(a.GetNum() == 0 && b.GetNum() == 0){
-        cout<<"eccezione"<<std::endl;
+        throw input_error();
     }
 }
 

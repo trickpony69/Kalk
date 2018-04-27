@@ -198,7 +198,6 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
     else{
         for(; start < max ; start = start + razionale(1,1)){
             pt.push_back(r.printCoord_x(start));
-            //cout<<r.printCoord_x(start)<<std::endl;
         }
     }
     return pt;

@@ -2,8 +2,9 @@
 #define RETTA_H
 
 #include "punto.h"
+#include "exception.h"
 #include <string>
-#include<vector>
+#include <vector>
 using std::istream;
 using std::string;
 using std::vector;
