@@ -19,7 +19,7 @@ HEADERS +=  finestra.h \
             razionale.h \
             retta.h \
             impostazioni.h \
-            exception.h
+    eccezioni.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \

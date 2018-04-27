@@ -1,8 +1,8 @@
 #ifndef RETTA_H
 #define RETTA_H
-
+#include "eccezioni.h"
 #include "punto.h"
-#include "exception.h"
+
 #include <string>
 #include <vector>
 using std::istream;

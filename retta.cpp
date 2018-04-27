@@ -162,10 +162,11 @@ istream& operator>>(istream& is, retta& r){
     std::getline(is, rect);
 
     try{r.pars_rect(rect);}
-    catch(input_error){
-        cout<<"retta non corretta.";
-        std::getline(is, rect);
+
+    catch(int i){
+        std::cout << " the integer exception was caught, with value: " << i << '\n';
     }
+
     return is;
 }
 
@@ -253,7 +254,7 @@ void retta::pars_rect(string rect)
                           s = s+rect[i];
                         }
                         else throw input_error();
-                        //inserito un imput errato: carattere non riconosciuto
+                        //inserito un input errato: carattere non riconosciuto
                     }
                 }
             }

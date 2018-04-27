@@ -2,14 +2,15 @@
 #include "razionale.h"
 #include <QApplication>
 #include <finestra.h>
-#include "exception.h"
+#include "eccezioni.h"
 
 // includere un entry point dove partire
 
-//int main(){
-//      retta r;
-//      cin>>r;
-//      cout<<r;
+int main(){
+      retta r;
+      cout<<"dai: ";
+      cin>>r;
+      cout<<r;
 
 //    punto p1(-2,3);
 //    punto p2(1,-5);
@@ -46,13 +47,13 @@
 //}
 
 //gui grafica
-int main(int argc, char* argv[]){
+//int main(int argc, char* argv[]){
 
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
 
-    finestra finestrone;
+//    finestra finestrone;
 
-    finestrone.show();
-    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
-    return app.exec();
+//    finestrone.show();
+//    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
+//    return app.exec();
 }

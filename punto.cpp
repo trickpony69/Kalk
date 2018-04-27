@@ -24,7 +24,20 @@ istream& operator>>(istream& is, punto& p){
     //input per prendere anche gli spazi
     std::getline(is, point);
 
-    p.pars_point(point);
+    try{p.pars_point(point);}
+
+    catch(input_error){
+        std::cerr<<"errore inserimento input";
+        abort();
+    }
+    catch(num_error){
+        std::cerr<<"errore numeratore";
+        abort();
+    }
+    catch(den_error){
+        std::cerr<<"errore denominatore";
+        abort();
+    }
 
     return is;
 }
@@ -48,21 +61,21 @@ void punto::pars_point(string p){
                 sign = -1;
             }
             else if(p[cont] == '/'){
-                if(s.length() == 0) cout<<'eccezione numeratore inesistente'<<std::endl;
+                if(s.length() == 0) throw num_error();
                 std::istringstream(s) >> n;
                 s.erase(s.begin(),s.end());
             }
             else if(p[cont] == ';' || p[cont] == ')'){
                 if(s.length() == 0){
-                    std::cout<<"eccezione"<<std::endl;
+                    throw num_error();
                     break;
                 }
 
                 if(n!=0){
-                    if(s.length() == 0) cout<<'eccezione denominatore inesistente'<<std::endl;
+                    if(s.length() == 0) throw den_error();
                     std::istringstream(s) >> d;
                 }else{
-                    if(s.length() == 0) cout<<'eccezione denominatore inesistente'<<std::endl;
+                    if(s.length() == 0) throw den_error();
                     std::istringstream(s) >> n;
                 }
                 if(p[cont] == ';'){
@@ -83,8 +96,7 @@ void punto::pars_point(string p){
                   s = s+p[cont];
                 }
                 else {
-                    cout<<"eccezione simbolo sbagliato"<<std::endl;
-                    break;
+                    throw input_error();
                 }
             }
         }

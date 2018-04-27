@@ -9,6 +9,7 @@
 #include "math.h"
 #include <iostream>
 #include "razionale.h"
+#include "eccezioni.h"
 
 using std::ostream;
 using std::istream;
