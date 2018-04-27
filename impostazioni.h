@@ -9,8 +9,11 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QButtonGroup>
+#include <QSettings>
+
 class impostazioni : public QWidget{
     Q_OBJECT
+    friend class finestra;
 private:
     //----------prima configurazione------
     QGroupBox *contenitorone;//si può usare ??
@@ -31,18 +34,13 @@ private:
     QHBoxLayout* titoloImpostazione1;
 
 
-
-
-
-
-
-
-
     //----------------------------------------
     static QVector<QLabel*> clone(QVector<QLabel*>);
+    void saveSettings();
+    void loadSettings();
 public:
     explicit impostazioni(QWidget *parent = nullptr);
-
+    void closeEvent(QCloseEvent *);
 signals:
 
 public slots:

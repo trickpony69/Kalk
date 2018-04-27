@@ -1,15 +1,15 @@
 #include "retta.h"
 #include "razionale.h"
-//#include <QApplication>
-//#include <finestra.h>
+#include <QApplication>
+#include <finestra.h>
 #include "exception.h"
 
 // includere un entry point dove partire
 
-int main(){
-      retta r;
-      cin>>r;
-      cout<<r;
+//int main(){
+//      retta r;
+//      cin>>r;
+//      cout<<r;
 
 //    punto p1(-2,3);
 //    punto p2(1,-5);
@@ -43,16 +43,16 @@ int main(){
 
 //    cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
 //    cout<<" prova con costruttore "<<razionale(-10,-4)<<std::endl;
-}
-
-//test gui grafica
-//int main(int argc, char* argv[]){
-
-//    QApplication app(argc, argv);
-
-//    finestra finestrone;
-
-//    finestrone.show();
-//    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
-//    return app.exec();
 //}
+
+//gui grafica
+int main(int argc, char* argv[]){
+
+    QApplication app(argc, argv);
+
+    finestra finestrone;
+
+    finestrone.show();
+    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
+    return app.exec();
+}
