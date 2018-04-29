@@ -82,7 +82,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     cambioColori1[1]->setChecked(true);
     cambioColori2[2]->setChecked(true);
 
-    loadSettings();
+    //loadSettings();
 
     //connect(cambioColori0[0],SIGNAL(clicked()),this,SLOT(setText()));
     //connect(cambioColori0[1],SIGNAL(clicked()),this,SLOT(setText_2()));
@@ -108,8 +108,15 @@ void impostazioni::saveSettings(){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
     for(unsigned int i=0; i<cambioColori0.size(); i++){
-        if(cambioColori0[i]->isChecked())
+        if(cambioColori0[i]->isChecked()){
             settings.setValue("primoSlot",i);
+            if(i==0)
+                settings.setValue("blu",QString("#0000ff"));
+            else if(i==1)
+                settings.setValue("rosso",QString("#ff0000"));
+            else if(i==2)
+                settings.setValue("verde",QString("#00ff00"));
+        }
     }
     for(unsigned int i=0; i<cambioColori0.size(); i++){
         if(cambioColori1[i]->isChecked())

@@ -44,6 +44,20 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     setLayout(mainLayout);
 }
 
+//void mainGui::loadSettings(){
+//    QSettings settings("Kalk","configKalk");
+//    settings.beginGroup("cambioColore");
+//    int ind0 = settings.value("primoSlot").toInt();
+//    cambioColori0[ind0]->setChecked(true);
+//    int ind1 = settings.value("secondoSlot").toInt();
+//    cambioColori1[ind1]->setChecked(true);
+//    int ind2 = settings.value("terzoSlot").toInt();
+//    cambioColori2[ind2]->setChecked(true);
+//    settings.endGroup();
+//    qDebug("impostazioni caricate");
+
+//}
+
 void mainGui::clearInput(){
     if(returnInput.size()!=0)
         qDebug("non lo è ");
@@ -122,6 +136,11 @@ void mainGui::returnedInput(){
     razionale min(-30,1);
     razionale max(30,1);
 
+    QSettings settings("Kalk","configKalk");
+    settings.beginGroup("cambioColore");
+    QColor blu(settings.value("blu").toString());
+    QColor rosso(settings.value("rosso").toString());
+    QColor verde(settings.value("verde").toString());
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
         vector<punto> vCoord0 = print_rect(r0,min,max);
@@ -131,7 +150,13 @@ void mainGui::returnedInput(){
             y[i] = vCoord0[i].getY();
         }
         graficoElementi->addGraph();
-        //graficoElementi->graph(0)->setPen(QPen(Qt::blue));
+        if(settings.value("primoSlot").toInt() == 0)
+            graficoElementi->graph(0)->setPen(blu);
+        else if(settings.value("primoSlot").toInt() == 1)
+            graficoElementi->graph(0)->setPen(rosso);
+        else if(settings.value("primoSlot").toInt() == 2)
+            graficoElementi->graph(0)->setPen(verde);
+
         graficoElementi->graph(0)->setData(x, y);
         graficoElementi->replot();
      }

@@ -43,6 +43,7 @@ private:
     QLabel* label1;
     QLabel* label2;
     void clearInput();
+    void loadSettings();
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
