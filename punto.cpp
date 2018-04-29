@@ -20,25 +20,28 @@ ostream& operator<<(ostream& buffer, const punto& p){
 
 istream& operator>>(istream& is, punto& p){
     std::string point;
+    bool ok = true;
 
-    //input per prendere anche gli spazi
-    std::getline(is, point);
+    while(ok == true){
+	    //input per prendere anche gli spazi
+	    cout<<"dai:";
+	    std::getline(is, point);
 
-    try{p.pars_point(point);}
+	    try{p.pars_point(point);}
 
-    catch(input_error){
-        std::cerr<<"errore inserimento input";
-        abort();
+	    catch(input_error){
+		std::cerr<<"errore inserimento input";
+	    }
+	    catch(num_error){
+		std::cerr<<"errore numeratore";
+	    }
+	    catch(den_error){
+		std::cerr<<"errore denominatore";
+	    }
+	    catch(int){
+	        ok = false;
+	    }
     }
-    catch(num_error){
-        std::cerr<<"errore numeratore";
-        abort();
-    }
-    catch(den_error){
-        std::cerr<<"errore denominatore";
-        abort();
-    }
-
     return is;
 }
 
@@ -55,7 +58,7 @@ void punto::pars_point(string p){
     int n=0,d=1,sign=1;
 
     for(unsigned int cont = 0 ; cont < p.length() ; ++cont){
-
+      
         if(p[cont] != '('){
             if(p[cont] == '-'){
                 sign = -1;
@@ -96,11 +99,13 @@ void punto::pars_point(string p){
                   s = s+p[cont];
                 }
                 else {
+		    std::cout<<p[cont];
                     throw input_error();
                 }
             }
         }
     }
+    if(p[0] == '(' && p[p.length()-1] == ')') throw 1;
 
 
 }
