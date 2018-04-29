@@ -1,13 +1,21 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("calcola")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
-    add->setFixedSize(140,40);
-    remove->setFixedSize(140,40);
-    enter->setFixedSize(140,40);
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("   calcola")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
     remove->setDisabled(true);
     cancel->setDisabled(true);
-    cancel->setFixedSize(140,40);
-    //add->setStyleSheet("border-image:url(:/Users/micky/Documents/Kalk/add.png);");
+    QSize iconSize(40,40);
+    add->setIcon(QPixmap("/Users/micky/Documents/GitHub/Kalk/branch/versione-con-QCustomPlot/Kalk/icon/add.png"));
+    add->setIconSize(iconSize);
+    add->setFixedSize(175,60);
+    remove->setIcon(QPixmap("/Users/micky/Documents/GitHub/Kalk/branch/versione-con-QCustomPlot/Kalk/icon/delete.png"));
+    remove->setIconSize(iconSize);
+    remove->setFixedSize(175,60);
+    enter->setIcon(QPixmap("/Users/micky/Documents/GitHub/Kalk/branch/versione-con-QCustomPlot/Kalk/icon/apply.png"));
+    enter->setIconSize(iconSize);
+    enter->setFixedSize(175,60);
+    cancel->setIcon(QPixmap("/Users/micky/Documents/GitHub/Kalk/branch/versione-con-QCustomPlot/Kalk/icon/reset.png"));
+    cancel->setIconSize(iconSize);
+    cancel->setFixedSize(175,60);
     setStyleSheet("QLineEdit { border-style: outset; border-width: 0.5px; border-color: grey; border-radius: 8px; }");
     hLay->addWidget(add);
     hLay->addWidget(remove);
@@ -33,7 +41,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
             funEGrafico->addWidget(graficoElementi);
 
     //---------------------------------------------
-    QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));//QObject::connect(m.b, SIGNAL(clicked(bool)), &m, SLOT(push_qle()));
+    QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
@@ -43,20 +51,6 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     mainLayout->addLayout(vLay);
     setLayout(mainLayout);
 }
-
-//void mainGui::loadSettings(){
-//    QSettings settings("Kalk","configKalk");
-//    settings.beginGroup("cambioColore");
-//    int ind0 = settings.value("primoSlot").toInt();
-//    cambioColori0[ind0]->setChecked(true);
-//    int ind1 = settings.value("secondoSlot").toInt();
-//    cambioColori1[ind1]->setChecked(true);
-//    int ind2 = settings.value("terzoSlot").toInt();
-//    cambioColori2[ind2]->setChecked(true);
-//    settings.endGroup();
-//    qDebug("impostazioni caricate");
-
-//}
 
 void mainGui::clearInput(){
     if(returnInput.size()!=0)
@@ -139,7 +133,12 @@ void mainGui::returnedInput(){
 
 
      if(returnInput.size() > 0){
-        r0.pars_rect(returnInput[0]->toStdString());
+        try{
+             r0.pars_rect(returnInput[0]->toStdString());
+        }
+        catch(int){
+             qDebug("primo slot: input sbagliato ");
+        }
         vector<punto> vCoord0 = print_rect(r0,min,max);
         QVector<double> x(60), y(60); // initialize with entries 0..100
         for (unsigned int i=0; i<vCoord0.size(); i++){
