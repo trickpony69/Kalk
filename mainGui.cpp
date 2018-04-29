@@ -136,11 +136,8 @@ void mainGui::returnedInput(){
     razionale min(-30,1);
     razionale max(30,1);
 
-    QSettings settings("Kalk","configKalk");
-    settings.beginGroup("cambioColore");
-    QColor blu(settings.value("blu").toString());
-    QColor rosso(settings.value("rosso").toString());
-    QColor verde(settings.value("verde").toString());
+
+
      if(returnInput.size() > 0){
         r0.pars_rect(returnInput[0]->toStdString());
         vector<punto> vCoord0 = print_rect(r0,min,max);
@@ -150,12 +147,8 @@ void mainGui::returnedInput(){
             y[i] = vCoord0[i].getY();
         }
         graficoElementi->addGraph();
-        if(settings.value("primoSlot").toInt() == 0)
-            graficoElementi->graph(0)->setPen(blu);
-        else if(settings.value("primoSlot").toInt() == 1)
-            graficoElementi->graph(0)->setPen(rosso);
-        else if(settings.value("primoSlot").toInt() == 2)
-            graficoElementi->graph(0)->setPen(verde);
+
+        loadColor("primoSlot",0);
 
         graficoElementi->graph(0)->setData(x, y);
         graficoElementi->replot();
@@ -163,26 +156,30 @@ void mainGui::returnedInput(){
      if(returnInput.size() > 1){
          r1.pars_rect(returnInput[1]->toStdString());
          vector<punto> vCoord0 = print_rect(r1,min,max);
-         graficoElementi->addGraph();
          QVector<double> x(60), y(60); // initialize with entries 0..100
          for (unsigned int i=0; i<vCoord0.size(); i++){
              x[i] = vCoord0[i].getX();
              y[i] = vCoord0[i].getY();
          }
-         //graficoElementi->graph(1)->setPen(QPen(Qt::red));
+         graficoElementi->addGraph();
+
+         loadColor("secondoSlot",1);
+
          graficoElementi->graph(1)->setData(x, y);
          graficoElementi->replot();
-      }
-     if(returnInput.size() > 2){
+    }
+    if(returnInput.size() > 2){
          r2.pars_rect(returnInput[2]->toStdString());
          vector<punto> vCoord0 = print_rect(r2,min,max);
-         graficoElementi->addGraph();
          QVector<double> x(60), y(60); // initialize with entries 0..100
          for (unsigned int i=0; i<vCoord0.size(); i++){
              x[i] = vCoord0[i].getX();
              y[i] = vCoord0[i].getY();
          }
-         //graficoElementi->graph(2)->setPen(QPen(Qt::red));
+         graficoElementi->addGraph();
+
+         loadColor("terzoSlot",2);
+
          graficoElementi->graph(2)->setData(x, y);
          graficoElementi->replot();
       }
@@ -240,3 +237,19 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
     }
     return pt;
 }
+
+void mainGui::loadColor(QString slot,int index){
+    QSettings settings("Kalk","configKalk");
+    settings.beginGroup("cambioColore");
+
+    if(settings.value(slot).toInt() == 0)
+        graficoElementi->graph(index)->setPen(QPen(Qt::blue));
+    else if(settings.value(slot).toInt() == 1)
+        graficoElementi->graph(index)->setPen((QPen(Qt::red)));
+    else if(settings.value(slot).toInt() == 2)
+        graficoElementi->graph(index)->setPen((QPen(Qt::green)));
+
+    qDebug("colori caricati");
+
+}
+

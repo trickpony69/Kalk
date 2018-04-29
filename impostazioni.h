@@ -38,7 +38,6 @@ private:
     //----------------------------------------
     static QVector<QLabel*> clone(QVector<QLabel*>);
     void saveSettings();
-    void loadSettings();
 public:
     explicit impostazioni(QWidget *parent = nullptr);
     void closeEvent(QCloseEvent *);

@@ -3,6 +3,7 @@
 finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui){
     setWindowTitle("mok");
     setCentralWidget(widgetCentrale);
+    finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
     //auto spaziatore2 = new QWidget(this);
     spaziatore1->setFixedHeight(30);
@@ -18,7 +19,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     tb->setMovable(false);
     addToolBar(tb);
     resize(700,500);
-    finestraOpzioni = new impostazioni();
+    loadSettings();
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(finestraOpzioni->cambioColori0[0],SIGNAL(clicked()),this,SLOT(setColorBlueFirstSlot()));
     connect(finestraOpzioni->cambioColori0[1],SIGNAL(clicked()),this,SLOT(setColorRedFirstSlot()));
@@ -32,7 +33,6 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
 }
 
 void finestra::showOption(){
-
     finestraOpzioni->show();
 }
 
@@ -81,4 +81,17 @@ void finestra::setColorGreen(int slot){
         widgetCentrale->graficoElementi->graph(slot)->setPen(QPen(Qt::green));
 
         widgetCentrale->graficoElementi->replot();
+}
+
+void finestra::loadSettings(){
+    QSettings settings("Kalk","configKalk");
+    settings.beginGroup("cambioColore");
+    int ind0 = settings.value("primoSlot").toInt();
+    finestraOpzioni->cambioColori0[ind0]->setChecked(true);
+    int ind1 = settings.value("secondoSlot").toInt();
+    finestraOpzioni->cambioColori1[ind1]->setChecked(true);
+    int ind2 = settings.value("terzoSlot").toInt();
+    finestraOpzioni->cambioColori2[ind2]->setChecked(true);
+    settings.endGroup();
+    qDebug("impostazioni caricate");
 }

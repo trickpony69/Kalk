@@ -81,13 +81,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     cambioColori0[0]->setChecked(true);
     cambioColori1[1]->setChecked(true);
     cambioColori2[2]->setChecked(true);
-
-    //loadSettings();
-
-    //connect(cambioColori0[0],SIGNAL(clicked()),this,SLOT(setText()));
-    //connect(cambioColori0[1],SIGNAL(clicked()),this,SLOT(setText_2()));
-    //connect(cambioColori0[2],SIGNAL(clicked()),this,SLOT(setText_2()));
-
 }
 
 QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){
@@ -107,39 +100,19 @@ void impostazioni::saveSettings(){
 
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
-    for(unsigned int i=0; i<cambioColori0.size(); i++){
-        if(cambioColori0[i]->isChecked()){
+
+    for(unsigned int i=0; i<cambioColori0.size(); i++)
+        if(cambioColori0[i]->isChecked())
             settings.setValue("primoSlot",i);
-            if(i==0)
-                settings.setValue("blu",QString("#0000ff"));
-            else if(i==1)
-                settings.setValue("rosso",QString("#ff0000"));
-            else if(i==2)
-                settings.setValue("verde",QString("#00ff00"));
-        }
-    }
-    for(unsigned int i=0; i<cambioColori0.size(); i++){
+    for(unsigned int i=0; i<cambioColori0.size(); i++)
         if(cambioColori1[i]->isChecked())
             settings.setValue("secondoSlot",i);
-    }
-    for(unsigned int i=0; i<cambioColori0.size(); i++){
+    for(unsigned int i=0; i<cambioColori0.size(); i++)
         if(cambioColori2[i]->isChecked())
             settings.setValue("terzoSlot",i);
-    }
+
     settings.endGroup();
     qDebug("impostazioni salvate");
 }
 
-void impostazioni::loadSettings(){
-    QSettings settings("Kalk","configKalk");
-    settings.beginGroup("cambioColore");
-    int ind0 = settings.value("primoSlot").toInt();
-    cambioColori0[ind0]->setChecked(true);
-    int ind1 = settings.value("secondoSlot").toInt();
-    cambioColori1[ind1]->setChecked(true);
-    int ind2 = settings.value("terzoSlot").toInt();
-    cambioColori2[ind2]->setChecked(true);
-    settings.endGroup();
-    qDebug("impostazioni caricate");
 
-}

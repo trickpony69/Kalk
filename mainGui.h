@@ -44,6 +44,7 @@ private:
     QLabel* label2;
     void clearInput();
     void loadSettings();
+    void loadColor(QString,int);
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}

@@ -9,12 +9,13 @@ class finestra : public QMainWindow{
     Q_OBJECT
 private:
     mainGui* widgetCentrale;
+    impostazioni* finestraOpzioni;
     void setColorBlue(int);
     void setColorRed(int);
     void setColorGreen(int);
+    void loadSettings();
 public:    
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
-     impostazioni* finestraOpzioni;
 public slots:
     void showOption();
     void setColorBlueFirstSlot();
