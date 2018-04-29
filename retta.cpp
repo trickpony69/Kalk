@@ -157,14 +157,17 @@ ostream& operator<<(ostream& buffer, const retta& r){
 
 istream& operator>>(istream& is, retta& r){
     std::string rect;
-
+    bool ok = false;
     //input per prendere anche gli spazi
-    std::getline(is, rect);
+    while(ok == true){
+        std::cout<<"dai:"<<std::endl;
+        std::getline(is, rect);
 
-    try{r.pars_rect(rect);}
+        try{r.pars_rect(rect);}
 
-    catch(input_error){
-        std::cout << "errore input "<<std::endl;
+        catch(input_error){
+            ok = false;
+        }
     }
 
     return is;
