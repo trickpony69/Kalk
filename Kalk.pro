@@ -19,7 +19,8 @@ HEADERS +=  finestra.h \
             razionale.h \
             retta.h \
             impostazioni.h \
-    eccezioni.h
+            eccezioni.h \
+            quadrato.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \
@@ -29,7 +30,8 @@ SOURCES +=  finestra.cpp \
             razionale.cpp \
             retta.cpp \
             qcustomplot.cpp \
-    impostazioni.cpp
+            impostazioni.cpp \
+            quadrato.cpp
 
 RESOURCES += \
     icons.qrc

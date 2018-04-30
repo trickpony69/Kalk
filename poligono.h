@@ -1,18 +1,26 @@
 #ifndef POLIGONO_H
 #define POLIGONO_H
 
-//#include "punto.h"
+#include "punto.h"
+#include "razionale.h"
 #include <QPolygonF>
+#include <list>
+
+using std::list;
 
 class poligono{
 private:
     int lati;
-    bool regolare;//da implementare qui o no ?
+    list<punto*> pt;
+    //bool regolare; PER ORA SOLO REGOLARI
 public:
-    poligono(int l): lati(l),regolare(1){}
-    virtual double area() = 0;//virtuale pura
-    virtual double perimetro() = 0;//virtuale pura
-    virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
+    poligono(int, list<punto*>);
+    int GetLati() const;
+    list<punto*> GetPoint() const;
+    virtual razionale area() const = 0;//virtuale pura
+    virtual razionale perimetro() const = 0;//virtuale pura
+    virtual razionale lato() const; //ritorna la lunghezza del lato
+    //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 
 #endif // POLIGONO_H
