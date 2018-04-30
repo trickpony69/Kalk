@@ -30,3 +30,6 @@ SOURCES +=  finestra.cpp \
             retta.cpp \
             qcustomplot.cpp \
     impostazioni.cpp
+
+RESOURCES += \
+    icons.qrc
