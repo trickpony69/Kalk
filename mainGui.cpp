@@ -16,6 +16,10 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     cancel->setIcon(QPixmap(":icon/reset.png"));
     cancel->setIconSize(iconSize);
     cancel->setFixedSize(175,60);
+    QFont font("Arial", 25);
+    label0->setFont(font);
+    label1->setFont(font);
+    label2->setFont(font);
     setStyleSheet("QLineEdit { border-style: outset; border-width: 0.5px; border-color: grey; border-radius: 8px; }");
     hLay->addWidget(add);
     hLay->addWidget(remove);
@@ -31,11 +35,11 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     qle->setPlaceholderText("inserisci la funzione");
     vec.push_back(qle);
     hFunLay->addWidget(qle);
-    QFont font("Arial", 25);
     qle->setFixedSize(300,60);
     qle->setFont(font);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
+
     //---------------GRAFICO----------------
 
             funEGrafico->addWidget(graficoElementi);
@@ -127,6 +131,7 @@ void mainGui::returnedInput(){
     }
 
     retta r0,r1,r2;
+    punto p0,p1,p2;
     razionale min(-30,1);
     razionale max(30,1);
 
@@ -134,81 +139,100 @@ void mainGui::returnedInput(){
 
      if(returnInput.size() > 0){
         try{
+             graficoElementi->addGraph();
              r0.pars_rect(returnInput[0]->toStdString());
         }
         catch(int){
-             qDebug("primo slot: input sbagliato ");
-        }
-        vector<punto> vCoord0 = print_rect(r0,min,max);
-        QVector<double> x(60), y(60); // initialize with entries 0..100
-        for (unsigned int i=0; i<vCoord0.size(); i++){
-            x[i] = vCoord0[i].getX();
-            y[i] = vCoord0[i].getY();
-        }
-        graficoElementi->addGraph();
+             qDebug("primo slot: input corretto ");
+             vector<punto> vCoord0 = print_rect(r0,min,max);
+             QVector<double> x(60), y(60); // initialize with entries 0..100
+             for (unsigned int i=0; i<vCoord0.size(); i++){
+                 x[i] = vCoord0[i].getX();
+                 y[i] = vCoord0[i].getY();
+             }
 
-        loadColor("primoSlot",0);
+             loadColor("primoSlot",0);
 
-        graficoElementi->graph(0)->setData(x, y);
-        graficoElementi->replot();
+             graficoElementi->graph(0)->setData(x, y);
+             graficoElementi->replot();
+             label0->setText(*returnInput[0]);
+        }
+        catch(input_error){
+            try{
+                p0.pars_point(returnInput[0]->toStdString());
+            }
+            catch(int){
+                 //vector<punto> vCoord0Point =
+                 QVector<double> x, y; // initialize with entries 0..100
+                 //for (unsigned int i=0; i<vCoord0Point.size(); i++){
+                     x[0] = p0.getX();
+                     y[0] = p0.getY();
+                 //}
+
+                 loadColor("primoSlot",0);
+
+                 graficoElementi->graph(0)->setData(x,y);
+                 graficoElementi->replot();
+                 label0->setText(*returnInput[0]);
+            }
+
+            catch(input_error){
+                qDebug("primo slot: errore input");
+                label0->setText("errore input");
+            }
+         }
      }
      if(returnInput.size() > 1){
-         r1.pars_rect(returnInput[1]->toStdString());
-         vector<punto> vCoord0 = print_rect(r1,min,max);
-         QVector<double> x(60), y(60); // initialize with entries 0..100
-         for (unsigned int i=0; i<vCoord0.size(); i++){
-             x[i] = vCoord0[i].getX();
-             y[i] = vCoord0[i].getY();
-         }
-         graficoElementi->addGraph();
+        try{
+            graficoElementi->addGraph();
+            r1.pars_rect(returnInput[1]->toStdString());
+        }
+        catch(int){
+            vector<punto> vCoord0 = print_rect(r1,min,max);
+            QVector<double> x(60), y(60); // initialize with entries 0..100
+            for (unsigned int i=0; i<vCoord0.size(); i++){
+                x[i] = vCoord0[i].getX();
+                y[i] = vCoord0[i].getY();
+            }
 
-         loadColor("secondoSlot",1);
+            loadColor("secondoSlot",1);
 
-         graficoElementi->graph(1)->setData(x, y);
-         graficoElementi->replot();
+            graficoElementi->graph(1)->setData(x, y);
+            graficoElementi->replot();
+            label1->setText(*returnInput[1]);
+        }
+
+        catch(input_error){
+             qDebug("secondo slot: errore input");
+             label1->setText("errore input");
+
+        }
+
     }
     if(returnInput.size() > 2){
-         r2.pars_rect(returnInput[2]->toStdString());
-         vector<punto> vCoord0 = print_rect(r2,min,max);
-         QVector<double> x(60), y(60); // initialize with entries 0..100
-         for (unsigned int i=0; i<vCoord0.size(); i++){
-             x[i] = vCoord0[i].getX();
-             y[i] = vCoord0[i].getY();
-         }
-         graficoElementi->addGraph();
+        try{
+            graficoElementi->addGraph();
+            r2.pars_rect(returnInput[2]->toStdString());
+        }
+        catch(int){
+            vector<punto> vCoord0 = print_rect(r2,min,max);
+            QVector<double> x(60), y(60); // initialize with entries 0..100
+            for (unsigned int i=0; i<vCoord0.size(); i++){
+                x[i] = vCoord0[i].getX();
+                y[i] = vCoord0[i].getY();
+            }
 
-         loadColor("terzoSlot",2);
+            loadColor("terzoSlot",2);
 
-         graficoElementi->graph(2)->setData(x, y);
-         graficoElementi->replot();
+            graficoElementi->graph(2)->setData(x, y);
+            graficoElementi->replot();
+            label2->setText(*returnInput[2]);
+        }
+        catch(input_error){
+            qDebug("terzo slot: errore input");
+            label2->setText("errore input");
+        }
       }
-
-    QFont font("Arial", 25);
-    if(returnInput.size()>0){
-        label0->setText(*returnInput[0]);
-        label0->setFont(font);
-    }
-    else{label0->setText("primo slot vuoto");
-         label0->setFont(font);
-    }
-
-    if((returnInput.size()>1)){
-        label1->setText(*returnInput[1]);
-        label1->setFont(font);
-    }
-    else{
-        label1->setText("secondo slot vuoto");
-        label1->setFont(font);
-    }
-
-    if((returnInput.size()>2)){
-        label2->setText(*returnInput[2]);
-        label2->setFont(font);
-    }
-    else{
-        label2->setText("terzo slot vuoto");
-        label2->setFont(font);
-    }
 }
 
 void mainGui::clearEntry(){
@@ -247,7 +271,7 @@ void mainGui::loadColor(QString slot,int index){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
     else if(settings.value(slot).toInt() == 2)
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-
+    settings.endGroup();
     qDebug("colori caricati");
 
 }
