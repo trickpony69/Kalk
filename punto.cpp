@@ -109,3 +109,11 @@ void punto::pars_point(string p){
 
 
 }
+
+double punto::xToDouble() const{
+    return x.GetNum()/x.GetDen();
+}
+
+double punto::yToDouble() const{
+    return y.GetNum()/y.GetDen();
+}

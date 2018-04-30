@@ -34,6 +34,8 @@ public:
     razionale getY() const;
     static double distanceTwoPoints(punto, punto);
     void pars_point(string);
+    double xToDouble() const;
+    double yToDouble() const;
 };
 
 #endif // PUNTO_H

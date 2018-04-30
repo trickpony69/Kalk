@@ -1,7 +1,7 @@
 #include "finestra.h"
 
 finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui){
-    setWindowTitle("mok");
+    setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
