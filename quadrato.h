@@ -11,6 +11,7 @@ class quadrato : public poligono{
     friend ostream& operator<<(ostream&, const quadrato&);
 public:
     quadrato(int l,list<punto*> p): poligono(l,p) {}
+    quadrato() {}
     razionale perimetro() const;
     razionale area() const;
 };

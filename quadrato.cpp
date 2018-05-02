@@ -1,6 +1,6 @@
 #include "quadrato.h"
 
-//OVERLOADING INPUT OUTPUT ***************************
+//OVERLOADING INPUT-OUTPUT ***************************
 
 istream& operator>>(istream& is,quadrato& q){
     std::string point;

@@ -4,7 +4,7 @@
 //#include <QtWidgets>
 //#include <QPoint>
 #include <QVector>
-#include <QPoint>
+//#include <QPoint>
 #include <list>
 #include "math.h"
 #include <iostream>
@@ -29,7 +29,7 @@ private:
 public:
     punto() {}
     punto( razionale a , razionale b ) : x(a),y(b) {}
-    virtual QPoint formatToQtPainter(punto);
+    //virtual QPoint formatToQtPainter(punto);
     razionale getX() const;
     razionale getY() const;
     static double distanceTwoPoints(punto, punto);

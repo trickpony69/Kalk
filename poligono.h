@@ -3,7 +3,7 @@
 
 #include "punto.h"
 #include "razionale.h"
-#include <QPolygonF>
+//#include <QPolygonF>
 #include <list>
 
 using std::list;
@@ -15,6 +15,7 @@ private:
     //bool regolare; PER ORA SOLO REGOLARI
 public:
     poligono(int, list<punto*>);
+    poligono() {}
     int GetLati() const;
     list<punto*> GetPoint() const;
     virtual razionale area() const = 0;//virtuale pura

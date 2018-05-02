@@ -1,16 +1,17 @@
 #include "retta.h"
 #include "razionale.h"
-#include <QApplication>
-#include <finestra.h>
+//#include <QApplication>
+//#include <finestra.h>
 #include "eccezioni.h"
+#include "quadrato.h"
 
 // includere un entry point dove partire
 
-/*int main(){
-      retta r;
-      cout<<"dai: ";
+int main(){
+      quadrato r;
+      cout<<"quadrato: ";
       cin>>r;
-      cout<<r*/;
+      cout<<r;
 
 //    punto p1(-2,3);
 //    punto p2(1,-5);
@@ -44,16 +45,16 @@
 
 //    cout<<"stampo due razionali "<<std::endl<<rz1<<std::endl<<rz2<<std::endl<<"li moltiplico "<<razionale(7,4)*razionale(5,8)<<"e li converto a double "<<(rz1*rz2).converti()<<std::endl;
 //    cout<<" prova con costruttore "<<razionale(-10,-4)<<std::endl;
-//}
+}
 
 //gui grafica
-int main(int argc, char* argv[]){
+//int main(int argc, char* argv[]){
 
-    QApplication app(argc, argv);
+//    QApplication app(argc, argv);
 
-    finestra finestrone;
+//    finestra finestrone;
 
-    finestrone.show();
-    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
-    return app.exec();
-}
+//    finestrone.show();
+//    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
+//    return app.exec();
+//}
