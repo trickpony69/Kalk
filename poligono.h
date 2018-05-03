@@ -1,23 +1,23 @@
 #ifndef POLIGONO_H
 #define POLIGONO_H
 
-#include "punto.h"
+#include "retta.h"
 #include "razionale.h"
 //#include <QPolygonF>
-#include <list>
+#include <vector>
 
-using std::list;
+using std::vector;
 
 class poligono{
 private:
     int lati;
-    list<punto*> pt;
+    vector<punto*> pt;
     //bool regolare; PER ORA SOLO REGOLARI
 public:
-    poligono(int, list<punto*>);
+    poligono(int, vector<punto*>);
     poligono() {}
     int GetLati() const;
-    list<punto*> GetPoint() const;
+    vector<punto*> GetPoint() const;
     virtual razionale area() const = 0;//virtuale pura
     virtual razionale perimetro() const = 0;//virtuale pura
     virtual razionale lato() const; //ritorna la lunghezza del lato

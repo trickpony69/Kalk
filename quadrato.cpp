@@ -13,7 +13,7 @@ istream& operator>>(istream& is,quadrato& q){
     }
     int ok = l;
     //input per prendere anche gli spazi
-    list<punto*> iniz;
+    vector<punto*> iniz;
     while(ok>0){
         std::cout<<"punto:"<<std::endl;
         std::getline(is, point);
@@ -36,8 +36,8 @@ istream& operator>>(istream& is,quadrato& q){
 
 ostream& operator<<(ostream& os , const quadrato& q){
     os<<"quadrato : ";
-    list<punto*> p = q.GetPoint();
-    list<punto*>::const_iterator it = p.cbegin();
+    vector<punto*> p = q.GetPoint();
+    vector<punto*>::const_iterator it = p.cbegin();
     for(;it != p.cend() ; ++it){
         os<<**it<<" ";
     }
