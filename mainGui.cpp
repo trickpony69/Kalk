@@ -30,15 +30,23 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     hFunLay->addWidget(label2);
     QFrame* myFrame = new QFrame();
     myFrame->setFrameShape(QFrame::HLine);
-    vLay->addWidget(myFrame);
+    //vLay->addWidget(myFrame);
     QLineEdit* qle = new QLineEdit();
     qle->setPlaceholderText("inserisci la funzione");
     vec.push_back(qle);
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
+    funzionalita = new QHBoxLayout();
+    for(int i=0; i<3; i++){
+        funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
+        funzionalita->addWidget(funzioni[i]);
+        funzioni[i]->setDisabled(true);
+    }
+    vLay->addWidget(myFrame);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
+    vLay->addLayout(funzionalita);
 
     //---------------GRAFICO----------------
 
@@ -50,6 +58,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
+   // QObject::connect(funzioni[i], SIGNAL(clicked(bool)), retta, SLOT();
     mainLayout->addLayout(hLay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
@@ -121,6 +130,7 @@ void mainGui::remove_qle(){
 
 void mainGui::returnedInput(){
 
+
     cancel->setDisabled(false);
 
     clearInput();
@@ -140,6 +150,11 @@ void mainGui::returnedInput(){
     razionale max(30,1);
 
      if(returnInput.size() > 0){
+
+         for(int i=0; i<3; i++){
+            funzioni[i]->setDisabled(false);
+        }
+
         try{
              graficoElementi->addGraph();
              r0.pars_rect(returnInput[0]->toStdString());
@@ -184,6 +199,7 @@ void mainGui::returnedInput(){
          }
      }
      if(returnInput.size() > 1){
+
         try{
             graficoElementi->addGraph();
             r1.pars_rect(returnInput[1]->toStdString());
@@ -297,6 +313,10 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
         }
     }
     return pt;
+}
+
+void intersezione(){
+
 }
 
 void mainGui::loadColor(QString slot,int index){

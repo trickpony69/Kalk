@@ -20,12 +20,14 @@
 #include <QPainterPath>
 #include <vector>
 #include "qcustomplot.h"
+#include <string>
 
 class mainGui: public QWidget{
     friend class finestra;
     Q_OBJECT
 private:
     QHBoxLayout* griglia;
+    QHBoxLayout* funzionalita;
     QVBoxLayout* vLay;
     QHBoxLayout* hLay;
     QHBoxLayout* funEGrafico;
@@ -45,6 +47,7 @@ private:
     void clearInput();
     void loadSettings();
     void loadColor(QString,int);
+    QVector<QPushButton*> funzioni;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
