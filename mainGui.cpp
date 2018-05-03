@@ -3,19 +3,19 @@
 mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("   calcola")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout), label0(new QLabel()),label1(new QLabel()),label2(new QLabel()){
     remove->setDisabled(true);
     cancel->setDisabled(true);
-    QSize iconSize(40,40);
+    QSize iconSize(35,35);
     add->setIcon(QPixmap(":/icon/add.png"));
     add->setIconSize(iconSize);
-    add->setFixedSize(175,60);
+    add->setFixedSize(175,55);
     remove->setIcon(QPixmap(":icon/delete.png"));
     remove->setIconSize(iconSize);
-    remove->setFixedSize(175,60);
+    remove->setFixedSize(175,55);
     enter->setIcon(QPixmap(":icon/apply.png"));
     enter->setIconSize(iconSize);
-    enter->setFixedSize(175,60);
+    enter->setFixedSize(175,55);
     cancel->setIcon(QPixmap(":icon/reset.png"));
     cancel->setIconSize(iconSize);
-    cancel->setFixedSize(175,60);
+    cancel->setFixedSize(175,55);
     QFont font("Arial", 25);
     label0->setFont(font);
     label1->setFont(font);
@@ -40,10 +40,15 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     labelInters = new QLabel();
     funzionalita = new QHBoxLayout();
     for(int i=0; i<3; i++){
-        funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
+        if(i == 0)
+            funzioni.push_back(new QPushButton("intersezione "));
+        else
+            funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
+        funzioni[i]->setFixedSize(100,30); ;
         funzionalita->addWidget(funzioni[i]);
         funzioni[i]->setDisabled(true);
     }
+    funzioni[0]->setToolTip("trova l'intersezione tra le due rette" );
     vLay->addWidget(myFrame);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
@@ -131,6 +136,7 @@ void mainGui::remove_qle(){
 
 void mainGui::returnedInput(){
 
+    inputRetta.clear();
 
     cancel->setDisabled(false);
 
