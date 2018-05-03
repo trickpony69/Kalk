@@ -180,12 +180,16 @@ istream& operator>>(istream& is, retta& r){
 void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();
+    bool trovato = false;
     for (unsigned int var = 0; var < len; ++var) {
         if(rect[var] == ' '){
             rect.erase(rect.begin()+var);
             var--;
         }
+        if(rect[var] == '=') trovato = true;
     }
+
+    if(trovato == false) rect = rect + '=';
 
     std::string s;
     retta r;
@@ -254,6 +258,7 @@ void retta::pars_rect(string rect)
                         raz = false;
                     }
                     else{
+
                         std::locale loc;
                         //verifico se rect[i] == numero
                         if (isdigit(rect[i],loc))

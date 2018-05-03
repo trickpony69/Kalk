@@ -71,7 +71,6 @@ void punto::pars_point(string p){
             else if(p[cont] == ';' || p[cont] == ')'){
                 if(s.length() == 0){
                     throw num_error();
-                    break;
                 }
 
                 if(n!=0){
@@ -106,6 +105,7 @@ void punto::pars_point(string p){
         }
     }
     if(p[0] == '(' && p[p.length()-1] == ')') throw 1;
+    else throw input_error();
 
 
 }

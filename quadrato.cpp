@@ -22,7 +22,8 @@ istream& operator>>(istream& is,quadrato& q){
         catch(int){
             //inserito con successo
             --ok;
-            iniz.push_back(&p);
+            punto* punt = new punto(p);
+            iniz.push_back(punt);
         }
         catch(...){
             std::cerr<<"errato"<<std::endl;
