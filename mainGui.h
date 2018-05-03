@@ -59,6 +59,7 @@ public slots: //private o public slots ?
     void remove_qle();
     void returnedInput();
     void clearEntry();
+    void draw();
 
 };
 
