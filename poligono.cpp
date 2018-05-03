@@ -21,7 +21,7 @@ vector<punto*> poligono::GetPoint() const {
 
 //massimo tre controlli : visto che utilizziamo poligoni regolari fino a 5 lati quindi prendendo tre segmenti posso
 //capire qual'e' il lato del poligono
-razionale poligono::lato() const{
+double poligono::lato() const{
 
     double lat = punto::distanceTwoPoints(*pt[1],*pt[0]);
 
@@ -30,7 +30,26 @@ razionale poligono::lato() const{
        if(p < lat) lat = p ;
     }
 
-    return razionale(lat);
+    return lat;
+}
+
+//se è regolare ritorna la misura del lato altrimenti ritorna 0
+razionale poligono::isRegular() const {
+
+    double conf = *this->lato();
+    int check = 0 ;
+    for(int i = 0 ; i < pt.size() ; ++i ){
+        for(int j = 0 ; j < pt.size() ; ++j ){
+            if(punto::distanceTwoPoints(pt[i],pt[j]) == conf) {
+                check++;
+            }
+        }
+    }
+
+    if(check == GetLati()){
+        return razionale(conf);
+    }
+    else return razionale(0,0);
 }
 
 
