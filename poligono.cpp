@@ -1,39 +1,36 @@
 #include "poligono.h"
 
 
-poligono::poligono(int l , list<punto*> p):lati(l){
+poligono::poligono(int l , vector<punto*> p):lati(l){
     int num = l ;
-    list<punto*>::iterator it = p.begin();
+    vector<punto*>::iterator it = p.begin();
     while(num && it != p.end()){
         pt.push_back(*it);
         ++it;
     }
 }
 
-razionale poligono::lato() const{
-    list<punto*>::const_iterator it = pt.cbegin();
-    punto* rif = *it;
-    ++it ;
-    vector<razionale> dist;
-    for(; it != pt.cend(); ++it){
-        razionale temp(punto::distanceTwoPoints(**it,*rif));
-        dist.push_back(temp);
-    }
-    vector<razionale>::iterator raz = dist.begin();
-    razionale min = *raz;
-    ++raz;
-    for(; raz != dist.end() ; ++raz ){
-        if(*raz < min) min = *raz;
-    }
-    return min;
-}
 
 int poligono::GetLati() const {
     return lati;
 }
 
-list<punto*> poligono::GetPoint() const {
+vector<punto*> poligono::GetPoint() const {
     return pt;
+}
+
+//massimo tre controlli : visto che utilizziamo poligoni regolari fino a 5 lati quindi prendendo tre segmenti posso
+//capire qual'e' il lato del poligono
+razionale poligono::lato() const{
+
+    double lat = punto::distanceTwoPoints(*pt[1],*pt[0]);
+
+    for(int i = 2 ; i < 4 ; i ++ ){
+       double p = punto::distanceTwoPoints(*pt[i],*pt[0]);
+       if(p < lat) lat = p ;
+    }
+
+    return razionale(lat);
 }
 
 
