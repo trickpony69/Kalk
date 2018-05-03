@@ -37,7 +37,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
-    labelInters = new QLabel("le rette si intersecano nel punto:");
+    labelInters = new QLabel();
     funzionalita = new QHBoxLayout();
     for(int i=0; i<3; i++){
         funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
@@ -308,6 +308,13 @@ void mainGui::clearEntry(){
     label0->clear();
     label1->clear();
     label2->clear();
+
+    inputRetta.clear();
+    inputPunto.clear();
+    inputPoligono.clear();
+
+    labelInters->clear();
+
 }
 
 //per ora distanza standard tra i punti : 1 cm (modificabile ??)
@@ -330,9 +337,8 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
 
 void mainGui::intersezione(){
     if(inputRetta.size() > 1){
-
         punto inters = retta::Intersect(inputRetta[0],inputRetta[1]);
-        labelInters->setText(inters.toString());
+        labelInters->setText("le rette si intersecano nel punto: ("+inters.toString()+')');
         std::cout<<inters;
         vLay->addWidget(labelInters);
     }

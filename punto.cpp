@@ -121,5 +121,5 @@ double punto::yToDouble() const{
 QString punto::toString(){
     x.riduzione();
     y.riduzione();
-    return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+QString::number(y.GetDen()));
+    return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+'/'+QString::number(y.GetDen()));
 }
