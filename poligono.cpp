@@ -36,11 +36,11 @@ double poligono::lato() const{
 //se è regolare ritorna la misura del lato altrimenti ritorna 0
 razionale poligono::isRegular() const {
 
-    double conf = *this->lato();
+    double conf = lato();
     int check = 0 ;
-    for(int i = 0 ; i < pt.size() ; ++i ){
-        for(int j = 0 ; j < pt.size() ; ++j ){
-            if(punto::distanceTwoPoints(pt[i],pt[j]) == conf) {
+    for(unsigned int i = 0 ; i < pt.size() ; ++i ){
+        for(unsigned int j = 0 ; j < pt.size() ; ++j ){
+            if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
                 check++;
             }
         }

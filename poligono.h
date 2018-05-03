@@ -2,6 +2,7 @@
 #define POLIGONO_H
 
 #include "retta.h"
+
 //#include <QPolygonF>
 #include <vector>
 
@@ -19,7 +20,7 @@ public:
     vector<punto*> GetPoint() const;
     virtual razionale area() const = 0; //virtuale pura
     virtual razionale perimetro() const = 0; //virtuale pura
-    double razionale lato() const; //ritorna la lunghezza del lato
+    double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
