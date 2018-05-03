@@ -36,6 +36,7 @@ public:
     void pars_point(string);
     double xToDouble() const;
     double yToDouble() const;
+    QString toString();
 };
 
 #endif // PUNTO_H

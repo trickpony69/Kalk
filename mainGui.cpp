@@ -37,6 +37,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
+    labelInters = new QLabel("le rette si intersecano nel punto:");
     funzionalita = new QHBoxLayout();
     for(int i=0; i<3; i++){
         funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
@@ -58,7 +59,7 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
-   // QObject::connect(funzioni[i], SIGNAL(clicked(bool)), retta, SLOT();
+    QObject::connect(funzioni[0], SIGNAL(clicked(bool)), this, SLOT(intersezione()));
     mainLayout->addLayout(hLay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
@@ -173,6 +174,7 @@ void mainGui::returnedInput(){
              graficoElementi->graph(0)->setData(x, y);
              graficoElementi->replot();
              label0->setText(*returnInput[0]);
+             inputRetta.push_back(r0);
         }
         catch(input_error){
             try{
@@ -190,6 +192,7 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label0->setText(*returnInput[0]);
+                 inputPunto.push_back(p0);
             }
 
             catch(input_error){
@@ -218,6 +221,7 @@ void mainGui::returnedInput(){
             graficoElementi->graph(1)->setData(x, y);
             graficoElementi->replot();
             label1->setText(*returnInput[1]);
+            inputRetta.push_back(r1);
         }
 
         catch(input_error){
@@ -236,6 +240,8 @@ void mainGui::returnedInput(){
                   graficoElementi->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
                   graficoElementi->replot();
                   label1->setText(*returnInput[1]);
+                  inputPunto.push_back(p1);
+
              }
 
              catch(input_error){
@@ -262,6 +268,7 @@ void mainGui::returnedInput(){
             graficoElementi->graph(2)->setData(x, y);
             graficoElementi->replot();
             label2->setText(*returnInput[2]);
+            inputRetta.push_back(r2);
         }
         catch(input_error){
             try{
@@ -279,6 +286,8 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label2->setText(*returnInput[2]);
+                 inputPunto.push_back(p2);
+
             }
 
             catch(input_error){
@@ -319,8 +328,14 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
     return pt;
 }
 
-void intersezione(){
+void mainGui::intersezione(){
+    if(inputRetta.size() > 1){
 
+        punto inters = retta::Intersect(inputRetta[0],inputRetta[1]);
+        labelInters->setText(inters.toString());
+        std::cout<<inters;
+        vLay->addWidget(labelInters);
+    }
 }
 
 void mainGui::loadColor(QString slot,int index){

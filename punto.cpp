@@ -117,3 +117,9 @@ double punto::xToDouble() const{
 double punto::yToDouble() const{
     return y.GetNum()/y.GetDen();
 }
+
+QString punto::toString(){
+    x.riduzione();
+    y.riduzione();
+    return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+QString::number(y.GetDen()));
+}

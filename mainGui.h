@@ -21,6 +21,9 @@
 #include <vector>
 #include "qcustomplot.h"
 #include <string>
+#include <poligono.h>
+#include "retta.h"
+#include <iostream>
 
 class mainGui: public QWidget{
     friend class finestra;
@@ -39,6 +42,7 @@ private:
     QPushButton* cancel;
     QVector<QLineEdit*> vec;
     QLabel* errorLabel;
+    QLabel* labelInters ;
     QVector<QString*> returnInput;
     grafico* graficoElementi;
     QLabel* label0;
@@ -48,6 +52,9 @@ private:
     void loadSettings();
     void loadColor(QString,int);
     QVector<QPushButton*> funzioni;
+    QVector<retta> inputRetta;
+    QVector<punto> inputPunto;
+    QVector<poligono*> inputPoligono;
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
@@ -60,6 +67,7 @@ public slots: //private o public slots ?
     void returnedInput();
     void clearEntry();
     void draw();
+    void intersezione();
 
 };
 
