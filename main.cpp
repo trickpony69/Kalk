@@ -1,19 +1,19 @@
 #include "retta.h"
 #include "razionale.h"
-#include <QApplication>
-#include <finestra.h>
+//#include <QApplication>
+//#include <finestra.h>
 #include "eccezioni.h"
 #include "quadrato.h"
 
 //// includere un entry point dove partire
 
-//int main(){
-//      quadrato r;
-//      cin>>r;
-//      cout<<r;
+int main(){
+      quadrato r;
+      cin>>r;
+      cout<<r;
 
-//      cout<<"lato: "<<r.lato()<<std::endl;
-//}
+      cout<<"lato: "<<r.lato()<<std::endl;
+}
 //    punto p1(-2,3);
 //    punto p2(1,-5);
 //    retta r1(-7,3,2);
@@ -49,13 +49,4 @@
 //}
 
 //gui grafica
-int main(int argc, char* argv[]){
-
-    QApplication app(argc, argv);
-
-    finestra finestrone;
-
-    finestrone.show();
-    app.setAttribute(Qt::AA_DontShowIconsInMenus, false);
-    return app.exec();
-}
+//}

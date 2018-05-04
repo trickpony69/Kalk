@@ -2,13 +2,14 @@
 #define POLIGONO_H
 
 #include "retta.h"
-
 //#include <QPolygonF>
 #include <vector>
 
 using std::vector;
+using std::istream;
 
 class poligono{
+    friend istream& operator>>(istream&,poligono&);
 private:
     int lati;
     vector<punto*> pt;

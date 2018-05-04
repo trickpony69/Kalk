@@ -2,7 +2,7 @@
 #define RETTA_H
 #include "eccezioni.h"
 #include "punto.h"
-
+#include "inputitem.h"
 #include <string>
 #include <vector>
 using std::istream;
@@ -14,7 +14,7 @@ class retta;
 
 //ostream& operator<<(ostream&, const retta&); non serve, come mai ??
 
-class retta{
+class retta : public inputitem {
     friend istream& operator>>(istream&,retta&);
     friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
 private:
@@ -23,6 +23,7 @@ private:
     razionale c;
 public:
     retta() {}
+    virtual ~retta() {}
     retta(razionale x , razionale y , razionale l ) : a(x),b(y),c(l) {} ;
     razionale GetA() const ;
     razionale GetB() const ;

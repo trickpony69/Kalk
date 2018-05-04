@@ -52,6 +52,13 @@ razionale poligono::isRegular() const {
     else return razionale(0,0);
 }
 
+//------------------    OPERATOR INPUT ----------------
+
+istream& operator>>(istream& is , poligono& p){
+    std::string punti;
+
+}
+
 
 
 

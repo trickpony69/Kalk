@@ -20,7 +20,9 @@ HEADERS +=  finestra.h \
             retta.h \
             impostazioni.h \
             eccezioni.h \
-            quadrato.h
+            quadrato.h \
+            inputitem.h \
+            inputitem.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \
@@ -31,7 +33,8 @@ SOURCES +=  finestra.cpp \
             retta.cpp \
             qcustomplot.cpp \
             impostazioni.cpp \
-            quadrato.cpp
+            quadrato.cpp \
+            inputitem.cpp
 
 RESOURCES += \
     icons.qrc

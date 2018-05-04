@@ -10,6 +10,7 @@
 #include <iostream>
 #include "razionale.h"
 #include "eccezioni.h"
+#include "inputitem.h"
 
 using std::ostream;
 using std::istream;
@@ -21,13 +22,14 @@ class punto;
 
 ostream& operator<<(ostream&, const punto&);
 
-class punto{
+class punto : public inputitem{
     friend ostream& operator<<(ostream&, const punto&);
     friend istream& operator>>(istream&, punto&);
 private:
     razionale x,y;
 public:
     punto() {}
+    virtual ~punto() {}
     punto( razionale a , razionale b ) : x(a),y(b) {}
     //virtual QPoint formatToQtPainter(punto);
     razionale getX() const;
