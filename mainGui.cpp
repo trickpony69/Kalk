@@ -39,21 +39,8 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     qle->setFont(font);
     labelInters = new QLabel();
     funzionalita = new QHBoxLayout();
-    for(int i=0; i<3; i++){
-        if(i == 0)
-            funzioni.push_back(new QPushButton("intersezione "));
-        else
-            funzioni.push_back(new QPushButton("funzione " + QString::number(i)));
-        funzioni[i]->setFixedSize(100,30); ;
-        funzionalita->addWidget(funzioni[i]);
-        funzioni[i]->setDisabled(true);
-    }
-    funzioni[0]->setToolTip("trova l'intersezione tra le due rette" );
-    vLay->addWidget(myFrame);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
-    vLay->addLayout(funzionalita);
-
     //---------------GRAFICO----------------
 
             funEGrafico->addWidget(graficoElementi);
@@ -64,7 +51,6 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
-    QObject::connect(funzioni[0], SIGNAL(clicked(bool)), this, SLOT(intersezione()));
     mainLayout->addLayout(hLay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
@@ -95,8 +81,8 @@ void mainGui::push_qle(){
     }
     else{
         add->setDisabled(true);
-        vLay->addWidget(errorLabel);
-        errorLabel->setVisible(true);
+        //vLay->addWidget(errorLabel);
+        //errorLabel->setVisible(true);
     }
 
     if(vec.size() <= 1)
@@ -122,7 +108,7 @@ void mainGui::remove_qle(){
         qDebug("vec vuoto");
 
     if(vec.size() <= 2)
-        errorLabel->setVisible(false);
+        //errorLabel->setVisible(false);
 
     if(vec.size() < 1)
         enter->setDisabled(false);
@@ -157,10 +143,6 @@ void mainGui::returnedInput(){
     razionale max(30,1);
 
      if(returnInput.size() > 0){
-
-         for(int i=0; i<3; i++){
-            funzioni[i]->setDisabled(false);
-        }
 
         try{
              graficoElementi->addGraph();
@@ -247,7 +229,6 @@ void mainGui::returnedInput(){
                   graficoElementi->replot();
                   label1->setText(*returnInput[1]);
                   inputPunto.push_back(p1);
-
              }
 
              catch(input_error){
@@ -304,9 +285,6 @@ void mainGui::returnedInput(){
       }
 }
 
-void mainGui::draw(){
-
-}
 
 void mainGui::clearEntry(){
     for(unsigned int i=0; i<vec.size(); i++)
@@ -343,8 +321,13 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
 
 void mainGui::intersezione(){
     if(inputRetta.size() > 1){
+        if(labelInters){
+            vLay->removeWidget(labelInters);
+            delete labelInters;
+        }
+
         punto inters = retta::Intersect(inputRetta[0],inputRetta[1]);
-        labelInters->setText("le rette si intersecano nel punto: ("+inters.toString()+')');
+        labelInters = new QLabel("le rette si intersecano nel punto: ("+inters.toString()+')');
         std::cout<<inters;
         vLay->addWidget(labelInters);
     }

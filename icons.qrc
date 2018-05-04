@@ -4,5 +4,6 @@
         <file>icon/apply.png</file>
         <file>icon/delete.png</file>
         <file>icon/reset.png</file>
+        <file>icon/intersect.png</file>
     </qresource>
 </RCC>

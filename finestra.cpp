@@ -6,17 +6,24 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
     //auto spaziatore2 = new QWidget(this);
-    spaziatore1->setFixedHeight(30);
+//    spaziatore1->setFixedHeight(30);
     //spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     //spaziatore2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QToolBar* tb = new QToolBar();
+    QToolBar* tbL = new QToolBar();
     tb->addWidget(spaziatore1);
     //tb->addWidget(spaziatore2)
     QAction* opzioni = new QAction("opzioni",this);
+    QAction* inter = new QAction("intersezione",this);
+    inter->setIcon(QIcon(":/icon/intersect.png"));
     tb->addAction("aiuto");
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
+    tbL->addAction(inter);
+    tbL->setFloatable(false);
+    tbL->setMovable(false);
+    addToolBar(Qt::LeftToolBarArea, tbL);
     addToolBar(tb);
     resize(700,500);
     loadSettings();
@@ -30,6 +37,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(finestraOpzioni->cambioColori2[0],SIGNAL(clicked()),this,SLOT(setColorBlueThirdSlot()));
     connect(finestraOpzioni->cambioColori2[1],SIGNAL(clicked()),this,SLOT(setColorRedSecondSlot()));
     connect(finestraOpzioni->cambioColori2[2],SIGNAL(clicked()),this,SLOT(setColorGreenThirdSlot()));
+    connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
 }
 
 void finestra::showOption(){

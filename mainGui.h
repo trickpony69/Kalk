@@ -48,13 +48,12 @@ private:
     QLabel* label0;
     QLabel* label1;
     QLabel* label2;
-    void clearInput();
-    void loadSettings();
-    void loadColor(QString,int);
-    QVector<QPushButton*> funzioni;
     QVector<retta> inputRetta;
     QVector<punto> inputPunto;
     QVector<poligono*> inputPoligono;
+    void clearInput();
+    void loadSettings();
+    void loadColor(QString,int);
 public:
     mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
     virtual ~mainGui(){}
@@ -66,9 +65,7 @@ public slots: //private o public slots ?
     void remove_qle();
     void returnedInput();
     void clearEntry();
-    void draw();
     void intersezione();
-
 };
 
 #endif // MIACLASSE_H
