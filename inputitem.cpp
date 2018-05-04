@@ -36,5 +36,29 @@ istream& operator>>( istream& is , inputitem& in ){
 
 //data una string ritorna se è un punto , retta o poligono
 inputitem* inputitem::pars_start(string s){
+    unsigned int len = s.length();
+    bool trovato = false;
+    for (unsigned int var = 0; var < len; ++var) {
+        if(s[var] == ' '){
+            s.erase(s.begin()+var);
+            var--;
+        }
+    }
+
+    if(s[0] == '('){
+        int cont = 0;
+        for (unsigned int i = 0; i < len; ++i) {
+            if(s[0] == '('){
+                cont++;
+            }
+        }
+        //if( cont > 1 ) //return poligono();
+        //else return punto()
+    }
+
+
+    for (unsigned int i = 0; i < len; ++i) {
+
+    }
 
 }
