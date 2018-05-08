@@ -22,7 +22,10 @@ HEADERS +=  finestra.h \
             eccezioni.h \
             quadrato.h \
             inputitem.h \
-            inputitem.h
+            inputitem.h \
+    rettangolo.h \
+    triangolo.h \
+    pentagono.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \
@@ -34,7 +37,10 @@ SOURCES +=  finestra.cpp \
             qcustomplot.cpp \
             impostazioni.cpp \
             quadrato.cpp \
-            inputitem.cpp
+            inputitem.cpp \
+    rettangolo.cpp \
+    triangolo.cpp \
+    pentagono.cpp
 
 RESOURCES += \
     icons.qrc

@@ -85,6 +85,8 @@ void punto::pars_point(string p){
                 }
                 else{
                     y = razionale(n*sign,d);
+                    //è finito il punto perchè sono ')'
+                    break;
                 }
                 d=1;n=0;
 

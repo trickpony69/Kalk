@@ -8,7 +8,6 @@
 
 class quadrato : public poligono{
     friend istream& operator>>(istream&,quadrato&);
-    friend ostream& operator<<(ostream&, const quadrato&);
 public:
     quadrato(int l,vector<punto*> p): poligono(l,p) {}
     quadrato() {}

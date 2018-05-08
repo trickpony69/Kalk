@@ -2,14 +2,16 @@
 #define POLIGONO_H
 
 #include "retta.h"
+#include "inputitem.h"
 //#include <QPolygonF>
 #include <vector>
 
 using std::vector;
 using std::istream;
 
-class poligono{
-    friend istream& operator>>(istream&,poligono&);
+class poligono : public inputitem{
+    friend istream& operator>>(istream&,poligono*);
+    friend ostream& operator<<(ostream&,poligono*);
 private:
     int lati;
     vector<punto*> pt;
@@ -23,6 +25,7 @@ public:
     virtual razionale perimetro() const = 0; //virtuale pura
     double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
+    static poligono* pars_pol(string);
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 

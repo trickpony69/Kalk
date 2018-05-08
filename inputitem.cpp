@@ -6,29 +6,55 @@
 
 inputitem::~inputitem() {}
 
-istream& operator>>( istream& is , inputitem& in ){
+istream& operator>>( istream& is , inputitem* in ){
     std::string st;
     bool ok = true;
 
     while(ok == true){
         //input per prendere anche gli spazi
-        std::cout<<"dai:";
+        std::cout<<"daie:";
         std::getline(is, st);
-
-        //ritorna un tipo retta/punto
 
         if(typeid(inputitem::pars_start(st)) == typeid(retta)){
             retta ret;
-            cin>>ret;
+            try{ret.pars_rect(st);}
+            catch(int){
+                //inserito con successo
+                ok = false;
+                //costruttore di copia di default
+                in = new retta(ret);
+            }
+            catch(...){
+                ok = true;
+                std::cout<<"input errato, reinserisci : "<<std::endl;
+            }
         }
         else if(typeid(inputitem::pars_start(st)) == typeid(punto))
         {
             punto point;
-            cin>>point;
+            try{point.pars_point(st);}
+
+            catch(input_error){
+                std::cerr<<"errore inserimento input";
+            }
+            catch(num_error){
+                std::cerr<<"errore numeratore";
+            }
+            catch(den_error){
+                std::cerr<<"errore denominatore";
+            }
+            catch(int){
+                ok = false;
+                in = new punto(point);
+            }
         }
         else{
-            /*poligono pol;
-            cin>>pol;*/
+            poligono* pol;
+            //devo inizializzare il puntatore a : quadrato , triang , penta
+            try{in = poligono::pars_pol(st);}
+            catch(input_error){
+                std::cerr<<"errore inserimento input";
+            }
         }
     }
     return is;
@@ -44,21 +70,21 @@ inputitem* inputitem::pars_start(string s){
             var--;
         }
     }
+    //tolto gli spazi
 
     if(s[0] == '('){
         int cont = 0;
         for (unsigned int i = 0; i < len; ++i) {
-            if(s[0] == '('){
+            if(s[i] == '('){
                 cont++;
             }
         }
-        //if( cont > 1 ) //return poligono();
-        //else return punto()
+        if( cont > 0 ) return 0;
+        else return new punto();
+    }
+    else{
+        return new retta();
     }
 
-
-    for (unsigned int i = 0; i < len; ++i) {
-
-    }
 
 }

@@ -4,15 +4,29 @@
 //#include <finestra.h>
 #include "eccezioni.h"
 #include "quadrato.h"
+#include "triangolo.h"
+#include "pentagono.h"
+
+
 
 //// includere un entry point dove partire
 
 int main(){
-      quadrato r;
-      cin>>r;
-      cout<<r;
+      inputitem* p;
+      cin>>p;
 
-      cout<<"lato: "<<r.lato()<<std::endl;
+      if(typeid(*p) == typeid(quadrato)){
+          cout<<"quadrato: ";
+      }
+      else if(typeid(*p) == typeid(pentagono)){
+          cout<<"pentagono: ";
+      }
+      else if(typeid(*p) == typeid(triangolo)){
+          cout<<"triangolo: ";
+      }
+
+
+
 }
 //    punto p1(-2,3);
 //    punto p2(1,-5);

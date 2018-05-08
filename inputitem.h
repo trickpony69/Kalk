@@ -10,7 +10,7 @@ using std::string;
 
 class inputitem
 {
-    friend istream& operator>>(istream&,inputitem&);
+    friend istream& operator>>(istream&,inputitem*);
 public:
     virtual ~inputitem() =0 ;
     static inputitem* pars_start(string);

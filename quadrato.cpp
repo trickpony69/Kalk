@@ -34,15 +34,7 @@ istream& operator>>(istream& is,quadrato& q){
     return is;
 }
 
-ostream& operator<<(ostream& os , const quadrato& q){
-    os<<"quadrato : ";
-    vector<punto*> p = q.GetPoint();
-    vector<punto*>::const_iterator it = p.cbegin();
-    for(;it != p.cend() ; ++it){
-        os<<**it<<" ";
-    }
-    return os;
-}
+
 
 //----------------------------------------------------
 razionale quadrato::area() const{
