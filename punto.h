@@ -39,6 +39,7 @@ public:
     double xToDouble() const;
     double yToDouble() const;
     QString toString();
+    void isFigura() {cout<<"punto"; }
 };
 
 #endif // PUNTO_H

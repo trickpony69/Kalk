@@ -6,7 +6,7 @@
 
 inputitem::~inputitem() {}
 
-istream& operator>>( istream& is , inputitem* in ){
+istream& operator>>( istream& is ,inputitem* in ){
     std::string st;
     bool ok = true;
 
@@ -15,26 +15,32 @@ istream& operator>>( istream& is , inputitem* in ){
         std::cout<<"daie:";
         std::getline(is, st);
 
-        if(typeid(*(inputitem::pars_start(st))) == typeid(retta)){
+        if(dynamic_cast<retta*>(inputitem::pars_start(st))){
             retta ret;
+            cout<<"retta ";
             try{ret.pars_rect(st);}
             catch(int){
                 //inserito con successo
                 ok = false;
+
                 //costruttore di copia di default
-                in = new retta(ret);
+                cout<<ret<<std::endl;
+                in= new retta(ret);
+
+                in->isFigura();
             }
             catch(...){
                 ok = true;
                 std::cout<<"input errato, reinserisci : "<<std::endl;
             }
         }
-        else if(typeid(*(inputitem::pars_start(st))) == typeid(punto))
+        else if(dynamic_cast<punto*>(inputitem::pars_start(st)))
         {
+            cout<<"punto ";
             punto point;
             try{point.pars_point(st);}
             catch(input_error){
-                std::cerr<<"errore inserimento input";
+                std::cerr<<"errore inserimento input punto";
             }
             catch(num_error){
                 std::cerr<<"errore numeratore";
@@ -44,17 +50,25 @@ istream& operator>>( istream& is , inputitem* in ){
             }
             catch(int){
                 ok = false;
+                //cout<<point<<std::endl;
                 in = new punto(point);
+                in->isFigura();
             }
         }
         else{
-            poligono* pol;
             //devo inizializzare il puntatore a : quadrato , triang , penta
             //assegnazione standard
-            try{in = poligono::pars_pol(st);}
+            poligono* p;
+            try{p = poligono::pars_pol(st);}
             catch(input_error){
-                std::cerr<<"errore inserimento input";
+                std::cerr<<"errore inserimento input poligono";
             }
+
+            cout<<std::endl;
+            in = p;
+
+            in->isFigura();
+            return is;
         }
     }
     return is;
@@ -63,7 +77,7 @@ istream& operator>>( istream& is , inputitem* in ){
 //data una string ritorna se è un punto , retta o poligono
 inputitem* inputitem::pars_start(string s){
     unsigned int len = s.length();
-    bool trovato = false;
+
     for (unsigned int var = 0; var < len; ++var) {
         if(s[var] == ' '){
             s.erase(s.begin()+var);
@@ -79,7 +93,7 @@ inputitem* inputitem::pars_start(string s){
                 cont++;
             }
         }
-        if( cont > 0 ) return 0;
+        if( cont > 1 ) return 0;
         else return new punto();
     }
     else{

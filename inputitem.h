@@ -14,6 +14,7 @@ class inputitem
 public:
     virtual ~inputitem() =0 ;
     static inputitem* pars_start(string);
+    virtual void isFigura() =0;
 };
 
 #endif // INPUTITEM_H

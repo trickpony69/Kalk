@@ -99,15 +99,26 @@ poligono* poligono::pars_pol(string s){
 
     vector<punto*> temp;
 
-    if(pc == pa && pc/2 == pv){
-        //ok parsiamo i punti
-        cout<<"ok "<<pv<<std::endl;
+    //cout<<pc<<" "<<pa<<" "<<pv;
 
-        while(pv > 0){
+    if(pc == pa && pc == pv){
+        //ok parsiamo i punti
+        //cout<<"ok "<<pv<<std::endl;
+
+        for (unsigned int var = 0; var < len; ++var) {
+            string single_point;
+            for (unsigned int i = var; s[i] != ')' ; ++i) {
+                single_point = single_point + s[i] ;
+            }
+
+            var = var + single_point.length();
+            single_point = single_point + s[var] ;
+            //cout<<single_point;
+
             punto point;
             //parso punto per punto e man mano che li trovo giusti li inserisco nel vector
 
-            try{point.pars_point(s);}
+            try{point.pars_point(single_point);}
 
             catch(input_error){
                 //rimando l'eccezione al chiamante
@@ -121,30 +132,31 @@ poligono* poligono::pars_pol(string s){
             }
             catch(int){
                 //invoco il costruttore di copia standard
+                //cout<<point;
                 temp.push_back(new punto(point));
             }
             --pv;
         }
 
-        if( pc/2 == 3 ){
-            triangolo tr(pc/2,temp);
-            if( tr.isRegular() != razionale(0,0) )
-                return &tr;
-            else
-                throw input_error();
+        if( pc == 3 ){
+            triangolo tr(pc,temp);
+            //if( tr.isRegular() != razionale(0,0) )
+                return new triangolo(tr);
+            /*else
+                throw input_error();*/
         }
-        else if( pc/2 == 4 )
+        else if( pc == 4 )
         {
-            quadrato qr(pc/2,temp);
+            quadrato qr(pc,temp);
             if( qr.isRegular() != razionale(0,0) )
-                return &qr;
+                return new quadrato(qr);
             else
                 throw input_error();
         }
-        else if( pc/2 == 5 ){
-            pentagono pt(pc/2,temp);
+        else if( pc == 5 ){
+            pentagono pt(pc,temp);
             if( pt.isRegular() != razionale(0,0) )
-                return &pt;
+                return new pentagono(pt);
             else
                 throw input_error();
         }

@@ -7,24 +7,31 @@
 #include "triangolo.h"
 #include "pentagono.h"
 
+#include <typeinfo>
 
 
-//// includere un entry point dove partire
+
+
 
 int main(){
-      inputitem* p;
+      inputitem* p ;
+
       cin>>p;
 
-      if(typeid(*p) == typeid(quadrato)){
+      //p->isFigura();
+
+      //p->isFigura();
+
+      /*if(dynamic_cast<quadrato*>(p)){
           cout<<"quadrato: ";
       }
-      else if(typeid(*p) == typeid(pentagono)){
+      else if(dynamic_cast<pentagono*>(p)){
           cout<<"pentagono: ";
       }
-      else if(typeid(*p) == typeid(triangolo)){
+      else if(dynamic_cast<triangolo*>(p)){
           cout<<"triangolo: ";
       }
-
+      cout<<"triangolo: ";*/
 
 
 }
