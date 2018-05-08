@@ -15,7 +15,7 @@ istream& operator>>( istream& is , inputitem* in ){
         std::cout<<"daie:";
         std::getline(is, st);
 
-        if(typeid(inputitem::pars_start(st)) == typeid(retta)){
+        if(typeid(*(inputitem::pars_start(st))) == typeid(retta)){
             retta ret;
             try{ret.pars_rect(st);}
             catch(int){
@@ -29,11 +29,10 @@ istream& operator>>( istream& is , inputitem* in ){
                 std::cout<<"input errato, reinserisci : "<<std::endl;
             }
         }
-        else if(typeid(inputitem::pars_start(st)) == typeid(punto))
+        else if(typeid(*(inputitem::pars_start(st))) == typeid(punto))
         {
             punto point;
             try{point.pars_point(st);}
-
             catch(input_error){
                 std::cerr<<"errore inserimento input";
             }
@@ -51,6 +50,7 @@ istream& operator>>( istream& is , inputitem* in ){
         else{
             poligono* pol;
             //devo inizializzare il puntatore a : quadrato , triang , penta
+            //assegnazione standard
             try{in = poligono::pars_pol(st);}
             catch(input_error){
                 std::cerr<<"errore inserimento input";

@@ -101,6 +101,7 @@ poligono* poligono::pars_pol(string s){
 
     if(pc == pa && pc/2 == pv){
         //ok parsiamo i punti
+        cout<<"ok "<<pv<<std::endl;
 
         while(pv > 0){
             punto point;
