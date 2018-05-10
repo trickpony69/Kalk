@@ -15,7 +15,7 @@ public:
     virtual ~inputitem() =0 ;
     static inputitem* pars_start(string);
     virtual void isFigura() const =0;
-    static inputitem* iniz_input( );
+    static inputitem* iniz_input( string );
 };
 
 #endif // INPUTITEM_H

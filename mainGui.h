@@ -24,6 +24,7 @@
 #include <poligono.h>
 #include "retta.h"
 #include <iostream>
+#include "inputitem.h"
 
 class mainGui: public QWidget{
     friend class finestra;
@@ -51,6 +52,7 @@ private:
     QVector<retta> inputRetta;
     QVector<punto> inputPunto;
     QVector<poligono*> inputPoligono;
+    QVector<inputitem*> inputElemento;
     void clearInput();
     void loadSettings();
     void loadColor(QString,int);

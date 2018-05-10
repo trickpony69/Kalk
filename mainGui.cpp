@@ -143,36 +143,33 @@ void mainGui::returnedInput(){
     razionale max(30,1);
 
      if(returnInput.size() > 0){
-
+        inputitem* inp;
         try{
              graficoElementi->addGraph();
-             r0.pars_rect(returnInput[0]->toStdString());
-        }
-        catch(int){
-             qDebug("primo slot: input corretto");
-             vector<punto> vCoord0 = print_rect(r0,min,max);
-             QVector<double> x(60), y(60);
-             for (unsigned int i=0; i<vCoord0.size(); i++){
-                 x[i] = vCoord0[i].getX();
-                 y[i] = vCoord0[i].getY();
+             inp = inputitem::iniz_input(returnInput[0]->toStdString());
+             if(retta* pol = dynamic_cast<retta*>(inp)){
+                 qDebug("primo slot: input corretto");
+                 vector<punto> vCoord0 = print_rect(*pol,min,max);
+                 QVector<double> x(60), y(60);
+                 for (unsigned int i=0; i<vCoord0.size(); i++){
+                     x[i] = vCoord0[i].getX();
+                     y[i] = vCoord0[i].getY();
+                 }
+
+                 loadColor("primoSlot",0);
+
+                 graficoElementi->graph(0)->setData(x, y);
+                 graficoElementi->replot();
+                 label0->setText(*returnInput[0]);
+                 inputRetta.push_back(r0);
              }
+             else if(punto* pun = dynamic_cast<punto*>(inp)){
+                 qDebug("primo slot: e' un punto");
 
-             loadColor("primoSlot",0);
-
-             graficoElementi->graph(0)->setData(x, y);
-             graficoElementi->replot();
-             label0->setText(*returnInput[0]);
-             inputRetta.push_back(r0);
-        }
-        catch(input_error){
-            try{
-                p0.pars_point(returnInput[0]->toStdString());
-            }
-            catch(int){
                  QVector<double> x, y;
 
-                 x.append(p0.xToDouble());
-                 y.append(p0.yToDouble());
+                 x.append(pun->xToDouble());
+                 y.append(pun->yToDouble());
 
                  loadColor("primoSlot",0);
                  graficoElementi->graph(0)->setData(x,y);
@@ -180,47 +177,43 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label0->setText(*returnInput[0]);
-                 inputPunto.push_back(p0);
-            }
+                 inputPunto.push_back(*pun);
 
-            catch(input_error){
-                qDebug("primo slot: errore input");
-                label0->setText("errore input");
-            }
-         }
+             }
+        }
+        catch(input_error){label0->setText("errore input");}
+        catch(irregular_pol){label0->setText("errore input");}
      }
+
      if(returnInput.size() > 1){
 
-        try{
-            graficoElementi->addGraph();
-            r1.pars_rect(returnInput[1]->toStdString());
-        }
-        catch(int){
-            qDebug("primo slot: input corretto");
-            vector<punto> vCoord0 = print_rect(r1,min,max);
-            QVector<double> x(60), y(60); // initialize with entries 0..100
-            for (unsigned int i=0; i<vCoord0.size(); i++){
-                x[i] = vCoord0[i].getX();
-                y[i] = vCoord0[i].getY();
-            }
+         inputitem* inp;
+         try{
+              graficoElementi->addGraph();
+              inp = inputitem::iniz_input(returnInput[1]->toStdString());
+              if(retta* pol = dynamic_cast<retta*>(inp)){
+                  qDebug("primo slot: input corretto");
+                  vector<punto> vCoord0 = print_rect(*pol,min,max);
+                  QVector<double> x(60), y(60);
+                  for (unsigned int i=0; i<vCoord0.size(); i++){
+                      x[i] = vCoord0[i].getX();
+                      y[i] = vCoord0[i].getY();
+                  }
 
-            loadColor("secondoSlot",1);
+                  loadColor("secondoSlot",1);
 
-            graficoElementi->graph(1)->setData(x, y);
-            graficoElementi->replot();
-            label1->setText(*returnInput[1]);
-            inputRetta.push_back(r1);
-        }
+                  graficoElementi->graph(1)->setData(x, y);
+                  graficoElementi->replot();
+                  label1->setText(*returnInput[1]);
+                  inputRetta.push_back(r1);
+              }
+              else if(punto* pun = dynamic_cast<punto*>(inp)){
+                  qDebug("primo slot: e' un punto");
 
-        catch(input_error){
-             try{
-                 p1.pars_point(returnInput[1]->toStdString());
-             }
-             catch(int){
                   QVector<double> x, y;
 
-                  x.append(p1.xToDouble());
-                  y.append(p1.yToDouble());
+                  x.append(pun->xToDouble());
+                  y.append(pun->yToDouble());
 
                   loadColor("secondoSlot",1);
                   graficoElementi->graph(1)->setData(x,y);
@@ -228,44 +221,39 @@ void mainGui::returnedInput(){
                   graficoElementi->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
                   graficoElementi->replot();
                   label1->setText(*returnInput[1]);
-                  inputPunto.push_back(p1);
-             }
-
-             catch(input_error){
-                 qDebug("primo slot: errore input");
-                 label1->setText("errore input");
-             }
-        }
+                  inputPunto.push_back(*pun);
+              }
+         }
+         catch(input_error){label1->setText("errore input");}
+         catch(irregular_pol){label1->setText("errore input");}
     }
     if(returnInput.size() > 2){
+        inputitem* inp;
         try{
-            graficoElementi->addGraph();
-            r2.pars_rect(returnInput[2]->toStdString());
-        }
-        catch(int){
-            vector<punto> vCoord0 = print_rect(r2,min,max);
-            QVector<double> x(60), y(60); // initialize with entries 0..100
-            for (unsigned int i=0; i<vCoord0.size(); i++){
-                x[i] = vCoord0[i].getX();
-                y[i] = vCoord0[i].getY();
-            }
+             graficoElementi->addGraph();
+             inp = inputitem::iniz_input(returnInput[2]->toStdString());
+             if(retta* pol = dynamic_cast<retta*>(inp)){
+                 qDebug("primo slot: input corretto");
+                 vector<punto> vCoord0 = print_rect(*pol,min,max);
+                 QVector<double> x(60), y(60);
+                 for (unsigned int i=0; i<vCoord0.size(); i++){
+                     x[i] = vCoord0[i].getX();
+                     y[i] = vCoord0[i].getY();
+                 }
 
-            loadColor("terzoSlot",2);
+                 loadColor("terzoSlot",2);
 
-            graficoElementi->graph(2)->setData(x, y);
-            graficoElementi->replot();
-            label2->setText(*returnInput[2]);
-            inputRetta.push_back(r2);
-        }
-        catch(input_error){
-            try{
-                p2.pars_point(returnInput[2]->toStdString());
-            }
-            catch(int){
+                 graficoElementi->graph(1)->setData(x, y);
+                 graficoElementi->replot();
+                 label2->setText(*returnInput[1]);
+                 inputRetta.push_back(r2);
+             }
+             else if(punto* pun = dynamic_cast<punto*>(inp)){
+
                  QVector<double> x, y;
 
-                 x.append(p2.xToDouble());
-                 y.append(p2.yToDouble());
+                 x.append(pun->xToDouble());
+                 y.append(pun->yToDouble());
 
                  loadColor("terzoSlot",2);
                  graficoElementi->graph(2)->setData(x,y);
@@ -273,19 +261,13 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label2->setText(*returnInput[2]);
-                 inputPunto.push_back(p2);
-
-            }
-
-            catch(input_error){
-                qDebug("primo slot: errore input");
-                label2->setText("errore input");
-            }
-         }
-      }
+                 inputPunto.push_back(*pun);
+             }
+        }
+        catch(input_error){label2->setText("errore input");}
+        catch(irregular_pol){label2->setText("errore input");}
+    }
 }
-
-
 void mainGui::clearEntry(){
     for(unsigned int i=0; i<vec.size(); i++)
         vec[i]->clear();
