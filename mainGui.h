@@ -49,10 +49,8 @@ private:
     QLabel* label0;
     QLabel* label1;
     QLabel* label2;
-    QVector<retta> inputRetta;
-    QVector<punto> inputPunto;
-    QVector<poligono*> inputPoligono;
     QVector<inputitem*> inputElemento;
+    QLineEdit* display;
     void clearInput();
     void loadSettings();
     void loadColor(QString,int);

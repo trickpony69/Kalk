@@ -34,6 +34,14 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QLineEdit* qle = new QLineEdit();
     qle->setPlaceholderText("inserisci la funzione");
     vec.push_back(qle);
+    display = new QLineEdit();
+    display->setDisabled(true);
+    display->setPlaceholderText("seleziona una funzione nella barra laterale");
+    display->setFixedSize(280,50);
+    display->setStyleSheet("color: white;"
+                           "background-color: RGB(53, 50, 47);"
+                           "border-radius: 20px;");
+    vLay->addWidget(display);
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
@@ -122,7 +130,9 @@ void mainGui::remove_qle(){
 
 void mainGui::returnedInput(){
 
-    inputRetta.clear();
+    returnInput.clear();
+    display->clear();
+    inputElemento.clear();
 
     cancel->setDisabled(false);
 
@@ -137,8 +147,6 @@ void mainGui::returnedInput(){
         }
     }
 
-    retta r0,r1,r2;
-    punto p0,p1,p2;
     razionale min(-30,1);
     razionale max(30,1);
 
@@ -161,7 +169,7 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(0)->setData(x, y);
                  graficoElementi->replot();
                  label0->setText(*returnInput[0]);
-                 inputRetta.push_back(r0);
+                 inputElemento.push_back(pol);
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
                  qDebug("primo slot: e' un punto");
@@ -177,8 +185,7 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(0)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label0->setText(*returnInput[0]);
-                 inputPunto.push_back(*pun);
-
+                 inputElemento.push_back(pun);
              }
         }
         catch(input_error){label0->setText("errore input");}
@@ -205,7 +212,7 @@ void mainGui::returnedInput(){
                   graficoElementi->graph(1)->setData(x, y);
                   graficoElementi->replot();
                   label1->setText(*returnInput[1]);
-                  inputRetta.push_back(r1);
+                  inputElemento.push_back(pol);
               }
               else if(punto* pun = dynamic_cast<punto*>(inp)){
                   qDebug("primo slot: e' un punto");
@@ -221,7 +228,7 @@ void mainGui::returnedInput(){
                   graficoElementi->graph(1)->setScatterStyle(QCPScatterStyle::ssDisc);
                   graficoElementi->replot();
                   label1->setText(*returnInput[1]);
-                  inputPunto.push_back(*pun);
+                  inputElemento.push_back(pun);
               }
          }
          catch(input_error){label1->setText("errore input");}
@@ -246,7 +253,7 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(1)->setData(x, y);
                  graficoElementi->replot();
                  label2->setText(*returnInput[1]);
-                 inputRetta.push_back(r2);
+                 inputElemento.push_back(pol);
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
 
@@ -261,13 +268,14 @@ void mainGui::returnedInput(){
                  graficoElementi->graph(2)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
                  label2->setText(*returnInput[2]);
-                 inputPunto.push_back(*pun);
+                 inputElemento.push_back(pun);
              }
         }
         catch(input_error){label2->setText("errore input");}
         catch(irregular_pol){label2->setText("errore input");}
     }
 }
+
 void mainGui::clearEntry(){
     for(unsigned int i=0; i<vec.size(); i++)
         vec[i]->clear();
@@ -275,11 +283,8 @@ void mainGui::clearEntry(){
     label1->clear();
     label2->clear();
 
-    inputRetta.clear();
-    inputPunto.clear();
-    inputPoligono.clear();
-
-    labelInters->clear();
+    //labelInters->clear();
+    display->clear();
 
 }
 
@@ -302,16 +307,22 @@ vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
 }
 
 void mainGui::intersezione(){
-    if(inputRetta.size() > 1){
-        if(labelInters){
-            vLay->removeWidget(labelInters);
-            delete labelInters;
+    if(inputElemento.size() > 1){
+//        if(labelInters){
+//            vLay->removeWidget(labelInters);
+//            delete labelInters;
+//        }
+        retta* r1;
+        retta* r2;
+        r1 = dynamic_cast<retta*>(inputElemento[0]);
+        r2 = dynamic_cast<retta*>(inputElemento[1]);
+        if(r1,r2){
+            punto inters = retta::Intersect(*r1,*r2);
+            labelInters = new QLabel("le rette si intersecano nel punto: ("+inters.toString()+')');
+            display->setText("le rette si intersecano nel punto: ("+inters.toString()+')');
         }
-
-        punto inters = retta::Intersect(inputRetta[0],inputRetta[1]);
-        labelInters = new QLabel("le rette si intersecano nel punto: ("+inters.toString()+')');
-        std::cout<<inters;
-        vLay->addWidget(labelInters);
+        else{display->setText("in uno dei due slot non c'e' una retta");}
+        //vLay->addWidget(labelInters);
     }
 }
 

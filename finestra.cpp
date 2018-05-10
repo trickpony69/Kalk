@@ -20,6 +20,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
+    tbL->addAction("");
     tbL->addAction(inter);
     tbL->setFloatable(false);
     tbL->setMovable(false);
