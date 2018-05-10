@@ -1,7 +1,7 @@
 #include "retta.h"
 #include "razionale.h"
-//#include <QApplication>
-//#include <finestra.h>
+#include <QApplication>
+#include <finestra.h>
 #include "eccezioni.h"
 #include "quadrato.h"
 #include "triangolo.h"
@@ -13,14 +13,14 @@ using std::cout;
 using std::endl;
 
 
-int main(){
+//int main(){
 
       //input elemento
-      inputitem* p = inputitem::iniz_input();
-      p->isFigura();
-      if(poligono* pol = dynamic_cast<poligono*>(p)){
-        cout<<pol<<" perimetro: "<<pol->perimetro();
-      }
+//      inputitem* p = inputitem::iniz_input();
+//      p->isFigura();
+//      if(poligono* pol = dynamic_cast<poligono*>(p)){
+//        cout<<pol<<" perimetro: "<<pol->perimetro();
+//      }
 
 
 //      if(poligono* pol = dynamic_cast<poligono*>(p)){
@@ -39,7 +39,7 @@ int main(){
       cout<<"triangolo: ";*/
 
 
-}
+//}
 //    punto p1(-2,3);
 //    punto p2(1,-5);
 //    retta r1(-7,3,2);
@@ -75,4 +75,10 @@ int main(){
 //}
 
 //gui grafica
-//}
+int main(int argc, char *argv[]){
+
+    QApplication app(argc, argv);
+    finestra Kalk;
+    Kalk.show();
+    return app.exec();
+}

@@ -14,6 +14,7 @@ class poligono : public inputitem{
     friend ostream& operator<<(ostream&,poligono*);
 private:
     int lati;
+protected:
     vector<punto*> pt;
 
 public:
