@@ -67,11 +67,14 @@ inputitem* inputitem::iniz_input () {
             //assegnazione standard
             poligono* p;
             bool errore = true;
-
-            try{p = poligono::pars_pol(st);}
-            catch(input_error){
+            try{ p = poligono::pars_pol(st); }
+            catch( input_error ){
                 std::cerr<<"errore inserimento input poligono"<<std::endl;
-                errore = false;
+                errore = false ;
+            }
+            catch( irregular_pol ){
+                std::cerr<<"Poligono non regolare, reinserisci : "<<std::endl;
+                errore = false ;
             }
 
             if(errore == true){
@@ -88,6 +91,7 @@ inputitem* inputitem::iniz_input () {
 
 
 //data una string ritorna se è un punto , retta o poligono
+//ha senso creare un oggetto e ritornarlo  esfruttare il polimorfisomo? altrimenti stringa
 inputitem* inputitem::pars_start(string s){
     unsigned int len = s.length();
 

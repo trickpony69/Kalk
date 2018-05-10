@@ -13,7 +13,7 @@ class den_error : public exception{};
 
 class num_error : public exception{};
 
-class irregular_pol : public exception {}
+class irregular_pol : public exception {};
 
 
 #endif // ECCEZIONI_H

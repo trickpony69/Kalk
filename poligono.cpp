@@ -49,18 +49,14 @@ razionale poligono::isRegular() const {
         }
     }
 
-    if(check == GetLati()){
+    if(check/2 == GetLati()){
         return razionale(conf);
     }
     else return razionale(0,0);
 }
 
-//------------------ OPERATOR >> - << ----------------
+//------------------ OPERATOR INPUT ----------------
 
-istream& operator>>(istream& is , poligono* p){
-    std::string punti;
-
-}
 
 ostream& operator<<(ostream& os , poligono* q){
     vector<punto*> p = q->GetPoint();
@@ -71,9 +67,14 @@ ostream& operator<<(ostream& os , poligono* q){
     return os;
 }
 
+
+
 //parser poligono
+/*-------------------------------------------------------------------*/
+
 poligono* poligono::pars_pol(string s){
 
+    //potrebbe essere evitato, ma la rende autonoma nel caso di una chiamata esplicita
     unsigned int len = s.length();
 
     for (unsigned int var = 0; var < len; ++var) {
@@ -96,6 +97,7 @@ poligono* poligono::pars_pol(string s){
         if(s[var] == '(') pa ++;
         if(s[var] == ';') pv ++;
     }
+
 
     vector<punto*> temp;
 
@@ -142,28 +144,36 @@ poligono* poligono::pars_pol(string s){
             triangolo tr(pc,temp);
             //if( tr.isRegular() != razionale(0,0) )
                 return new triangolo(tr);
-            /*else
-                throw input_error();*/
+            //else
+               // throw irregular_pol();
         }
         else if( pc == 4 )
         {
             quadrato qr(pc,temp);
+
             if( qr.isRegular() != razionale(0,0) )
                 return new quadrato(qr);
             else
-                throw input_error();
+                throw irregular_pol();
         }
         else if( pc == 5 ){
             pentagono pt(pc,temp);
+
             if( pt.isRegular() != razionale(0,0) )
                 return new pentagono(pt);
             else
-                throw input_error();
+                throw irregular_pol();
         }
 
     }
     else
         throw input_error();
+}
+
+/*------------------------------------------------------*/
+
+razionale poligono::perimetro() const {
+    return razionale(GetLati()*lato());
 }
 
 

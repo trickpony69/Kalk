@@ -11,7 +11,6 @@ class quadrato : public poligono{
 public:
     quadrato(int l,vector<punto*> p): poligono(l,p) {}
     quadrato() {}
-    razionale perimetro() const;
     razionale area() const;
     void isFigura() const {cout<<"quadrato";}
 };

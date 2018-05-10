@@ -41,7 +41,4 @@ razionale quadrato::area() const{
     return 0;
 }
 
-razionale quadrato::perimetro() const{
-    return 0;
-}
 

@@ -9,12 +9,23 @@
 
 #include <typeinfo>
 
+using std::cout;
+using std::endl;
+
+
 int main(){
+
+      //input elemento
       inputitem* p = inputitem::iniz_input();
-
-
-
       p->isFigura();
+      if(poligono* pol = dynamic_cast<poligono*>(p)){
+        cout<<pol<<" perimetro: "<<pol->perimetro();
+      }
+
+
+//      if(poligono* pol = dynamic_cast<poligono*>(p)){
+//          cout<<pol->perimetro()<<endl;
+//      }
 
       /*if(dynamic_cast<quadrato*>(p)){
           cout<<"quadrato: ";
