@@ -38,7 +38,7 @@ public:
     static retta RettaParallella(retta&,punto&);
     static punto Intersect(retta&,retta&);
     void pars_rect(string);
-    void isFigura() {cout<<"retta"; }
+    void isFigura() const {cout<<"retta"; }
 
 };
 

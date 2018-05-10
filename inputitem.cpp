@@ -6,14 +6,24 @@
 
 inputitem::~inputitem() {}
 
-istream& operator>>( istream& is ,inputitem* in ){
-    std::string st;
+/*
+istream& operator>>( istream& is , inputitem* in ){
+
+
+    in = inputitem::iniz_input();
+    //in->isFigura();
+
+    return is;
+}*/
+
+inputitem* inputitem::iniz_input () {
     bool ok = true;
+    std::string st;
 
     while(ok == true){
-        //input per prendere anche gli spazi
-        std::cout<<"daie:";
-        std::getline(is, st);
+
+        std::cout<<"dai:"<<std::endl;
+        std::getline(cin, st);
 
         if(dynamic_cast<retta*>(inputitem::pars_start(st))){
             retta ret;
@@ -25,9 +35,7 @@ istream& operator>>( istream& is ,inputitem* in ){
 
                 //costruttore di copia di default
                 cout<<ret<<std::endl;
-                in= new retta(ret);
-
-                in->isFigura();
+                return new retta(ret);
             }
             catch(...){
                 ok = true;
@@ -50,29 +58,34 @@ istream& operator>>( istream& is ,inputitem* in ){
             }
             catch(int){
                 ok = false;
-                //cout<<point<<std::endl;
-                in = new punto(point);
-                in->isFigura();
+                cout<<point<<std::endl;
+                return new punto(point);
             }
         }
         else{
             //devo inizializzare il puntatore a : quadrato , triang , penta
             //assegnazione standard
             poligono* p;
+            bool errore = true;
+
             try{p = poligono::pars_pol(st);}
             catch(input_error){
-                std::cerr<<"errore inserimento input poligono";
+                std::cerr<<"errore inserimento input poligono"<<std::endl;
+                errore = false;
             }
 
-            cout<<std::endl;
-            in = p;
+            if(errore == true){
+                cout<<std::endl;
+                return p;
 
-            in->isFigura();
-            return is;
+            }
+
+
         }
     }
-    return is;
 }
+
+
 
 //data una string ritorna se è un punto , retta o poligono
 inputitem* inputitem::pars_start(string s){

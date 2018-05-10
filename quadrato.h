@@ -13,7 +13,7 @@ public:
     quadrato() {}
     razionale perimetro() const;
     razionale area() const;
-    void isFigura() {cout<<"quadrato";}
+    void isFigura() const {cout<<"quadrato";}
 };
 
 #endif // QUADRATO_H

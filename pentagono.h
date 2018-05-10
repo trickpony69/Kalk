@@ -11,7 +11,7 @@ public:
     pentagono() {}
     razionale perimetro() const;
     razionale area() const;
-    void isFigura() {cout<<"penta";}
+    void isFigura() const {cout<<"penta";}
 };
 
 #endif // PENTAGONO_H

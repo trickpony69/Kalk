@@ -10,7 +10,7 @@ public:
     triangolo() {}
     razionale perimetro() const;
     razionale area() const;
-    void isFigura() {cout<<"triangolo";}
+    void isFigura() const {cout<<"triangolo";}
 };
 
 #endif // TRIANGOLO_H

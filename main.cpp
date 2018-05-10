@@ -9,18 +9,12 @@
 
 #include <typeinfo>
 
-
-
-
-
 int main(){
-      inputitem* p ;
+      inputitem* p = inputitem::iniz_input();
 
-      cin>>p;
 
-      //p->isFigura();
 
-      //p->isFigura();
+      p->isFigura();
 
       /*if(dynamic_cast<quadrato*>(p)){
           cout<<"quadrato: ";
