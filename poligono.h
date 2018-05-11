@@ -27,6 +27,7 @@ public:
     razionale isRegular() const;
     static poligono* pars_pol(string);
     virtual double getFisso() const =0;
+    vector<punto*> printPoligon(razionale&,razionale&) const;
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 
