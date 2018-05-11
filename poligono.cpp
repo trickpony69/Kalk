@@ -178,9 +178,26 @@ razionale poligono::perimetro() const {
 
 razionale poligono::area() const {
     razionale apotema = GetLati() * razionale(getFisso());
-    cout<<apotema;
     return ((perimetro()*apotema)/2);
 }
+
+vector<punto*> poligono::printPoligon(razionale& min, razionale& max) const{
+    vector<punto*> temp;
+
+    return temp;
+
+    //trovo i lati , e calcolo la retta passante per 2 punti consecutivi
+
+    for(vector<punto*>::const_iterator first = pt.begin() ; first != pt.end() ; ++first ){
+        for( vector<punto*>::const_iterator second = ++first ; second < pt.end () ; ++second ){
+            if( punto::distanceTwoPoints(**first,**second) == lato() ){
+                cout<<*first<< " " << *second ;
+
+            }
+        }
+    }
+}
+
 
 
 
