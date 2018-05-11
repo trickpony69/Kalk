@@ -49,6 +49,7 @@ private:
     QLabel* label0;
     QLabel* label1;
     QLabel* label2;
+    QVector<QLabel*> vectorLabel;
     QVector<inputitem*> inputElemento;
     QLineEdit* display;
     void clearInput();
