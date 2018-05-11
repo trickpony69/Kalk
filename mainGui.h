@@ -25,12 +25,13 @@
 #include "retta.h"
 #include <iostream>
 #include "inputitem.h"
-
+#include "myqline.h"
 
 class mainGui: public QWidget{
     friend class finestra;
     Q_OBJECT
 private:
+    QWidget* parent;
     QHBoxLayout* griglia;
     QHBoxLayout* hLay;
     QHBoxLayout* funEGrafico;
@@ -45,7 +46,6 @@ private:
     QHBoxLayout* layoutDisplay;
     QListWidget* savedResultWindow;
     QVector<QLineEdit*> vec;
-    QLabel* errorLabel;
     QVector<QString*> returnInput;
     grafico* graficoElementi;
     QVector<QLabel*> vectorLabel;
@@ -55,7 +55,7 @@ private:
     void loadSettings();
     void loadColor(QString,int);
 public:
-    mainGui(const QString& ="aggiungi funzione", QWidget* =0);//miaclasse(const QString& ="+",QWidget* = 0);
+    mainGui(QWidget* =0);
     virtual ~mainGui(){}
     // i due razionali passati per riferimento sono rideriti al range di stampa delle coordinate
     static vector<punto> print_rect(retta&,razionale&,razionale&);

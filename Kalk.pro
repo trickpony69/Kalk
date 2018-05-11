@@ -25,7 +25,8 @@ HEADERS +=  finestra.h \
             inputitem.h \
     rettangolo.h \
     triangolo.h \
-    pentagono.h
+    pentagono.h \
+    myqline.h
 SOURCES +=  finestra.cpp \
             grafico.cpp \
             main.cpp \
@@ -40,7 +41,8 @@ SOURCES +=  finestra.cpp \
             inputitem.cpp \
     rettangolo.cpp \
     triangolo.cpp \
-    pentagono.cpp
+    pentagono.cpp \
+    myqline.cpp
 
 RESOURCES += \
     icons.qrc

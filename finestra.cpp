@@ -1,12 +1,12 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui){
+finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui(this)){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
     //auto spaziatore2 = new QWidget(this);
-//    spaziatore1->setFixedHeight(30);
+    //spaziatore1->setFixedHeight(30);
     //spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     //spaziatore2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QToolBar* tb = new QToolBar();
@@ -15,12 +15,14 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     //tb->addWidget(spaziatore2)
     QAction* opzioni = new QAction("opzioni",this);
     QAction* inter = new QAction("intersezione",this);
+    QAction* spaziatoreTab = new QAction("",this);
+    spaziatoreTab->setDisabled(true);
     inter->setIcon(QIcon(":/icon/intersect.png"));
     tb->addAction("aiuto");
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
-    tbL->addAction("");
+    tbL->addAction(spaziatoreTab);
     tbL->addAction(inter);
     tbL->setFloatable(false);
     tbL->setMovable(false);
