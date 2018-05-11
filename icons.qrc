@@ -5,5 +5,8 @@
         <file>icon/delete.png</file>
         <file>icon/reset.png</file>
         <file>icon/intersect.png</file>
+        <file>icon/draw.png</file>
+        <file>icon/save.png</file>
+        <file>icon/pasted.png</file>
     </qresource>
 </RCC>

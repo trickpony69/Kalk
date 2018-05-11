@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("disegna")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("        disegna")), cancel(new QPushButton("resetta input")),save(new QPushButton()),showSavedResult(new QPushButton(this)),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
     remove->setDisabled(true);
     cancel->setDisabled(true);
     QSize iconSize(35,35);
@@ -10,12 +10,21 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     remove->setIcon(QPixmap(":icon/delete.png"));
     remove->setIconSize(iconSize);
     remove->setFixedSize(175,55);
-    enter->setIcon(QPixmap(":icon/apply.png"));
+    enter->setIcon(QPixmap(":icon/draw.png"));
     enter->setIconSize(iconSize);
     enter->setFixedSize(175,55);
     cancel->setIcon(QPixmap(":icon/reset.png"));
     cancel->setIconSize(iconSize);
     cancel->setFixedSize(175,55);
+    save->setFixedSize(45,45);
+    save->setIcon(QPixmap(":icon/save.png"));
+    save->setIconSize(iconSize);
+    save->setToolTip("salva il risultato");
+    showSavedResult->setFixedSize(45,45);
+    showSavedResult->setIcon(QPixmap(":icon/pasted.png"));
+    showSavedResult->setIconSize(iconSize);
+    showSavedResult->setToolTip("mostra/nascondi i risultati");
+    savedResultWindow->setDragEnabled(true);
     QFont font("Arial", 25);
     for(unsigned int i=0; i<3; i++){
         vectorLabel.push_back(new QLabel());
@@ -27,28 +36,37 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     hLay->addWidget(remove);
     hLay->addWidget(enter);
     hLay->addWidget(cancel);
-    QFrame* myFrame = new QFrame();
-    myFrame->setFrameShape(QFrame::HLine);
-    //vLay->addWidget(myFrame);
+    QFrame* myFrame0 = new QFrame();
+    myFrame0->setFrameShape(QFrame::HLine);
+    QFrame* myFrame1 = new QFrame();
+    myFrame1->setFrameShape(QFrame::HLine);
+    QVBoxLayout* separatorLayoutUp = new QVBoxLayout();
+    QVBoxLayout* separatorLayoutDown = new QVBoxLayout();
+    separatorLayoutUp->addWidget(myFrame0);
+    separatorLayoutDown->addWidget(myFrame1);
     QLineEdit* qle = new QLineEdit();
     qle->setPlaceholderText("inserisci la funzione");
+    qle->setAcceptDrops(true);
     vec.push_back(qle);
     display = new QLineEdit();
     display->setDisabled(true);
     display->setPlaceholderText("seleziona una funzione nella barra laterale");
-    display->setFixedSize(280,50);
+    display->setFixedSize(350,40);
     display->setStyleSheet("color: white;"
                            "background-color: RGB(53, 50, 47);"
-                           "border-radius: 20px;");
-    QHBoxLayout* layoutDisplay = new QHBoxLayout();
+                           "border-radius: 10px;");
+    layoutDisplay = new QHBoxLayout();
     layoutDisplay->addWidget(display);
+    layoutDisplay->addWidget(save);
+    layoutDisplay->addWidget(showSavedResult);
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
-    labelInters = new QLabel();
-    funzionalita = new QHBoxLayout();
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
+    QListWidget *datiSalvati = new QListWidget();
+    datiSalvati->setDragEnabled(true);
+    datiSalvati->setDropIndicatorShown(true);
     //---------------GRAFICO----------------
 
             funEGrafico->addWidget(graficoElementi);
@@ -59,10 +77,15 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
+    QObject::connect(save, SIGNAL(clicked(bool)), this, SLOT(saveResult()));
+    QObject::connect(showSavedResult, SIGNAL(clicked(bool)), this, SLOT(showResult()));
     mainLayout->addLayout(layoutDisplay);
+    mainLayout->addLayout(separatorLayoutUp);
     mainLayout->addLayout(griglia);
-    mainLayout->addLayout(vLay);
+    mainLayout->addLayout(separatorLayoutDown);
     mainLayout->addLayout(hLay);
+    mainLayout->addWidget(savedResultWindow);
+    savedResultWindow->hide();
     setLayout(mainLayout);
 }
 
@@ -109,7 +132,6 @@ void mainGui::remove_qle(){
         if(graficoElementi->graph(vec.size()-1))
             graficoElementi->graph(vec.size()-1)->data()->clear();
         graficoElementi->replot();
-        //da eliminare anche la label corrispondente
         delete vec[vec.size()-1];
         vec.remove((vec.size())-1);
     }
@@ -171,7 +193,7 @@ void mainGui::returnedInput(){
                  else if(k==2)
                     loadColor("terzoSlot",k);
 
-                 graficoElementi->graph(k)->setData(x, y);
+                 graficoElementi->graph(k)->setData(x,y);
                  graficoElementi->replot();
                  vectorLabel[k]->setText(*returnInput[k]);
                  inputElemento.push_back(pol);
@@ -215,21 +237,16 @@ void mainGui::clearEntry(){
 
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
-//        if(labelInters){
-//            vLay->removeWidget(labelInters);
-//            delete labelInters;
-//        }
+
         retta* r1;
         retta* r2;
         r1 = dynamic_cast<retta*>(inputElemento[0]);
         r2 = dynamic_cast<retta*>(inputElemento[1]);
         if(r1,r2){
             punto inters = retta::Intersect(*r1,*r2);
-            labelInters = new QLabel("le rette si intersecano nel punto: ("+inters.toString()+')');
             display->setText("le rette si intersecano nel punto: ("+inters.toString()+')');
         }
         else{display->setText("in uno dei due slot non c'e' una retta");}
-        //vLay->addWidget(labelInters);
     }
 }
 
@@ -245,6 +262,17 @@ void mainGui::loadColor(QString slot,int index){
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
     settings.endGroup();
     qDebug("colori caricati");
-
 }
 
+void mainGui::saveResult(){
+    QListWidgetItem* itemList =new QListWidgetItem("prova");
+
+    savedResultWindow->insertItem(0,itemList);
+}
+
+void mainGui::showResult(){
+    if(savedResultWindow->isHidden())
+        savedResultWindow->show();
+    else savedResultWindow->hide();
+
+}

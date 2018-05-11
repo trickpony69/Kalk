@@ -26,13 +26,12 @@
 #include <iostream>
 #include "inputitem.h"
 
+
 class mainGui: public QWidget{
     friend class finestra;
     Q_OBJECT
 private:
     QHBoxLayout* griglia;
-    QHBoxLayout* funzionalita;
-    QVBoxLayout* vLay;
     QHBoxLayout* hLay;
     QHBoxLayout* funEGrafico;
     QVBoxLayout* hFunLay;
@@ -41,14 +40,14 @@ private:
     QPushButton* remove;
     QPushButton* enter;
     QPushButton* cancel;
+    QPushButton* save;
+    QPushButton* showSavedResult;
+    QHBoxLayout* layoutDisplay;
+    QListWidget* savedResultWindow;
     QVector<QLineEdit*> vec;
     QLabel* errorLabel;
-    QLabel* labelInters ;
     QVector<QString*> returnInput;
     grafico* graficoElementi;
-    QLabel* label0;
-    QLabel* label1;
-    QLabel* label2;
     QVector<QLabel*> vectorLabel;
     QVector<inputitem*> inputElemento;
     QLineEdit* display;
@@ -67,6 +66,8 @@ public slots: //private o public slots ?
     void returnedInput();
     void clearEntry();
     void intersezione();
+    void saveResult();
+    void showResult();
 };
 
 #endif // MIACLASSE_H
