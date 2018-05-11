@@ -16,17 +16,17 @@ private:
     int lati;
 protected:
     vector<punto*> pt;
-
 public:
     poligono(int, vector<punto*>);
     poligono() {}
     int GetLati() const;
     vector<punto*> GetPoint() const;
-    virtual razionale area() const = 0; //virtuale pura
+    razionale area() const; //virtuale pura
     virtual razionale perimetro() const ; //virtuale pura
     double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
     static poligono* pars_pol(string);
+    virtual double getFisso() const =0;
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 

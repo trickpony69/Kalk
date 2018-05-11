@@ -1,7 +1,9 @@
 #include "pentagono.h"
 
-razionale pentagono::area() const{
-    return 0;
+double pentagono::numeroFisso = 0.688 ;
+
+double pentagono::getFisso() const{
+    return numeroFisso;
 }
 
 

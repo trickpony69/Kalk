@@ -1,11 +1,12 @@
 #include "retta.h"
 #include "razionale.h"
-#include <QApplication>
-#include <finestra.h>
+//#include <QApplication>
+//#include <finestra.h>
 #include "eccezioni.h"
 #include "quadrato.h"
 #include "triangolo.h"
 #include "pentagono.h"
+#include "inputitem.h"
 
 #include <typeinfo>
 
@@ -13,14 +14,27 @@ using std::cout;
 using std::endl;
 
 
-//int main(){
+int main(){
 
       //input elemento
-//      inputitem* p = inputitem::iniz_input();
-//      p->isFigura();
-//      if(poligono* pol = dynamic_cast<poligono*>(p)){
-//        cout<<pol<<" perimetro: "<<pol->perimetro();
-//      }
+
+      string st;
+      std::cout<<"dai:"<<std::endl;
+      std::getline(cin, st);
+
+      inputitem* p = inputitem::iniz_input(st);
+
+      p->isFigura();
+
+      if(poligono* pol = dynamic_cast<poligono*>(p)){
+        cout<<pol<<endl;
+        cout<<" perimetro: "<<pol->perimetro()<<endl;
+        cout<<"area: "<<pol->area();
+      }
+
+
+}
+
 
 
 //      if(poligono* pol = dynamic_cast<poligono*>(p)){
@@ -75,10 +89,10 @@ using std::endl;
 //}
 
 //gui grafica
-int main(int argc, char *argv[]){
+//int main(int argc, char *argv[]){
 
-    QApplication app(argc, argv);
-    finestra Kalk;
-    Kalk.show();
-    return app.exec();
-}
+//    QApplication app(argc, argv);
+//    finestra Kalk;
+//    Kalk.show();
+//    return app.exec();
+//}

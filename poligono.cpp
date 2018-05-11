@@ -176,6 +176,12 @@ razionale poligono::perimetro() const {
     return razionale(GetLati()*lato());
 }
 
+razionale poligono::area() const {
+    razionale apotema = GetLati() * razionale(getFisso());
+    cout<<apotema;
+    return ((perimetro()*apotema)/2);
+}
+
 
 
 

@@ -6,23 +6,13 @@
 
 inputitem::~inputitem() {}
 
-/*
-istream& operator>>( istream& is , inputitem* in ){
-
-
-    in = inputitem::iniz_input();
-    //in->isFigura();
-
-    return is;
-}*/
-
 inputitem* inputitem::iniz_input (string st) {
-    //bool ok = true;
-    //std::string st;
+  /*  bool ok = true;
+    std::string st;
 
-    //while(ok == true){
+    while(ok == true){
 
-        /*std::cout<<"dai:"<<std::endl;
+        std::cout<<"dai:"<<std::endl;
         std::getline(cin, st);*/
 
         if(dynamic_cast<retta*>(inputitem::pars_start(st))){
@@ -30,39 +20,31 @@ inputitem* inputitem::iniz_input (string st) {
             cout<<"retta ";
             try{ret.pars_rect(st);}
             catch(int){
-                //inserito con successo
                 //ok = false;
-
-                //costruttore di copia di default
                 cout<<ret<<std::endl;
                 return new retta(ret);
             }
             catch(...){
-//                ok = true;
-                std::cout<<"input errato, reinserisci : "<<std::endl;
-                throw input_error();
+                //ok = true;
+                //rilancio l'eccezione al chiamante
+                throw;
             }
         }
         else if(dynamic_cast<punto*>(inputitem::pars_start(st)))
         {
-            cout<<"punto ";
             punto point;
             try{point.pars_point(st);}
             catch(input_error){
-                std::cerr<<"errore inserimento input punto";
-                throw input_error();
+                throw;
             }
             catch(num_error){
-                throw input_error();
-                std::cerr<<"errore numeratore";
+                throw;
             }
             catch(den_error){
-                throw input_error();
-                std::cerr<<"errore denominatore";
+                throw;
             }
             catch(int){
                // ok = false;
-                cout<<point<<std::endl;
                 return new punto(point);
             }
         }
@@ -73,18 +55,15 @@ inputitem* inputitem::iniz_input (string st) {
             bool errore = true;
             try{ p = poligono::pars_pol(st); }
             catch( input_error ){
-                throw input_error();
-                std::cerr<<"errore inserimento input poligono"<<std::endl;
+                throw;
                 errore = false ;
             }
             catch( irregular_pol ){
-                throw input_error();
-                std::cerr<<"Poligono non regolare, reinserisci : "<<std::endl;
+                throw;
                 errore = false ;
             }
 
             if(errore == true){
-                cout<<std::endl;
                 return p;
             }
 

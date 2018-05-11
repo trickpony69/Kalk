@@ -7,10 +7,13 @@
 #include <vector>
 
 class quadrato : public poligono{
-    friend istream& operator>>(istream&,quadrato&);
+
+private:
+    static double numeroFisso;
 public:
     quadrato(int l,vector<punto*> p): poligono(l,p) {}
     quadrato() {}
+    double getFisso() const;
     razionale area() const;
     void isFigura() const {cout<<"quadrato";}
 };

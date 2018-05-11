@@ -5,11 +5,13 @@
 
 class triangolo : public poligono
 {
+private:
+    static double numeroFisso;
 public:
     triangolo(int l,vector<punto*> p): poligono(l,p) {}
     triangolo() {}
     razionale perimetro() const;
-    razionale area() const;
+    double getFisso() const;
     void isFigura() const {cout<<"triangolo";}
 };
 

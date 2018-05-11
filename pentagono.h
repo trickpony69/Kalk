@@ -6,10 +6,12 @@
 
 class pentagono : public poligono
 {
+private:
+    static double numeroFisso;
 public:
     pentagono(int l,vector<punto*> p): poligono(l,p) {}
     pentagono() {}
-    razionale area() const;
+    double getFisso() const;
     void isFigura() const {cout<<"penta";}
 };
 
