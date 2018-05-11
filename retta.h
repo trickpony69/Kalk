@@ -39,6 +39,7 @@ public:
     static punto Intersect(retta&,retta&);
     void pars_rect(string);
     void isFigura() const {cout<<"retta"; }
+    vector<punto> print_rect(razionale&,razionale&);
 
 };
 

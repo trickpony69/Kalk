@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("   calcola")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
+mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton(qs)), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("disegna")), cancel(new QPushButton("resetta input")), vLay(new QVBoxLayout()), hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout(this)),errorLabel(new QLabel("mi dispiace ma non puoi aggiungere più di 3 funzioni :(, daje accontentati")), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
     remove->setDisabled(true);
     cancel->setDisabled(true);
     QSize iconSize(35,35);
@@ -40,7 +40,8 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     display->setStyleSheet("color: white;"
                            "background-color: RGB(53, 50, 47);"
                            "border-radius: 20px;");
-    vLay->addWidget(display);
+    QHBoxLayout* layoutDisplay = new QHBoxLayout();
+    layoutDisplay->addWidget(display);
     hFunLay->addWidget(qle);
     qle->setFixedSize(300,60);
     qle->setFont(font);
@@ -58,9 +59,10 @@ mainGui::mainGui(const QString& qs, QWidget* p): QWidget(p), griglia(new QHBoxLa
     QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
-    mainLayout->addLayout(hLay);
+    mainLayout->addLayout(layoutDisplay);
     mainLayout->addLayout(griglia);
     mainLayout->addLayout(vLay);
+    mainLayout->addLayout(hLay);
     setLayout(mainLayout);
 }
 
@@ -155,7 +157,7 @@ void mainGui::returnedInput(){
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnInput[k]->toStdString());
              if(retta* pol = dynamic_cast<retta*>(inp)){
-                 vector<punto> vCoord0 = print_rect(*pol,min,max);
+                 vector<punto> vCoord0 = pol->print_rect(min,max);
                  QVector<double> x(60), y(60);
                  for (unsigned int i=0; i<vCoord0.size(); i++){
                      x[i] = vCoord0[i].getX();
@@ -209,24 +211,6 @@ void mainGui::clearEntry(){
 
     display->clear();
 
-}
-
-//per ora distanza standard tra i punti : 1 cm (modificabile ??)
-vector<punto> mainGui::print_rect(retta& r , razionale& min , razionale& max){
-    vector<punto> pt;
-    razionale start = min;
-    if(r.GetB() == 0){
-        for(; start < max ; start = start + razionale(1,1)){
-            punto p(razionale(-1,1)*razionale(r.GetC(),r.GetA()),start);
-            pt.push_back(p);
-        }
-    }
-    else{
-        for(; start < max ; start = start + razionale(1,1)){
-            pt.push_back(r.printCoord_x(start));
-        }
-    }
-    return pt;
 }
 
 void mainGui::intersezione(){
