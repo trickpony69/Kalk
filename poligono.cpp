@@ -181,19 +181,20 @@ razionale poligono::area() const {
     return ((perimetro()*apotema)/2);
 }
 
-vector<punto> poligono::printPoligon() const{
-    vector<punto> temp;
+vector<retta> poligono::printPoligon() const{
+    vector<retta> temp;
     //trovo i lati , e calcolo la retta passante per 2 punti consecutivi
 
     for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
         for( unsigned int j = i + 1  ; j < pt.size() ; ++j ){
             if( punto::distanceTwoPoints(*pt[i],*pt[j]) == lato() ){
                 retta r = retta::rettaFromTwoPoints(*pt[i],*pt[j]);
-                vector<punto> single = r.print_rect(pt[i]->getX(),pt[j]->getX());
-                temp.vector::insert(temp.end(), single.begin(), single.end());
+                cout<<r;
+                temp.push_back(r);
             }
         }
     }
+
     return temp;
 }
 

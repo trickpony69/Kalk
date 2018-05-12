@@ -220,30 +220,40 @@ void mainGui::returnedInput(){
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-                 vector<punto> vCoord0 = pol->printPoligon();
-                 for(int k = 0 ; k  < vCoord0.size() ; ++k){
-                     qDebug("ok");
+                 vector<retta> vCoord0 = pol->printPoligon();
+
+                 //stampo i lati
+                 unsigned int fig = 0;
+                 for( ; fig < vCoord0.size() ; fig ++ ){
+                     vector<punto> coord_ret = vCoord0[fig].print_rect(min,max);
+                     QVector<double> x(60), y(60);
+                     for (unsigned int i=0; i<coord_ret.size(); i++){
+                         x[i] = coord_ret[i].getX();
+                         y[i] = coord_ret[i].getY();
+                     }
+
+                     graficoElementi->addGraph();
+                     graficoElementi->graph(fig)->setData(x,y);
+                     graficoElementi->replot();
                  }
-                 qDebug("ok");
-                 QVector<double> x(60), y(60);
-                 for (unsigned int i=0; i<vCoord0.size(); i++){
-                     x[i] = vCoord0[i].getX();
-                     y[i] = vCoord0[i].getY();
-                 }
 
-                 if(k==0)
-                    loadColor("primoSlot",k);
-                 else if(k==1)
-                    loadColor("secondoSlot",k);
-                 else if(k==2)
-                    loadColor("terzoSlot",k);
+                 //stampo i punti
+                 for(unsigned int p = fig ; p < pol->GetPoint().size()+fig ; p ++ ){
 
-                 graficoElementi->graph(k)->setData(x,y);
-                 graficoElementi->replot();
-                 vectorLabel[k]->setText(*returnInput[k]);
-                 inputElemento.push_back(pol);
+                     QVector<double> x, y;
 
-             }
+                     vector<punto*> pun =  pol->GetPoint();
+
+                     x.append(pun[p - fig]->xToDouble());
+                     y.append(pun[p - fig]->yToDouble());
+
+                     graficoElementi->addGraph();
+                     graficoElementi->graph(p)->setData(x,y);
+                     graficoElementi->graph(p)->setLineStyle(QCPGraph::lsNone);
+                     graficoElementi->graph(p)->setScatterStyle(QCPScatterStyle::ssDisc);
+                }
+            }
+
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore input");}
