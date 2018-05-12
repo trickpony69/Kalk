@@ -219,6 +219,31 @@ void mainGui::returnedInput(){
                  vectorLabel[k]->setText(*returnInput[k]);
                  inputElemento.push_back(pun);
              }
+             else if(poligono* pol = dynamic_cast<poligono*>(inp)){
+                 vector<punto> vCoord0 = pol->printPoligon();
+                 for(int k = 0 ; k  < vCoord0.size() ; ++k){
+                     qDebug("ok");
+                 }
+                 qDebug("ok");
+                 QVector<double> x(60), y(60);
+                 for (unsigned int i=0; i<vCoord0.size(); i++){
+                     x[i] = vCoord0[i].getX();
+                     y[i] = vCoord0[i].getY();
+                 }
+
+                 if(k==0)
+                    loadColor("primoSlot",k);
+                 else if(k==1)
+                    loadColor("secondoSlot",k);
+                 else if(k==2)
+                    loadColor("terzoSlot",k);
+
+                 graficoElementi->graph(k)->setData(x,y);
+                 graficoElementi->replot();
+                 vectorLabel[k]->setText(*returnInput[k]);
+                 inputElemento.push_back(pol);
+
+             }
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore input");}

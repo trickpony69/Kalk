@@ -292,7 +292,7 @@ void retta::pars_rect(string rect)
 }
 
 //per ora distanza standard tra i punti : 1 cm (modificabile ??)
-vector<punto> retta::print_rect(razionale& min , razionale& max){
+vector<punto> retta::print_rect(razionale min , razionale max){
     vector<punto> pt;
     razionale start = min;
     if(GetB() == 0){
