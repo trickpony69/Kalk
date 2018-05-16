@@ -219,7 +219,34 @@ void mainGui::returnedInput(){
                  vectorLabel[k]->setText(*returnInput[k]);
                  inputElemento.push_back(pun);
              }
-             else if(poligono* pol = dynamic_cast<poligono*>(inp)){
+             else if(poligono* pol = dynamic_cast<poligono*>(inp))
+             {
+                  vector<punto*> vCoord0 = pol->GetPoint();
+
+                  QVector<double> x(60), y(60);
+
+                  for (unsigned int i=0; i<vCoord0.size(); i++)
+                  {
+                      x[i] = (vCoord0[i])->getX();
+                      y[i] = (vCoord0[i])->getY();
+                  }
+
+
+
+                  if(k==0)
+                     loadColor("primoSlot",k);
+                  else if(k==1)
+                     loadColor("secondoSlot",k);
+                  else if(k==2)
+                     loadColor("terzoSlot",k);
+
+                  graficoElementi->graph(k)->setData(x,y);
+                  graficoElementi->replot();
+                  vectorLabel[k]->setText(*returnInput[k]);
+                  inputElemento.push_back(pol);
+
+              }
+             /*else if(poligono* pol = dynamic_cast<poligono*>(inp)){
                  vector<retta> vCoord0 = pol->printPoligon();
 
                  //stampo i lati
@@ -252,7 +279,7 @@ void mainGui::returnedInput(){
                      graficoElementi->graph(p)->setLineStyle(QCPGraph::lsNone);
                      graficoElementi->graph(p)->setScatterStyle(QCPScatterStyle::ssDisc);
                 }
-            }
+            }*/
 
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}

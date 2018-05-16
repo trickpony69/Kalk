@@ -12,7 +12,7 @@ public:
     triangolo() {}
     razionale perimetro() const;
     double getFisso() const;
-    vector<retta> printPoligon() const;
+    //vector<retta> printPoligon() const;
     void isFigura() const {cout<<"triangolo";}
 };
 
