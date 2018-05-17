@@ -219,77 +219,40 @@ void mainGui::returnedInput(){
                  vectorLabel[k]->setText(*returnInput[k]);
                  inputElemento.push_back(pun);
              }
-             else if(poligono* pol = dynamic_cast<poligono*>(inp))
-             {
-                  vector<punto*> vCoord0 = pol->GetPoint();
+             else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 
-                  QVector<double> x, y;
-                  QVector<QPoint> punti;
+                     if(k==0)
+                        loadColor("primoSlot",k);
+                     else if(k==1)
+                        loadColor("secondoSlot",k);
+                     else if(k==2)
+                        loadColor("terzoSlot",k);
 
-                  for(unsigned int i=0; i<vCoord0.size(); i++)
-                  {
-                      x.push_back(vCoord0[i]->getX());
-                      y.push_back(vCoord0[i]->getY());
+                     vector<punto*> vCoord0 = pol->GetPoint();
+                     QVector<QCPItemLine*> segmenti;
 
-                      punti.push_back(QPoint(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                  }
-//                  x.push_back(-4);
-//                  x.push_back(0);
+                     for(unsigned int i=0; i<vCoord0.size(); i++)
+                        segmenti.push_back(new QCPItemLine(graficoElementi));
 
-//                  y.push_back(4);
-//                  y.push_back(0);
+                    segmenti[0]->start->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+                    segmenti[0]->end->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
+                    segmenti[1]->start->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
+                    segmenti[1]->end->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
+                    segmenti[2]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
+                    segmenti[2]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+//                    if(vCoord0.size()>=3){
+//                        segmenti[3]->start->setCoords(QPointF(vCoord0[3]->getX(),vCoord0[3]->getY()));
+//                        segmenti[3]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+//                    }
 
+                    for(unsigned int i=0; i<segmenti.size(); i++)
+                        segmenti[i]->setPen(QPen(Qt::blue));
 
+                      graficoElementi->replot();
 
-                  if(k==0)
-                     loadColor("primoSlot",k);
-                  else if(k==1)
-                     loadColor("secondoSlot",k);
-                  else if(k==2)
-                     loadColor("terzoSlot",k);
-
-                  graficoElementi->graph(k)->setData(x,y);
-                  //graficoElementi->graph(k)->drawLinePlot(,punti);
-                  graficoElementi->replot();
-
-                  vectorLabel[k]->setText(*returnInput[k]);
-                  inputElemento.push_back(pol);
-
+                      vectorLabel[k]->setText(*returnInput[k]);
+                      inputElemento.push_back(pol);
               }
-             /*else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-                 vector<retta> vCoord0 = pol->printPoligon();
-
-                 //stampo i lati
-                 unsigned int fig = 0;
-                 for( ; fig < vCoord0.size() ; fig ++ ){
-                     vector<punto> coord_ret = vCoord0[fig].print_rect(min,max);
-                     QVector<double> x(60), y(60);
-                     for (unsigned int i=0; i<coord_ret.size(); i++){
-                         x[i] = coord_ret[i].getX();
-                         y[i] = coord_ret[i].getY();
-                     }
-
-                     graficoElementi->addGraph();
-                     graficoElementi->graph(fig)->setData(x,y);
-                     graficoElementi->replot();
-                 }
-
-                 //stampo i punti
-                 for(unsigned int p = fig ; p < pol->GetPoint().size()+fig ; p ++ ){
-
-                     QVector<double> x, y;
-
-                     vector<punto*> pun =  pol->GetPoint();
-
-                     x.append(pun[p - fig]->xToDouble());
-                     y.append(pun[p - fig]->yToDouble());
-
-                     graficoElementi->addGraph();
-                     graficoElementi->graph(p)->setData(x,y);
-                     graficoElementi->graph(p)->setLineStyle(QCPGraph::lsNone);
-                     graficoElementi->graph(p)->setScatterStyle(QCPScatterStyle::ssDisc);
-                }
-            }*/
 
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}
