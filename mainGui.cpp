@@ -223,13 +223,21 @@ void mainGui::returnedInput(){
              {
                   vector<punto*> vCoord0 = pol->GetPoint();
 
-                  QVector<double> x(60), y(60);
+                  QVector<double> x, y;
+                  QVector<QPoint> punti;
 
-                  for (unsigned int i=0; i<vCoord0.size(); i++)
+                  for(unsigned int i=0; i<vCoord0.size(); i++)
                   {
-                      x[i] = (vCoord0[i])->getX();
-                      y[i] = (vCoord0[i])->getY();
+                      x.push_back(vCoord0[i]->getX());
+                      y.push_back(vCoord0[i]->getY());
+
+                      punti.push_back(QPoint(vCoord0[i]->getX(),vCoord0[i]->getY()));
                   }
+//                  x.push_back(-4);
+//                  x.push_back(0);
+
+//                  y.push_back(4);
+//                  y.push_back(0);
 
 
 
@@ -240,8 +248,10 @@ void mainGui::returnedInput(){
                   else if(k==2)
                      loadColor("terzoSlot",k);
 
-                  graficoElementi->graph(k)->setData(x,y);
+                  //graficoElementi->graph(k)->setData(x,y);
+                  graficoElementi->graph(k)->drawLinePlot(,punti);
                   graficoElementi->replot();
+
                   vectorLabel[k]->setText(*returnInput[k]);
                   inputElemento.push_back(pol);
 
@@ -283,7 +293,7 @@ void mainGui::returnedInput(){
 
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}
-        catch(irregular_pol){vectorLabel[k]->setText("errore input");}
+        catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
      }
 }
 

@@ -23,3 +23,5 @@ razionale triangolo::perimetro() const{
     return rette_lati;
 }*/
 
+
+
