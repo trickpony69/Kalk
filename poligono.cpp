@@ -41,8 +41,8 @@ razionale poligono::isRegular() const {
 
     double conf = lato();
     int check = 0 ;
-    for(unsigned int i = 0 ; i < pt.size() ; ++i ){
-        for(unsigned int j = 0 ; j < pt.size() ; ++j ){
+    for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
+        for(unsigned int j = i ; j < pt.size() ; ++j ){
             if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
                 check++;
             }
@@ -80,7 +80,8 @@ poligono* poligono::pars_pol(string s){
     for (unsigned int var = 0; var < len; ++var) {
         if(s[var] == ' '){
             s.erase(s.begin()+var);
-            var--;
+            --var;
+            len--;
         }
     }
     //tolto gli spazi
@@ -172,13 +173,13 @@ poligono* poligono::pars_pol(string s){
 
 /*------------------------------------------------------*/
 
-razionale poligono::perimetro() const {
-    return razionale(GetLati()*lato());
+double poligono::perimetro() const {
+    return GetLati()*lato();
 }
 
-razionale poligono::area() const {
-    razionale apotema = GetLati() * razionale(getFisso());
-    return ((perimetro()*apotema)/2);
+double poligono::area() const {
+    double apotema = GetLati() * getFisso();
+    return (perimetro()*apotema)/2;
 }
 
 vector<punto> poligono::printPoligon() const{

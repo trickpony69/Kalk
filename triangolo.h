@@ -10,10 +10,12 @@ private:
 public:
     triangolo(int l,vector<punto*> p): poligono(l,p) {}
     triangolo() {}
-    razionale perimetro() const;
+    double perimetro() const;
     double getFisso() const;
+    double area() const;
     //vector<retta> printPoligon() const;
     void isFigura() const {cout<<"triangolo";}
+    double lato() const;
 };
 
 #endif // TRIANGOLO_H

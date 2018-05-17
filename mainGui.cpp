@@ -248,8 +248,8 @@ void mainGui::returnedInput(){
                   else if(k==2)
                      loadColor("terzoSlot",k);
 
-                  //graficoElementi->graph(k)->setData(x,y);
-                  graficoElementi->graph(k)->drawLinePlot(,punti);
+                  graficoElementi->graph(k)->setData(x,y);
+                  //graficoElementi->graph(k)->drawLinePlot(,punti);
                   graficoElementi->replot();
 
                   vectorLabel[k]->setText(*returnInput[k]);

@@ -14,7 +14,7 @@ public:
     quadrato(int l,vector<punto*> p): poligono(l,p) {}
     quadrato() {}
     double getFisso() const;
-    razionale area() const;
+    double area() const;
     void isFigura() const {cout<<"quadrato";}
 };
 

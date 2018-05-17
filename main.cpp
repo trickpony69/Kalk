@@ -27,8 +27,10 @@ using std::endl;
 
 //      if(poligono* pol = dynamic_cast<poligono*>(p)){
 //        cout<<pol<<endl;
-//        cout<<" perimetro: "<<pol->perimetro()<<endl;
-//        cout<<"area: "<<pol->area();
+//        if( pol->lato() != 0 ) cout<<"lato : "<<pol->lato()<<endl;
+//        else cout<<"triangolo non regolare";
+//        cout<<"perimetro: "<<pol->perimetro()<<endl;
+//        cout<<"area: "<<pol->area()<<endl;
 //      }
 
 

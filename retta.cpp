@@ -11,7 +11,7 @@ razionale retta::GetB() const { return b; }
 
 razionale retta::GetC() const { return c; }
 
-double retta::distancePuntoRetta(punto& p, retta& r){
+double retta::distancePuntoRetta(const punto& p, const retta& r){
     return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
@@ -185,6 +185,7 @@ void retta::pars_rect(string rect)
         if(rect[var] == ' '){
             rect.erase(rect.begin()+var);
             var--;
+            len--;
         }
         if(rect[var] == '=') trovato = true;
     }

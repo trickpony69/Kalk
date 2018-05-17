@@ -21,9 +21,9 @@ public:
     poligono() {}
     int GetLati() const;
     vector<punto*> GetPoint() const;
-    razionale area() const; //virtuale pura
-    virtual razionale perimetro() const ; //virtuale pura
-    double lato() const; //ritorna la lunghezza del lato
+    virtual double area() const; //virtuale pura
+    virtual double perimetro() const ; //virtuale
+    virtual double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
     static poligono* pars_pol(string);
     virtual double getFisso() const =0;

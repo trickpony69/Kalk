@@ -52,6 +52,7 @@ void punto::pars_point(string p){
         if(p[var] == ' '){
             p.erase(p.begin()+var);
             var--;
+            len--;
         }
     }
     string s;

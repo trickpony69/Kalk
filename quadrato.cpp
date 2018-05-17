@@ -7,6 +7,10 @@ double quadrato::getFisso() const {
     return numeroFisso;
 }
 
+double quadrato::area() const {
+    return lato()*lato();
+}
+
 
 
 
