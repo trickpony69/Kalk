@@ -180,7 +180,7 @@ istream& operator>>(istream& is, retta& r){
 void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();
-    bool trovato = false , incx = false , incy = false;
+    bool trovato = false ;
     for (unsigned int var = 0; var < len; ++var) {
         if(rect[var] == ' '){
             rect.erase(rect.begin()+var);
@@ -188,13 +188,6 @@ void retta::pars_rect(string rect)
             len--;
         }
         if(rect[var] == '=') trovato = true;
-
-        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista dal formato
-        if(rect[var] == 'y' && incy == false) incy = true ;
-        else throw not_implicit();
-
-        if(rect[var] == 'x' && incx == false) incx = true ;
-        else throw not_implicit();
     }
 
     if( !trovato ) rect = rect + '=';
@@ -202,12 +195,20 @@ void retta::pars_rect(string rect)
     std::string s;
     retta r;
 
-    bool raz = false;
+    bool raz = false , incx = false , incy = false;
     int n=0,d=0,x=0,y=0,tn=0;
 
     int sign = 1;
 
+
     for(unsigned int i = 0 ; i < rect.length() ; i++){
+        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista dal formato
+        if(rect[i] == 'y' && !incy) incy = true ;
+        else if(rect[i] == 'y' && incy) throw not_implicit();
+
+        if(rect[i] == 'x' && !incx) incx = true ;
+        else if(rect[i] == 'x' && incx) throw not_implicit();
+
         if(rect[i] != '*' && rect[i] != '=')
         {
             if(rect[i] == '-' || rect[i] == '+'){
