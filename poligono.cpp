@@ -28,9 +28,11 @@ double poligono::lato() const{
 
     double lat = punto::distanceTwoPoints(*pt[1],*pt[0]);
 
+
     for(int i = 2 ; i < 4 ; i ++ ){
        double p = punto::distanceTwoPoints(*pt[i],*pt[0]);
        if(p < lat) lat = p ;
+
     }
 
     return lat;
@@ -40,14 +42,16 @@ double poligono::lato() const{
 razionale poligono::isRegular() const {
 
     double conf = lato();
+
     int check = 0 ;
     for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
-        for(unsigned int j = i ; j < pt.size() ; ++j ){
+        for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
             if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
                 check++;
             }
         }
     }
+
 
     if(check == GetLati()){
         return razionale(conf);
@@ -158,12 +162,15 @@ poligono* poligono::pars_pol(string s){
                 throw irregular_pol();
         }
         else if( pc == 5 ){
-            pentagono pt(pc,temp);
+            pentagono pent(pc,temp);
+            /*vector<punto*> p = pent.GetPoint();
 
-            if( pt.isRegular() != razionale(0,0) )
-                return new pentagono(pt);
-            else
-                throw irregular_pol();
+            for(unsigned int i=0; i<p.size(); i++) cout<<*p[i]<<" - ";
+
+            if( pent.isRegular() != razionale(0,0) )*/
+                return new pentagono(pent);
+            /*else
+                throw irregular_pol();*/
         }
 
     }

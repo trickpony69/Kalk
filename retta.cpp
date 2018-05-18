@@ -179,6 +179,7 @@ istream& operator>>(istream& is, retta& r){
 
 void retta::pars_rect(string rect)
 {
+    cout<<rect<<" ";
     unsigned int len = rect.length();
     bool trovato = false ;
     for (unsigned int var = 0; var < len; ++var) {
@@ -217,6 +218,7 @@ void retta::pars_rect(string rect)
                     n = std::stoi( s );
                     c = razionale(sign*n,1);
                     sign =1;
+
                     s.erase(s.begin(),s.end());
                 }
                 if(rect[i] == '-') sign = -1;
@@ -235,12 +237,14 @@ void retta::pars_rect(string rect)
                     if(s.length() == 0) s='1';
                     x = std::stoi( s );
                     a = razionale(sign*x,1);
+                    cout<<rect[i+1];
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
                     y = std::stoi( s );
                     b = razionale(sign*y,1);
+                    cout<<rect[i+1];
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }
@@ -257,12 +261,15 @@ void retta::pars_rect(string rect)
 
                         if(rect[i] == 'x'){
                             a = razionale(sign*n,d);
+                            cout<<rect[i+1];
                             sign = 1;
                         }else if(rect[i] == 'y'){
                             b = razionale(sign*n,d);
+                            cout<<rect[i+1];
                             sign = 1;
                         }else {
                             c = razionale(sign*n,d);
+                            cout<<rect[i+1];
                             sign = 1;
                         }
                         if(rect[i] == '-' || rect[i] == '+') --i;
@@ -289,6 +296,7 @@ void retta::pars_rect(string rect)
              if(s.length() > 0){
                 tn = std::stoi( s );
                 c = razionale(sign*tn,1);
+                cout<<rect[i+1];
                 s.erase(s.begin(),s.end());
               }
               sign = 1;

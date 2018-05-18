@@ -1,14 +1,14 @@
 #include "razionale.h"
 
-int razionale::GetNum() const {
+double razionale::GetNum() const {
     return num;
 }
 
-int razionale::GetDen() const {
+double razionale::GetDen() const {
     return den;
 }
 
-razionale::razionale(int n, int d): num(n), den(d) {
+razionale::razionale(double n, double d): num(n), den(d) {
   if(den==0) {num=0; den=1;} //eccezione
   else{
     riduzione();
@@ -38,9 +38,11 @@ void razionale::riduzione(){
     if(num==den)
         num=den=1;
     else if(num!=0){
-        int aux=abs(num)<abs(den)?abs(num):abs(den);
+
+        double aux=abs(num)<abs(den)?abs(num):abs(den);
+
         for(int i=2; i<=aux; i++){
-            if(num%i==0 && den%i==0){
+            if(std::fmod(num,i) && std::fmod(den,i)){
                 num=num/i;
                 den=den/i;
                 aux=abs(num)<abs(den)?abs(num):abs(den);
@@ -52,7 +54,7 @@ void razionale::riduzione(){
         den=1;
 }
 
-razionale::razionale(double d): num(d*pow(10,conteggio(d))),den(pow(10,conteggio(d))) {
+razionale::razionale(const double& d): num(d*pow(10,conteggio(d))),den(pow(10,conteggio(d))) {
     //std::cout<<num<<" "<<den;
     riduzione();
     if(num<0 && den <0){

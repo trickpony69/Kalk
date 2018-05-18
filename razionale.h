@@ -15,13 +15,14 @@ class razionale {
     friend istream& operator>>(istream&,razionale&);
     friend std::ostream& operator<<(std::ostream&, const razionale&);
 private:
-    int num, den; //den != 0
+    double num, den; //den != 0
     //meglio rappresentazioni non minimali di un razionale
 public:
-    razionale(int =0, int =1); // agisce anche da convertitore int => Raz
-    int GetNum() const;
-    int GetDen() const;
-    razionale(double);
+    razionale() {}
+    razionale(double , double );// agisce anche da convertitore int => Raz
+    double GetNum() const;
+    double GetDen() const;
+    razionale(const double&);
     razionale(const razionale&,const razionale&);
     void riduzione();
     int conteggio(double);
