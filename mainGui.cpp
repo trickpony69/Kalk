@@ -229,41 +229,25 @@ void mainGui::returnedInput(){
                         loadColor("terzoSlot",k);
 
                      vector<punto*> vCoord0 = pol->GetPoint();
-                     QVector<QCPItemLine*> segmenti;
+//                     QVector<QCPItemLine*> segmenti;
 
                      unsigned int p = 0 ;
 
                      for(unsigned int i=0; i<vCoord0.size(); i++)
-                        segmenti.push_back(new QCPItemLine(graficoElementi));
+                        graficoElementi->segmenti.push_back(new QCPItemLine(graficoElementi));
 
                      for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
                          for(unsigned int j = i + 1; j<vCoord0.size(); j++){
                             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
-                                segmenti[p]->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                                segmenti[p]->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
+                                graficoElementi->segmenti[p]->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
+                                graficoElementi->segmenti[p]->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
                                 ++p;
                             }
                          }
                      }
 
-
-
-//                    segmenti[0]->start->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
-//                    segmenti[0]->end->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
-//                    segmenti[1]->start->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
-//                    segmenti[1]->end->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
-//                    segmenti[2]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
-//                    segmenti[2]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
-
-
-
-//                    if(vCoord0.size()>3){
-//                        segmenti[3]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
-//                        segmenti[3]->end->setCoords(QPointF(vCoord0[3]->getX(),vCoord0[3]->getY()));
-//                    }
-
-                    for(unsigned int i=0; i<segmenti.size(); i++)
-                        segmenti[i]->setPen(QPen(Qt::blue));
+                    for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++)
+                        graficoElementi->segmenti[i]->setPen(QPen(Qt::blue));
 
                       graficoElementi->replot();
 
@@ -304,12 +288,24 @@ void mainGui::loadColor(QString slot,int index){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
 
-    if(settings.value(slot).toInt() == 0)
+    if(settings.value(slot).toInt() == 0){
         graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-    else if(settings.value(slot).toInt() == 1)
+        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
+            graficoElementi->segmenti[i]->setPen((QPen(Qt::blue)));
+        }
+    }
+    else if(settings.value(slot).toInt() == 1){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-    else if(settings.value(slot).toInt() == 2)
+        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
+            graficoElementi->segmenti[i]->setPen((QPen(Qt::red)));
+        }
+    }
+    else if(settings.value(slot).toInt() == 2){
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
+        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
+            graficoElementi->segmenti[i]->setPen((QPen(Qt::green)));
+        }
+    }
     settings.endGroup();
     qDebug("colori caricati");
 }
@@ -324,8 +320,6 @@ void mainGui::showResult(){
         savedResultWindow->show();
     else{
         savedResultWindow->hide();
-//        parent->updateGeometry();
-//        parent->adjustSize();
     }
 
 }
