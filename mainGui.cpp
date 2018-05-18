@@ -220,7 +220,7 @@ void mainGui::returnedInput(){
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-
+//                   (0;3)(3;3)(3;0)(0;0)
                      if(k==0)
                         loadColor("primoSlot",k);
                      else if(k==1)
@@ -231,20 +231,36 @@ void mainGui::returnedInput(){
                      vector<punto*> vCoord0 = pol->GetPoint();
                      QVector<QCPItemLine*> segmenti;
 
+                     unsigned int p = 0 ;
+
                      for(unsigned int i=0; i<vCoord0.size(); i++)
                         segmenti.push_back(new QCPItemLine(graficoElementi));
 
-                    segmenti[0]->start->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
-                    segmenti[0]->end->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
-                    segmenti[1]->start->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
-                    segmenti[1]->end->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
-                    segmenti[2]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
-                    segmenti[2]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+                     for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
+                         for(unsigned int j = i + 1; j<vCoord0.size(); j++){
+                            if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
+                                segmenti[p]->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
+                                segmenti[p]->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
+                                ++p;
+                            }
+                         }
+                     }
 
-                    if(vCoord0.size()>3){
-                        segmenti[3]->start->setCoords(QPointF(vCoord0[3]->getX(),vCoord0[3]->getY()));
-                        segmenti[3]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
-                    }
+
+
+//                    segmenti[0]->start->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+//                    segmenti[0]->end->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
+//                    segmenti[1]->start->setCoords(QPointF(vCoord0[1]->getX(),vCoord0[1]->getY()));
+//                    segmenti[1]->end->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
+//                    segmenti[2]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
+//                    segmenti[2]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+
+
+
+//                    if(vCoord0.size()>3){
+//                        segmenti[3]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
+//                        segmenti[3]->end->setCoords(QPointF(vCoord0[3]->getX(),vCoord0[3]->getY()));
+//                    }
 
                     for(unsigned int i=0; i<segmenti.size(); i++)
                         segmenti[i]->setPen(QPen(Qt::blue));
