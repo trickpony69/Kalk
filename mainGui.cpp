@@ -186,12 +186,7 @@ void mainGui::returnedInput(){
                      y[i] = vCoord0[i].getY();
                  }
 
-                 if(k==0)
-                    loadColor("primoSlot",k);
-                 else if(k==1)
-                    loadColor("secondoSlot",k);
-                 else if(k==2)
-                    loadColor("terzoSlot",k);
+
 
                  graficoElementi->graph(k)->setData(x,y);
                  graficoElementi->replot();
@@ -205,12 +200,7 @@ void mainGui::returnedInput(){
                  x.append(pun->xToDouble());
                  y.append(pun->yToDouble());
 
-                 if(k==0)
-                    loadColor("primoSlot",k);
-                 else if(k==1)
-                    loadColor("secondoSlot",k);
-                 else if(k==2)
-                    loadColor("terzoSlot",k);
+
 
                  graficoElementi->graph(k)->setData(x,y);
                  graficoElementi->graph(k)->setLineStyle(QCPGraph::lsNone);
@@ -228,24 +218,19 @@ void mainGui::returnedInput(){
                      unsigned int p = 0 ;
 
                      for(unsigned int i=0; i<vCoord0.size(); i++)
-                        graficoElementi->segmenti.push_back(new QCPItemLine(graficoElementi));
+                        graficoElementi->writeSegmenti(new QCPItemLine(graficoElementi));
 
                      for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
                          for(unsigned int j = i + 1; j<vCoord0.size(); j++){
                             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
-                                graficoElementi->segmenti[p]->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                                graficoElementi->segmenti[p]->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
+                                graficoElementi->readSegmenti(p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
+                                graficoElementi->readSegmenti(p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
                                 ++p;
                             }
                          }
                      }
 
-                     if(k==0)
-                        loadColor("primoSlot",k);
-                     else if(k==1)
-                        loadColor("secondoSlot",k);
-                     else if(k==2)
-                        loadColor("terzoSlot",k);
+
 
                       graficoElementi->replot();
 
@@ -253,7 +238,18 @@ void mainGui::returnedInput(){
                       inputElemento.push_back(pol);
               }
 
+             if(k==0)
+                loadColor("primoSlot",k);
+             else if(k==1)
+                loadColor("secondoSlot",k);
+             else if(k==2)
+                loadColor("terzoSlot",k);
+
+             graficoElementi->replot();
+
         }
+
+
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
@@ -288,21 +284,21 @@ void mainGui::loadColor(QString slot,int index){
 
     if(settings.value(slot).toInt() == 0){
         graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
-            graficoElementi->segmenti[i]->setPen((QPen(Qt::blue)));
+        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
+            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::blue)));
         }
     }
 
     else if(settings.value(slot).toInt() == 1){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
-            graficoElementi->segmenti[i]->setPen((QPen(Qt::red)));
+        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
+            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::red)));
         }
     }
     else if(settings.value(slot).toInt() == 2){
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-        for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
-            graficoElementi->segmenti[i]->setPen((QPen(Qt::green)));
+        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
+            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::green)));
         }
     }
     settings.endGroup();

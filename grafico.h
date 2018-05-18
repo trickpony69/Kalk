@@ -10,9 +10,12 @@ class grafico : public QCustomPlot{
     Q_OBJECT
 public:
     grafico(); //epxlicit o no ?
-    QVector<QCPItemLine*> segmenti;
-private:
+     QCPItemLine* readSegmenti(unsigned int);
+     void writeSegmenti(QCPItemLine*);
+     int getSize()const;
 
+private:
+    QVector<QCPItemLine*> segmenti;
 signals:
 
 public slots:
