@@ -49,7 +49,7 @@ razionale poligono::isRegular() const {
         }
     }
 
-    if(check/2 == GetLati()){
+    if(check == GetLati()){
         return razionale(conf);
     }
     else return razionale(0,0);

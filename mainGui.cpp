@@ -240,6 +240,7 @@ void mainGui::returnedInput(){
                     segmenti[1]->end->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
                     segmenti[2]->start->setCoords(QPointF(vCoord0[2]->getX(),vCoord0[2]->getY()));
                     segmenti[2]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
+
                     if(vCoord0.size()>3){
                         segmenti[3]->start->setCoords(QPointF(vCoord0[3]->getX(),vCoord0[3]->getY()));
                         segmenti[3]->end->setCoords(QPointF(vCoord0[0]->getX(),vCoord0[0]->getY()));
@@ -257,6 +258,7 @@ void mainGui::returnedInput(){
         }
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
+        catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
      }
 }
 

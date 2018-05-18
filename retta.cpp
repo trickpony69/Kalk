@@ -180,7 +180,7 @@ istream& operator>>(istream& is, retta& r){
 void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();
-    bool trovato = false;
+    bool trovato = false , incx = false , incy = false;
     for (unsigned int var = 0; var < len; ++var) {
         if(rect[var] == ' '){
             rect.erase(rect.begin()+var);
@@ -188,9 +188,16 @@ void retta::pars_rect(string rect)
             len--;
         }
         if(rect[var] == '=') trovato = true;
+
+        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista dal formato
+        if(rect[var] == 'y' && incy == false) incy = true ;
+        else throw not_implicit();
+
+        if(rect[var] == 'x' && incx == false) incx = true ;
+        else throw not_implicit();
     }
 
-    if(trovato == false) rect = rect + '=';
+    if( !trovato ) rect = rect + '=';
 
     std::string s;
     retta r;
@@ -219,6 +226,10 @@ void retta::pars_rect(string rect)
                 raz = true;
             }
             else {
+                //caso in cui ci sia un x o y al denominatore
+                if( (rect[i] == 'x' || rect[i] == 'y') && raz == true )
+                    throw input_error();
+
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
                     x = std::stoi( s );
