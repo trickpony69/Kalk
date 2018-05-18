@@ -10,16 +10,11 @@ inputitem* inputitem::iniz_input (string st) {
 
         if(dynamic_cast<retta*>(inputitem::pars_start(st))){
             retta ret;
-            cout<<"retta ";
             try{ret.pars_rect(st);}
             catch(int){
-                //ok = false;
-                cout<<ret<<std::endl;
                 return new retta(ret);
             }
             catch(...){
-                //ok = true;
-                //rilancio l'eccezione al chiamante
                 throw;
             }
         }
@@ -37,32 +32,21 @@ inputitem* inputitem::iniz_input (string st) {
                 throw;
             }
             catch(int){
-               // ok = false;
                 return new punto(point);
             }
         }
         else{
-            //devo inizializzare il puntatore a : quadrato , triang , penta
-            //assegnazione standard
             poligono* p;
             bool errore = true;
             try{ p = poligono::pars_pol(st); }
             catch( input_error ){
                 throw;
-                errore = false ;
             }
             catch( irregular_pol ){
                 throw;
-                errore = false ;
             }
-
-            if(errore == true){
-                return p;
-            }
-
-
+            return p;
         }
-    //}
 }
 
 
