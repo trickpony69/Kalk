@@ -34,7 +34,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     labelColori0.push_back(colore00);
     labelColori0.push_back(colore01);
     labelColori0.push_back(colore02);
-    //labelColori1 = clone(labelColori0);//non funziona, forse non si può clonare un QRadioButton
     labelColori1.push_back(colore10);
     labelColori1.push_back(colore11);
     labelColori1.push_back(colore12);

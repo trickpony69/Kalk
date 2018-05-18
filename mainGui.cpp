@@ -221,12 +221,6 @@ void mainGui::returnedInput(){
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 //                   (0;3)(3;3)(3;0)(0;0)
-                     if(k==0)
-                        loadColor("primoSlot",k);
-                     else if(k==1)
-                        loadColor("secondoSlot",k);
-                     else if(k==2)
-                        loadColor("terzoSlot",k);
 
                      vector<punto*> vCoord0 = pol->GetPoint();
 //                     QVector<QCPItemLine*> segmenti;
@@ -246,8 +240,12 @@ void mainGui::returnedInput(){
                          }
                      }
 
-                    for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++)
-                        graficoElementi->segmenti[i]->setPen(QPen(Qt::blue));
+                     if(k==0)
+                        loadColor("primoSlot",k);
+                     else if(k==1)
+                        loadColor("secondoSlot",k);
+                     else if(k==2)
+                        loadColor("terzoSlot",k);
 
                       graficoElementi->replot();
 
@@ -294,6 +292,7 @@ void mainGui::loadColor(QString slot,int index){
             graficoElementi->segmenti[i]->setPen((QPen(Qt::blue)));
         }
     }
+
     else if(settings.value(slot).toInt() == 1){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
         for(unsigned int i=0; i<graficoElementi->segmenti.size(); i++){
@@ -308,6 +307,7 @@ void mainGui::loadColor(QString slot,int index){
     }
     settings.endGroup();
     qDebug("colori caricati");
+
 }
 
 void mainGui::saveResult(){    
