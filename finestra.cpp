@@ -106,3 +106,13 @@ void finestra::loadSettings(){
     settings.endGroup();
     qDebug("impostazioni caricate");
 }
+
+void finestra::closeEvent (QCloseEvent *event){
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this,"dai stai qua",tr("Sicuro sicuro ?"), QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes);
+    if (resBtn != QMessageBox::Yes)
+        event->ignore();
+    else{
+        finestraOpzioni->close();
+        event->accept();
+    }
+}

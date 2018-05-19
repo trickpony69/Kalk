@@ -162,7 +162,7 @@ void mainGui::returnedInput(){
     returnInput.clear();
     display->clear();
     inputElemento.clear();
-    //graficoElementi->pulisci();
+    graficoElementi->pulisci();
     cancel->setDisabled(false);
 
     clearInput();

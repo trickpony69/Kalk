@@ -24,15 +24,20 @@ void grafico::writeSegmenti(int slot,QCPItemLine* line){
 }
 
 void grafico::pulisci(){
-    /*****ci devo pensare*****/
-    for(unsigned int i=0; i<segmenti.size(); i++){
-        for(unsigned int j=0; j<segmenti[i].size(); j++){
-            removeItem(segmenti[i][j]);
-            //segmenti[i].pop_back();
+    /*****ci devo pensare non so se lascia garbage*****/
+    if(!segmenti.empty()){
+        for(unsigned int i=0; i<segmenti.size(); i++){
+            for(unsigned int j=0; j<segmenti[i].size(); j++){
+                removeItem(segmenti[i][j]);
+            }
         }
+        for(int i =0; i<segmenti.size(); i++)
+            segmenti[i].clear();
+
+        //segmenti.clear(); forse è gia vuoto
+        clearGraphs();
+        replot();
     }
-    clearGraphs();
-    replot();
 }
 
 int grafico::getSize(int slot)const{
