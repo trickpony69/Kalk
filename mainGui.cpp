@@ -108,6 +108,7 @@ void mainGui::clearInput(){
 }
 
 void mainGui::push_qle(){
+
     if(vec.size() <= 2){
         myQline* myQle = new myQline();
         myQle->setPlaceholderText("inserisci la funzione");
@@ -119,6 +120,11 @@ void mainGui::push_qle(){
     else{
         add->setDisabled(true);
     }
+
+    //------da migliorare-----
+    if(vec.size()==3)
+        vec[2]->setPlaceholderText("slot solo per disegno");
+    //-------------------------
 
     if(vec.size() <= 1)
         remove->setDisabled(true);
@@ -156,7 +162,7 @@ void mainGui::returnedInput(){
     returnInput.clear();
     display->clear();
     inputElemento.clear();
-
+    //graficoElementi->pulisci();
     cancel->setDisabled(false);
 
     clearInput();
@@ -211,26 +217,23 @@ void mainGui::returnedInput(){
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 //                   (0;3)(3;3)(3;0)(0;0)
-
+//                   (0;0)(6;0)(3;6)
                      vector<punto*> vCoord0 = pol->GetPoint();
-//                     QVector<QCPItemLine*> segmenti;
 
                      unsigned int p = 0 ;
 
                      for(unsigned int i=0; i<vCoord0.size(); i++)
-                        graficoElementi->writeSegmenti(new QCPItemLine(graficoElementi));
+                        graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
 
                      for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
                          for(unsigned int j = i + 1; j<vCoord0.size(); j++){
                             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
-                                graficoElementi->readSegmenti(p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                                graficoElementi->readSegmenti(p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
+                                graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
+                                graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
                                 ++p;
                             }
                          }
                      }
-
-
 
                       graficoElementi->replot();
 
@@ -249,7 +252,6 @@ void mainGui::returnedInput(){
 
         }
 
-
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
@@ -257,7 +259,7 @@ void mainGui::returnedInput(){
 }
 
 void mainGui::clearEntry(){
-    for(unsigned int i=0; i<vec.size(); i++){
+    for(int i=0; i<vec.size(); i++){
         vec[i]->clear();
         vectorLabel[i]->clear();
     }
@@ -284,26 +286,26 @@ void mainGui::loadColor(QString slot,int index){
 
     if(settings.value(slot).toInt() == 0){
         graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
-            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::blue)));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::blue)));
+
         }
     }
 
     else if(settings.value(slot).toInt() == 1){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
-            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::red)));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(1,i)->setPen((QPen(Qt::red)));
         }
     }
     else if(settings.value(slot).toInt() == 2){
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-        for(unsigned int i=0; i<graficoElementi->getSize(); i++){
-            graficoElementi->readSegmenti(i)->setPen((QPen(Qt::green)));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(2,i)->setPen((QPen(Qt::green)));
         }
     }
     settings.endGroup();
     qDebug("colori caricati");
-
 }
 
 void mainGui::saveResult(){    
