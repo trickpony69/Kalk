@@ -1,7 +1,7 @@
 #include <mainGui.h>
 
 mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("aggiungi")), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("        disegna")), cancel(new QPushButton("resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
-    parent = p;
+    //parent = p;
     QHBoxLayout* superLayout = new QHBoxLayout();
     remove->setDisabled(true);
     cancel->setDisabled(true);
@@ -20,11 +20,13 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     cancel->setFixedSize(175,55);
     save->setFixedSize(45,45);
     save->setIcon(QPixmap(":icon/save.png"));
+    save->setStyleSheet("border: none;");
     save->setIconSize(iconSize);
     save->setToolTip("salva il risultato");
     showSavedResult->setFixedSize(45,45);
     showSavedResult->setIcon(QPixmap(":icon/pasted.png"));
     showSavedResult->setIconSize(iconSize);
+    showSavedResult->setStyleSheet("border: none;");
     showSavedResult->setToolTip("mostra/nascondi i risultati");
     savedResultWindow->setDragEnabled(true);
     savedResultWindow->setFixedSize(150,300);
@@ -50,11 +52,11 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     myQline* qle = new myQline();
     qle->setPlaceholderText("inserisci la funzione");
     qle->setAcceptDrops(true);
-    vec.push_back(qle);
-    display = new QLineEdit();
+    funVec.push_back(qle);
+    display = new QLineEdit(this);
     display->setDisabled(true);
-    display->setPlaceholderText("seleziona una funzione nella barra laterale");
-    display->setFixedSize(350,40);
+    display->setText("      seleziona una funzione nella barra laterale");
+    display->setFixedSize(350,60);
     display->setStyleSheet("color: white;"
                            "background-color: RGB(53, 50, 47);"
                            "border-radius: 10px;");
@@ -77,8 +79,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     //---------------------------------------------
     QObject::connect(add, SIGNAL(clicked(bool)), this, SLOT(push_qle()));
     QObject::connect(remove, SIGNAL(clicked(bool)), this, SLOT(remove_qle()));
-    QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(returnedInput()));
-    QObject::connect(cancel, SIGNAL(clicked(bool)), graficoElementi, SLOT(pulisci()));
+    QObject::connect(enter, SIGNAL(clicked(bool)), this, SLOT(drawAndReturn()));
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
     QObject::connect(save, SIGNAL(clicked(bool)), this, SLOT(saveResult()));
     QObject::connect(showSavedResult, SIGNAL(clicked(bool)), this, SLOT(showResult()));
@@ -95,95 +96,94 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     setLayout(superLayout);
 }
 
-void mainGui::clearInput(){
-    if(returnInput.size()!=0)
-        qDebug("non lo è ");
-
-    for(int i = 0; i<returnInput.size(); i++)
-        delete returnInput[i];
-
-    returnInput.clear();
-    if(returnInput.size()==0)
-        qDebug("vuoto");
-}
-
 void mainGui::push_qle(){
 
-    if(vec.size() <= 2){
+    if(funVec.size() <= 2){
         myQline* myQle = new myQline();
         myQle->setPlaceholderText("inserisci la funzione");
-        vec.push_back(myQle);
+        funVec.push_back(myQle);
         hFunLay->addWidget(myQle);
         myQle->setFixedSize(300,60);
         myQle->setFont(QFont("Arial", 25));
+
+        if(funVec.size() <= 1)
+            remove->setDisabled(true);
+        else remove->setDisabled(false);
+        if(!funVec.size())
+            enter->setDisabled(true);
+        else enter->setDisabled(false);
     }
-    else{
+    else
         add->setDisabled(true);
-    }
-
     //------da migliorare-----
-    if(vec.size()==3)
-        vec[2]->setPlaceholderText("slot solo per disegno");
+    if(funVec.size()==3)
+        funVec[2]->setPlaceholderText("slot solo per disegno");
     //-------------------------
-
-    if(vec.size() <= 1)
-        remove->setDisabled(true);
-    else remove->setDisabled(false);
-
-    if(vec.size() < 1)
-        enter->setDisabled(true);
-    else enter->setDisabled(false);
 }
 
 void mainGui::remove_qle(){
-    if(!vec.isEmpty()){
-        hFunLay->removeWidget(vec[vec.size()-1]);
-        if(graficoElementi->graph(vec.size()-1))
-            graficoElementi->graph(vec.size()-1)->data()->clear();
+    if(!funVec.isEmpty()){
+        hFunLay->removeWidget(funVec[funVec.size()-1]);
+        if(graficoElementi->graph(funVec.size()-1)){
+            graficoElementi->graph(funVec.size()-1)->data()->clear();
+            if(dynamic_cast<inputitem*>(inputElemento[inputElemento.size()-1]))
+                graficoElementi->deletePol(funVec.size()-1);
+        }
         graficoElementi->replot();
-        delete vec[vec.size()-1];
-        vec.remove((vec.size())-1);
+        vectorLabel[funVec.size()-1]->clear();
+        delete funVec[funVec.size()-1];
+        funVec.remove(funVec.size()-1);
     }
-    if(vec.isEmpty())
-        qDebug("vec vuoto");
 
-    if(vec.size() < 1)
+    if(funVec.size() < 1)
         enter->setDisabled(false);
 
-    if(vec.size() <= 2)
+    if(funVec.size() <= 2)
         add->setDisabled(false);
 
-    if(vec.size() == 0)
+    if(funVec.size() == 0)
         remove->setDisabled(true);
 }
 
-void mainGui::returnedInput(){
-
-    returnInput.clear();
-    display->clear();
-    inputElemento.clear();
-    graficoElementi->pulisci();
-    cancel->setDisabled(false);
+void mainGui::clearEntry(){
 
     clearInput();
-    graficoElementi->clearGraphs();
+    for(int i =0; i<funVec.size();i++)
+        funVec[i]->clear();
+    for(int i =0; i<vectorLabel.size();i++)
+        vectorLabel[i]->clear();
+}
 
-    for(unsigned int i = 0; i <vec.size(); i++){
-        QString input = vec[i]->text();
+void mainGui::clearInput(){
+    returnToParse.clear();
+    inputElemento.clear();
+    graficoElementi->pulisci();
+    graficoElementi->clearGraphs();//non so se serva ancora
+    display->setText("      seleziona una funzione nella barra laterale");
+}
+
+void mainGui::drawAndReturn(){
+
+    clearInput();
+
+    cancel->setDisabled(false);
+
+    for(unsigned int i = 0; i <funVec.size(); i++){
+        QString input = funVec[i]->text();
         if(!input.isEmpty()){
-            QString* entry = new QString(vec[i]->text());
-            returnInput.push_back(entry);
+            QString entry(funVec[i]->text());
+            returnToParse.push_back(entry);
         }
     }
 
     razionale min(-30,1);
     razionale max(30,1);
 
-     for(unsigned int k=0; k < returnInput.size(); k++){
+     for(unsigned int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
         try{
              graficoElementi->addGraph();
-             inp = inputitem::iniz_input(returnInput[k]->toStdString());
+             inp = inputitem::iniz_input(returnToParse[k].toStdString());
              if(retta* pol = dynamic_cast<retta*>(inp)){
                  vector<punto> vCoord0 = pol->print_rect(min,max);
                  QVector<double> x(60), y(60);
@@ -192,11 +192,9 @@ void mainGui::returnedInput(){
                      y[i] = vCoord0[i].getY();
                  }
 
-
-
                  graficoElementi->graph(k)->setData(x,y);
                  graficoElementi->replot();
-                 vectorLabel[k]->setText(*returnInput[k]);
+                 vectorLabel[k]->setText(returnToParse[k]);
                  inputElemento.push_back(pol);
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
@@ -206,27 +204,26 @@ void mainGui::returnedInput(){
                  x.append(pun->xToDouble());
                  y.append(pun->yToDouble());
 
-
-
                  graficoElementi->graph(k)->setData(x,y);
                  graficoElementi->graph(k)->setLineStyle(QCPGraph::lsNone);
                  graficoElementi->graph(k)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
-                 vectorLabel[k]->setText(*returnInput[k]);
+                 vectorLabel[k]->setText(returnToParse[k]);
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 //                   (0;3)(3;3)(3;0)(0;0)
-//                   (0;0)(6;0)(3;6)
+//                   (0;0)(3;6)(6;0)
+
                      vector<punto*> vCoord0 = pol->GetPoint();
 
-                     unsigned int p = 0 ;
+                     int p = 0 ;
 
-                     for(unsigned int i=0; i<vCoord0.size(); i++)
+                     for(int i=0; i<vCoord0.size(); i++)
                         graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
 
-                     for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
-                         for(unsigned int j = i + 1; j<vCoord0.size(); j++){
+                     for(int i = 0; i<vCoord0.size() - 1; i++){
+                         for(int j = i + 1; j<vCoord0.size(); j++){
                             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
                                 graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
                                 graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
@@ -237,7 +234,7 @@ void mainGui::returnedInput(){
 
                       graficoElementi->replot();
 
-                      vectorLabel[k]->setText(*returnInput[k]);
+                      vectorLabel[k]->setText(returnToParse[k]);
                       inputElemento.push_back(pol);
               }
 
@@ -256,14 +253,6 @@ void mainGui::returnedInput(){
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
      }
-}
-
-void mainGui::clearEntry(){
-    for(int i=0; i<vec.size(); i++){
-        vec[i]->clear();
-        vectorLabel[i]->clear();
-    }
-    display->clear();
 }
 
 void mainGui::intersezione(){

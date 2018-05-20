@@ -82,15 +82,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     cambioColori2[2]->setChecked(true);
 }
 
-QVector<QLabel*> impostazioni::clone(QVector<QLabel*> v1){
-    QVector<QLabel*> vett;
-    for(unsigned int i=0; i<v1.size(); i++){
-        auto contenuto = new QLabel(v1[i]);
-        vett.push_back(contenuto);
-    }
-    return vett;
-}
-
 void impostazioni::closeEvent(QCloseEvent *event){
     saveSettings();
 }

@@ -5,6 +5,7 @@
 #include <QGraphicsLineItem>
 #include <QPainter>
 #include "qcustomplot.h"
+#include <iostream>
 
 class grafico : public QCustomPlot{
     Q_OBJECT
@@ -13,13 +14,14 @@ public:
      QCPItemLine* readSegmenti(int,int);
      void writeSegmenti(int,QCPItemLine*);
      int getSize(int)const;
-     void pulisci();
+     void deletePol(int);
 
 private:
     QVector<QVector<QCPItemLine*>> segmenti;
 signals:
 
 public slots:
+    void pulisci();
 
 };
 

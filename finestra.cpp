@@ -112,7 +112,7 @@ void finestra::closeEvent (QCloseEvent *event){
     if (resBtn != QMessageBox::Yes)
         event->ignore();
     else{
-        finestraOpzioni->close();
         event->accept();
+        finestraOpzioni->close();
     }
 }

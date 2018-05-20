@@ -8,11 +8,6 @@ grafico::grafico(){
     yAxis->setLabel("y");
     axisRect()->setupFullAxesBox(true);
     setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
-    for(int i=0; i<3; i++){
-        QVector<QCPItemLine*> f;
-        segmenti.push_back(f);
-    }
-
 }
 
 QCPItemLine* grafico::readSegmenti(int slot,int index){
@@ -23,21 +18,27 @@ void grafico::writeSegmenti(int slot,QCPItemLine* line){
         segmenti[slot].push_back(line);
 }
 
+void grafico::deletePol(int slot){
+    for(int i=segmenti[slot].size()-1; i>=0;i--){
+        removeItem(segmenti[slot][i]);
+        segmenti[slot].remove(i);
+    }
+}
+
 void grafico::pulisci(){
     /*****ci devo pensare non so se lascia garbage*****/
-    if(!segmenti.empty()){
-        for(unsigned int i=0; i<segmenti.size(); i++){
-            for(unsigned int j=0; j<segmenti[i].size(); j++){
-                removeItem(segmenti[i][j]);
-            }
-        }
-        for(int i =0; i<segmenti.size(); i++)
-            segmenti[i].clear();
+        for(int i=0; i<segmenti.size(); i++)
+            deletePol(i);
+        if(!segmenti.isEmpty())
+            segmenti.clear();
 
-        //segmenti.clear(); forse è gia vuoto
+        //ripopola il vettore più esterno
+        for(int i=0; i<3; i++){
+            QVector<QCPItemLine*> f;
+            segmenti.push_back(f);
+        }
         clearGraphs();
         replot();
-    }
 }
 
 int grafico::getSize(int slot)const{

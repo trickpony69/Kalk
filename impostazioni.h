@@ -36,7 +36,6 @@ private:
 
 
     //----------------------------------------
-    static QVector<QLabel*> clone(QVector<QLabel*>);
     void saveSettings();
 public:
     explicit impostazioni(QWidget *parent = nullptr);

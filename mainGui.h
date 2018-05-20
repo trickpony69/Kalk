@@ -31,29 +31,29 @@ class mainGui: public QWidget{
     friend class finestra;
     Q_OBJECT
 private:
-    QWidget* parent;
+    //QWidget* parent;
     QHBoxLayout* griglia;
     QHBoxLayout* hLay;
     QHBoxLayout* funEGrafico;
     QVBoxLayout* hFunLay;
     QVBoxLayout *mainLayout;
+    QHBoxLayout* layoutDisplay;
     QPushButton* add;
     QPushButton* remove;
     QPushButton* enter;
     QPushButton* cancel;
     QPushButton* save;
     QPushButton* showSavedResult;
-    QHBoxLayout* layoutDisplay;
     QListWidget* savedResultWindow;
-    QVector<QLineEdit*> vec;
-    QVector<QString*> returnInput;
-    grafico* graficoElementi;
+    QVector<QLineEdit*> funVec;
     QVector<QLabel*> vectorLabel;
+    QVector<QString> returnToParse;
     QVector<inputitem*> inputElemento;
+    grafico* graficoElementi;
     QLineEdit* display;
-    void clearInput();
     void loadSettings();
     void loadColor(QString,int);
+    void clearInput();
 public:
     mainGui(QWidget* =0);
     virtual ~mainGui(){}
@@ -63,7 +63,7 @@ public:
 public slots: //private o public slots ?
     void push_qle();
     void remove_qle();
-    void returnedInput();
+    void drawAndReturn();
     void clearEntry();
     void intersezione();
     void saveResult();
