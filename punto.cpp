@@ -30,13 +30,13 @@ istream& operator>>(istream& is, punto& p){
 	    try{p.pars_point(point);}
 
 	    catch(input_error){
-		std::cerr<<"errore inserimento input";
+            std::cerr<<"errore inserimento input";
 	    }
 	    catch(num_error){
-		std::cerr<<"errore numeratore";
+            std::cerr<<"errore numeratore";
 	    }
 	    catch(den_error){
-		std::cerr<<"errore denominatore";
+            std::cerr<<"errore denominatore";
 	    }
 	    catch(int){
 	        ok = false;
@@ -66,20 +66,26 @@ void punto::pars_point(string p){
             }
             else if(p[cont] == '/'){
                 if(s.length() == 0) throw num_error();
-                std::istringstream(s) >> n;
+                n = std::stoi( s );
+                if( n == 0 ){
+                    x = razionale(0,1);
+                    while( p[cont] != ';' && p[cont] != ')' )
+                        cont++;
+
+                }
                 s.erase(s.begin(),s.end());
             }
             else if(p[cont] == ';' || p[cont] == ')'){
                 if(s.length() == 0){
-                    throw num_error();
+                    throw input_error();
                 }
 
-                if(n!=0){
-                    if(s.length() == 0) throw den_error();
-                    std::istringstream(s) >> d;
+                if(n != 0){
+                    d = std::stoi( s );
+                    if( d == 0 ) throw den_error();
                 }else{
-                    if(s.length() == 0) throw den_error();
-                    std::istringstream(s) >> n;
+                    n = std::stoi( s );
+                    d = 1;
                 }
                 if(p[cont] == ';'){
                     x = razionale(n*sign,d);
@@ -89,6 +95,7 @@ void punto::pars_point(string p){
                     //è finito il punto perchè sono ')'
                     break;
                 }
+
                 d=1;n=0;
 
                 s.erase(s.begin(),s.end());
@@ -101,13 +108,15 @@ void punto::pars_point(string p){
                   s = s+p[cont];
                 }
                 else {
-		    std::cout<<p[cont];
                     throw input_error();
                 }
             }
         }
     }
-    if(p[0] == '(' && p[p.length()-1] == ')') throw 1;
+    if(p[0] == '(' && p[p.length()-1] == ')') {
+        cout<<x<<" "<<y<<endl;
+        throw 1;
+    }
     else throw input_error();
 
 

@@ -139,11 +139,8 @@ vector<punto> retta::print_rect(const razionale& r1 ,const razionale& r2){
         punto p2(razionale(-1,1)*razionale(GetC(),GetA()),r2);
         pt.push_back(p1);
         pt.push_back(p2);
-
-        cout<<p1<<" "<<p2<<endl;
     }
     else{
-        cout<<printCoord_x(r1)<<" "<<printCoord_x(r2)<<endl;
         pt.push_back(printCoord_x(r1));
         pt.push_back(printCoord_x(r2));
     }
