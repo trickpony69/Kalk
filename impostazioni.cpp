@@ -1,8 +1,7 @@
 #include "impostazioni.h"
 
 impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
-    //setFixedSize(300,300);
-    resize(200,200);
+    setFixedSize(430,300);
     setWindowTitle("Impostazioni");
     titoloImpostazione0 = new QHBoxLayout();
     titoloImpostazione1 = new QHBoxLayout();
@@ -11,8 +10,9 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     secondoSettaggio = new QVBoxLayout;
     terzoSettaggio = new QVBoxLayout;
     mainlayout = new QVBoxLayout();
-    QLabel* scritta0 = new QLabel("Scegli i colori del grafico");
-    QLabel* scritta1 = new QLabel("Cambia il range del grafico");
+    QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra",this);
+    QLabel* scritta0 = new QLabel("Scegli i colori del grafico",this);
+    QLabel* scritta1 = new QLabel("Cambia il range del grafico",this);
     colori.push_back(Qt::blue);
     colori.push_back(Qt::red);
     colori.push_back(Qt::green);
@@ -22,15 +22,15 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     QVector<QLabel*> labelColori0;
     QVector<QLabel*> labelColori1;
     QVector<QLabel*> labelColori2;
-    QLabel* colore00 = new QLabel("blu");
-    QLabel* colore01 = new QLabel("rosso");
-    QLabel* colore02 = new QLabel("verde");
-    QLabel* colore10 = new QLabel("blu");
-    QLabel* colore11 = new QLabel("rosso");
-    QLabel* colore12 = new QLabel("verde");
-    QLabel* colore20 = new QLabel("blu");
-    QLabel* colore21 = new QLabel("rosso");
-    QLabel* colore22 = new QLabel("verde");
+    QLabel* colore00 = new QLabel("blu",this);
+    QLabel* colore01 = new QLabel("rosso",this);
+    QLabel* colore02 = new QLabel("verde",this);
+    QLabel* colore10 = new QLabel("blu",this);
+    QLabel* colore11 = new QLabel("rosso",this);
+    QLabel* colore12 = new QLabel("verde",this);
+    QLabel* colore20 = new QLabel("blu",this);
+    QLabel* colore21 = new QLabel("rosso",this);
+    QLabel* colore22 = new QLabel("verde",this);
     labelColori0.push_back(colore00);
     labelColori0.push_back(colore01);
     labelColori0.push_back(colore02);
@@ -40,6 +40,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     labelColori2.push_back(colore20);
     labelColori2.push_back(colore21);
     labelColori2.push_back(colore22);
+    mainlayout->addWidget(scritta);
     titoloImpostazione0->addWidget(scritta0);
     titoloImpostazione1->addWidget(scritta1);
     mainlayout->addLayout(titoloImpostazione0);

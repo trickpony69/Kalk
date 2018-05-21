@@ -179,21 +179,18 @@ void mainGui::drawAndReturn(){
     razionale min(-30,1);
     razionale max(30,1);
 
-     for(unsigned int k=0; k < returnToParse.size(); k++){
+    for(unsigned int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
         try{
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
              if(retta* pol = dynamic_cast<retta*>(inp)){
-                 vector<punto> vCoord0 = pol->print_rect(min,max);
-                 QVector<double> x(60), y(60);
-                 for (unsigned int i=0; i<vCoord0.size(); i++){
-                     x[i] = vCoord0[i].getX();
-                     y[i] = vCoord0[i].getY();
-                 }
 
-                 graficoElementi->graph(k)->setData(x,y);
-                 graficoElementi->replot();
+                 auto pointRetta = pol->print_rect(min,max);
+                 graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
+                 graficoElementi->readSegmenti(k,0)->start->setCoords(QPointF(pointRetta[0].getX(),pointRetta[0].getY()));
+                 graficoElementi->readSegmenti(k,0)->end->setCoords(QPointF(pointRetta[1].getX(),pointRetta[1].getY()));
+
                  vectorLabel[k]->setText(returnToParse[k]);
                  inputElemento.push_back(pol);
              }
@@ -212,8 +209,8 @@ void mainGui::drawAndReturn(){
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-//                   (0;3)(3;3)(3;0)(0;0)
-//                   (0;0)(3;6)(6;0)
+        //                   (0;3)(3;3)(3;0)(0;0)
+        //                   (0;0)(3;6)(6;0)
 
                      vector<punto*> vCoord0 = pol->GetPoint();
 
@@ -252,9 +249,50 @@ void mainGui::drawAndReturn(){
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
-     }
+    }
 }
 
+void mainGui::loadColor(QString slot,int index){
+    QSettings settings("Kalk","configKalk");
+    settings.beginGroup("cambioColore");
+
+    if(settings.value(slot).toInt() == 0){
+        graficoElementi->graph(index)->setPen(QPen(Qt::blue));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::blue)));
+        }
+    }
+
+    else if(settings.value(slot).toInt() == 1){
+        graficoElementi->graph(index)->setPen((QPen(Qt::red)));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::red)));
+        }
+    }
+    else if(settings.value(slot).toInt() == 2){
+        graficoElementi->graph(index)->setPen((QPen(Qt::green)));
+        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::green)));
+        }
+    }
+    settings.endGroup();
+    qDebug("colori caricati");
+}
+
+void mainGui::saveResult(){
+    QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText());
+    savedResultWindow->insertItem(0,itemList1);
+}
+
+void mainGui::showResult(){
+    if(savedResultWindow->isHidden())
+        savedResultWindow->show();
+    else{
+        savedResultWindow->hide();
+    }
+}
+
+//------------------Funzionalità calcolatrice------------------
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
         retta* r1;
@@ -269,44 +307,3 @@ void mainGui::intersezione(){
     }
 }
 
-void mainGui::loadColor(QString slot,int index){
-    QSettings settings("Kalk","configKalk");
-    settings.beginGroup("cambioColore");
-
-    if(settings.value(slot).toInt() == 0){
-        graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::blue)));
-
-        }
-    }
-
-    else if(settings.value(slot).toInt() == 1){
-        graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(1,i)->setPen((QPen(Qt::red)));
-        }
-    }
-    else if(settings.value(slot).toInt() == 2){
-        graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(2,i)->setPen((QPen(Qt::green)));
-        }
-    }
-    settings.endGroup();
-    qDebug("colori caricati");
-}
-
-void mainGui::saveResult(){    
-    QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText());
-    savedResultWindow->insertItem(0,itemList1);
-}
-
-void mainGui::showResult(){
-    if(savedResultWindow->isHidden())
-        savedResultWindow->show();
-    else{
-        savedResultWindow->hide();
-    }
-
-}
