@@ -22,9 +22,8 @@ private:
     razionale b;
     razionale c;
 public:
-    retta() {}
     virtual ~retta() {}
-    retta(razionale x , razionale y , razionale l ) : a(x),b(y),c(l) {} ;
+    retta(razionale x = 0 , razionale y = 0  , razionale l = 0 ) : a(x),b(y),c(l) {} ;
     razionale GetA() const ;
     razionale GetB() const ;
     razionale GetC() const ;
@@ -39,7 +38,7 @@ public:
     static punto Intersect(retta&,retta&);
     void pars_rect(string);
     void isFigura() const {cout<<"retta"; }
-    vector<punto> print_rect(razionale,razionale);
+    vector<punto> print_rect(const razionale&,const razionale&);
 
 };
 

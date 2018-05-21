@@ -16,9 +16,8 @@ class razionale {
     friend std::ostream& operator<<(std::ostream&, const razionale&);
 private:
     double num, den; //den != 0
-    //meglio rappresentazioni non minimali di un razionale
 public:
-    razionale() {}
+    razionale() { num = 0 ; den = 1; }
     razionale(double , double );// agisce anche da convertitore int => Raz
     double GetNum() const;
     double GetDen() const;

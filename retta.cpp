@@ -119,7 +119,7 @@ punto retta::Intersect(retta& r1, retta& r2) {
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
 punto retta::printCoord_x(razionale x) const{
     if(GetB() == 0 && GetA() == 0){
-        cout<<"exception";
+        throw not_implicit();
     }
     else if(GetB() == 0){
         razionale x( GetC()*(razionale(-1,1)),GetA());
@@ -130,6 +130,26 @@ punto retta::printCoord_x(razionale x) const{
         return punto(x,y);
     }
 }
+
+//per ora distanza standard tra i punti : 1 cm (modificabile ??)
+vector<punto> retta::print_rect(const razionale& r1 ,const razionale& r2){
+    vector<punto> pt;
+    if(GetB() == 0){
+        punto p1(razionale(-1,1)*razionale(GetC(),GetA()),r1);
+        punto p2(razionale(-1,1)*razionale(GetC(),GetA()),r2);
+        pt.push_back(p1);
+        pt.push_back(p2);
+
+        cout<<p1<<" "<<p2<<endl;
+    }
+    else{
+        cout<<printCoord_x(r1)<<" "<<printCoord_x(r2)<<endl;
+        pt.push_back(printCoord_x(r1));
+        pt.push_back(printCoord_x(r2));
+    }
+    return pt;
+}
+
 
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
@@ -179,7 +199,8 @@ istream& operator>>(istream& is, retta& r){
 
 void retta::pars_rect(string rect)
 {
-    cout<<rect<<" ";
+    //cout<<rect<<" ";
+
     unsigned int len = rect.length();
     bool trovato = false ;
     for (unsigned int var = 0; var < len; ++var) {
@@ -196,14 +217,19 @@ void retta::pars_rect(string rect)
     std::string s;
     retta r;
 
+    // raz = verifica se è una frazione .
+    // incx = incy = serve per verificare se trova due volte la
+    // la x o la y .
     bool raz = false , incx = false , incy = false;
+
+    //n = num , d = den , x = coeff x , y = coeff y , tn = termine noto
     int n=0,d=0,x=0,y=0,tn=0;
 
     int sign = 1;
 
 
     for(unsigned int i = 0 ; i < rect.length() ; i++){
-        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista dal formato
+        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista
         if(rect[i] == 'y' && !incy) incy = true ;
         else if(rect[i] == 'y' && incy) throw not_implicit();
 
@@ -215,9 +241,9 @@ void retta::pars_rect(string rect)
             if(rect[i] == '-' || rect[i] == '+'){
                 //verifico se il termine noto è a primo o secondo membro
                 if(s.length() > 0){
-                    n = std::stoi( s );
-                    c = razionale(sign*n,1);
-                    sign =1;
+                    tn = std::stoi( s );
+                    c = razionale(sign*tn,1);
+                    sign = 1;
 
                     s.erase(s.begin(),s.end());
                 }
@@ -237,14 +263,12 @@ void retta::pars_rect(string rect)
                     if(s.length() == 0) s='1';
                     x = std::stoi( s );
                     a = razionale(sign*x,1);
-                    cout<<rect[i+1];
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
                     y = std::stoi( s );
                     b = razionale(sign*y,1);
-                    cout<<rect[i+1];
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }
@@ -261,17 +285,16 @@ void retta::pars_rect(string rect)
 
                         if(rect[i] == 'x'){
                             a = razionale(sign*n,d);
-                            cout<<rect[i+1];
                             sign = 1;
                         }else if(rect[i] == 'y'){
                             b = razionale(sign*n,d);
-                            cout<<rect[i+1];
                             sign = 1;
                         }else {
                             c = razionale(sign*n,d);
-                            cout<<rect[i+1];
                             sign = 1;
                         }
+
+                        //decremento cosi posso ripartire il ciclo dal segno
                         if(rect[i] == '-' || rect[i] == '+') --i;
                         n=0;d=1;
                         s.erase(s.begin(),s.end());
@@ -296,7 +319,6 @@ void retta::pars_rect(string rect)
              if(s.length() > 0){
                 tn = std::stoi( s );
                 c = razionale(sign*tn,1);
-                cout<<rect[i+1];
                 s.erase(s.begin(),s.end());
               }
               sign = 1;
@@ -309,25 +331,13 @@ void retta::pars_rect(string rect)
     if(a.GetNum() == 0 && b.GetNum() == 0){
         throw input_error();
     }
-    else throw 1;
+    else{
+        cout<<a<<"x "<<b<<"y "<<c<<std::endl;
+        throw 1;
+    }
+
+
 }
 
-//per ora distanza standard tra i punti : 1 cm (modificabile ??)
-vector<punto> retta::print_rect(razionale min , razionale max){
-    vector<punto> pt;
-    razionale start = min;
-    if(GetB() == 0){
-        for(; start < max ; start = start + razionale(1,1)){
-            punto p(razionale(-1,1)*razionale(GetC(),GetA()),start);
-            pt.push_back(p);
-        }
-    }
-    else{
-        for(; start < max ; start = start + razionale(1,1)){
-            pt.push_back(printCoord_x(start));
-        }
-    }
-    return pt;
-}
 
 
