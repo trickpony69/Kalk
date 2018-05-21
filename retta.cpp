@@ -196,8 +196,6 @@ istream& operator>>(istream& is, retta& r){
 
 void retta::pars_rect(string rect)
 {
-    //cout<<rect<<" ";
-
     unsigned int len = rect.length();
     bool trovato = false ;
     for (unsigned int var = 0; var < len; ++var) {
@@ -217,10 +215,10 @@ void retta::pars_rect(string rect)
     // raz = verifica se è una frazione .
     // incx = incy = serve per verificare se trova due volte la
     // la x o la y .
-    bool raz = false , incx = false , incy = false;
+    bool raz = false , incx = false , incy = false , doub = false;
 
     //n = num , d = den , x = coeff x , y = coeff y , tn = termine noto
-    int n=0,d=0,x=0,y=0,tn=0;
+    double n=0,d=0,x=0,y=0,tn=0;
 
     int sign = 1;
 
@@ -233,12 +231,19 @@ void retta::pars_rect(string rect)
         if(rect[i] == 'x' && !incx) incx = true ;
         else if(rect[i] == 'x' && incx) throw not_implicit();
 
+        cout<<s<<endl;
+
         if(rect[i] != '*' && rect[i] != '=')
         {
             if(rect[i] == '-' || rect[i] == '+'){
                 //verifico se il termine noto è a primo o secondo membro
                 if(s.length() > 0){
-                    tn = std::stoi( s );
+
+                    if(doub) tn = std::stod( s );
+                    else tn = std::stoi( s );
+
+                    doub = false;
+
                     c = razionale(sign*tn,1);
                     sign = 1;
 
@@ -247,7 +252,12 @@ void retta::pars_rect(string rect)
                 if(rect[i] == '-') sign = -1;
             }
             else if(rect[i] == '/'){
-                n = std::stoi( s );
+
+                if(doub) n = std::stod( s );
+                else n = std::stoi( s );
+
+                doub = false;
+
                 s.erase(s.begin(),s.end());
                 raz = true;
             }
@@ -258,13 +268,23 @@ void retta::pars_rect(string rect)
 
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
-                    x = std::stoi( s );
+
+                    if(doub) x = std::stod( s );
+                    else x = std::stoi( s );
+
+                    doub = false;
+
                     a = razionale(sign*x,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
-                    y = std::stoi( s );
+
+                    if(doub) y = std::stod( s );
+                    else y = std::stoi( s );
+
+                    doub = false;
+
                     b = razionale(sign*y,1);
                     sign = 1;
                     s.erase(s.begin(),s.end());
@@ -274,11 +294,17 @@ void retta::pars_rect(string rect)
                         //vuol dire che sono a denominatore
                         while(rect[i] != 'x' && rect[i] != 'y' && rect[i] != '=' && rect[i] != '+' && rect[i] != '-')
                         {
+                            if(rect[i] == '.'){
+                                doub = true;
+                            }
                             s = s+rect[i];
                             i++;
                         }
 
-                        d = std::stoi( s );
+                        if(doub) d = std::stod( s );
+                        else d = std::stoi( s );
+
+                        doub = false;
 
                         if(rect[i] == 'x'){
                             a = razionale(sign*n,d);
@@ -301,7 +327,11 @@ void retta::pars_rect(string rect)
 
                         std::locale loc;
                         //verifico se rect[i] == numero
-                        if (isdigit(rect[i],loc))
+                        if(rect[i] == '.'){
+                            s = s + rect[i];
+                            doub = true;
+                        }
+                        else if(isdigit(rect[i],loc))
                         {
                           s = s+rect[i];
                         }
@@ -314,9 +344,13 @@ void retta::pars_rect(string rect)
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
              if(s.length() > 0){
-                tn = std::stoi( s );
-                c = razionale(sign*tn,1);
-                s.erase(s.begin(),s.end());
+                 if(doub) tn = std::stod( s );
+                 else tn = std::stoi( s );
+
+                 doub = false;
+
+                 c = razionale(sign*tn,1);
+                 s.erase(s.begin(),s.end());
               }
               sign = 1;
               break;
@@ -329,7 +363,6 @@ void retta::pars_rect(string rect)
         throw input_error();
     }
     else{
-        cout<<a<<"x "<<b<<"y "<<c<<std::endl;
         throw 1;
     }
 

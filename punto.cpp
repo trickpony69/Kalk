@@ -56,17 +56,28 @@ void punto::pars_point(string p){
         }
     }
     string s;
-    int n=0,d=1,sign=1;
+    double n=0,d=1;
+    int sign=1;
+
+    //verifico se è un double
+    bool doub = false;
 
     for(unsigned int cont = 0 ; cont < p.length() ; ++cont){
-      
+
         if(p[cont] != '('){
             if(p[cont] == '-'){
                 sign = -1;
             }
             else if(p[cont] == '/'){
                 if(s.length() == 0) throw num_error();
-                n = std::stoi( s );
+
+                if(doub) n = std::stod( s );
+                else n = std::stoi( s );
+
+                cout<<n;
+
+                doub = false;
+
                 if( n == 0 ){
                     x = razionale(0,1);
                     while( p[cont] != ';' && p[cont] != ')' )
@@ -81,10 +92,19 @@ void punto::pars_point(string p){
                 }
 
                 if(n != 0){
-                    d = std::stoi( s );
+                    if(doub) d = std::stod( s );
+                    else d = std::stoi( s );
+
+                    doub = false;
+
                     if( d == 0 ) throw den_error();
+
                 }else{
-                    n = std::stoi( s );
+                    if(doub) n = std::stod( s );
+                    else n = std::stoi( s );
+
+                    doub = false;
+
                     d = 1;
                 }
                 if(p[cont] == ';'){
@@ -103,7 +123,11 @@ void punto::pars_point(string p){
             }
             else{
                 std::locale loc;
-                if (isdigit(p[cont],loc))
+                if(p[cont] == '.'){
+                    doub = true;
+                    s = s+p[cont];
+                }
+                else if(isdigit(p[cont],loc))
                 {
                   s = s+p[cont];
                 }
