@@ -22,7 +22,7 @@ class punto;
 
 ostream& operator<<(ostream&, const punto&);
 
-class punto : public inputitem{
+class punto : public inputitem {
     friend ostream& operator<<(ostream&, const punto&);
     friend istream& operator>>(istream&, punto&);
 private:
@@ -40,6 +40,7 @@ public:
     double yToDouble() const;
     QString toString();
     void isFigura() const {cout<<"punto"; }
+
 };
 
 #endif // PUNTO_H

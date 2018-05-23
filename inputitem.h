@@ -1,12 +1,16 @@
 #ifndef INPUTITEM_H
 #define INPUTITEM_H
 
-#include<string>
+#include <string>
 #include <iostream>
-#include<typeinfo>
+#include <typeinfo>
+#include <vector>
 using std::istream;
 using std::cin;
 using std::string;
+using std::vector;
+
+class punto;
 
 class inputitem
 {
@@ -16,6 +20,7 @@ public:
     static inputitem* pars_start(string);
     virtual void isFigura() const =0;
     static inputitem* iniz_input( string );
+    static vector<punto> intersect(inputitem*,inputitem*);
 };
 
 #endif // INPUTITEM_H

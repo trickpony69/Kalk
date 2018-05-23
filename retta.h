@@ -35,11 +35,10 @@ public:
     static bool isPerpendicolari(retta&,retta&);
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
-    static punto Intersect(retta&,retta&);
+    static vector<punto> Intersect(const retta&,const retta&);
     void pars_rect(string);
     void isFigura() const {cout<<"retta"; }
     vector<punto> print_rect(const razionale&,const razionale&);
-
 };
 
 #endif // RETTA_H

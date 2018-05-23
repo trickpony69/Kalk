@@ -202,23 +202,105 @@ vector<punto> poligono::printPoligon() const{
     }
     return temp;
 }
-/*
-vector<retta> poligono::printPoligon() const{
-    vector<retta> temp;
-    //trovo i lati , e calcolo la retta passante per 2 punti consecutivi
 
-    for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
-        for( unsigned int j = i + 1  ; j < pt.size() ; ++j ){
-            if( punto::distanceTwoPoints(*pt[i],*pt[j]) == lato() ){
-                retta r = retta::rettaFromTwoPoints(*pt[i],*pt[j]);
-                cout<<r;
-                temp.push_back(r);
-            }
-        }
+//mi dice se le x e le y dei poligoni si intersecano
+bool poligono::isintersect( poligono * p1 , poligono * p2 ) {
+    vector<punto*> vec1 = p1->GetPoint() ;
+    vector<punto*> vec2 = p2->GetPoint() ;
+
+    double minx1 , maxx1 , minx2 , maxx2 , miny1 , maxy1 , miny2 , maxy2 ;
+
+    minx1 = vec1[0]->getX();
+    maxx1 = vec1[0]->getX();
+    miny1 = vec1[0]->getY();
+    maxy1 = vec1[0]->getY();
+
+    for(unsigned int i = 1 ; i < vec1.size() ; ++i ){
+        if( minx1 > vec1[i]->getX() )
+            minx1 = vec1[i]->getX();
+
+        if( maxx1 < vec1[i]->getX() )
+            maxx1 = vec1[i]->getX();
+
+        if( miny1 > vec1[i]->getY() )
+            miny1 = vec1[i]->getY();
+
+        if( maxy1 < vec1[i]->getY() )
+            maxy1 = vec1[i]->getY();
     }
 
-    return temp;
-}*/
+    minx2 = vec2[0]->getX();
+    maxx2 = vec2[0]->getX();
+    miny2 = vec2[0]->getY();
+    maxy2 = vec2[0]->getY();
+
+    for(unsigned int i = 1 ; i < vec2.size() ; ++i ){
+        if( minx2 > vec2[i]->getX() )
+            minx2 = vec2[i]->getX();
+
+        if( maxx2 < vec2[i]->getX() )
+            maxx2 = vec2[i]->getX();
+
+        if( miny2 > vec2[i]->getY() )
+            miny2 = vec2[i]->getY();
+
+        if( maxy2 < vec2[i]->getY() )
+            maxy2 = vec2[i]->getY();
+    }
+    //verifico se gli intervalli x1 e x2 si intersecano
+    if((minx1 > minx2 && minx1 < maxx2) || (minx2 >= minx1 && minx2 <= maxx1) || (maxx1 >= minx2 && maxx1 <= maxx2) || (maxx2 >= minx1 && maxx2 <= maxx1))
+        if((miny1 > miny2 && miny1 < maxy2) || (miny2 >= miny1 && miny2 <= maxy1) || (maxy1 >= miny2 && maxy1 <= maxy2) || (maxy2 >= miny1 && maxy2 <= maxy1))
+            return true;
+
+    return false;
+}
+
+vector<punto> poligono::rettapol(retta * r) const{
+    vector<punto> p;
+
+    vector<punto*> vCoord0 = GetPoint();
+
+    for(int i = 0; i<vCoord0.size() - 1; i++){
+        for(int j = i + 1; j<vCoord0.size(); j++){
+           if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
+                retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
+                vector<punto> intr = retta::Intersect(prova,*r);
+                if(intr.size() > 0){
+                    if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
+                            || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) )
+                    {
+                        if( (vCoord0[i]->getY() <= intr[0].getY() && vCoord0[j]->getY() >= intr[0].getY() )
+                                || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) )
+                            p.push_back(punto(intr[0]));//copio il punto dentro
+                    }
+                }
+                intr.erase(intr.begin(),intr.end());
+           }
+        }
+    }
+    return p;
+}
+
+vector<punto> poligono::polipoli(poligono * pol) const{
+    vector<punto> p;
+
+    vector<punto*> vCoord0 = GetPoint();
+
+    for(int i = 0; i<vCoord0.size() - 1; i++){
+        for(int j = i + 1; j<vCoord0.size(); j++){
+             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
+                 retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
+                 vector<punto> single = pol->rettapol(&prova);
+
+                 p.vector::insert(p.end(), single.begin(), single.end());
+
+             }
+        }
+    }
+    return p;
+}
+
+
 
 
 

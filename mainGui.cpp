@@ -295,15 +295,37 @@ void mainGui::showResult(){
 //------------------Funzionalità calcolatrice------------------
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
-        retta* r1;
+
+        /*retta* r1;
         retta* r2;
         r1 = dynamic_cast<retta*>(inputElemento[0]);
         r2 = dynamic_cast<retta*>(inputElemento[1]);
-        if(r1,r2){
-            punto inters = retta::Intersect(*r1,*r2);
-            display->setText('('+inters.toString()+')');
+        if(r1 && r2){
+            vector<punto> inters = retta::Intersect(*r1,*r2);
+            display->setText('('+inters[0].toString()+')');
         }
-        else{display->setText("in uno dei due slot non c'e' una retta");}
+
+        poligono* p1 = dynamic_cast<poligono*>(inputElemento[0]);
+        poligono* p2 = dynamic_cast<poligono*>(inputElemento[1]);
+
+        if(p1 && p2){
+            if(poligono::isintersect(p1,p2))
+                display->setText("i due poligoni si intersecano");
+            else display->setText("i due poligoni non si intersecano");
+        }*/
+
+        vector<punto> inter = inputitem::intersect(inputElemento[0],inputElemento[1]);
+        if( inter.size() > 0 )
+        {
+            QString c = '('+inter[0].toString()+')';
+            for(int i = 1 ; i < inter.size() ; ++i){
+                c = c+'('+inter[i].toString()+')';
+            }
+            display->setText(c);
+
+        }
+        else display->setText("non si intersecano");
     }
 }
+//(0;0)(3;3)(0;3)(3;0) 3x + y -8
 

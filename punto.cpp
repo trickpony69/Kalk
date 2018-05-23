@@ -159,3 +159,5 @@ QString punto::toString(){
     y.riduzione();
     return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+'/'+QString::number(y.GetDen()));
 }
+
+

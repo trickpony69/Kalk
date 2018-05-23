@@ -17,6 +17,7 @@ private:
 protected:
     vector<punto*> pt;
 public:
+    virtual ~poligono() {};
     poligono(int, vector<punto*>);
     poligono() {}
     int GetLati() const;
@@ -28,6 +29,9 @@ public:
     static poligono* pars_pol(string);
     virtual double getFisso() const =0;
     vector<punto> printPoligon() const;
+    static bool isintersect(poligono* , poligono* ) ;
+    vector<punto> rettapol(retta*) const;
+    vector<punto> polipoli(poligono*) const;
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 

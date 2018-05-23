@@ -98,21 +98,23 @@ retta retta::RettaParallella( retta& r , punto& p ){
     }
 }
 
-punto retta::Intersect(retta& r1, retta& r2) {
+vector<punto> retta::Intersect(const retta& r1,const retta& r2) {
     razionale Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
+    vector<punto> p;
 
     if(Det != 0){
         razionale DetX = r1.GetC()*(razionale(-1,1))*r2.GetB() - r2.GetC()*(razionale(-1,1))*r1.GetB();
         razionale DetY = r1.GetA()*(razionale(-1,1))*r2.GetC() - r2.GetA()*(razionale(-1,1))*r1.GetC();
-
-        return punto(razionale(DetX,Det),razionale(DetY,Det));
+        p.push_back(punto(razionale(DetX,Det),razionale(DetY,Det)));
+        return p;
     }
     else
     {
         razionale x((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
         double coordY = (r1.GetA()*x)/((-1)*(r1.GetB())) + r1.GetC()/((-1)*(r1.GetB()));
         razionale y(coordY,1);
-        return punto(x,y);
+        p.push_back(punto(x,y));
+        return p;
     }
 }
 
@@ -231,7 +233,7 @@ void retta::pars_rect(string rect)
         if(rect[i] == 'x' && !incx) incx = true ;
         else if(rect[i] == 'x' && incx) throw not_implicit();
 
-        cout<<s<<endl;
+        //cout<<s<<endl;
 
         if(rect[i] != '*' && rect[i] != '=')
         {

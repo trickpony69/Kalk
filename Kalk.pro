@@ -23,7 +23,6 @@ HEADERS +=  finestra.h \
             quadrato.h \
             inputitem.h \
             inputitem.h \
-    rettangolo.h \
     triangolo.h \
     pentagono.h \
     myqline.h
@@ -39,7 +38,6 @@ SOURCES +=  finestra.cpp \
             impostazioni.cpp \
             quadrato.cpp \
             inputitem.cpp \
-    rettangolo.cpp \
     triangolo.cpp \
     pentagono.cpp \
     myqline.cpp
