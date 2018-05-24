@@ -149,6 +149,26 @@ vector<punto> retta::print_rect(const razionale& r1 ,const razionale& r2){
     return pt;
 }
 
+vector<punto> retta::intersect( inputitem *i ) const {
+    vector<punto> punt ;
+
+    if( typeid(*i) == typeid(retta) ){
+        cout<<"ciao";
+        retta * r = dynamic_cast<retta*>(i);
+        return retta::Intersect(*r,*this);
+
+    }else if( typeid(*i) == typeid(punto) ){
+        punto * p = dynamic_cast<punto*>(i);
+        if( retta::distancePuntoRetta(*p,*this) == 0 ){
+            punt.push_back(*p);
+        }
+        return punt;
+    }
+
+    //i = poligono
+    return i->intersect(const_cast<retta*>(this));
+}
+
 
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------

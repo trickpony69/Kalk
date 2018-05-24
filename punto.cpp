@@ -117,7 +117,6 @@ void punto::pars_point(string p){
                 }
 
                 d=1;n=0;
-
                 s.erase(s.begin(),s.end());
                 sign = 1;
             }
@@ -158,6 +157,19 @@ QString punto::toString(){
     x.riduzione();
     y.riduzione();
     return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+'/'+QString::number(y.GetDen()));
+}
+
+vector<punto> punto::intersect( inputitem* i ) const {
+    vector<punto> punt;
+    if(typeid(*i) == typeid(punto)){
+        punto * p = dynamic_cast<punto*>(i);
+        if( punto::distanceTwoPoints(*p,*this) == 0 ) {
+            punt.push_back(*p);
+        }
+        return punt;
+    }
+    //se sono qua vuol dire che l'oggetto di invocazione ha come TD(punto)
+    return i->intersect(const_cast<punto*>(this));
 }
 
 

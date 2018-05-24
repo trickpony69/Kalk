@@ -20,7 +20,7 @@ public:
     static inputitem* pars_start(string);
     virtual void isFigura() const =0;
     static inputitem* iniz_input( string );
-    static vector<punto> intersect(inputitem*,inputitem*);
+    virtual vector<punto> intersect(inputitem*) const =0;
 };
 
 #endif // INPUTITEM_H

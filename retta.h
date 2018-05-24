@@ -39,6 +39,8 @@ public:
     void pars_rect(string);
     void isFigura() const {cout<<"retta"; }
     vector<punto> print_rect(const razionale&,const razionale&);
+    vector<punto> intersect(inputitem*) const ;
+
 };
 
 #endif // RETTA_H

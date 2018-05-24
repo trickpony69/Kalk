@@ -301,6 +301,19 @@ vector<punto> poligono::polipoli(poligono * pol) const{
 }
 
 
+vector<punto> poligono::intersect(inputitem* i) const {
+    if( typeid(punto) == typeid(*i) ){
+        punto * p = dynamic_cast<punto*>(i);
+        //return puntopol(p);
+    }
+    else{
+        if(typeid(retta) == typeid(*i)){
+            return rettapol(dynamic_cast<retta*>(i));
+        }
+        else return polipoli(dynamic_cast<poligono*>(i));
+    }
+}
+
 
 
 

@@ -32,6 +32,7 @@ public:
     static bool isintersect(poligono* , poligono* ) ;
     vector<punto> rettapol(retta*) const;
     vector<punto> polipoli(poligono*) const;
+    vector<punto> intersect(inputitem*) const ;
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 

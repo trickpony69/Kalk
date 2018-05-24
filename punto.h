@@ -40,6 +40,7 @@ public:
     double yToDouble() const;
     QString toString();
     void isFigura() const {cout<<"punto"; }
+    vector<punto> intersect(inputitem *) const ;
 
 };
 

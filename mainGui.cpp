@@ -314,7 +314,8 @@ void mainGui::intersezione(){
             else display->setText("i due poligoni non si intersecano");
         }*/
 
-        vector<punto> inter = inputitem::intersect(inputElemento[0],inputElemento[1]);
+        vector<punto> inter = inputElemento[0]->intersect(inputElemento[1]);
+
         if( inter.size() > 0 )
         {
             QString c = '('+inter[0].toString()+')';

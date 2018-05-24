@@ -37,7 +37,6 @@ inputitem* inputitem::iniz_input (string st) {
     }
     else{
         poligono* p;
-        bool errore = true;
         try{ p = poligono::pars_pol(st); }
         catch( input_error ){
             throw;
@@ -79,7 +78,7 @@ inputitem* inputitem::pars_start(string s){
     }
 }
 
-vector<punto> inputitem::intersect(inputitem * i1 , inputitem * i2 ){
+/*vector<punto> inputitem::intersect(inputitem * i1 , inputitem * i2 ){
     vector<punto> p ;
 
     if(dynamic_cast<punto*>(i1) || dynamic_cast<punto*>(i2)){
@@ -146,4 +145,4 @@ vector<punto> inputitem::intersect(inputitem * i1 , inputitem * i2 ){
         }
     }
 
-}
+}*/
