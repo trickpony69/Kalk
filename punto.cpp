@@ -74,15 +74,15 @@ void punto::pars_point(string p){
                 if(doub) n = std::stod( s );
                 else n = std::stoi( s );
 
-                cout<<n;
-
                 doub = false;
 
                 if( n == 0 ){
-                    x = razionale(0,1);
                     while( p[cont] != ';' && p[cont] != ')' )
                         cont++;
-
+                    if(p[cont] == ';')
+                        x = razionale(0,1);
+                    else
+                        y = razionale(0,1);
                 }
                 s.erase(s.begin(),s.end());
             }
@@ -141,8 +141,6 @@ void punto::pars_point(string p){
         throw 1;
     }
     else throw input_error();
-
-
 }
 
 double punto::xToDouble() const{

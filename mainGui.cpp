@@ -249,6 +249,9 @@ void mainGui::drawAndReturn(){
         catch(input_error){vectorLabel[k]->setText("errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
+        catch(den_error){vectorLabel[k]->setText("errore den");}
+        catch(num_error){vectorLabel[k]->setText("errore num");}
+        catch(...){vectorLabel[k]->setText("errore input");}
     }
 }
 
