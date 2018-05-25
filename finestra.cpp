@@ -13,19 +13,24 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     QToolBar* tbL = new QToolBar();
     tb->addWidget(spaziatore1);
     //tb->addWidget(spaziatore2)
+    QAction* spaziatoreTab = new QAction("",this);
     QAction* opzioni = new QAction("opzioni",this);
     QAction* inter = new QAction("intersezione",this);
-    QAction* spaziatoreTab = new QAction("",this);
+    QAction* dist2Points = new QAction("distanza tra due punti",this);
     spaziatoreTab->setDisabled(true);
     inter->setIcon(QIcon(":/icon/intersect.png"));
-    tb->addAction("aiuto");
+    dist2Points->setIcon(QIcon(":/icon/distance.png"));
+
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
+
     tbL->addAction(spaziatoreTab);
     tbL->addAction(inter);
+    tbL->addAction(dist2Points);
     tbL->setFloatable(false);
     tbL->setMovable(false);
+
     addToolBar(Qt::LeftToolBarArea, tbL);
     addToolBar(tb);
     resize(700,500);

@@ -8,5 +8,6 @@
         <file>icon/draw.png</file>
         <file>icon/save.png</file>
         <file>icon/pasted.png</file>
+        <file>icon/distance.png</file>
     </qresource>
 </RCC>
