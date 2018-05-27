@@ -45,15 +45,6 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     loadSettings();
 
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
-    connect(finestraOpzioni->cambioColori0[0],SIGNAL(clicked()),this,SLOT(setColorBlueFirstSlot()));
-    connect(finestraOpzioni->cambioColori0[1],SIGNAL(clicked()),this,SLOT(setColorRedFirstSlot()));
-    connect(finestraOpzioni->cambioColori0[2],SIGNAL(clicked()),this,SLOT(setColorGreenFirstSlot()));
-    connect(finestraOpzioni->cambioColori1[0],SIGNAL(clicked()),this,SLOT(setColorBlueSecondSlot()));
-    connect(finestraOpzioni->cambioColori1[1],SIGNAL(clicked()),this,SLOT(setColorRedSecondSlot()));
-    connect(finestraOpzioni->cambioColori1[2],SIGNAL(clicked()),this,SLOT(setColorGreenSecondSlot()));
-    connect(finestraOpzioni->cambioColori2[0],SIGNAL(clicked()),this,SLOT(setColorBlueThirdSlot()));
-    connect(finestraOpzioni->cambioColori2[1],SIGNAL(clicked()),this,SLOT(setColorRedSecondSlot()));
-    connect(finestraOpzioni->cambioColori2[2],SIGNAL(clicked()),this,SLOT(setColorGreenThirdSlot()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
     connect(rect2Points,SIGNAL(triggered()),widgetCentrale,SLOT(rect2Points()));
     connect(dist2Points,SIGNAL(triggered()),widgetCentrale,SLOT(dist2Points()));
@@ -65,62 +56,15 @@ void finestra::showOption(){
     finestraOpzioni->show();
 }
 
-void finestra::setColorBlueFirstSlot(){
-    setColorBlue(0);
-}
-void finestra::setColorBlueSecondSlot(){
-    setColorBlue(1);
-}
-void finestra::setColorBlueThirdSlot(){
-    setColorBlue(2);
-}
-void finestra::setColorRedFirstSlot(){
-    setColorRed(0);
-}
-void finestra::setColorRedSecondSlot(){
-    setColorRed(1);
-}
-void finestra::setColorRedThirdSlot(){
-    setColorRed(2);
-}
-void finestra::setColorGreenFirstSlot(){
-    setColorGreen(0);
-}
-void finestra::setColorGreenSecondSlot(){
-    setColorGreen(1);
-}
-void finestra::setColorGreenThirdSlot(){
-    setColorGreen(2);
-}
-
-void finestra::setColorBlue(int slot){
-    if(widgetCentrale->graficoElementi->graphCount()>slot)
-        widgetCentrale->graficoElementi->graph(slot)->setPen(QPen(Qt::blue));
-
-        widgetCentrale->graficoElementi->replot();
-}
-void finestra::setColorRed(int slot){
-    if(widgetCentrale->graficoElementi->graphCount()>slot)
-        widgetCentrale->graficoElementi->graph(slot)->setPen(QPen(Qt::red));
-
-        widgetCentrale->graficoElementi->replot();
-}
-void finestra::setColorGreen(int slot){
-    if(widgetCentrale->graficoElementi->graphCount()>slot)
-        widgetCentrale->graficoElementi->graph(slot)->setPen(QPen(Qt::green));
-
-        widgetCentrale->graficoElementi->replot();
-}
-
 void finestra::loadSettings(){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
     int ind0 = settings.value("primoSlot").toInt();
-    finestraOpzioni->cambioColori0[ind0]->setChecked(true);
+    finestraOpzioni->vectorChangeColor[0][ind0]->setChecked(true);
     int ind1 = settings.value("secondoSlot").toInt();
-    finestraOpzioni->cambioColori1[ind1]->setChecked(true);
+    finestraOpzioni->vectorChangeColor[1][ind1]->setChecked(true);
     int ind2 = settings.value("terzoSlot").toInt();
-    finestraOpzioni->cambioColori2[ind2]->setChecked(true);
+    finestraOpzioni->vectorChangeColor[2][ind2]->setChecked(true);
     settings.endGroup();
     qDebug("impostazioni caricate");
 }

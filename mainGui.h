@@ -9,7 +9,6 @@ class mainGui: public QWidget{
     friend class finestra;
     Q_OBJECT
 private:
-    //QWidget* parent;
     QHBoxLayout* griglia;
     QHBoxLayout* hLay;
     QHBoxLayout* funEGrafico;

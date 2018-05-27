@@ -1,7 +1,6 @@
 #include <mainGui.h>
 
 mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("aggiungi")), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("        disegna")), cancel(new QPushButton("resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
-    //parent = p;
     QHBoxLayout* superLayout = new QHBoxLayout();
     remove->setDisabled(true);
     cancel->setDisabled(true);
@@ -56,7 +55,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     display = new QLineEdit(this);
     display->setDisabled(true);
     display->setText("      seleziona una funzione nella barra laterale");
-    display->setFixedSize(350,60);
+    display->setFixedSize(360,60);
     display->setStyleSheet("color: white;"
                            "background-color: RGB(53, 50, 47);"
                            "border-radius: 10px;");
@@ -168,7 +167,7 @@ void mainGui::drawAndReturn(){
 
     cancel->setDisabled(false);
 
-    for(unsigned int i = 0; i <funVec.size(); i++){
+    for(int i = 0; i <funVec.size(); i++){
         QString input = funVec[i]->text();
         if(!input.isEmpty()){
             QString entry(funVec[i]->text());
@@ -179,7 +178,7 @@ void mainGui::drawAndReturn(){
     razionale min(-30,1);
     razionale max(30,1);
 
-    for(unsigned int k=0; k < returnToParse.size(); k++){
+    for(int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
         try{
              graficoElementi->addGraph();
@@ -216,11 +215,11 @@ void mainGui::drawAndReturn(){
 
                  int p = 0 ;
 
-                 for(int i=0; i<vCoord0.size(); i++)
+                 for(unsigned int i=0; i<vCoord0.size(); i++)
                     graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
 
-                 for(int i = 0; i<vCoord0.size() - 1; i++){
-                     for(int j = i + 1; j<vCoord0.size(); j++){
+                 for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
+                     for(unsigned int j = i + 1; j<vCoord0.size(); j++){
                         if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
                             graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
                             graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
@@ -261,20 +260,20 @@ void mainGui::loadColor(QString slot,int index){
 
     if(settings.value(slot).toInt() == 0){
         graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+        for(int i=0; i<graficoElementi->getSize(index); i++){
             graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::blue)));
         }
     }
 
     else if(settings.value(slot).toInt() == 1){
         graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+        for(int i=0; i<graficoElementi->getSize(index); i++){
             graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::red)));
         }
     }
     else if(settings.value(slot).toInt() == 2){
         graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-        for(unsigned int i=0; i<graficoElementi->getSize(index); i++){
+        for(int i=0; i<graficoElementi->getSize(index); i++){
             graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::green)));
         }
     }
@@ -304,7 +303,7 @@ void mainGui::intersezione(){
 
         if( inter.size() > 0 ){
             QString c = '('+inter[0].toString()+')';
-            for(int i = 1 ; i < inter.size() ; ++i){
+            for(unsigned int i = 1 ; i < inter.size() ; ++i){
                 c = c+'('+inter[i].toString()+')';
             }
             display->setText(c);

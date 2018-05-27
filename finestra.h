@@ -20,15 +20,6 @@ public:
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
 private slots:
     void showOption();
-    void setColorBlueFirstSlot();
-    void setColorBlueSecondSlot();
-    void setColorBlueThirdSlot();
-    void setColorRedFirstSlot();
-    void setColorRedSecondSlot();
-    void setColorRedThirdSlot();
-    void setColorGreenFirstSlot();
-    void setColorGreenSecondSlot();
-    void setColorGreenThirdSlot();
 };
 
 #endif // FINESTRA_H
