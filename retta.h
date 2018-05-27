@@ -23,10 +23,10 @@ private:
     razionale c;
 public:
     virtual ~retta() {}
-    retta(razionale x = 0 , razionale y = 0  , razionale l = 0 ) : a(x),b(y),c(l) {} ;
-    razionale GetA() const ;
-    razionale GetB() const ;
-    razionale GetC() const ;
+    retta(razionale x = 0 , razionale y = 0  , razionale l = 0 ) : a(x),b(y),c(l) {}
+    razionale GetA() const;
+    razionale GetB() const;
+    razionale GetC() const;
     static double distancePuntoRetta(const punto&,const retta&);
     static retta rettaFromTwoPoints(punto&,punto&);
     punto printCoord_x(razionale) const; //ritorna un vector di punti che sono le coordinate calcolate
@@ -40,6 +40,7 @@ public:
     void isFigura() const {cout<<"retta"; }
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;
+    QString toString()const;
 
 };
 

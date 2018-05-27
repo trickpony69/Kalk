@@ -8,6 +8,10 @@
         <file>icon/draw.png</file>
         <file>icon/save.png</file>
         <file>icon/pasted.png</file>
-        <file>icon/distance.png</file>
+        <file>icon/rect2Points.png</file>
+        <file>icon/dist2Points.png</file>
+        <file>icon/config.png</file>
+        <file>icon/dist2Rect.png</file>
+        <file>icon/distRectPoint.png</file>
     </qresource>
 </RCC>

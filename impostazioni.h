@@ -40,9 +40,6 @@ private:
 public:
     explicit impostazioni(QWidget *parent = nullptr);
     void closeEvent(QCloseEvent *);
-signals:
-
-public slots:
 };
 
 #endif // IMPOSTAZIONI_H

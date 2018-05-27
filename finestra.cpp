@@ -5,29 +5,37 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     setCentralWidget(widgetCentrale);
     finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
-    //auto spaziatore2 = new QWidget(this);
-    //spaziatore1->setFixedHeight(30);
-    //spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //spaziatore2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QToolBar* tb = new QToolBar();
     QToolBar* tbL = new QToolBar();
-    tb->addWidget(spaziatore1);
-    //tb->addWidget(spaziatore2)
     QAction* spaziatoreTab = new QAction("",this);
     QAction* opzioni = new QAction("opzioni",this);
     QAction* inter = new QAction("intersezione",this);
+    QAction* rect2Points = new QAction("retta passante tra due punti",this);
     QAction* dist2Points = new QAction("distanza tra due punti",this);
-    spaziatoreTab->setDisabled(true);
-    inter->setIcon(QIcon(":/icon/intersect.png"));
-    dist2Points->setIcon(QIcon(":/icon/distance.png"));
+    QAction* dist2Rect = new QAction("distanza tra due rette",this);
+    QAction* distRectPoint = new QAction("distanza punto retta",this);
 
+    spaziatoreTab->setDisabled(true);
+
+    opzioni->setIcon(QIcon(":/icon/config.png"));
+    inter->setIcon(QIcon(":/icon/intersect.png"));
+    rect2Points->setIcon(QIcon(":/icon/rect2Points.png"));
+    dist2Points->setIcon(QIcon(":/icon/dist2Points.png"));
+    dist2Rect->setIcon(QIcon(":/icon/dist2Rect.png"));
+    distRectPoint->setIcon(QIcon(":/icon/distRectPoint.png"));
+
+    tb->addWidget(spaziatore1);
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
 
     tbL->addAction(spaziatoreTab);
     tbL->addAction(inter);
+    tbL->addAction(rect2Points);
     tbL->addAction(dist2Points);
+    tbL->addAction(dist2Rect);
+    tbL->addAction(distRectPoint);
     tbL->setFloatable(false);
     tbL->setMovable(false);
 
@@ -35,6 +43,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     addToolBar(tb);
     resize(700,500);
     loadSettings();
+
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(finestraOpzioni->cambioColori0[0],SIGNAL(clicked()),this,SLOT(setColorBlueFirstSlot()));
     connect(finestraOpzioni->cambioColori0[1],SIGNAL(clicked()),this,SLOT(setColorRedFirstSlot()));
@@ -46,6 +55,10 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(finestraOpzioni->cambioColori2[1],SIGNAL(clicked()),this,SLOT(setColorRedSecondSlot()));
     connect(finestraOpzioni->cambioColori2[2],SIGNAL(clicked()),this,SLOT(setColorGreenThirdSlot()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
+    connect(rect2Points,SIGNAL(triggered()),widgetCentrale,SLOT(rect2Points()));
+    connect(dist2Points,SIGNAL(triggered()),widgetCentrale,SLOT(dist2Points()));
+    connect(dist2Rect,SIGNAL(triggered()),widgetCentrale,SLOT(dist2Rect()));
+    connect(distRectPoint,SIGNAL(triggered()),widgetCentrale,SLOT(distRectPoint()));
 }
 
 void finestra::showOption(){
@@ -113,8 +126,8 @@ void finestra::loadSettings(){
 }
 
 void finestra::closeEvent (QCloseEvent *event){
-    QMessageBox::StandardButton resBtn = QMessageBox::question( this,"dai stai qua",tr("Sicuro sicuro ?"), QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes, QMessageBox::Yes);
-    if (resBtn != QMessageBox::Yes)
+    QMessageBox::StandardButton exitBtn = QMessageBox::question( this,"",tr("Vuoi veramente uscire ?"),QMessageBox::No | QMessageBox::Yes);
+    if (exitBtn != QMessageBox::Yes)
         event->ignore();
     else{
         event->accept();

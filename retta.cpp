@@ -1,5 +1,4 @@
 #include "retta.h"
-
 #include <iostream>
 #include <locale>
 #include <sstream>
@@ -169,7 +168,9 @@ vector<punto> retta::intersect( inputitem *i ) const {
     return i->intersect(const_cast<retta*>(this));
 }
 
-
+QString retta::toString()const{
+    return QString(QString::number(a)+'x'+QString::number(b)+'y'+'+'+QString::number(c));
+}
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
 

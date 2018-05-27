@@ -1,30 +1,8 @@
 #ifndef MIACLASSE_H
 #define MIACLASSE_H
 
-#include <QWidget>
-#include <QVector>
-#include <QLineEdit>
-#include <QString>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QIcon>
-#include <QLabel>
-#include <QMainWindow>
-#include <QToolBar>
-#include <QVector>
-#include <QGraphicsItem>
-#include <grafico.h>
-#include <retta.h>
-#include <QDebug>
-#include <QGridLayout>
-#include <QPainterPath>
-#include <vector>
-#include "qcustomplot.h"
-#include <string>
-#include <poligono.h>
-#include "retta.h"
-#include <iostream>
-#include "inputitem.h"
+#include "grafico.h"
+#include "poligono.h"
 #include "myqline.h"
 
 class mainGui: public QWidget{
@@ -60,7 +38,7 @@ public:
     // i due razionali passati per riferimento sono rideriti al range di stampa delle coordinate
     static vector<punto> print_rect(retta&,razionale&,razionale&);
 
-public slots: //private o public slots ?
+private slots: //private o public slots ?
     void push_qle();
     void remove_qle();
     void drawAndReturn();
@@ -68,6 +46,11 @@ public slots: //private o public slots ?
     void intersezione();
     void saveResult();
     void showResult();
+protected slots:
+    void rect2Points();
+    void dist2Points();
+    void dist2Rect();
+    void distRectPoint();
 };
 
 #endif // MIACLASSE_H

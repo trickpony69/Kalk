@@ -18,7 +18,7 @@ private:
     void closeEvent(QCloseEvent*);
 public:    
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
-public slots:
+private slots:
     void showOption();
     void setColorBlueFirstSlot();
     void setColorBlueSecondSlot();

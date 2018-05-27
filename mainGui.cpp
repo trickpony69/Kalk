@@ -212,37 +212,37 @@ void mainGui::drawAndReturn(){
         //                   (0;3)(3;3)(3;0)(0;0)
         //                   (0;0)(3;6)(6;0)
 
-                     vector<punto*> vCoord0 = pol->GetPoint();
+                 vector<punto*> vCoord0 = pol->GetPoint();
 
-                     int p = 0 ;
+                 int p = 0 ;
 
-                     for(int i=0; i<vCoord0.size(); i++)
-                        graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
+                 for(int i=0; i<vCoord0.size(); i++)
+                    graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
 
-                     for(int i = 0; i<vCoord0.size() - 1; i++){
-                         for(int j = i + 1; j<vCoord0.size(); j++){
-                            if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
-                                graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                                graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
-                                ++p;
-                            }
-                         }
+                 for(int i = 0; i<vCoord0.size() - 1; i++){
+                     for(int j = i + 1; j<vCoord0.size(); j++){
+                        if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
+                            graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
+                            graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
+                            ++p;
+                        }
                      }
+                 }
 
-                      graficoElementi->replot();
+                graficoElementi->replot();
 
-                      vectorLabel[k]->setText(returnToParse[k]);
-                      inputElemento.push_back(pol);
-              }
+                vectorLabel[k]->setText(returnToParse[k]);
+                inputElemento.push_back(pol);
+          }
 
-             if(k==0)
-                loadColor("primoSlot",k);
-             else if(k==1)
-                loadColor("secondoSlot",k);
-             else if(k==2)
-                loadColor("terzoSlot",k);
+         if(k==0)
+            loadColor("primoSlot",k);
+         else if(k==1)
+            loadColor("secondoSlot",k);
+         else if(k==2)
+            loadColor("terzoSlot",k);
 
-             graficoElementi->replot();
+         graficoElementi->replot();
 
         }
 
@@ -295,32 +295,14 @@ void mainGui::showResult(){
     }
 }
 
-//------------------Funzionalità calcolatrice------------------
+//------------------Funzionalità barra laterale------------------
+//(0;0)(3;3)(0;3)(3;0) 3x + y -8
+
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
-
-        /*retta* r1;
-        retta* r2;
-        r1 = dynamic_cast<retta*>(inputElemento[0]);
-        r2 = dynamic_cast<retta*>(inputElemento[1]);
-        if(r1 && r2){
-            vector<punto> inters = retta::Intersect(*r1,*r2);
-            display->setText('('+inters[0].toString()+')');
-        }
-
-        poligono* p1 = dynamic_cast<poligono*>(inputElemento[0]);
-        poligono* p2 = dynamic_cast<poligono*>(inputElemento[1]);
-
-        if(p1 && p2){
-            if(poligono::isintersect(p1,p2))
-                display->setText("i due poligoni si intersecano");
-            else display->setText("i due poligoni non si intersecano");
-        }*/
-
         vector<punto> inter = inputElemento[0]->intersect(inputElemento[1]);
 
-        if( inter.size() > 0 )
-        {
+        if( inter.size() > 0 ){
             QString c = '('+inter[0].toString()+')';
             for(int i = 1 ; i < inter.size() ; ++i){
                 c = c+'('+inter[i].toString()+')';
@@ -330,6 +312,56 @@ void mainGui::intersezione(){
         }
         else display->setText("non si intersecano");
     }
+    else display->setText("non sono stati inseriti due elementi");
+
 }
-//(0;0)(3;3)(0;3)(3;0) 3x + y -8
+
+void mainGui::rect2Points(){
+    if(inputElemento.size() == 2){
+        if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
+            if(punto* punto1 = dynamic_cast<punto*>(inputElemento[1])){
+                retta risultato = risultato.rettaFromTwoPoints(*punto0,*punto1);
+                display->setText(risultato.toString());
+            }
+        }
+    }
+    else display->setText("non sono stati inseriti due punti");
+
+}
+
+void mainGui::dist2Points(){
+    if(inputElemento.size() == 2){
+        if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
+            if(punto* punto1 = dynamic_cast<punto*>(inputElemento[1])){
+                double risultato = punto::distanceTwoPoints(*punto0,*punto1);
+                display->setText(QString::number(risultato));
+            }
+        }
+    }
+    else display->setText("non sono stati inseriti due punti");
+}
+
+void mainGui::dist2Rect(){
+    if(inputElemento.size() == 2){
+        if(retta* retta0 = dynamic_cast<retta*>(inputElemento[0])){
+            if(retta* retta1 = dynamic_cast<retta*>(inputElemento[1])){
+                double risultato =  retta0->distanceRettaRetta(*retta1);
+                display->setText(QString::number(risultato));
+            }
+        }
+    }
+    else display->setText("non sono state inserite due rette");
+}
+
+void mainGui::distRectPoint(){
+    if(inputElemento.size() == 2){
+        if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
+            if(retta* retta0 = dynamic_cast<retta*>(inputElemento[1])){
+                double risultato = retta::distancePuntoRetta(*punto0,*retta0);
+                display->setText(QString::number(risultato));
+            }
+        }
+    }
+    else display->setText("non sono stati inseriti rispettivamente un punto e una retta");
+}
 
