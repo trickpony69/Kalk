@@ -14,7 +14,7 @@ double retta::distancePuntoRetta(const punto& p, const retta& r){
     return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
-retta retta::rettaFromTwoPoints(punto& p1,punto& p2){
+retta retta::rettaFromTwoPoints(const punto& p1,const punto& p2){
     if(p1.getX() == p2.getX() && p1.getY() != p2.getY()){
         return retta(-1,0,p1.getX());
     }
@@ -31,7 +31,7 @@ retta retta::rettaFromTwoPoints(punto& p1,punto& p2){
     }
 }
 
-double retta::distanceRettaRetta(retta& r2) {
+double retta::distanceRettaRetta(retta& r2) const {
     //trovo il punto con x = 0 di r2:
     if(r2.GetA() == 0){
         punto x (0,(-1)*(r2.GetC()/r2.GetB()));
@@ -238,13 +238,12 @@ void retta::pars_rect(string rect)
     // raz = verifica se è una frazione .
     // incx = incy = serve per verificare se trova due volte la
     // la x o la y .
-    bool raz = false , incx = false , incy = false , doub = false;
+    bool raz = false , incx = false , incy = false , doub = false , segno = false ;
 
     //n = num , d = den , x = coeff x , y = coeff y , tn = termine noto
     double n=0,d=0,x=0,y=0,tn=0;
 
     int sign = 1;
-
 
     for(unsigned int i = 0 ; i < rect.length() ; i++){
         //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista
@@ -254,25 +253,28 @@ void retta::pars_rect(string rect)
         if(rect[i] == 'x' && !incx) incx = true ;
         else if(rect[i] == 'x' && incx) throw not_implicit();
 
-        //cout<<s<<endl;
-
         if(rect[i] != '*' && rect[i] != '=')
         {
             if(rect[i] == '-' || rect[i] == '+'){
                 //verifico se il termine noto è a primo o secondo membro
-                if(s.length() > 0){
 
+                if(s.length() > 0){
                     if(doub) tn = std::stod( s );
                     else tn = std::stoi( s );
 
                     doub = false;
 
+                    if((b.GetNum() != 0 || a.GetNum() != 0) && !segno) throw input_error();
                     c = razionale(sign*tn,1);
                     sign = 1;
-
+                    segno = false;
                     s.erase(s.begin(),s.end());
                 }
                 if(rect[i] == '-') sign = -1;
+
+                segno = true;
+
+
             }
             else if(rect[i] == '/'){
 
@@ -296,9 +298,11 @@ void retta::pars_rect(string rect)
                     else x = std::stoi( s );
 
                     doub = false;
+                    if((b.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
 
                     a = razionale(sign*x,1);
                     sign = 1;
+                    segno = false;
                     s.erase(s.begin(),s.end());
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
@@ -308,8 +312,10 @@ void retta::pars_rect(string rect)
 
                     doub = false;
 
+                    if((a.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
                     b = razionale(sign*y,1);
                     sign = 1;
+                    segno = false;
                     s.erase(s.begin(),s.end());
                 }
                 else{
@@ -330,14 +336,20 @@ void retta::pars_rect(string rect)
                         doub = false;
 
                         if(rect[i] == 'x'){
+                            if((b.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
                             a = razionale(sign*n,d);
+                            segno = false;
                             sign = 1;
                         }else if(rect[i] == 'y'){
+                            if((a.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
                             b = razionale(sign*n,d);
                             sign = 1;
+                            segno = false;
                         }else {
+                            if((a.GetNum() != 0 || b.GetNum() != 0) && !segno) throw input_error();
                             c = razionale(sign*n,d);
                             sign = 1;
+                            segno = false;
                         }
 
                         //decremento cosi posso ripartire il ciclo dal segno
@@ -372,7 +384,11 @@ void retta::pars_rect(string rect)
 
                  doub = false;
 
+                 if((b.GetNum() != 0 || a.GetNum() != 0) && !segno) throw input_error();
+
                  c = razionale(sign*tn,1);
+                 segno = false;
+
                  s.erase(s.begin(),s.end());
               }
               sign = 1;

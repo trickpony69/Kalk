@@ -16,7 +16,7 @@ class retta;
 
 class retta : public inputitem {
     friend istream& operator>>(istream&,retta&);
-    friend ostream& operator<<(ostream&, const retta&);//indecisione: uso i getter o la friendship ? Per ora la friendship
+    friend ostream& operator<<(ostream&, const retta&);
 private:
     razionale a;
     razionale b;
@@ -28,16 +28,15 @@ public:
     razionale GetB() const;
     razionale GetC() const;
     static double distancePuntoRetta(const punto&,const retta&);
-    static retta rettaFromTwoPoints(punto&,punto&);
-    punto printCoord_x(razionale) const; //ritorna un vector di punti che sono le coordinate calcolate
-    double distanceRettaRetta(retta&);
+    static retta rettaFromTwoPoints(const punto&,const punto&);
+    punto printCoord_x(razionale) const;
+    double distanceRettaRetta(retta&) const;
     static bool isParallels(retta&,retta&);
     static bool isPerpendicolari(retta&,retta&);
     static retta RettaPerpendicolare(retta&,punto&);
     static retta RettaParallella(retta&,punto&);
     static vector<punto> Intersect(const retta&,const retta&);
     void pars_rect(string);
-    void isFigura() const {cout<<"retta"; }
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;
     QString toString()const;

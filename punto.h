@@ -34,12 +34,11 @@ public:
     //virtual QPoint formatToQtPainter(punto);
     razionale getX() const;
     razionale getY() const;
-    static double distanceTwoPoints(punto, punto);
+    static double distanceTwoPoints(const punto&,const punto&);
     void pars_point(string);
     double xToDouble() const;
     double yToDouble() const;
     QString toString();
-    void isFigura() const {cout<<"punto"; }
     vector<punto> intersect(inputitem *) const ;
 
 };

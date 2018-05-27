@@ -18,7 +18,6 @@ class inputitem
 public:
     virtual ~inputitem() =0 ;
     static inputitem* pars_start(string);
-    virtual void isFigura() const =0;
     static inputitem* iniz_input( string );
     virtual vector<punto> intersect(inputitem*) const =0;
 };
