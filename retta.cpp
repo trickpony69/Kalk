@@ -152,7 +152,6 @@ vector<punto> retta::intersect( inputitem *i ) const {
     vector<punto> punt ;
 
     if( typeid(*i) == typeid(retta) ){
-        cout<<"ciao";
         retta * r = dynamic_cast<retta*>(i);
         return retta::Intersect(*r,*this);
 

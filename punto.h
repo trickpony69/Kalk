@@ -40,6 +40,7 @@ public:
     double yToDouble() const;
     QString toString();
     vector<punto> intersect(inputitem *) const ;
+    bool operator==( const punto& );
 
 };
 

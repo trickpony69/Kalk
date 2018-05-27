@@ -10,6 +10,11 @@ razionale punto::getY() const {return y;}
     return QPoint(p.x,p.y);
 }*/
 
+bool punto::operator ==(const punto& p){
+    if((p.getX() == this->getX()) && (p.getY()) == this->getY()) return true;
+    else return false;
+}
+
 double punto::distanceTwoPoints(const punto& p1,const punto& p2){
     return sqrt(pow((p2.x-p1.x),2)+pow((p2.y-p1.y),2));
 }
@@ -137,7 +142,6 @@ void punto::pars_point(string p){
         }
     }
     if(p[0] == '(' && p[p.length()-1] == ')') {
-        cout<<x<<" "<<y<<endl;
         throw 1;
     }
     else throw input_error();

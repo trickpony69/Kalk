@@ -203,75 +203,35 @@ vector<punto> poligono::printPoligon() const{
     return temp;
 }
 
-//mi dice se le x e le y dei poligoni si intersecano
-bool poligono::isintersect( poligono * p1 , poligono * p2 ) {
-    vector<punto*> vec1 = p1->GetPoint() ;
-    vector<punto*> vec2 = p2->GetPoint() ;
-
-    double minx1 , maxx1 , minx2 , maxx2 , miny1 , maxy1 , miny2 , maxy2 ;
-
-    minx1 = vec1[0]->getX();
-    maxx1 = vec1[0]->getX();
-    miny1 = vec1[0]->getY();
-    maxy1 = vec1[0]->getY();
-
-    for(unsigned int i = 1 ; i < vec1.size() ; ++i ){
-        if( minx1 > vec1[i]->getX() )
-            minx1 = vec1[i]->getX();
-
-        if( maxx1 < vec1[i]->getX() )
-            maxx1 = vec1[i]->getX();
-
-        if( miny1 > vec1[i]->getY() )
-            miny1 = vec1[i]->getY();
-
-        if( maxy1 < vec1[i]->getY() )
-            maxy1 = vec1[i]->getY();
-    }
-
-    minx2 = vec2[0]->getX();
-    maxx2 = vec2[0]->getX();
-    miny2 = vec2[0]->getY();
-    maxy2 = vec2[0]->getY();
-
-    for(unsigned int i = 1 ; i < vec2.size() ; ++i ){
-        if( minx2 > vec2[i]->getX() )
-            minx2 = vec2[i]->getX();
-
-        if( maxx2 < vec2[i]->getX() )
-            maxx2 = vec2[i]->getX();
-
-        if( miny2 > vec2[i]->getY() )
-            miny2 = vec2[i]->getY();
-
-        if( maxy2 < vec2[i]->getY() )
-            maxy2 = vec2[i]->getY();
-    }
-    //verifico se gli intervalli x1 e x2 si intersecano
-    if((minx1 > minx2 && minx1 < maxx2) || (minx2 >= minx1 && minx2 <= maxx1) || (maxx1 >= minx2 && maxx1 <= maxx2) || (maxx2 >= minx1 && maxx2 <= maxx1))
-        if((miny1 > miny2 && miny1 < maxy2) || (miny2 >= miny1 && miny2 <= maxy1) || (maxy1 >= miny2 && maxy1 <= maxy2) || (maxy2 >= miny1 && maxy2 <= maxy1))
-            return true;
-
-    return false;
-}
-
-vector<punto> poligono::rettapol(retta * r) const{
+vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NULL) const{
     vector<punto> p;
 
     vector<punto*> vCoord0 = GetPoint();
 
-    for(int i = 0; i<vCoord0.size() - 1; i++){
-        for(int j = i + 1; j<vCoord0.size(); j++){
+    for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
+        for(unsigned int j = i + 1; j<vCoord0.size(); j++){
            if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
                 retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
                 vector<punto> intr = retta::Intersect(prova,*r);
+                //intersezione tra due rette è al massimo un punto
                 if(intr.size() > 0){
+
+                    //devo verificare che le x della retta coincidono in qualche range con le x del poligono
+
                     if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
                             || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) )
                     {
                         if( (vCoord0[i]->getY() <= intr[0].getY() && vCoord0[j]->getY() >= intr[0].getY() )
                                 || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) )
-                            p.push_back(punto(intr[0]));//copio il punto dentro
+                        {
+                            if(p1 && p2){ //invocata in polipoli quindi passo i punti
+                                if( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
+                                        || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) && (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
+                                        || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) )
+                                    p.push_back(punto(intr[0]));
+                            }
+                            else p.push_back(punto(intr[0]));//copio il punto dentro
+                        }
                     }
                 }
                 intr.erase(intr.begin(),intr.end());
@@ -286,17 +246,24 @@ vector<punto> poligono::polipoli(poligono * pol) const{
 
     vector<punto*> vCoord0 = GetPoint();
 
-    for(int i = 0; i<vCoord0.size() - 1; i++){
-        for(int j = i + 1; j<vCoord0.size(); j++){
+    for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
+        for(unsigned int j = i + 1; j<vCoord0.size(); j++){
              if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
                  retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
-                 vector<punto> single = pol->rettapol(&prova);
-
+                 vector<punto> single = pol->rettapol(&prova,vCoord0[i],vCoord0[j]);
                  p.vector::insert(p.end(), single.begin(), single.end());
-
              }
         }
     }
+
+    //verifico non ci siano doppioni
+
+    /*for( unsigned int i = 0 ; i < p.size() ; ++i ){
+        for( unsigned int j = i + 1 ; j < p.size() ; ++i ){
+            if( p[i] == p[j] ) p.erase(p.begin()+j);
+        }
+    }*/
+
     return p;
 }
 
