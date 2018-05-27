@@ -131,6 +131,7 @@ void finestra::closeEvent (QCloseEvent *event){
         event->ignore();
     else{
         event->accept();
-        finestraOpzioni->close();
+        if(finestraOpzioni)
+            finestraOpzioni->close();
     }
 }
