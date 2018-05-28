@@ -27,11 +27,14 @@ public:
     virtual double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
     static poligono* pars_pol(string);
+    static vector<punto> puntint(const poligono& ,const poligono&);
     virtual double getFisso() const =0;
     vector<punto> printPoligon() const;
     vector<punto> rettapol(retta*,punto* , punto*) const;
     vector<punto> polipoli(poligono*) const;
+    punto* polipunto(punto*) const;
     vector<punto> intersect(inputitem*) const ;
+
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 

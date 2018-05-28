@@ -11,7 +11,9 @@ razionale punto::getY() const {return y;}
 }*/
 
 bool punto::operator ==(const punto& p){
-    if((p.getX() == this->getX()) && (p.getY()) == this->getY()) return true;
+    if((p.getX() == getX()) && (p.getY()) == getY()){
+        return true;
+    }
     else return false;
 }
 

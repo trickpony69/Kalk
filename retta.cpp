@@ -80,7 +80,7 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
     }
 }
 
-retta retta::RettaParallella( retta& r , punto& p ){
+retta retta::RettaParallela( retta& r , punto& p ){
     if(r.GetB() != 0 && r.GetA() != 0){
         //trovo il coefficente angolare
         razionale m(r.GetA()*(razionale(-1,1)),r.GetB());
@@ -100,6 +100,8 @@ retta retta::RettaParallella( retta& r , punto& p ){
 vector<punto> retta::Intersect(const retta& r1,const retta& r2) {
     razionale Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
     vector<punto> p;
+
+    if(retta::isParallels(const_cast<retta&>(r1),const_cast<retta&>(r2))) return p;
 
     if(Det != 0){
         razionale DetX = r1.GetC()*(razionale(-1,1))*r2.GetB() - r2.GetC()*(razionale(-1,1))*r1.GetB();

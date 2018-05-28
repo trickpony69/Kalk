@@ -218,19 +218,24 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
 
                     //devo verificare che le x della retta coincidono in qualche range con le x del poligono
 
+
                     if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
                             || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) )
                     {
                         if( (vCoord0[i]->getY() <= intr[0].getY() && vCoord0[j]->getY() >= intr[0].getY() )
                                 || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) )
                         {
-                            if(p1 && p2){ //invocata in polipoli quindi passo i punti
+                            if(p1 && p2){ //invocata in polipoli quindi passo i punti e verifico i "range"
                                 if( ( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
                                         || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) ) && ( (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
                                         || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) ) )
-                                    p.push_back(punto(intr[0]));
+                                    {
+                                        p.push_back(punto(intr[0]));
+                                    }
                             }
-                            else p.push_back(punto(intr[0]));//copio il punto dentro
+                            else {
+                                p.push_back(punto(intr[0]));//copio il punto dentro
+                            }
                         }
                     }
                 }
@@ -238,11 +243,41 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
            }
         }
     }
+
+    if( p.size() > 1 ){
+        for( unsigned int i = 0 ; i < p.size() - 1 ; ++i ){
+            for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
+                if( p[i] == p[j] ) p.erase(p.begin()+j);
+            }
+        }
+    }
+
+
     return p;
 }
 
+vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
+    vector<punto*> punti = p2.GetPoint();//garbage
+    vector<punto> inter;
+    for(unsigned int i = 0; i < punti.size(); i++){
+        if(p1.polipunto(punti[i])){
+           inter.push_back(*(p1.polipunto(punti[i])));
+        }
+    }
+    //distruggi(punti)
+    vector<punto*> punti2 = p1.GetPoint();
+    for(unsigned int i = 0; i < punti2.size(); i++){
+        if(p2.polipunto(punti2[i])){
+            inter.push_back(*(p2.polipunto(punti2[i])));
+        }
+    }
+    return inter;
+}
+
 vector<punto> poligono::polipoli(poligono * pol) const{
-    vector<punto> p;
+    vector<punto> p,puntinterni;
+
+    puntinterni = poligono::puntint(*this,*pol);
 
     vector<punto*> vCoord0 = GetPoint();
 
@@ -256,22 +291,62 @@ vector<punto> poligono::polipoli(poligono * pol) const{
         }
     }
 
+    //vCoord0.distruggi(); distruttore dei punti
+
+    if( puntinterni.size() > 0 ){
+        p.vector::insert(p.end(), puntinterni.begin(), puntinterni.end());
+    }
+
     //verifico non ci siano doppioni
 
-    /*for( unsigned int i = 0 ; i < p.size() ; ++i ){
-        for( unsigned int j = i + 1 ; j < p.size() ; ++i ){
+    for( unsigned int i = 0 ; i < p.size() - 1 ; ++i ){
+        for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
             if( p[i] == p[j] ) p.erase(p.begin()+j);
         }
-    }*/
+    }
 
     return p;
+}
+
+punto* poligono::polipunto( punto * p ) const{
+    //prima verifico che sia un vertice del poligono
+    vector<punto> punt;
+
+    vector<punto*> lat = GetPoint();
+
+    for( unsigned int i = 0 ; i < lat.size() ; ++i ){
+       if(*lat[i] == *p){
+           return p;
+       }
+    }
+
+    retta paralx(0,1,-3);
+    retta r = retta::RettaParallela(paralx,*p);
+
+    //r è una retta parallela all'asse x passante per p
+
+    vector<punto> inter = rettapol(&r);
+
+    if( inter.size() == 2 ) {
+        //ok allora verifico che sia uno a dx e uno a sx del punto
+       if((inter[0].getX() <= p->getX() && inter[1].getX() >= p->getX())
+               ||(inter[0].getX() >= p->getX() && inter[1].getX() <= p->getX() ) )
+       {
+           return new punto(*p);
+       }
+    }
+
+    return 0;
 }
 
 
 vector<punto> poligono::intersect(inputitem* i) const {
     if( typeid(punto) == typeid(*i) ){
         punto * p = dynamic_cast<punto*>(i);
-        //return puntopol(p);
+        vector<punto> punt ;
+        punto * ptemp = polipunto(p);
+        if(ptemp) punt.push_back(*ptemp);
+        return punt;
     }
     else{
         if(typeid(retta) == typeid(*i)){
@@ -280,6 +355,10 @@ vector<punto> poligono::intersect(inputitem* i) const {
         else return polipoli(dynamic_cast<poligono*>(i));
     }
 }
+
+
+// se ritorno un vector di size == 1 è un vertice del poligono
+
 
 
 

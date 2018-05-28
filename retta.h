@@ -34,7 +34,7 @@ public:
     static bool isParallels(retta&,retta&);
     static bool isPerpendicolari(retta&,retta&);
     static retta RettaPerpendicolare(retta&,punto&);
-    static retta RettaParallella(retta&,punto&);
+    static retta RettaParallela(retta&,punto&);
     static vector<punto> Intersect(const retta&,const retta&);
     void pars_rect(string);
     vector<punto> print_rect(const razionale&,const razionale&);
