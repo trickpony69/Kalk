@@ -225,9 +225,9 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
                                 || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) )
                         {
                             if(p1 && p2){ //invocata in polipoli quindi passo i punti
-                                if( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
-                                        || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) && (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
-                                        || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) )
+                                if( ( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
+                                        || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) ) && ( (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
+                                        || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) ) )
                                     p.push_back(punto(intr[0]));
                             }
                             else p.push_back(punto(intr[0]));//copio il punto dentro
