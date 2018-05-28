@@ -44,6 +44,9 @@ inputitem* inputitem::iniz_input (string st) {
         catch( irregular_pol ){
             throw;
         }
+        catch( num_lati ){
+            throw;
+        }
         return p;
     }
 }

@@ -59,8 +59,61 @@ razionale poligono::isRegular() const {
     else return razionale(0,0);
 }
 
-//------------------ OPERATOR INPUT ----------------
+//-----------------DISTR PROFONDO-------------------
 
+poligono::~poligono(){
+    distruggi(pt);
+}
+
+void poligono::distruggi(vector<punto*> v) {
+    for(unsigned int i = 0 ; i < v.size() ; ++i ){
+        delete v[i];//invoco distruttore di punto
+    }
+}
+
+//---------------COPIA PROFONDA-------------
+
+vector<punto*> poligono::copia(vector<punto*> v) const{
+    vector<punto*> n ;
+    for( unsigned int i = 0 ; i < v.size() ; ++i ){
+        n.push_back(new punto(*v[i]));
+    }
+    return n;
+}
+
+
+//-------------COSTRUTTORE DI COPIA PROFONDA--------
+
+poligono::poligono(const poligono & p){
+    lati = p.lati;
+    pt = copia(p.pt);
+}
+
+
+//------------------ OPERATOR ----------------
+
+poligono& poligono::operator = ( const poligono& p ) {
+    if(this != &p){
+        distruggi(pt);
+        pt = copia(p.pt);
+    }
+    return *this;
+}
+
+bool poligono::operator !=(const poligono& p ){
+    if(p.lati == lati){
+        int cont = 0 ;
+        vector<punto*> p1 = p.GetPoint();
+        vector<punto*> p2 = GetPoint();
+        for(unsigned int i = 0 ; i < p1.size() -1 ; ++ i){
+            for(unsigned int j = i + 1 ; j < p2.size() ; ++j ){
+                if( *p1[i] == *p2[j] ) cont ++;
+            }
+        }
+        if(cont == lati) return true;
+    }
+    return false;
+}
 
 ostream& operator<<(ostream& os , poligono* q){
     vector<punto*> p = q->GetPoint();
@@ -163,14 +216,17 @@ poligono* poligono::pars_pol(string s){
         }
         else if( pc == 5 ){
             pentagono pent(pc,temp);
-            /*vector<punto*> p = pent.GetPoint();
+            vector<punto*> p = pent.GetPoint();
 
             for(unsigned int i=0; i<p.size(); i++) cout<<*p[i]<<" - ";
 
-            if( pent.isRegular() != razionale(0,0) )*/
+            if( pent.isRegular() != razionale(0,0) )
                 return new pentagono(pent);
-            /*else
-                throw irregular_pol();*/
+            else
+                throw irregular_pol();
+        }
+        else {
+            throw num_lati();
         }
 
     }
@@ -187,20 +243,6 @@ double poligono::perimetro() const {
 double poligono::area() const {
     double apotema = GetLati() * getFisso();
     return (perimetro()*apotema)/2;
-}
-
-vector<punto> poligono::printPoligon() const{
-    vector<punto> temp;
-    for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
-        for( unsigned int j = i + 1  ; j < pt.size() ; ++j ){
-            if( punto::distanceTwoPoints(*pt[i],*pt[j]) == lato() ){
-                retta r = retta::rettaFromTwoPoints(*pt[i],*pt[j]);
-                vector<punto> single = r.print_rect(pt[i]->getX(),pt[j]->getX());
-                temp.vector::insert(temp.end(), single.begin(), single.end());
-            }
-        }
-    }
-    return temp;
 }
 
 vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NULL) const{

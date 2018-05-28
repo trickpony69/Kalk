@@ -17,9 +17,10 @@ private:
 protected:
     vector<punto*> pt;
 public:
-    virtual ~poligono() {};//è da ridefinire e invocare il distruttore di punto
+    virtual ~poligono(); //è da ridefinire e invocare il distruttore di punto
     poligono(int, vector<punto*>);
     poligono() {}
+    poligono(const poligono&);
     int GetLati() const;
     vector<punto*> GetPoint() const;
     virtual double area() const; //virtuale pura
@@ -29,11 +30,19 @@ public:
     static poligono* pars_pol(string);
     static vector<punto> puntint(const poligono& ,const poligono&);
     virtual double getFisso() const =0;
-    vector<punto> printPoligon() const;
+
+    //intersezione
     vector<punto> rettapol(retta*,punto* , punto*) const;
     vector<punto> polipoli(poligono*) const;
     punto* polipunto(punto*) const;
     vector<punto> intersect(inputitem*) const ;
+
+    //distruzione,copia profonda
+    void distruggi(vector<punto*>);
+    poligono& operator=(const poligono&);
+    vector<punto*> copia(vector<punto*>) const;
+    bool operator !=(const poligono&);
+
 
     //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };

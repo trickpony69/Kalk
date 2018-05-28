@@ -17,5 +17,7 @@ class irregular_pol : public exception {};
 
 class not_implicit : public exception {};
 
+class num_lati : public exception{};
+
 
 #endif // ECCEZIONI_H

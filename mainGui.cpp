@@ -250,6 +250,7 @@ void mainGui::drawAndReturn(){
         catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
         catch(den_error){vectorLabel[k]->setText("errore den");}
         catch(num_error){vectorLabel[k]->setText("errore num");}
+        catch(num_lati){vectorLabel[k]->setText("numero lati errato");}
         catch(...){vectorLabel[k]->setText("errore input");}
     }
 }
