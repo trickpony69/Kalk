@@ -14,12 +14,12 @@ poligono::poligono(int l , vector<punto*> p):lati(l){
 }
 
 
-int poligono::GetLati() const {
+unsigned int poligono::GetLati() const {
     return lati;
 }
 
 vector<punto*> poligono::GetPoint() const {
-    return pt;
+    return copia(pt); //ritorno la copia dei puntatori a punto
 }
 
 //massimo tre controlli : visto che utilizziamo poligoni regolari fino a 5 lati quindi prendendo tre segmenti posso
@@ -43,7 +43,7 @@ razionale poligono::isRegular() const {
 
     double conf = lato();
 
-    int check = 0 ;
+    unsigned int check = 0 ;
     for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
         for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
             if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
@@ -73,7 +73,7 @@ void poligono::distruggi(vector<punto*> v) {
 
 //---------------COPIA PROFONDA-------------
 
-vector<punto*> poligono::copia(vector<punto*> v) const{
+vector<punto*> poligono::copia(vector<punto*> v){
     vector<punto*> n ;
     for( unsigned int i = 0 ; i < v.size() ; ++i ){
         n.push_back(new punto(*v[i]));
@@ -102,7 +102,7 @@ poligono& poligono::operator = ( const poligono& p ) {
 
 bool poligono::operator !=(const poligono& p ){
     if(p.lati == lati){
-        int cont = 0 ;
+        unsigned int cont = 0 ;
         vector<punto*> p1 = p.GetPoint();
         vector<punto*> p2 = GetPoint();
         for(unsigned int i = 0 ; i < p1.size() -1 ; ++ i){
@@ -111,16 +111,20 @@ bool poligono::operator !=(const poligono& p ){
             }
         }
         if(cont == lati) return true;
+
+        distruggi(p1);// p1 e p2 sono copie e non i veri punti
+        distruggi(p2);
     }
     return false;
 }
 
 ostream& operator<<(ostream& os , poligono* q){
-    vector<punto*> p = q->GetPoint();
+    vector<punto*> p = q->pt;
     vector<punto*>::const_iterator it = p.cbegin();
     for(;it != p.cend() ; ++it){
         os<<**it<<" ";
     }
+
     return os;
 }
 
@@ -216,9 +220,7 @@ poligono* poligono::pars_pol(string s){
         }
         else if( pc == 5 ){
             pentagono pent(pc,temp);
-            vector<punto*> p = pent.GetPoint();
 
-            for(unsigned int i=0; i<p.size(); i++) cout<<*p[i]<<" - ";
 
             if( pent.isRegular() != razionale(0,0) )
                 return new pentagono(pent);
@@ -286,6 +288,8 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
         }
     }
 
+    distruggi(vCoord0);
+
     if( p.size() > 1 ){
         for( unsigned int i = 0 ; i < p.size() - 1 ; ++i ){
             for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
@@ -299,20 +303,27 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
 }
 
 vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
-    vector<punto*> punti = p2.GetPoint();//garbage
+    vector<punto*> punti = p2.GetPoint();// ritorna i puntatori dei veri punti e non copie
     vector<punto> inter;
     for(unsigned int i = 0; i < punti.size(); i++){
         if(p1.polipunto(punti[i])){
            inter.push_back(*(p1.polipunto(punti[i])));
         }
     }
-    //distruggi(punti)
-    vector<punto*> punti2 = p1.GetPoint();
-    for(unsigned int i = 0; i < punti2.size(); i++){
-        if(p2.polipunto(punti2[i])){
-            inter.push_back(*(p2.polipunto(punti2[i])));
+
+    if(inter.size() != p2.GetLati()){
+        vector<punto*> punti2 = p1.GetPoint(); // ritorna i puntatori dei veri punti e non copie
+        for(unsigned int i = 0; i < punti2.size(); i++){
+            if(p2.polipunto(punti2[i])){
+                inter.push_back(*(p2.polipunto(punti2[i])));
+            }
         }
+        distruggi(punti2);
     }
+
+    distruggi(punti);
+
+
     return inter;
 }
 
@@ -333,7 +344,7 @@ vector<punto> poligono::polipoli(poligono * pol) const{
         }
     }
 
-    //vCoord0.distruggi(); distruttore dei punti
+    distruggi(vCoord0); //distruttore dei punti
 
     if( puntinterni.size() > 0 ){
         p.vector::insert(p.end(), puntinterni.begin(), puntinterni.end());
@@ -350,6 +361,13 @@ vector<punto> poligono::polipoli(poligono * pol) const{
     return p;
 }
 
+/*metodo verifica :
+1) verifico sia un vertice del poligono
+2) creo una retta parallela all'asse x passante per p , se la
+   retta interseca per due volte il poligono , e i punti di
+   intersezione p1 e p2 hanno rispettivamente :
+   (x1 <= x <= x2 || x2 <= x <= x1 ) allora è interno .
+*/
 punto* poligono::polipunto( punto * p ) const{
     //prima verifico che sia un vertice del poligono
     vector<punto> punt;
@@ -357,26 +375,30 @@ punto* poligono::polipunto( punto * p ) const{
     vector<punto*> lat = GetPoint();
 
     for( unsigned int i = 0 ; i < lat.size() ; ++i ){
-       if(*lat[i] == *p){
+       if(*lat[i] == *p){ //punto == vertice poligono
+           distruggi(lat);
            return p;
        }
     }
 
     retta paralx(0,1,-3);
     retta r = retta::RettaParallela(paralx,*p);
-
     //r è una retta parallela all'asse x passante per p
 
     vector<punto> inter = rettapol(&r);
+
+    distruggi(lat);
 
     if( inter.size() == 2 ) {
         //ok allora verifico che sia uno a dx e uno a sx del punto
        if((inter[0].getX() <= p->getX() && inter[1].getX() >= p->getX())
                ||(inter[0].getX() >= p->getX() && inter[1].getX() <= p->getX() ) )
        {
-           return new punto(*p);
+           return new punto(*p); //costruzione di copia standard
        }
     }
+
+
 
     return 0;
 }

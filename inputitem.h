@@ -20,6 +20,7 @@ public:
     static inputitem* pars_start(string);
     static inputitem* iniz_input( string );
     virtual vector<punto> intersect(inputitem*) const =0;
+    //virtual double distance(inputitem*) const =0 ;
 };
 
 #endif // INPUTITEM_H
