@@ -14,23 +14,6 @@ double retta::distancePuntoRetta(const punto& p, const retta& r){
     return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
 }
 
-retta retta::rettaFromTwoPoints(const punto& p1,const punto& p2){
-    if(p1.getX() == p2.getX() && p1.getY() != p2.getY()){
-        return retta(-1,0,p1.getX());
-    }
-    else if(p1.getX() != p2.getX() && p1.getY() == p2.getY()){
-        return retta(0,-1,p1.getY());
-    }
-    else{
-        razionale d1(p2.getX() - p1.getX());
-        razionale d2(p2.getY() - p1.getY());
-        razionale a = d2;
-        razionale b = d1;
-        razionale c = (d2*p1.getX()*(razionale(-1,1))) + (d1*p1.getY());
-        return retta(a,b*(razionale(-1,1)),c);
-    }
-}
-
 double retta::distanceRettaRetta(retta& r2) const {
     //trovo il punto con x = 0 di r2:
     if(r2.GetA() == 0){
@@ -46,6 +29,33 @@ double retta::distanceRettaRetta(retta& r2) const {
         return distancePuntoRetta(x,*this);
     }
 
+}
+
+double retta::distance(inputitem * i) const {
+    if(typeid(*i) == typeid(retta)){
+        return distanceRettaRetta(*(dynamic_cast<retta*>(i)));
+    }
+    else if( typeid(punto) == typeid(*i) ){
+        return distancePuntoRetta(*(dynamic_cast<punto*>(i)),*this);
+    }
+    else return i->distance(const_cast<retta*>(this));
+}
+
+retta retta::rettaFromTwoPoints(const punto& p1,const punto& p2){
+    if(p1.getX() == p2.getX() && p1.getY() != p2.getY()){
+        return retta(-1,0,p1.getX());
+    }
+    else if(p1.getX() != p2.getX() && p1.getY() == p2.getY()){
+        return retta(0,-1,p1.getY());
+    }
+    else{
+        razionale d1(p2.getX() - p1.getX());
+        razionale d2(p2.getY() - p1.getY());
+        razionale a = d2;
+        razionale b = d1;
+        razionale c = (d2*p1.getX()*(razionale(-1,1))) + (d1*p1.getY());
+        return retta(a,b*(razionale(-1,1)),c);
+    }
 }
 
 bool retta::isParallels(retta& r1 , retta& r2 ){

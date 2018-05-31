@@ -11,10 +11,8 @@ public:
     triangolo(int l,vector<punto*> p): poligono(l,p) {}
     triangolo() {}
     double perimetro() const;
-    double getFisso() const;
+    double getfisso() const;
     double area() const;
-    //vector<retta> printPoligon() const;
-    void isFigura() const {cout<<"triangolo";}
     double lato() const;
 };
 

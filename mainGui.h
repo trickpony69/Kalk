@@ -47,9 +47,8 @@ private slots: //private o public slots ?
     void showResult();
 protected slots:
     void rect2Points();
-    void dist2Points();
-    void dist2Rect();
-    void distRectPoint();
+    void dist2item();
+
 };
 
 #endif // MIACLASSE_H

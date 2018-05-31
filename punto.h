@@ -11,6 +11,7 @@
 #include "razionale.h"
 #include "eccezioni.h"
 #include "inputitem.h"
+#include "retta.h"
 
 using std::ostream;
 using std::istream;
@@ -41,6 +42,7 @@ public:
     QString toString();
     vector<punto> intersect(inputitem *) const ;
     bool operator==( const punto& );
+    double distance(inputitem *) const;
 
 };
 

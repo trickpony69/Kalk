@@ -16,6 +16,9 @@ private:
     unsigned int lati;
     static void distruggi(vector<punto*>);
     static vector<punto*> copia(vector<punto*>); //(clone)
+    static double distrettapol(retta*,poligono*);
+    static double distpuntopol(punto*,poligono*);
+    static double distpolipoli(poligono*,poligono*);
 protected:
     vector<punto*> pt;
 public:
@@ -23,14 +26,17 @@ public:
     poligono(int, vector<punto*>);
     poligono() {}
     poligono(const poligono&);
-    unsigned int GetLati() const;
-    vector<punto*> GetPoint() const;
+    unsigned int getlati() const;
+    vector<punto*> getpoint() const;
     virtual double area() const; //virtuale pura
     virtual double perimetro() const ; //virtuale
     virtual double lato() const; //ritorna la lunghezza del lato
     razionale isRegular() const;
     static poligono* pars_pol(string);
-    virtual double getFisso() const =0;
+    virtual double getfisso() const =0;
+
+    //distanza
+    double distance(inputitem*) const;
 
     //intersezione
     static vector<punto> puntint(const poligono& ,const poligono&);

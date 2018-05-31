@@ -21,6 +21,16 @@ double punto::distanceTwoPoints(const punto& p1,const punto& p2){
     return sqrt(pow((p2.x-p1.x),2)+pow((p2.y-p1.y),2));
 }
 
+double punto::distance(inputitem * i) const {
+    if(typeid(*i) == typeid(retta)){
+        return i->distance(const_cast<punto*>(this));
+    }
+    else if( typeid(punto) == typeid(*i) ){
+        return punto::distanceTwoPoints(*(dynamic_cast<punto*>(i)),*this);
+    }
+    else return i->distance(const_cast<punto*>(this));
+}
+
 ostream& operator<<(ostream& buffer, const punto& p){
     return buffer<<"("<<p.x<<";"<<p.y<<")";
 }

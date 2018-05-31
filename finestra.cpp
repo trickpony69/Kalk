@@ -12,18 +12,14 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     QAction* opzioni = new QAction("opzioni",this);
     QAction* inter = new QAction("intersezione",this);
     QAction* rect2Points = new QAction("retta passante tra due punti",this);
-    QAction* dist2Points = new QAction("distanza tra due punti",this);
-    QAction* dist2Rect = new QAction("distanza tra due rette",this);
-    QAction* distRectPoint = new QAction("distanza punto retta",this);
+    QAction* dist2item = new QAction("distanza tra due elementi",this);
 
     spaziatoreTab->setDisabled(true);
 
     opzioni->setIcon(QIcon(":/icon/config.png"));
     inter->setIcon(QIcon(":/icon/intersect.png"));
     rect2Points->setIcon(QIcon(":/icon/rect2Points.png"));
-    dist2Points->setIcon(QIcon(":/icon/dist2Points.png"));
-    dist2Rect->setIcon(QIcon(":/icon/dist2Rect.png"));
-    distRectPoint->setIcon(QIcon(":/icon/distRectPoint.png"));
+    dist2item->setIcon(QIcon(":/icon/dist2Rect.png"));
 
     tb->addWidget(spaziatore1);
     tb->addAction(opzioni);
@@ -33,9 +29,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     tbL->addAction(spaziatoreTab);
     tbL->addAction(inter);
     tbL->addAction(rect2Points);
-    tbL->addAction(dist2Points);
-    tbL->addAction(dist2Rect);
-    tbL->addAction(distRectPoint);
+    tbL->addAction(dist2item);
     tbL->setFloatable(false);
     tbL->setMovable(false);
 
@@ -47,9 +41,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
     connect(rect2Points,SIGNAL(triggered()),widgetCentrale,SLOT(rect2Points()));
-    connect(dist2Points,SIGNAL(triggered()),widgetCentrale,SLOT(dist2Points()));
-    connect(dist2Rect,SIGNAL(triggered()),widgetCentrale,SLOT(dist2Rect()));
-    connect(distRectPoint,SIGNAL(triggered()),widgetCentrale,SLOT(distRectPoint()));
+    connect(dist2item,SIGNAL(triggered()),widgetCentrale,SLOT(dist2item()));
 }
 
 void finestra::showOption(){

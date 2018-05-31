@@ -211,7 +211,7 @@ void mainGui::drawAndReturn(){
         //                   (0;3)(3;3)(3;0)(0;0)
         //                   (0;0)(3;6)(6;0)
 
-                 vector<punto*> vCoord0 = pol->GetPoint();
+                 vector<punto*> vCoord0 = pol->getpoint();
 
                  int p = 0 ;
 
@@ -329,39 +329,13 @@ void mainGui::rect2Points(){
 
 }
 
-void mainGui::dist2Points(){
-    if(inputElemento.size() == 2){
-        if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
-            if(punto* punto1 = dynamic_cast<punto*>(inputElemento[1])){
-                double risultato = punto::distanceTwoPoints(*punto0,*punto1);
-                display->setText(QString::number(risultato));
-            }
-        }
-    }
-    else display->setText("non sono stati inseriti due punti");
-}
 
-void mainGui::dist2Rect(){
+void mainGui::dist2item(){
     if(inputElemento.size() == 2){
-        if(retta* retta0 = dynamic_cast<retta*>(inputElemento[0])){
-            if(retta* retta1 = dynamic_cast<retta*>(inputElemento[1])){
-                double risultato =  retta0->distanceRettaRetta(*retta1);
-                display->setText(QString::number(risultato));
-            }
-        }
+        double dist = inputElemento[0]->distance(inputElemento[1]);
+        display->setText(QString::number(dist));
     }
     else display->setText("non sono state inserite due rette");
 }
 
-void mainGui::distRectPoint(){
-    if(inputElemento.size() == 2){
-        if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
-            if(retta* retta0 = dynamic_cast<retta*>(inputElemento[1])){
-                double risultato = retta::distancePuntoRetta(*punto0,*retta0);
-                display->setText(QString::number(risultato));
-            }
-        }
-    }
-    else display->setText("non sono stati inseriti rispettivamente un punto e una retta");
-}
 

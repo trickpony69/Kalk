@@ -40,6 +40,7 @@ public:
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;
     QString toString()const;
+    double distance(inputitem *) const;
 
 };
 

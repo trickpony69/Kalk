@@ -2,7 +2,7 @@
 
 double triangolo::numeroFisso = 0.289 ;
 
-double triangolo::getFisso() const{
+double triangolo::getfisso() const{
     return numeroFisso;
 }
 
