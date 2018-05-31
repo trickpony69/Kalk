@@ -8,8 +8,8 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     settaggi = new QHBoxLayout();
     mainlayout = new QVBoxLayout();
     QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra",this);
-    QLabel* scritta0 = new QLabel("Scegli i colori del grafico",this);
-    QLabel* scritta1 = new QLabel("Cambia il range del grafico",this);
+    QLabel* scritta0 = new QLabel("                              Scegli i colori del grafico",this);
+    QLabel* scritta1 = new QLabel("                              Cambia il range del grafico",this);
 
     QVector<QVector<QLabel*>> vectorColors(3);
     for(int i=0; i<3;++i){
@@ -44,6 +44,17 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
 
     mainlayout->addLayout(settaggi);
     mainlayout->addLayout(titoloImpostazione1);
+
+    impostazione1 = new QHBoxLayout(this);
+    min = new QLineEdit(this);
+    max = new QLineEdit(this);
+    impostazione1->addWidget(min);
+    impostazione1->addWidget(max);
+    min->setFixedWidth(50);
+    max->setFixedWidth(50);
+    min->setPlaceholderText("min");
+    max->setPlaceholderText("max");
+    mainlayout->addLayout(impostazione1);
 }
 
 void impostazioni::closeEvent(QCloseEvent *event){
@@ -67,6 +78,14 @@ void impostazioni::saveSettings(){
             settings.setValue("terzoSlot",i);
 
     settings.endGroup();
+
+    settings.beginGroup("cambioRange");
+
+    settings.setValue("min",min->text());
+    settings.setValue("max",max->text());
+
+    settings.endGroup();
+
     qDebug("impostazioni salvate");
 }
 

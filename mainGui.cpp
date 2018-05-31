@@ -68,9 +68,6 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     qle->setFont(font);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
-    QListWidget *datiSalvati = new QListWidget();
-    datiSalvati->setDragEnabled(true);
-    datiSalvati->setDropIndicatorShown(true);
     //---------------GRAFICO----------------
 
             funEGrafico->addWidget(graficoElementi);
@@ -175,8 +172,13 @@ void mainGui::drawAndReturn(){
         }
     }
 
-    razionale min(-30,1);
-    razionale max(30,1);
+    QSettings settings("Kalk","configKalk");
+    settings.beginGroup("cambioRange");
+
+    razionale min(settings.value("min").toInt(),1);
+    razionale max(settings.value("max").toInt(),1);
+
+    settings.endGroup();
 
     for(int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
@@ -281,6 +283,13 @@ void mainGui::loadColor(QString slot,int index){
     settings.endGroup();
     qDebug("colori caricati");
 }
+
+//void mainGui::loadRange(){
+//    QSettings settings("Kalk","configKalk");
+//    settings.beginGroup("cambioRange");
+
+//    settings.value("min").toInt();
+//}
 
 void mainGui::saveResult(){
     QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText());

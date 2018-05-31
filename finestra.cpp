@@ -1,13 +1,12 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui(this)){
+finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui(this)),finestraOpzioni(new impostazioni()){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
-    finestraOpzioni = new impostazioni();
     QWidget* spaziatore1 = new QWidget(this);
     spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QToolBar* tb = new QToolBar();
-    QToolBar* tbL = new QToolBar();
+    QToolBar* tb = new QToolBar(this);
+    QToolBar* tbL = new QToolBar(this);
     QAction* spaziatoreTab = new QAction("",this);
     QAction* opzioni = new QAction("opzioni",this);
     QAction* inter = new QAction("intersezione",this);
@@ -58,6 +57,12 @@ void finestra::loadSettings(){
     int ind2 = settings.value("terzoSlot").toInt();
     finestraOpzioni->vectorChangeColor[2][ind2]->setChecked(true);
     settings.endGroup();
+
+    settings.beginGroup("cambioRange");
+    finestraOpzioni->min->setText(settings.value("min").toString());
+    finestraOpzioni->max->setText(settings.value("max").toString());
+    settings.endGroup();
+
     qDebug("impostazioni caricate");
 }
 
