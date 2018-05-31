@@ -253,7 +253,7 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
 
                     //devo verificare che le x della retta coincidono in qualche range con le x del poligono
 
-
+                    cout<<intr[0]<<" forse "<<endl;
                     if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
                             || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) )
                     {
@@ -265,8 +265,11 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
                                         || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) ) && ( (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
                                         || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) ) )
                                     {
+                                    cout<<intr[0]<<" ye "<<endl;
                                         p.push_back(punto(intr[0]));
                                     }
+                                else cout<<intr[0]<<" no "<<endl;
+
                             }
                             else {
                                 p.push_back(punto(intr[0]));//copio il punto dentro

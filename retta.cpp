@@ -180,7 +180,7 @@ vector<punto> retta::intersect( inputitem *i ) const {
 }
 
 QString retta::toString()const{
-    return QString(QString::number(a)+'x'+QString::number(b)+'y'+'+'+QString::number(c));
+    return QString(QString::number(a)+'x'+'+'+QString::number(b)+'y'+'+'+QString::number(c));
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------
@@ -190,12 +190,12 @@ ostream& operator<<(ostream& buffer, const retta& r){
     if(r.a != 0)
         buffer<<r.a<<"x";
 
-    if(r.b > 0) buffer<<"+";
+    if(r.b >= 0) buffer<<"+";
     if(r.b != 0){
         buffer<<r.b<<"y";
     }
 
-    if(r.c > 0) buffer<<"+";
+    if(r.c >= 0) buffer<<"+";
     if(r.c != 0){
         buffer<<r.c;
     }
