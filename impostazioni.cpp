@@ -33,7 +33,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
         vectorChangeColor.push_back(QVector<QRadioButton*>());
         for(int j=0; j<3;++j){
             vectorSettings[i]->addWidget(vectorColors[i][j]);
-            vectorChangeColor[i].push_back(new QRadioButton());
+            vectorChangeColor[i].push_back(new QRadioButton(this));
             vectorSettings[i]->addWidget(vectorChangeColor[i][j]);
             buttonGroup[i]->addButton(vectorChangeColor[i][j]);
         }
@@ -45,7 +45,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     mainlayout->addLayout(settaggi);
     mainlayout->addLayout(titoloImpostazione1);
 
-    impostazione1 = new QHBoxLayout(this);
+    impostazione1 = new QHBoxLayout();
     min = new QLineEdit(this);
     max = new QLineEdit(this);
     impostazione1->addWidget(min);

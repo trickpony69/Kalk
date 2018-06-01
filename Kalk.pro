@@ -41,4 +41,4 @@ SOURCES +=  finestra.cpp \
     myqline.cpp
 
 RESOURCES += \
-    icons.qrc
+icons.qrc

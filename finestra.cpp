@@ -73,6 +73,6 @@ void finestra::closeEvent (QCloseEvent *event){
     else{
         event->accept();
         if(finestraOpzioni)
-            finestraOpzioni->close();
+            delete finestraOpzioni;
     }
 }
