@@ -20,7 +20,6 @@ private:
     QHBoxLayout* impostazione1;
     QLineEdit* min;
     QLineEdit* max;
-
     //----------------------------------------
     void saveSettings();
 public:

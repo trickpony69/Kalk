@@ -175,8 +175,13 @@ void mainGui::drawAndReturn(){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioRange");
 
-    razionale min(settings.value("min").toInt(),1);
-    razionale max(settings.value("max").toInt(),1);
+    razionale min(-30,1);
+    razionale max(30,1);
+
+    if(settings.value("min").toInt())
+        min=razionale(settings.value("min").toInt(),1);
+    if(settings.value("max").toInt())
+        max=razionale(settings.value("max").toInt(),1);
 
     settings.endGroup();
 
@@ -283,13 +288,6 @@ void mainGui::loadColor(QString slot,int index){
     settings.endGroup();
     qDebug("colori caricati");
 }
-
-//void mainGui::loadRange(){
-//    QSettings settings("Kalk","configKalk");
-//    settings.beginGroup("cambioRange");
-
-//    settings.value("min").toInt();
-//}
 
 void mainGui::saveResult(){
     QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText());
