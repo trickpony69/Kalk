@@ -1,6 +1,7 @@
 #include "punto.h"
 #include <locale>
 #include <sstream>
+#include <stdlib.h>
 
 razionale punto::getX() const {return x;}
 
@@ -78,8 +79,11 @@ void punto::pars_point(string p){
 
     //verifico se è un double
     bool doub = false;
+    double virgola = 1 , n1;
+    //virgola vale : 10 se ho un numero dopo la virgola  ,100 se ho due punti dopo la virgola , 1000 se ho tre punti dopo la virgola
 
     for(unsigned int cont = 0 ; cont < p.length() ; ++cont){
+
 
         if(p[cont] != '('){
             if(p[cont] == '-'){
@@ -88,10 +92,15 @@ void punto::pars_point(string p){
             else if(p[cont] == '/'){
                 if(s.length() == 0) throw num_error();
 
-                if(doub) n = std::stod( s );
+                if(doub) {
+                    n1 = std::stoi( s );
+                    n = n1 / virgola;
+                }
                 else n = std::stoi( s );
 
                 doub = false;
+                virgola = 1;
+
 
                 if( n == 0 ){
                     while( p[cont] != ';' && p[cont] != ')' )
@@ -109,17 +118,30 @@ void punto::pars_point(string p){
                 }
 
                 if(n != 0){
-                    if(doub) d = std::stod( s );
+
+
+                    if(doub){
+                        n1 = std::stoi( s );
+                        d = n1 / virgola;
+                    }
                     else d = std::stoi( s );
 
+
                     doub = false;
+                    virgola = 1;
 
                     if( d == 0 ) throw den_error();
 
                 }else{
-                    if(doub) n = std::stod( s );
+
+                    if(doub) {
+                        n1 = std::stoi( s );
+                        n = n1 / virgola;
+                    }
                     else n = std::stoi( s );
 
+
+                    virgola = 1 ;
                     doub = false;
 
                     d = 1;
@@ -141,10 +163,10 @@ void punto::pars_point(string p){
                 std::locale loc;
                 if(p[cont] == '.'){
                     doub = true;
-                    s = s+p[cont];
                 }
                 else if(isdigit(p[cont],loc))
                 {
+                  if(doub) virgola *= 10 ;
                   s = s+p[cont];
                 }
                 else {

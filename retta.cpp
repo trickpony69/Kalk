@@ -255,6 +255,7 @@ void retta::pars_rect(string rect)
     double n=0,d=0,x=0,y=0,tn=0;
 
     int sign = 1;
+    double virgola = 1 , n1;
 
     for(unsigned int i = 0 ; i < rect.length() ; i++){
         //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista
@@ -270,9 +271,10 @@ void retta::pars_rect(string rect)
                 //verifico se il termine noto è a primo o secondo membro
 
                 if(s.length() > 0){
-                    if(doub) tn = std::stod( s );
-                    else tn = std::stoi( s );
+                    n1 = std::stoi( s );
+                    tn = n1 / virgola;
 
+                    virgola = 1;
                     doub = false;
 
                     if((b.GetNum() != 0 || a.GetNum() != 0) && !segno) throw input_error();
@@ -289,9 +291,10 @@ void retta::pars_rect(string rect)
             }
             else if(rect[i] == '/'){
 
-                if(doub) n = std::stod( s );
-                else n = std::stoi( s );
+                n1 = std::stoi( s );
+                n = n1 / virgola;
 
+                virgola = 1;
                 doub = false;
 
                 s.erase(s.begin(),s.end());
@@ -305,9 +308,10 @@ void retta::pars_rect(string rect)
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
 
-                    if(doub) x = std::stod( s );
-                    else x = std::stoi( s );
+                    n1 = std::stoi( s );
+                    x = n1 / virgola;
 
+                    virgola = 1;
                     doub = false;
                     if((b.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
 
@@ -318,9 +322,10 @@ void retta::pars_rect(string rect)
                 }else if(rect[i] == 'y'){
                     if(s.length() == 0) s='1';
 
-                    if(doub) y = std::stod( s );
-                    else y = std::stoi( s );
+                    n1 = std::stoi( s );
+                    y = n1 / virgola;
 
+                    virgola = 1;
                     doub = false;
 
                     if((a.GetNum() != 0 || c.GetNum() != 0) && !segno) throw input_error();
@@ -334,16 +339,18 @@ void retta::pars_rect(string rect)
                         //vuol dire che sono a denominatore
                         while(rect[i] != 'x' && rect[i] != 'y' && rect[i] != '=' && rect[i] != '+' && rect[i] != '-')
                         {
+                            if(doub) virgola *= 10 ;
                             if(rect[i] == '.'){
                                 doub = true;
                             }
-                            s = s+rect[i];
+                            else s = s+rect[i];
                             i++;
                         }
 
-                        if(doub) d = std::stod( s );
-                        else d = std::stoi( s );
+                        n1 = std::stoi( s );
+                        d = n1 / virgola;
 
+                        virgola = 1;
                         doub = false;
 
                         if(rect[i] == 'x'){
@@ -374,11 +381,11 @@ void retta::pars_rect(string rect)
                         std::locale loc;
                         //verifico se rect[i] == numero
                         if(rect[i] == '.'){
-                            s = s + rect[i];
                             doub = true;
                         }
                         else if(isdigit(rect[i],loc))
                         {
+                          if(doub) virgola *= 10 ;
                           s = s+rect[i];
                         }
                         else throw input_error();
@@ -390,9 +397,10 @@ void retta::pars_rect(string rect)
         else if(rect[i] == '=' || rect[i+1] == '='){
             //termine noto ==> tn
              if(s.length() > 0){
-                 if(doub) tn = std::stod( s );
-                 else tn = std::stoi( s );
+                 n1 = std::stoi( s );
+                 tn = n1 / virgola;
 
+                 virgola = 1;
                  doub = false;
 
                  if((b.GetNum() != 0 || a.GetNum() != 0) && !segno) throw input_error();
@@ -413,6 +421,7 @@ void retta::pars_rect(string rect)
         throw input_error();
     }
     else{
+        cout<<a<<"x "<<b<<"y "<<c<<endl;
         throw 1;
     }
 
