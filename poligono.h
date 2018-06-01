@@ -22,31 +22,31 @@ private:
 protected:
     vector<punto*> pt;
 public:
-    virtual ~poligono();
-    poligono(int, vector<punto*>);
-    poligono() {}
-    poligono(const poligono&);
+    virtual ~poligono(); //distruttore profondo
+    poligono(int, vector<punto*>); //costruttore
+    poligono() {} //costruttore di default
+    poligono(const poligono&); //costr copia profondo
     unsigned int getlati() const;
     vector<punto*> getpoint() const;
-    virtual double area() const; //virtuale pura
-    virtual double perimetro() const ; //virtuale
+    virtual double area() const;
+    virtual double perimetro() const ;
     virtual double lato() const; //ritorna la lunghezza del lato
-    razionale isRegular() const;
+    bool isRegular() const;
     static poligono* pars_pol(string);
     virtual double getfisso() const =0;
 
     //distanza
-    double distance(inputitem*) const;
+    double distance(inputitem*) const; //funzione virtuale ereditata da inputitem
 
     //intersezione
     static vector<punto> puntint(const poligono& ,const poligono&);
     vector<punto> rettapol(retta*,punto*,punto*) const;
     vector<punto> polipoli(poligono*) const;
-    punto* polipunto(punto*) const;
+    bool polipunto(punto*) const;
     vector<punto> intersect(inputitem*) const ;
 
     //overload operator
-    poligono& operator=(const poligono&);
+    poligono& operator=(const poligono&); //assegnazione profonda
     bool operator !=(const poligono&);
 
 

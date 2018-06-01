@@ -197,7 +197,6 @@ void mainGui::drawAndReturn(){
                  graficoElementi->readSegmenti(k,0)->start->setCoords(QPointF(pointRetta[0].getX(),pointRetta[0].getY()));
                  graficoElementi->readSegmenti(k,0)->end->setCoords(QPointF(pointRetta[1].getX(),pointRetta[1].getY()));
 
-                 vectorLabel[k]->setText(returnToParse[k]);
                  inputElemento.push_back(pol);
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
@@ -211,7 +210,6 @@ void mainGui::drawAndReturn(){
                  graficoElementi->graph(k)->setLineStyle(QCPGraph::lsNone);
                  graficoElementi->graph(k)->setScatterStyle(QCPScatterStyle::ssDisc);
                  graficoElementi->replot();
-                 vectorLabel[k]->setText(returnToParse[k]);
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
@@ -237,7 +235,6 @@ void mainGui::drawAndReturn(){
 
                 graficoElementi->replot();
 
-                vectorLabel[k]->setText(returnToParse[k]);
                 inputElemento.push_back(pol);
           }
 
@@ -319,7 +316,7 @@ void mainGui::intersezione(){
         }
         else display->setText("non si intersecano");
     }
-    else display->setText("non sono stati inseriti due elementi");
+    else display->setText("Non sono stati inseriti due elementi");
 
 }
 
@@ -332,7 +329,7 @@ void mainGui::rect2Points(){
             }
         }
     }
-    else display->setText("non sono stati inseriti due punti");
+    else display->setText("Non sono stati inseriti due punti");
 
 }
 
@@ -342,7 +339,7 @@ void mainGui::dist2item(){
         double dist = inputElemento[0]->distance(inputElemento[1]);
         display->setText(QString::number(dist));
     }
-    else display->setText("non sono state inserite due rette");
+    else display->setText("Non sono stati inseitri due elementi");
 }
 
 

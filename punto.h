@@ -1,13 +1,8 @@
 #ifndef PUNTO_H
 #define PUNTO_H
 
-//#include <QtWidgets>
-//#include <QPoint>
 #include <QVector>
-//#include <QPoint>
-#include <list>
 #include "math.h"
-#include <iostream>
 #include "razionale.h"
 #include "eccezioni.h"
 #include "inputitem.h"
@@ -32,7 +27,6 @@ public:
     punto() {}
     virtual ~punto() {}
     punto( razionale a , razionale b ) : x(a),y(b) {}
-    //virtual QPoint formatToQtPainter(punto);
     razionale getX() const;
     razionale getY() const;
     static double distanceTwoPoints(const punto&,const punto&);

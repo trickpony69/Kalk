@@ -1,15 +1,11 @@
 #include "punto.h"
-#include <locale>
-#include <sstream>
+#include <locale> //serve per verificare char == numero
+#include <sstream> //serve per verificare char == numero
 #include <stdlib.h>
 
 razionale punto::getX() const {return x;}
 
 razionale punto::getY() const {return y;}
-
-/*QPoint punto::formatToQtPainter(punto p){
-    return QPoint(p.x,p.y);
-}*/
 
 bool punto::operator ==(const punto& p){
     if((p.getX() == getX()) && (p.getY()) == getY()){
@@ -204,7 +200,7 @@ vector<punto> punto::intersect( inputitem* i ) const {
         }
         return punt;
     }
-    //se sono qua vuol dire che l'oggetto di invocazione ha come TD(punto)
+    //rilancio la chiamata cambiando l'oggetto di invocazione
     return i->intersect(const_cast<punto*>(this));
 }
 

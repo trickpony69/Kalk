@@ -2,6 +2,7 @@
 #include "triangolo.h"
 #include "quadrato.h"
 #include <algorithm>
+#include <iomanip> //arrotonda
 
 
 poligono::poligono(int l , vector<punto*> p):lati(l){
@@ -28,7 +29,7 @@ double poligono::lato() const{
 
     double lat = punto::distanceTwoPoints(*pt[1],*pt[0]);
 
-
+    //il lato e' la distanza minima tra i punti inseriti
     for(int i = 2 ; i < 4 ; i ++ ){
        double p = punto::distanceTwoPoints(*pt[i],*pt[0]);
        if(p < lat) lat = p ;
@@ -39,7 +40,7 @@ double poligono::lato() const{
 }
 
 //se è regolare ritorna la misura del lato altrimenti ritorna 0
-razionale poligono::isRegular() const {
+bool poligono::isRegular() const {
 
     double conf = lato();
 
@@ -47,16 +48,15 @@ razionale poligono::isRegular() const {
     for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
         for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
             if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
-                check++;
+                check++; //verifico di avere  n lati uguali al lato()
             }
         }
     }
 
-
     if(check == getlati()){
-        return razionale(conf);
+        return true;
     }
-    else return razionale(0,0);
+    else return false;
 }
 
 //-----------------DISTR PROFONDO-------------------
@@ -204,16 +204,13 @@ poligono* poligono::pars_pol(string s){
 
         if( pc == 3 ){
             triangolo tr(pc,temp);
-            //if( tr.isRegular() != razionale(0,0) )
                 return new triangolo(tr);
-            //else
-               // throw irregular_pol();
         }
         else if( pc == 4 )
         {
             quadrato qr(pc,temp);
 
-            if( qr.isRegular() != razionale(0,0) )
+            if( qr.isRegular()  )
                 return new quadrato(qr);
             else
                 throw irregular_pol();
@@ -238,8 +235,12 @@ double poligono::area() const {
     return (perimetro()*apotema)/2;
 }
 
-vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NULL) const{
+vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 = nullptr) const{
     vector<punto> p;
+
+    /*double d = 1;
+    int digits = 3;
+    std::cout << "d (rounded to " << digits << " digits) = "<< std::setprecision(digits) << d <<endl;*/
 
     vector<punto*> vCoord0 = getpoint();
 
@@ -248,27 +249,24 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
            if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
                 retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
                 vector<punto> intr = retta::Intersect(prova,*r);
+
                 //intersezione tra due rette è al massimo un punto
                 if(intr.size() > 0){
 
                     //devo verificare che le x della retta coincidono in qualche range con le x del poligono
-
-                    cout<<intr[0]<<" forse "<<endl;
                     if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
-                            || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) )
+                            || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) || (vCoord0[i]->getX() == vCoord0[j]->getX() ) ) //se ho la stessa x non la verifico
                     {
                         if( (vCoord0[i]->getY() <= intr[0].getY() && vCoord0[j]->getY() >= intr[0].getY() )
-                                || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) )
+                                || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) || (vCoord0[i]->getY() == vCoord0[j]->getY() ) )
                         {
                             if(p1 && p2){ //invocata in polipoli quindi passo i punti e verifico i "range"
                                 if( ( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
                                         || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) ) && ( (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
                                         || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) ) )
                                     {
-                                    cout<<intr[0]<<" ye "<<endl;
                                         p.push_back(punto(intr[0]));
                                     }
-                                else cout<<intr[0]<<" no "<<endl;
 
                             }
                             else {
@@ -287,7 +285,11 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = NULL  ,punto * p2 = NU
     if( p.size() > 1 ){
         for( unsigned int i = 0 ; i < p.size() - 1 ; ++i ){
             for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
-                if( p[i] == p[j] ) p.erase(p.begin()+j);
+                if( p[i] == p[j] ){
+                    p.erase(p.begin()+j);
+                    --j;
+                }
+
             }
         }
     }
@@ -301,16 +303,14 @@ vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
     vector<punto> inter;
     for(unsigned int i = 0; i < punti.size(); i++){
         if(p1.polipunto(punti[i])){
-           inter.push_back(*(p1.polipunto(punti[i])));
+            if(p1.polipunto(punti[i])) inter.push_back(*(punti[i]));
         }
     }
 
     if(inter.size() != p2.getlati()){
         vector<punto*> punti2 = p1.getpoint();
         for(unsigned int i = 0; i < punti2.size(); i++){
-            if(p2.polipunto(punti2[i])){
-                inter.push_back(*(p2.polipunto(punti2[i])));
-            }
+            if(p2.polipunto(punti2[i])) inter.push_back(*(punti2[i]));
         }
         distruggi(punti2);
     }
@@ -348,7 +348,10 @@ vector<punto> poligono::polipoli(poligono * pol) const{
     if(p.size() > 0){
         for( unsigned int i = 0 ; i < p.size(); ++i ){
             for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
-                if( p[i] == p[j] ) p.erase(p.begin()+j);
+                if( p[i] == p[j] ) {
+                    p.erase(p.begin()+j);
+                    --j;
+                }
             }
         }
     }
@@ -364,7 +367,7 @@ vector<punto> poligono::polipoli(poligono * pol) const{
    intersezione p1 e p2 hanno rispettivamente :
    (x1 <= x <= x2 || x2 <= x <= x1 ) allora è interno .
 */
-punto* poligono::polipunto( punto * p ) const{
+bool poligono::polipunto( punto * p ) const{
     //prima verifico che sia un vertice del poligono
     vector<punto> punt;
 
@@ -385,18 +388,15 @@ punto* poligono::polipunto( punto * p ) const{
 
     distruggi(lat);
 
-    if( inter.size() == 2 ) {
+    if( inter.size() >= 2 ) {
         //ok allora verifico che sia uno a dx e uno a sx del punto
        if((inter[0].getX() <= p->getX() && inter[1].getX() >= p->getX())
                ||(inter[0].getX() >= p->getX() && inter[1].getX() <= p->getX() ) )
        {
-           return new punto(*p); //costruzione di copia standard
+           return true;
        }
     }
-
-
-
-    return 0;
+    return false;
 }
 
 
@@ -404,8 +404,7 @@ vector<punto> poligono::intersect(inputitem* i) const {
     if( typeid(punto) == typeid(*i) ){
         punto * p = dynamic_cast<punto*>(i);
         vector<punto> punt ;
-        punto * ptemp = polipunto(p);
-        if(ptemp) punt.push_back(*ptemp);
+        if(polipunto(p)) punt.push_back(*p);
         return punt;
     }
     else{

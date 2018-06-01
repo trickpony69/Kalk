@@ -6,7 +6,6 @@
 #include <typeinfo>
 #include <vector>
 using std::istream;
-using std::cin;
 using std::string;
 using std::vector;
 

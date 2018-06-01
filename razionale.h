@@ -2,8 +2,9 @@
 #define RAZIONALE_H
 
 #include<iostream>
-using std::istream;
 #include <cmath>
+using std::istream;
+
 
 using std::abs;
 
