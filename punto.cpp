@@ -188,8 +188,14 @@ double punto::yToDouble() const{
 QString punto::toString(){
     x.riduzione();
     y.riduzione();
-    return QString(QString::number(x.GetNum())+'/'+QString::number(x.GetDen())+';'+QString::number(y.GetNum())+'/'+QString::number(y.GetDen()));
-}
+    QString c ;
+    c = c + QString::number(x.GetNum()) ;
+    if(x.GetDen() != 1 ) c = c +'/'+QString::number(x.GetDen());
+    c = c + ';' + QString::number(y.GetNum()) ;
+    if(y.GetDen() != 1 ) c = c +'/'+QString::number(y.GetDen());
+
+    return c;
+}//(4;4)(-4;4)(4;-4)(-4;-4)  (-2;0)(4;4)(3;0)
 
 vector<punto> punto::intersect( inputitem* i ) const {
     vector<punto> punt;

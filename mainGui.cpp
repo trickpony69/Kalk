@@ -342,4 +342,70 @@ void mainGui::dist2item(){
     else display->setText("Non sono stati inseitri due elementi");
 }
 
+void mainGui::area(){
+    if(inputElemento.size() > 0){
+        if(poligono* pol = dynamic_cast<poligono*>(inputElemento[0]))
+        {
+            double a = pol->area();
+            display->setText(QString::number(a));
+        }
+        else display->setText("Non è stato inserito un poligono");
+    }
+    else display->setText("Non sono stati inseriti elementi");
+}
+
+void mainGui::perimetro(){
+    if(inputElemento.size() > 0){
+        if(poligono* pol = dynamic_cast<poligono*>(inputElemento[0]))
+        {
+            double p = pol->perimetro();
+            display->setText(QString::number(p));
+        }
+        else display->setText("Non è stato inserito un poligono");
+    }
+    else display->setText("Non sono stati inseriti elementi");
+}
+
+void mainGui::paralsrettapunt() {
+    if(inputElemento.size() > 0 )
+    {
+        punto * p;
+        retta* ret = dynamic_cast<retta*>(inputElemento[0]);
+        if(ret){
+             p = dynamic_cast<punto*>(inputElemento[1]);
+        }
+        else{
+            ret = dynamic_cast<retta*>(inputElemento[1]);
+            p = dynamic_cast<punto*>(inputElemento[0]);
+        }
+        if(ret && p){
+            retta par = retta::RettaParallela(*ret,*p);
+            display->setText(par.toString());
+        }
+        else display->setText("Non sono stati inseriti retta e punto");
+    }
+    else display->setText("Non sono stati inseriti elementi");
+}
+
+void mainGui::perppuntoretta() {
+    if(inputElemento.size() > 0 )
+    {
+        punto * p;
+        retta* ret = dynamic_cast<retta*>(inputElemento[0]);
+        if(ret){
+             p = dynamic_cast<punto*>(inputElemento[1]);
+        }
+        else{
+            ret = dynamic_cast<retta*>(inputElemento[1]);
+            p = dynamic_cast<punto*>(inputElemento[0]);
+        }
+        if(ret && p){
+            retta perp = retta::RettaPerpendicolare(*ret,*p);
+            display->setText(perp.toString());
+        }
+        else display->setText("Non sono stati inseriti retta e punto");
+
+    }
+    else display->setText("Non sono stati inseriti retta e punto");
+}
 

@@ -80,7 +80,6 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
         //trovo c => y1 + m*x1
         razionale c(new_m*p.getX());
         c=(c*(razionale(-1,1)))+p.getY();
-        //cout<<c;
         return retta(new_m,-1,c);
     }else{
         if(r.GetA() == 0){
@@ -421,7 +420,6 @@ void retta::pars_rect(string rect)
         throw input_error();
     }
     else{
-        cout<<a<<"x "<<b<<"y "<<c<<endl;
         throw 1;
     }
 

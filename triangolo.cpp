@@ -15,7 +15,7 @@ double triangolo::perimetro() const{
 }
 
 double triangolo::lato() const {
-    if( punto::distanceTwoPoints(*pt[0],*pt[1]) == punto::distanceTwoPoints(*pt[0],*pt[2]) == punto::distanceTwoPoints(*pt[1],*pt[2])){
+    if( ( punto::distanceTwoPoints(*pt[0],*pt[1]) == punto::distanceTwoPoints(*pt[0],*pt[2]) ) == punto::distanceTwoPoints(*pt[1],*pt[2])){
         return punto::distanceTwoPoints(*pt[0],*pt[1]);
     }
     else return 0;

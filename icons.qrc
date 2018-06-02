@@ -13,5 +13,9 @@
         <file>icon/config.png</file>
         <file>icon/dist2Rect.png</file>
         <file>icon/distRectPoint.png</file>
+        <file>icon/area.png</file>
+        <file>icon/perimetro.png</file>
+        <file>icon/parallele.png</file>
+        <file>icon/retteperpendicolari.png</file>
     </qresource>
 </RCC>

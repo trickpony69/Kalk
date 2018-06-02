@@ -163,11 +163,8 @@ poligono* poligono::pars_pol(string s){
 
     vector<punto*> temp;
 
-    //cout<<pc<<" "<<pa<<" "<<pv;
-
     if(pc == pa && pc == pv){
         //ok parsiamo i punti
-        //cout<<"ok "<<pv<<std::endl;
 
         for (unsigned int var = 0; var < len; ++var) {
             string single_point;
@@ -177,7 +174,6 @@ poligono* poligono::pars_pol(string s){
 
             var = var + single_point.length();
             single_point = single_point + s[var] ;
-            //cout<<single_point;
 
             punto point;
             //parso punto per punto e man mano che li trovo giusti li inserisco nel vector
@@ -196,7 +192,6 @@ poligono* poligono::pars_pol(string s){
             }
             catch(int){
                 //invoco il costruttore di copia standard
-                //cout<<point;
                 temp.push_back(new punto(point));
             }
             --pv;
@@ -307,12 +302,17 @@ vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
         }
     }
 
+    //se il ho n elementi nel vector e il poligono ha n vertici allora è interno e non vado a fare un ulteriore controllo
     if(inter.size() != p2.getlati()){
         vector<punto*> punti2 = p1.getpoint();
         for(unsigned int i = 0; i < punti2.size(); i++){
             if(p2.polipunto(punti2[i])) inter.push_back(*(punti2[i]));
         }
         distruggi(punti2);
+    }
+
+    for(unsigned int i = 0; i < inter.size(); i++){
+        cout<<inter[i]<<endl;
     }
 
     distruggi(punti);
@@ -325,6 +325,10 @@ vector<punto> poligono::polipoli(poligono * pol) const{
     vector<punto> p,puntinterni;
 
     puntinterni = poligono::puntint(*this,*pol);
+
+    if( puntinterni.size() > 0 ){
+        p.vector::insert(p.end(), puntinterni.begin(), puntinterni.end());
+    }
 
     vector<punto*> vCoord0 = getpoint();
 
@@ -339,10 +343,6 @@ vector<punto> poligono::polipoli(poligono * pol) const{
     }
 
     distruggi(vCoord0); //distruttore dei punti
-
-    if( puntinterni.size() > 0 ){
-        p.vector::insert(p.end(), puntinterni.begin(), puntinterni.end());
-    }
 
     //verifico non ci siano doppioni
     if(p.size() > 0){

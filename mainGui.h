@@ -48,6 +48,10 @@ private slots: //private o public slots ?
 protected slots:
     void rect2Points();
     void dist2item();
+    void area();
+    void perimetro();
+    void paralsrettapunt();
+    void perppuntoretta();
 
 };
 
