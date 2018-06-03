@@ -5,19 +5,19 @@
 #include <QAction>
 #include "impostazioni.h"
 #include <QMessageBox>
+#include <QWizard>
 
 class finestra : public QMainWindow{
     Q_OBJECT
 private:
     mainGui* widgetCentrale;
-    impostazioni* finestraOpzioni;
-    void setColorBlue(int);
-    void setColorRed(int);
-    void setColorGreen(int);
+    QPointer<impostazioni> finestraOpzioni;
+//    QWizard* finestraBenvenuto;
     void loadSettings();
     void closeEvent(QCloseEvent*);
 public:    
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
+    ~finestra();
 private slots:
     void showOption();
 };

@@ -1,6 +1,6 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui(this)),finestraOpzioni(new impostazioni()){
+finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     QWidget* spaziatore1 = new QWidget(this);
@@ -24,9 +24,9 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     rect2Points->setIcon(QIcon(":/icon/rect2Points.png"));
     dist2item->setIcon(QIcon(":/icon/dist2Rect.png"));
     area->setIcon(QIcon(":/icon/area.png"));
-    perimetro->setIcon(QIcon(":/icon/perimetro.png"));
-    perp->setIcon(QIcon(":/icon/retteperpendicolari.png"));
-    paral->setIcon(QIcon(":/icon/parallele.png"));
+    perimetro->setIcon(QIcon(":/icon/perimeter.png"));
+    perp->setIcon(QIcon(":/icon/perpendicular.png"));
+    paral->setIcon(QIcon(":/icon/parallels.png"));
 
     tb->addWidget(spaziatore1);
     tb->addAction(opzioni);
@@ -47,7 +47,6 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     addToolBar(Qt::LeftToolBarArea, tbL);
     addToolBar(tb);
     resize(700,500);
-    loadSettings();
 
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
@@ -57,9 +56,16 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(perimetro,SIGNAL(triggered()),widgetCentrale,SLOT(perimetro()));
     connect(paral,SIGNAL(triggered()),widgetCentrale,SLOT(paralsrettapunt()));
     connect(perp,SIGNAL(triggered()),widgetCentrale,SLOT(perppuntoretta()));
+
+}
+
+finestra::~finestra(){
+    qDebug("Kalk distrutta");
 }
 
 void finestra::showOption(){
+    finestraOpzioni = new impostazioni;
+    loadSettings();
     finestraOpzioni->show();
 }
 
@@ -88,7 +94,7 @@ void finestra::closeEvent (QCloseEvent *event){
         event->ignore();
     else{
         event->accept();
-        if(finestraOpzioni)
+        if(finestraOpzioni!=nullptr)
             delete finestraOpzioni;
     }
 }

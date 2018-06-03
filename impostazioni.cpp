@@ -6,17 +6,17 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     titoloImpostazione0 = new QHBoxLayout();
     titoloImpostazione1 = new QHBoxLayout();
     settaggi = new QHBoxLayout();
-    mainlayout = new QVBoxLayout();
-    QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra",this);
-    QLabel* scritta0 = new QLabel("                              Scegli i colori del grafico",this);
-    QLabel* scritta1 = new QLabel("                              Cambia il range del grafico",this);
+    mainlayout = new QVBoxLayout(this);
+    QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra");
+    QLabel* scritta0 = new QLabel("                              Scegli i colori del grafico");
+    QLabel* scritta1 = new QLabel("                              Cambia il range del grafico");
 
     QVector<QVector<QLabel*>> vectorColors(3);
     for(int i=0; i<3;++i){
-        vectorColors[i].push_back(new QLabel("blu",this));
-        vectorColors[i].push_back(new QLabel("rosso",this));
-        vectorColors[i].push_back(new QLabel("verde",this));
-        buttonGroup.push_back(new QButtonGroup());
+        vectorColors[i].push_back(new QLabel("blu"));
+        vectorColors[i].push_back(new QLabel("rosso"));
+        vectorColors[i].push_back(new QLabel("verde"));
+        buttonGroup.push_back(new QButtonGroup(this));
     }
 
     mainlayout->addWidget(scritta);
@@ -33,7 +33,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
         vectorChangeColor.push_back(QVector<QRadioButton*>());
         for(int j=0; j<3;++j){
             vectorSettings[i]->addWidget(vectorColors[i][j]);
-            vectorChangeColor[i].push_back(new QRadioButton(this));
+            vectorChangeColor[i].push_back(new QRadioButton());
             vectorSettings[i]->addWidget(vectorChangeColor[i][j]);
             buttonGroup[i]->addButton(vectorChangeColor[i][j]);
         }
@@ -46,8 +46,8 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     mainlayout->addLayout(titoloImpostazione1);
 
     impostazione1 = new QHBoxLayout();
-    min = new QLineEdit(this);
-    max = new QLineEdit(this);
+    min = new QLineEdit();
+    max = new QLineEdit();
     impostazione1->addWidget(min);
     impostazione1->addWidget(max);
     min->setFixedWidth(50);
@@ -55,6 +55,13 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     min->setPlaceholderText("min");
     max->setPlaceholderText("max");
     mainlayout->addLayout(impostazione1);
+
+    setAttribute(Qt::WA_DeleteOnClose);
+
+}
+
+impostazioni::~impostazioni(){
+    qDebug("Impostazioni distrutte");
 }
 
 void impostazioni::closeEvent(QCloseEvent *event){

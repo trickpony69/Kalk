@@ -94,6 +94,21 @@ int main(int argc, char *argv[]){
 
     QApplication app(argc, argv);
     finestra Kalk;
+
+    QWizard finestraBenvenuto;
+    QWizardPage* welcome = new QWizardPage;
+    QVBoxLayout* mainLayout=new QVBoxLayout;
+    QLabel* label = new QLabel("Ciao ! Sono il tuo Kalkulon."
+                                "Alla tua destra vedrai due tre slot, con i primi due puoi usare le funzioni che troverai sulla tua destra mentre con l'ultima puoi solo disegnare. "
+                                "in Alto a destra troverai le impostazioni."
+                                " Con l'icona Paste potrai vedere i tuoi risultati salvati dal display e potrai riusarli con un semplice drag and drop sullo slot che deciderai");
+    label->setWordWrap(true);
+    mainLayout->addWidget(label);
+    welcome->setLayout(mainLayout);
+    finestraBenvenuto.setWindowTitle("Benvenuto");
+    finestraBenvenuto.addPage(welcome);
+
     Kalk.show();
+    finestraBenvenuto.show();
     return app.exec();
 }

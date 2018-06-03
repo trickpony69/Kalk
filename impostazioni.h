@@ -9,13 +9,13 @@ class impostazioni : public QWidget{
     friend class finestra;
 private:
     QVBoxLayout* mainlayout;
-    //----------prima configurazione------
+    //----------impostazione 0------
     QVector<QButtonGroup*> buttonGroup;
     QVector<QVector<QRadioButton*>> vectorChangeColor;
     QVector<QColor> colori;
     QHBoxLayout* titoloImpostazione0;
     QHBoxLayout* settaggi;
-    //----------seconda configurazione------
+    //----------impostazione 1------
     QHBoxLayout* titoloImpostazione1;
     QHBoxLayout* impostazione1;
     QLineEdit* min;
@@ -24,7 +24,9 @@ private:
     void saveSettings();
 public:
     explicit impostazioni(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent *);
+    ~impostazioni();
+    void closeEvent(QCloseEvent*);
+
 };
 
 #endif // IMPOSTAZIONI_H
