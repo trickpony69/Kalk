@@ -4,6 +4,7 @@
 #include "grafico.h"
 #include "poligono.h"
 #include "myqline.h"
+#include "wizard.h"
 
 class mainGui: public QWidget{
     friend class finestra;

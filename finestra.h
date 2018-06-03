@@ -5,14 +5,14 @@
 #include <QAction>
 #include "impostazioni.h"
 #include <QMessageBox>
-#include <QWizard>
+#include "wizard.h"
 
 class finestra : public QMainWindow{
     Q_OBJECT
 private:
     mainGui* widgetCentrale;
     QPointer<impostazioni> finestraOpzioni;
-//    QWizard* finestraBenvenuto;
+    QPointer<wizard> finestraBenvenuto;
     void loadSettings();
     void closeEvent(QCloseEvent*);
 public:    

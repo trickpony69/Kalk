@@ -1,6 +1,6 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()){
+finestra::finestra(QWidget *parent) : finestraBenvenuto(new wizard),QMainWindow(parent),widgetCentrale(new mainGui()){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     QWidget* spaziatore1 = new QWidget(this);
@@ -47,6 +47,8 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     addToolBar(Qt::LeftToolBarArea, tbL);
     addToolBar(tb);
     resize(700,500);
+    finestraBenvenuto->show();
+    finestraBenvenuto->resize(660,400);
 
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
@@ -56,6 +58,7 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(perimetro,SIGNAL(triggered()),widgetCentrale,SLOT(perimetro()));
     connect(paral,SIGNAL(triggered()),widgetCentrale,SLOT(paralsrettapunt()));
     connect(perp,SIGNAL(triggered()),widgetCentrale,SLOT(perppuntoretta()));
+
 
 }
 
@@ -96,5 +99,7 @@ void finestra::closeEvent (QCloseEvent *event){
         event->accept();
         if(finestraOpzioni!=nullptr)
             delete finestraOpzioni;
+        if(finestraBenvenuto!=nullptr)
+            delete finestraBenvenuto;
     }
 }
