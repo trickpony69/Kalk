@@ -48,7 +48,7 @@ finestra::finestra(QWidget *parent) : finestraBenvenuto(new wizard),QMainWindow(
     addToolBar(tb);
     resize(700,500);
     finestraBenvenuto->show();
-    finestraBenvenuto->resize(660,400);
+    finestraBenvenuto->resize(660,600);
 
     connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
     connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));

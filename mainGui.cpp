@@ -1,6 +1,6 @@
 #include <mainGui.h>
 
-mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("aggiungi")), remove(new QPushButton("rimuovi funzione")), enter(new QPushButton("        disegna")), cancel(new QPushButton("resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
+mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("Aggiungi")), remove(new QPushButton("Rimuovi funzione")), enter(new QPushButton("        Disegna")), cancel(new QPushButton("Resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
     QHBoxLayout* superLayout = new QHBoxLayout();
     remove->setDisabled(true);
     cancel->setDisabled(true);
@@ -21,15 +21,15 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     save->setIcon(QPixmap(":icon/save.png"));
     save->setStyleSheet("border: none;");
     save->setIconSize(iconSize);
-    save->setToolTip("salva il risultato");
+    save->setToolTip("Salva il risultato");
     showSavedResult->setFixedSize(45,45);
     showSavedResult->setIcon(QPixmap(":icon/pasted.png"));
     showSavedResult->setIconSize(iconSize);
     showSavedResult->setStyleSheet("border: none;");
-    showSavedResult->setToolTip("mostra/nascondi i risultati");
+    showSavedResult->setToolTip("Mostra/nascondi i risultati");
     savedResultWindow->setDragEnabled(true);
     savedResultWindow->setFixedSize(150,300);
-    QFont font("Arial", 25);
+    QFont font("Verdana", 10);
     for(unsigned int i=0; i<3; i++){
         vectorLabel.push_back(new QLabel());
         vectorLabel[i]->setFont(font);
@@ -49,12 +49,12 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     separatorLayoutUp->addWidget(myFrame0);
     separatorLayoutDown->addWidget(myFrame1);
     myQline* qle = new myQline();
-    qle->setPlaceholderText("inserisci la funzione");
+    qle->setPlaceholderText("Inserisci la funzione");
     qle->setAcceptDrops(true);
     funVec.push_back(qle);
     display = new QLineEdit(this);
     display->setDisabled(true);
-    display->setText("      seleziona una funzione nella barra laterale");
+    display->setText("      Seleziona una funzione nella barra laterale");
     display->setFixedSize(360,60);
     display->setStyleSheet("color: white;"
                            "background-color: RGB(53, 50, 47);"
@@ -96,11 +96,11 @@ void mainGui::push_qle(){
 
     if(funVec.size() <= 2){
         myQline* myQle = new myQline();
-        myQle->setPlaceholderText("inserisci la funzione");
+        myQle->setPlaceholderText("Inserisci la funzione");
         funVec.push_back(myQle);
         hFunLay->addWidget(myQle);
         myQle->setFixedSize(300,60);
-        myQle->setFont(QFont("Arial", 25));
+        myQle->setFont(QFont("Arial", 10));
 
         if(funVec.size() <= 1)
             remove->setDisabled(true);
@@ -113,7 +113,7 @@ void mainGui::push_qle(){
         add->setDisabled(true);
     //------da migliorare-----
     if(funVec.size()==3)
-        funVec[2]->setPlaceholderText("slot solo per disegno");
+        funVec[2]->setPlaceholderText("Slot solo per disegno");
     //-------------------------
 }
 
@@ -249,13 +249,13 @@ void mainGui::drawAndReturn(){
 
         }
 
-        catch(input_error){vectorLabel[k]->setText("errore input");}
-        catch(irregular_pol){vectorLabel[k]->setText("errore poligono irregolare");}
-        catch(not_implicit){vectorLabel[k]->setText("non e' nella forma prevista");}
-        catch(den_error){vectorLabel[k]->setText("errore den");}
-        catch(num_error){vectorLabel[k]->setText("errore num");}
-        catch(num_lati){vectorLabel[k]->setText("numero lati errato");}
-        catch(...){vectorLabel[k]->setText("errore input");}
+        catch(input_error){vectorLabel[k]->setText("Errore input");}
+        catch(irregular_pol){vectorLabel[k]->setText("Errore poligono irregolare");}
+        catch(not_implicit){vectorLabel[k]->setText("Non e' nella forma prevista");}
+        catch(den_error){vectorLabel[k]->setText("Errore den");}
+        catch(num_error){vectorLabel[k]->setText("Errore num");}
+        catch(num_lati){vectorLabel[k]->setText("Puoi inserire solamente /n 1 , 3, 4 punti");}
+        catch(...){vectorLabel[k]->setText("Errore input");}
     }
 }
 
@@ -283,7 +283,6 @@ void mainGui::loadColor(QString slot,int index){
         }
     }
     settings.endGroup();
-    qDebug("colori caricati");
 }
 
 void mainGui::saveResult(){
@@ -314,7 +313,7 @@ void mainGui::intersezione(){
             display->setText(c);
 
         }
-        else display->setText("non si intersecano");
+        else display->setText("Non si intersecano");
     }
     else display->setText("Non sono stati inseriti due elementi");
 
@@ -335,7 +334,7 @@ void mainGui::rect2Points(){
 
 
 void mainGui::dist2item(){
-    if(inputElemento.size() == 2){
+    if(inputElemento.size() >= 2){
         double dist = inputElemento[0]->distance(inputElemento[1]);
         display->setText(QString::number(dist));
     }
