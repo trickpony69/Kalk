@@ -20,7 +20,7 @@ private:
     static double distpuntopol(punto*,poligono*);
     static double distpolipoli(poligono*,poligono*);
 protected:
-    vector<punto*> pt;
+    vector<punto*> pt; //perchè mi serve solo nelle derivate di poligono
 public:
     virtual ~poligono(); //distruttore profondo
     poligono(int, vector<punto*>); //costruttore

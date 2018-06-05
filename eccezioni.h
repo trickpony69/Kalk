@@ -19,5 +19,7 @@ class not_implicit : public exception {};
 
 class num_lati : public exception{};
 
+class two_point : public exception{};
+
 
 #endif // ECCEZIONI_H

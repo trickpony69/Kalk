@@ -25,7 +25,7 @@ private:
     razionale x,y;
 public:
     punto() {}
-    virtual ~punto() {}
+    virtual ~punto() { }
     punto( razionale a , razionale b ) : x(a),y(b) {}
     razionale getX() const;
     razionale getY() const;

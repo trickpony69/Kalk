@@ -216,7 +216,7 @@ void mainGui::drawAndReturn(){
         //                   (0;3)(3;3)(3;0)(0;0)
         //                   (0;0)(3;6)(6;0)
 
-                 vector<punto*> vCoord0 = pol->getpoint();
+                 vector<punto*> vCoord0 = pol->getpoint(); //copia profonda del vector
 
                  int p = 0 ;
 
@@ -236,7 +236,7 @@ void mainGui::drawAndReturn(){
                 graficoElementi->replot();
 
                 inputElemento.push_back(pol);
-          }
+            }
 
          if(k==0)
             loadColor("primoSlot",k);
@@ -248,7 +248,9 @@ void mainGui::drawAndReturn(){
          graficoElementi->replot();
 
         }
-
+        catch(two_point){
+            //disegno i due punti
+        }
         catch(input_error){vectorLabel[k]->setText("Errore input");}
         catch(irregular_pol){vectorLabel[k]->setText("Errore poligono irregolare");}
         catch(not_implicit){vectorLabel[k]->setText("Non e' nella forma prevista");}

@@ -32,6 +32,9 @@ double retta::distanceRettaRetta(retta& r2) const {
 }
 
 double retta::distance(inputitem * i) const {
+    if((i->intersect(const_cast<retta*>(this))).size() == 1) return 0;
+
+
     if(typeid(*i) == typeid(retta)){
         return distanceRettaRetta(*(dynamic_cast<retta*>(i)));
     }

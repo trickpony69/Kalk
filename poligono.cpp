@@ -66,9 +66,17 @@ poligono::~poligono(){
 }
 
 void poligono::distruggi(vector<punto*> v) {
-    for(unsigned int i = 0 ; i < v.size() ; ++i ){
-        delete v[i];//invoco distruttore di punto
+    vector<punto*>::iterator it = v.begin();
+    for( ; it != v.end() ; ++it ){
+        //cout<<"esiste  "<<**it<<endl;
+        delete *it;
+        /*if(*it) cout<<"esiste  "<<**it<<endl<<endl;
+        else cout<<"non esiste";*/
+        v.erase(it);
+        --it;
     }
+
+    if(v.size() == 0) cout<<"distrutto";
 }
 
 //---------------COPIA PROFONDA-------------
@@ -94,6 +102,7 @@ poligono::poligono(const poligono & p){
 
 poligono& poligono::operator = ( const poligono& p ) {
     if(this != &p){
+
         distruggi(pt);
         pt = copia(p.pt);
     }
@@ -195,6 +204,7 @@ poligono* poligono::pars_pol(string s){
                 temp.push_back(new punto(point));
             }
             --pv;
+
         }
 
         if( pc == 3 ){
@@ -211,6 +221,9 @@ poligono* poligono::pars_pol(string s){
                 throw irregular_pol();
         }
         else {
+            if(pc == 2){
+                return
+            }
             throw num_lati();
         }
 
@@ -309,10 +322,6 @@ vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
             if(p2.polipunto(punti2[i])) inter.push_back(*(punti2[i]));
         }
         distruggi(punti2);
-    }
-
-    for(unsigned int i = 0; i < inter.size(); i++){
-        cout<<inter[i]<<endl;
     }
 
     distruggi(punti);
