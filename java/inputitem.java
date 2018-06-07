@@ -1,3 +1,4 @@
+import java.util.Vector;
 
 public abstract class inputitem{
 	
@@ -9,6 +10,8 @@ public abstract class inputitem{
 		return new punto();
 	}
 
-	public abstract double distance(inputitem);
+	public abstract double distance(inputitem i);
+
+	public abstract Vector<punto> intersect(inputitem i);
 
 }

@@ -221,9 +221,7 @@ poligono* poligono::pars_pol(string s){
                 throw irregular_pol();
         }
         else {
-            if(pc == 2){
-                return
-            }
+            /* se avanza tempo creare classe poligono irregolare che disegna i punti*/
             throw num_lati();
         }
 

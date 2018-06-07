@@ -87,9 +87,9 @@ public class razionale {
  		this.den = temp;
  	}
 	
-	//operator << 
-	public String show() {
-		return num + " / " + den + " \n "; 
+	//operator <<: overriding di tostring() della classe object
+	public String toString() {
+		return num + " / " + den ; 
 	}
 
 	//operator == ----------------------
@@ -125,11 +125,11 @@ public class razionale {
 		riduzione();
 	}
 
-	public double convert(){
+	public double converti(){
 		return num/den;
 	}
 
- 	public static void main(String[] args) {
+ 	/*public static void main(String[] args) {
 		razionale r1 = new razionale(3,4);
 		razionale r2 = new razionale(5,10);
 		double d1 = 8.9 ;	
@@ -139,7 +139,7 @@ public class razionale {
 		System.out.print(r1.show());
 		r1.inverso();
 		System.out.print(r1.show());
-	}
+	}*/
 
 }
 

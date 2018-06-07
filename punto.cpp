@@ -185,6 +185,7 @@ double punto::yToDouble() const{
     return y.GetNum()/y.GetDen();
 }
 
+//serve per la gui
 QString punto::toString(){
     x.riduzione();
     y.riduzione();
