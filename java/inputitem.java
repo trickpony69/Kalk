@@ -14,4 +14,24 @@ public abstract class inputitem{
 
 	public abstract Vector<punto> intersect(inputitem i);
 
+	public static void main(String[] args) {
+		inputitem i1 = new punto();
+		inputitem i2 = new punto();
+
+		String s = new String("(12;2)");
+		String s1 = new String("(12;5)");
+		punto p = (punto)i1 ;
+		punto p1 = (punto)i2 ;
+		p.pars_point(s);
+		p1.pars_point(s1);
+
+		System.out.println(p + " e " + p1 + " dist : " + p.distance(p1) + "\n");
+
+		Vector<punto> v = new Vector<punto>();
+		v = p.intersect(p1);
+		if(v.size() == 0) System.out.println("non si intersecano \n");
+		else System.out.println("si intersecano \n");
+	}
+
+
 }

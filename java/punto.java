@@ -1,6 +1,6 @@
 import java.util.Vector;
 import static java.lang.Math.*;
-import java.StringUtils;
+
 
 public class punto extends inputitem {
 	private razionale x , y ;
@@ -19,7 +19,7 @@ public class punto extends inputitem {
 	//--------------------------------------------------------------
 
 	public String toString(){
-		return "(" + x.toString() + " ; " + y.toString() + ") \n ";
+		return "(" + x.toString() + " ; " + y.toString() + ") ";
 	}
 
 	public razionale getx(){
@@ -51,18 +51,27 @@ public class punto extends inputitem {
 	    String s = new String();
 	    boolean doub = false;
 	    double virgola = 1 , n1 , n=0,d=1;
+	    	    //virgola vale : 10 se ho un numero dopo la virgola  ,100 se ho due punti dopo la virgola , 1000 se ho tre punti dopo la virgola
 	    
     	int sign=1;
-	    //virgola vale : 10 se ho un numero dopo la virgola  ,100 se ho due punti dopo la virgola , 1000 se ho tre punti dopo la virgola
 
-	    for(int cont = 1 ; cont < p.length() - 1 ; ++cont){
+    	if( !(p.substring(0,1).equals("(") ) && !(p.substring(p.length()-1,p.length()).equals(")") ) ) {
+	        System.out.println("input_error_manca_)(");
+	    }
 
-	        if(p.substring(cont-1,cont) != "("){
-	            if(p.substring(cont-1,cont) == "-"){
+
+
+	    for(int cont = 1 ; cont < p.length() +1 ; ++cont){
+
+	    	String c = p.substring(cont-1,cont);
+
+	        if(!c.equals( "(" ) ){
+
+	            if(c == "-"){
 	                sign = -1;
 	            }
-	            else if(p.substring(cont-1,cont) == "/"){
-	                if(s.length() == 0) System.out.println("input_error");//throw num_error();
+	            else if(c.equals( "/" )){
+	                if(s.length() == 0) System.out.println("input_error_numeratore");//throw num_error();
 
 	                if(doub) {
 	                    n1 = Integer.parseInt(s);
@@ -75,18 +84,21 @@ public class punto extends inputitem {
 
 
 	                if( n == 0 ){
-	                    while( p.substring(cont-1,cont) != ";" && p.substring(cont-1,cont) != ")" )
-	                        cont++;
-	                    if(p.substring(cont-1,cont) == ";")
+	                    while( !c.equals( ";" ) && !c.equals( ")" ) )
+	                    {
+	                    	cont++;
+	                    	c = p.substring(cont-1,cont) ;
+	                    }   
+	                    if(c == ";")
 	                        x = new razionale(0,1);
 	                    else
 	                        y = new razionale(0,1);
 	                }
 	                s = "";
 	            }
-	            else if(p.substring(cont-1,cont) == ";" || p.substring(cont-1,cont) == ")"){
+	            else if( c.equals( ";" ) || c.equals( ")" ) ){
 	                if(s.length() == 0){
-	                    System.out.println("input_error");
+	                    System.out.println("input_error_not_numero");
 	                    break;
 	                    //throw input_error();
 	                }
@@ -120,7 +132,7 @@ public class punto extends inputitem {
 
 	                    d = 1;
 	                }
-	                if(p.substring(cont-1,cont) == ";"){
+	                if(c.equals( ";" ) ){
 	                    x = new razionale(n*sign,d);
 	                }
 	                else{
@@ -134,53 +146,52 @@ public class punto extends inputitem {
 	                sign = 1;
 	            }
 	            else{
-	                if(p.substring(cont-1,cont) == "."){
+	                if(c.equals( "." ) ){
 	                    doub = true;
 	                }
-	                else if(isNumer(p.substring(cont-1,cont)))
-	                {
-	                  if(doub) virgola *= 10 ;
-	                  s = s+p.substring(cont-1,cont);
+	                else{
+	                	try{
+	                		Integer.parseInt(p.substring(cont-1,cont));
+		                }
+		                catch(java.lang.NumberFormatException nfe){
+		                	System.out.println("not numeric" + p.substring(cont-1,cont) );
+		                	break;
+		                }
+
+		                if(doub) virgola = virgola * 10 ;
+		                s = s+p.substring(cont-1,cont);
 	                }
-	                else {
-	                	System.out.println("input_error");
-	                	break;
-	                    //throw input_error();
-	                }
+	                
 	            }
 	        }
 	    }
-	    /*if(p.substring(0) == '(' && p.substring(p.length()-1)== ')') {
-	        throw 1;
-	    }
-	    //else throw input_error();*/
+	    
 	}
-
 
 	//------------------------- virtuali puri -----------------------
 	public double distance(inputitem i){
-		return 0;
+		if(i instanceof punto){
+			punto p = (punto)i;
+			return distancefromtwopoints(p);
+		}
+		/*else{
+			return i.distance(this);
+		}*/
+		else return 0;
 	}
 
 	public Vector<punto> intersect(inputitem i){
-		punto ref = new punto( );
 		Vector<punto> v = new Vector<punto>();
-		v.add(ref);
-		return v;
-	}
-
-	public static void main(String[] args) {
-		inputitem i1 = new punto();
-		inputitem i2 = new punto();
-		Vector<punto> v = i1.intersect(i2);
-		for (int i = 0 ; i < v.size() ; i++) {
-			System.out.println(v.get(i));
+		if(i instanceof punto){
+			punto p = (punto)i;
+			if( distancefromtwopoints(p) == 0 ){
+				v.add(p);
+			}
+			return v;
 		}
-
-		String s = "ci d a o";
-		punto p = (punto)i1 ;
-		p.pars_point(s);
+		return v;//i.intersect(this);
 	}
+
 
 
 }
