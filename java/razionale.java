@@ -81,10 +81,11 @@ public class razionale {
  		return this.den;
  	}
 
- 	public void inverso() {
- 		double temp = this.num;
- 		this.num = this.den;
- 		this.den = temp;
+ 	public razionale inverso() {
+ 		razionale tr = new razionale();
+ 		tr.num = this.den;
+ 		tr.den = this.num;
+ 		return tr;
  	}
 	
 	//operator <<: overriding di tostring() della classe object
@@ -114,20 +115,26 @@ public class razionale {
 		riduzione();
 	}
 
-	public void multiply(double d) {
-		this.num = this.num * d ;
-		riduzione();
+	public razionale multiply(double d) {
+		razionale temp = new razionale();
+		temp.num = this.num * d ;
+		temp.den = this.den;
+		temp.riduzione();
+		return temp;
 	}
 
-	public void multiply(razionale r) {
-		this.num = this.num * r.num ;
-		this.den = this.den * r.den ;
-		riduzione();
+	public razionale multiply(razionale r) {
+		razionale temp = new razionale();
+		temp.num = this.num * r.num ;
+		temp.den = this.den * r.den ;
+		temp.riduzione();
+		return temp;
 	}
 
 	public double converti(){
 		return num/den;
 	}
+
 
  	/*public static void main(String[] args) {
 		razionale r1 = new razionale(3,4);

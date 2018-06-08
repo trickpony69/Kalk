@@ -43,6 +43,25 @@ public class punto extends inputitem {
 		return sqrt(pow((p.x.converti()-x.converti()),2)+pow((p.y.converti()-y.converti()),2));
 	}
 
+	public retta rettafromtwopoints(punto p2){
+
+		razionale neg = new razionale(-1,1);
+		razionale zero = new razionale();
+
+	    if(this.x.equals(p2.x) && !(this.y.equals(p2.y))){
+	        return new retta(neg,zero,this.x);
+	    }
+	    else if(!(this.x.equals(p2.x)) && this.y.equals(p2.y)){
+	        return new retta(zero,neg,this.y);
+	    }
+	    else{
+	        razionale a = new razionale(p2.x.converti() - this.x.converti());
+	        razionale b = new razionale(p2.y.converti() - this.y.converti());
+	        razionale c = new razionale( (a.multiply(this.x.multiply(neg))).converti() + (b.multiply(this.y)).converti());
+	        return new retta(a,b.multiply(neg),c);
+	    }	
+	}
+
 	public void pars_point(String p){
 	    //rimuove gli spazi
 	    p = p.replace(" ","");
