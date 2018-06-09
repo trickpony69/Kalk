@@ -29,7 +29,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     showSavedResult->setToolTip("Mostra/nascondi i risultati");
     savedResultWindow->setDragEnabled(true);
     savedResultWindow->setFixedSize(150,300);
-    QFont font("Verdana", 10);
+    QFont font("Verdana", 15);
     for(unsigned int i=0; i<3; i++){
         vectorLabel.push_back(new QLabel());
         vectorLabel[i]->setFont(font);
@@ -64,7 +64,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     layoutDisplay->addWidget(save);
     layoutDisplay->addWidget(showSavedResult);
     hFunLay->addWidget(qle);
-    qle->setFixedSize(300,60);
+    qle->setFixedSize(300,40);
     qle->setFont(font);
     funEGrafico->addLayout(hFunLay);
     griglia->addLayout(funEGrafico);
@@ -99,8 +99,8 @@ void mainGui::push_qle(){
         myQle->setPlaceholderText("Inserisci la funzione");
         funVec.push_back(myQle);
         hFunLay->addWidget(myQle);
-        myQle->setFixedSize(300,60);
-        myQle->setFont(QFont("Arial", 10));
+        myQle->setFixedSize(300,40);
+        myQle->setFont(QFont("Arial", 15));
 
         if(funVec.size() <= 1)
             remove->setDisabled(true);

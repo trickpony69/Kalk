@@ -36,6 +36,7 @@ wizard::wizard(){
     welcome->setLayout(mainLayout);
     setWindowTitle("Benvenuto");
     addPage(welcome);
+    setFixedSize(770,660);
     setWindowFlags(Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_DeleteOnClose);
 }
