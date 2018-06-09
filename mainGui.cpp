@@ -187,6 +187,7 @@ void mainGui::drawAndReturn(){
 
     for(int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
+        QString slotString("(Slot:"+QString::number(k)+") ");
         try{
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
@@ -213,8 +214,6 @@ void mainGui::drawAndReturn(){
                  inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-        //                   (0;3)(3;3)(3;0)(0;0)
-        //                   (0;0)(3;6)(6;0)
 
                  vector<punto*> vCoord0 = pol->getpoint(); //copia profonda del vector
 
@@ -246,18 +245,18 @@ void mainGui::drawAndReturn(){
             loadColor("terzoSlot",k);
 
          graficoElementi->replot();
-
+         vectorLabel[k]->clear();
         }
         catch(two_point){
             //disegno i due punti
         }
-        catch(input_error){vectorLabel[k]->setText("Errore input");}
-        catch(irregular_pol){vectorLabel[k]->setText("Errore poligono irregolare");}
-        catch(not_implicit){vectorLabel[k]->setText("Non e' nella forma prevista");}
-        catch(den_error){vectorLabel[k]->setText("Errore den");}
-        catch(num_error){vectorLabel[k]->setText("Errore num");}
-        catch(num_lati){vectorLabel[k]->setText("Puoi inserire solamente /n 1 , 3, 4 punti");}
-        catch(...){vectorLabel[k]->setText("Errore input");}
+        catch(input_error){vectorLabel[k]->setText(slotString+"Errore input");}
+        catch(irregular_pol){vectorLabel[k]->setText(slotString+"Errore poligono irregolare");}
+        catch(not_implicit){vectorLabel[k]->setText(slotString+"Non e' nella forma prevista");}
+        catch(den_error){vectorLabel[k]->setText(slotString+"Errore den");}
+        catch(num_error){vectorLabel[k]->setText(slotString+"Errore num");}
+        catch(num_lati){vectorLabel[k]->setText(slotString+"Puoi inserire solamente /n 1 , 3, 4 punti");}
+        catch(...){vectorLabel[k]->setText(slotString+"Errore input");}
     }
 }
 

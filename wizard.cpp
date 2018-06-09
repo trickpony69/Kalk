@@ -39,6 +39,7 @@ wizard::wizard(){
     setFixedSize(770,660);
     setWindowFlags(Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_DeleteOnClose);
+    setOption(QWizard::NoBackButtonOnStartPage);
 }
 
 wizard::~wizard(){
