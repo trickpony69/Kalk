@@ -135,6 +135,13 @@ public class razionale {
 		return num/den;
 	}
 
+	public boolean sign(){
+		if( num > 0 ){
+			return true;
+		}
+		else return false;
+	}
+
 
  	/*public static void main(String[] args) {
 		razionale r1 = new razionale(3,4);

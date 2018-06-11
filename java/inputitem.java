@@ -19,7 +19,7 @@ public abstract class inputitem{
 		inputitem i2 = new punto();
 
 		String s = new String("(12;2)");
-		String s1 = new String("(12;5)");
+		String s1 = new String("(12/4.6;5)");
 		punto p = (punto)i1 ;
 		punto p1 = (punto)i2 ;
 		p.pars_point(s);
@@ -31,6 +31,12 @@ public abstract class inputitem{
 		v = p.intersect(p1);
 		if(v.size() == 0) System.out.println("non si intersecano \n");
 		else System.out.println("si intersecano \n");
+
+		String ret = new String("1/5x+3y-2/6");
+		retta r = new retta();
+		r.pars_rect(ret);
+
+		System.out.println(r +"\n");
 	}
 
 

@@ -92,11 +92,8 @@ public class punto extends inputitem {
 	            else if(c.equals( "/" )){
 	                if(s.length() == 0) System.out.println("input_error_numeratore");//throw num_error();
 
-	                if(doub) {
-	                    n1 = Integer.parseInt(s);
-	                    n = n1 / virgola;
-	                }
-	                else n = Integer.parseInt(s);
+                    n1 = Integer.parseInt(s);
+                    n = n1 / virgola;
 
 	                doub = false;
 	                virgola = 1;
@@ -124,12 +121,8 @@ public class punto extends inputitem {
 
 	                if(n != 0){
 
-
-	                    if(doub){
-	                        n1 = Integer.parseInt(s);
-	                        d = n1 / virgola;
-	                    }
-	                    else d = Integer.parseInt(s);
+	                    n1 = Integer.parseInt(s);
+	                    d = n1 / virgola;
 
 
 	                    doub = false;
@@ -139,11 +132,8 @@ public class punto extends inputitem {
 
 	                }else{
 
-	                    if(doub) {
-	                        n1 = Integer.parseInt(s);
-	                        n = n1 / virgola;
-	                    }
-	                    else n = Integer.parseInt(s);
+                        n1 = Integer.parseInt(s);
+                        n = n1 / virgola;
 
 
 	                    virgola = 1 ;
@@ -210,7 +200,4 @@ public class punto extends inputitem {
 		}
 		return v;//i.intersect(this);
 	}
-
-
-
 }
