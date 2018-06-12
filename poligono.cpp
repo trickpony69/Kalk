@@ -43,21 +43,39 @@ double poligono::lato() const{
 //se è regolare ritorna la misura del lato altrimenti ritorna 0
 bool poligono::isRegular() const {
 
-    double conf = lato();
-
-    unsigned int check = 0 ;
     for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
         for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
-            if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
-                check++; //verifico di avere  n lati uguali al lato()
-            }
+            if(*pt[i] == *pt[j]) return false;
         }
     }
 
-    if(check == getlati()){
+    if(getlati() == 3){
+        retta r = retta::rettaFromTwoPoints(*pt[0],*pt[1]);
+
+        if((r.intersect(pt[2])).size() >= 1){
+            return false;
+        }
         return true;
     }
-    else return false;
+    else{
+        double conf = lato();
+
+        unsigned int check = 0 ;
+        for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
+            for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
+                if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
+                    check++; //verifico di avere  n lati uguali al lato()
+                }
+            }
+        }
+
+        if(check == getlati()){
+            return true;
+        }
+        else return false;
+    }
+
+
 }
 
 //-----------------DISTR PROFONDO-------------------
@@ -101,7 +119,7 @@ poligono::poligono(const poligono & p){
 
 //------------------ OPERATOR ----------------
 
-poligono& poligono::operator = ( const poligono& p ) {
+poligono& poligono::operator=( const poligono& p ) {
     if(this != &p){
 
         distruggi(pt);
@@ -209,7 +227,10 @@ poligono* poligono::pars_pol(string s){
 
         if( pc == 3 ){
             triangolo tr(pc,temp);
+            if( tr.isRegular()  )
                 return new triangolo(tr);
+            else
+                throw irregular_pol();
         }
         else if( pc == 4 )
         {

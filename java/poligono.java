@@ -22,6 +22,11 @@ public abstract class poligono extends inputitem {
 		return lati;
 	}
 
+	public Vector<punto> getpoint(){
+		Vector<punto> p = (Vector<punto>)pt.clone();
+		return p;
+	}
+
 	public poligono pars_pol(String pol) throws eccezioni{
 
 		pol = pol.replace(" ","");
@@ -99,10 +104,8 @@ public abstract class poligono extends inputitem {
 		return ret;
 	}
 
-
+	//funziona dai quadrati in su , su triangolo è overloadato
 	public double lato() {
-
-
 		double lat = (pt.get(0)).distancefromtwopoints(pt.get(1));
 
 	    //il lato e' la distanza minima tra i punti inseriti
@@ -111,14 +114,14 @@ public abstract class poligono extends inputitem {
 	       double p = (pt.get(i)).distancefromtwopoints(pt.get(0));
 	       if(p < lat) lat = p ;
 	    }
-
 	    return lat;
 	}
 
 	public boolean isRegular(){
-		
+
+		//verifico non ci siano doppioni
 		for(int i = 0 ; i < pt.size() - 1 ; i++){
-    		for(int j = i + 1 ; i < pt.size() ; i++ ){
+    		for(int j = i + 1 ; j < pt.size() ; j++ ){
     			if((pt.get(i)).equals(pt.get(j))) return false; 
     		}
     	}
@@ -137,7 +140,7 @@ public abstract class poligono extends inputitem {
 	    	int check = 0;
 
 	    	for(int i = 0 ; i < pt.size() - 1 ; i++){
-	    		for(int j = i + 1 ; i < pt.size() ; i++ ){
+	    		for(int j = i + 1 ; j < pt.size() ; j++ ){
 	    			if((pt.get(i)).distancefromtwopoints(pt.get(j)) == conf )
 	    				check++;
 	    		}
@@ -149,6 +152,30 @@ public abstract class poligono extends inputitem {
 		    else return false;
 	    }
 	}
+
+	public final double distance(inputitem i){
+		return 0;
+	}
+
+	public final Vector<punto> intersect(inputitem i){
+		Vector<punto> temp = new Vector<punto>();
+		return temp;
+	} 
+
+	//su triangolo è overloadato
+	public double perimetro(){
+		return getlati()*lato();
+	}
+
+	//su triangolo è overloadato
+	public double area() {
+	    double apotema = getlati() * getfisso();
+	    return (perimetro()*apotema)/2;
+	}
+
+
+
+
 	    
 }
 		

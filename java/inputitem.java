@@ -54,7 +54,7 @@ public abstract class inputitem{
 			}	
 		}*/
 
-		String polprova = new String("(2;2)(2;2)(2;2)");
+		String polprova = new String("(0;2)(2;0)(2;2)");
 
 		boolean reinserisci = false;
 		poligono pol1 = new quadrato();
@@ -66,6 +66,14 @@ public abstract class inputitem{
 		}
 		if(reinserisci == false)
 			System.out.println("\npol : " + pol1);
+
+		//copia
+		/*
+		Vector<punto> temp = pol1.getpoint();
+		triangolo t = new triangolo(3,temp);
+		System.out.println("\npol 1 : " + t);
+		*/
+
 
 	}
 

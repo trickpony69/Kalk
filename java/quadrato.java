@@ -15,14 +15,6 @@ public class quadrato extends poligono{
 		return numeroFisso;
 	}
 
-	public double distance(inputitem i){
-		return 0;
-	}
-
-	public Vector<punto> intersect(inputitem i){
-		Vector<punto> temp = new Vector<punto>();
-		return temp;
-	} 
 
 	/*public area(){
 		return lato()*lato();
