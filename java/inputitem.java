@@ -18,7 +18,7 @@ public abstract class inputitem{
 		inputitem i1 = new punto();
 		inputitem i2 = new punto();
 
-		String s = new String("(12;2)");
+		/*String s = new String("(12;2)");
 		String s1 = new String("(12/4.6;5)");
 		punto p = (punto)i1 ;
 		punto p1 = (punto)i2 ;
@@ -52,13 +52,20 @@ public abstract class inputitem{
 			for (Object o : v1) {
 			    System.out.print("intersezione: " + o );
 			}	
-		}
+		}*/
 
-		String polprova = new String("(1;8)(2;0)(1;2)");
+		String polprova = new String("(2;2)(2;2)(2;2)");
 
+		boolean reinserisci = false;
 		poligono pol1 = new quadrato();
-		pol1 = pol1.pars_pol(polprova);
-		System.out.println("\npol : " + pol1);
+
+		try{pol1 = pol1.pars_pol(polprova);}
+		catch(eccezioni i){
+			reinserisci = true;
+			System.out.println(i.message);
+		}
+		if(reinserisci == false)
+			System.out.println("\npol : " + pol1);
 
 	}
 

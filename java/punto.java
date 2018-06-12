@@ -66,7 +66,7 @@ public class punto extends inputitem {
 	    }	
 	}
 
-	public void pars_point(String p){
+	public void pars_point(String p) throws eccezioni{
 	    //rimuove gli spazi
 	    p = p.replace(" ","");
 
@@ -79,7 +79,7 @@ public class punto extends inputitem {
     	int sign=1;
 
     	if( !(p.substring(0,1).equals("(") ) && !(p.substring(p.length()-1,p.length()).equals(")") ) ) {
-	        System.out.println("input_error_manca_)(");
+	        throw new input_error();
 	    }
 
 
@@ -94,7 +94,7 @@ public class punto extends inputitem {
 	                sign = -1;
 	            }
 	            else if(c.equals( "/" )){
-	                if(s.length() == 0) System.out.println("input_error_numeratore");//throw num_error();
+	                if(s.length() == 0) throw new input_error();
 
                     n1 = Integer.parseInt(s);
                     n = n1 / virgola;
@@ -118,9 +118,7 @@ public class punto extends inputitem {
 	            }
 	            else if( c.equals( ";" ) || c.equals( ")" ) ){
 	                if(s.length() == 0){
-	                    System.out.println("input_error_not_numero");
-	                    break;
-	                    //throw input_error();
+	                    throw new input_error(); 
 	                }
 
 	                if(n != 0){
@@ -167,8 +165,7 @@ public class punto extends inputitem {
 	                		Integer.parseInt(p.substring(cont-1,cont));
 		                }
 		                catch(java.lang.NumberFormatException nfe){
-		                	System.out.println("not numeric" + p.substring(cont-1,cont) );
-		                	break;
+		                	throw new not_numeric();
 		                }
 
 		                if(doub) virgola = virgola * 10 ;
@@ -187,10 +184,10 @@ public class punto extends inputitem {
 			punto p = (punto)i;
 			return distancefromtwopoints(p);
 		}
-		/*else{
+		else{
 			return i.distance(this);
-		}*/
-		else return 0;
+		}
+
 	}
 
 	public Vector<punto> intersect(inputitem i){

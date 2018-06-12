@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+import java.util.Iterator;
+
 
 public abstract class poligono extends inputitem {
 	private int lati;
@@ -20,7 +22,7 @@ public abstract class poligono extends inputitem {
 		return lati;
 	}
 
-	public poligono pars_pol(String pol){
+	public poligono pars_pol(String pol) throws eccezioni{
 
 		pol = pol.replace(" ","");
 
@@ -55,42 +57,36 @@ public abstract class poligono extends inputitem {
 
 	            punto point = new punto();
 
-	            /*try{*/point.pars_point(single_point);/*}
+	            try{point.pars_point(single_point);}
+	            catch(eccezioni e){
+	            	throw new input_error();
+	            }
 
-	            catch(input_error){
-	                //rimando l'eccezione al chiamante
-	                throw input_error();
-	            }
-	            catch(num_error){
-	                throw input_error();
-	            }
-	            catch(den_error){
-	                throw input_error();
-	            }
-	            catch(int){
-	                //invoco il costruttore di copia standard
-	                temp.push_back(new punto(point));
-	            }*/
 	            
 	            temp.add(point);
 	        }
 	        if( parentesi_a == 3 ){
-	            return new triangolo(parentesi_a,temp);
+	            triangolo tr = new triangolo(parentesi_a,temp);
+	            if(tr.isRegular())
+	            	return tr;
+	            else
+	                throw new poligonlinearexception();
+
 	        }
 	        else if( parentesi_a == 4 )
 	        {
-
-	            //if( qr.isRegular()  )
-	            return new quadrato(parentesi_a,temp);
-	            /*else
-	                System.out.println("not_iregular");//throw irregular_pol();
-	        */}
+	        	quadrato qr = new quadrato(parentesi_a,temp);
+	            if( qr.isRegular()  )
+	            	return qr;
+	            else
+	                throw new not_regular();
+	        }
 
 	        
 
 	    }
 	    //eccezione not poligono considerato
-	    return new quadrato(); 
+	    throw new input_error();
 	}
 
 	public String toString(){
@@ -102,7 +98,59 @@ public abstract class poligono extends inputitem {
 
 		return ret;
 	}
+
+
+	public double lato() {
+
+
+		double lat = (pt.get(0)).distancefromtwopoints(pt.get(1));
+
+	    //il lato e' la distanza minima tra i punti inseriti
+	    //posso verificarlo in soli tre controlli
+	    for(int i = 2 ; i < 4 ; i ++ ){
+	       double p = (pt.get(i)).distancefromtwopoints(pt.get(0));
+	       if(p < lat) lat = p ;
+	    }
+
+	    return lat;
+	}
+
+	public boolean isRegular(){
+		
+		for(int i = 0 ; i < pt.size() - 1 ; i++){
+    		for(int j = i + 1 ; i < pt.size() ; i++ ){
+    			if((pt.get(i)).equals(pt.get(j))) return false; 
+    		}
+    	}
+
+	    if(getlati() == 3){
+	    	
+	    	retta r = (pt.get(0)).rettafromtwopoints(pt.get(1));
+
+	    	if((r.intersect(pt.get(2))).size() >= 1){
+	    		return false;
+	    	}
+	    	return true;
+	    }
+	    else{
+	    	double conf = lato();
+	    	int check = 0;
+
+	    	for(int i = 0 ; i < pt.size() - 1 ; i++){
+	    		for(int j = i + 1 ; i < pt.size() ; i++ ){
+	    			if((pt.get(i)).distancefromtwopoints(pt.get(j)) == conf )
+	    				check++;
+	    		}
+	    	}
+
+		    if(check == getlati()){
+		        return true;
+		    }
+		    else return false;
+	    }
+	}
+	    
+}
 		
 
 
-}

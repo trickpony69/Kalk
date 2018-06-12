@@ -223,7 +223,7 @@ class retta extends inputitem {
 		return v;//i.intersect(this);
 	}
 
-	public void pars_rect(String retta)
+	public void pars_rect(String retta) throws eccezioni
 	{
 		retta = retta.replace(" ","");
 
@@ -251,10 +251,10 @@ class retta extends inputitem {
 
 	        //vado a verificare ci sia solo una x e una y altrimenti non e' nella forma prevista
 	        if(rect[i].equals("y") && incy == false) incy = true ;
-	        else if(rect[i].equals("y") && incy == true) System.out.println("not_implicit");
+	        else if(rect[i].equals("y") && incy == true) throw new implicit();
 
 	        if(rect[i].equals("x") && incx == false) incx = true ;
-	        else if(rect[i].equals("x") && incx == true) System.out.println("not_implicit");
+	        else if(rect[i].equals("x") && incx == true) throw new implicit();
 
 	        if( !rect[i].equals("*") && !rect[i].equals("=") )
 	        {
@@ -268,7 +268,7 @@ class retta extends inputitem {
 	                    virgola = 1;
 	                    doub = false;
 
-	                    if( ( !(b.getnum() == 0) || (a.getnum() == 0) ) && segno == false )   System.out.println("input_error");
+	                    if( ( !(b.getnum() == 0) || (a.getnum() == 0) ) && segno == false )  throw new input_error();
 
 	                    c = new razionale(sign*tn,1);
 	                    sign = 1;
@@ -294,7 +294,7 @@ class retta extends inputitem {
 	            else {
 	                //caso in cui ci sia un x o y al denominatore
 	                if( ( rect[i].equals("x") || rect[i].equals("y") ) && raz == true )
-	                     System.out.println("xy_den_error");
+	                     throw new input_error();
 
 	                if( rect[i].equals("x") || rect[i].equals("y") ){
 	                    if( s.length() == 0) s="1";
@@ -304,7 +304,7 @@ class retta extends inputitem {
 
 	                    virgola = 1;
 	                    doub = false;
-	                    if((b.getnum() != 0 || c.getnum() != 0) && segno == false) System.out.println("input_error");
+	                    if((b.getnum() != 0 || c.getnum() != 0) && segno == false) throw new input_error();
 
 	                    if(rect[i].equals("x"))
 	                    	a = new razionale(sign*x,1);
@@ -335,17 +335,17 @@ class retta extends inputitem {
 	                        doub = false;
 
 	                        if( rect[i].equals("x") ){
-	                            if((b.getnum() != 0 || c.getnum() != 0) && segno == false )  System.out.println("input_error");
+	                            if((b.getnum() != 0 || c.getnum() != 0) && segno == false )  throw new input_error();
 	                            a = new razionale(sign*n,d);
 	                            segno = false;
 	                            sign = 1;
 	                        }else if( rect[i].equals("y") ){
-	                            if((a.getnum() != 0 || c.getnum() != 0) && segno == false )  System.out.println("input_error");
+	                            if((a.getnum() != 0 || c.getnum() != 0) && segno == false ) throw new input_error(); 
 	                            b = new razionale(sign*n,d);
 	                            sign = 1;
 	                            segno = false;
 	                        }else {
-	                            if( (a.getnum() != 0 || b.getnum() != 0) && segno == false )  System.out.println("input_error");
+	                            if( (a.getnum() != 0 || b.getnum() != 0) && segno == false )  throw new input_error();
 	                            c = new razionale(sign*n,d);
 	                            sign = 1;
 	                            segno = false;
@@ -369,8 +369,7 @@ class retta extends inputitem {
 			                		Integer.parseInt(rect[i]);
 				                }
 				                catch(java.lang.NumberFormatException nfe){
-				                	System.out.println("not numeric" + rect[i] );
-				                	break;
+				                	throw new not_numeric();
 				                }
 				                if(doub == true) virgola *= 10 ;
                           		s = s + rect[i];
@@ -389,7 +388,7 @@ class retta extends inputitem {
 	                 virgola = 1;
 	                 doub = false;
 
-	                 if(( !(b.getnum() == 0) || !(a.getnum() == 0) ) && segno == false) System.out.println("input_error");
+	                 if(( !(b.getnum() == 0) || !(a.getnum() == 0) ) && segno == false) throw new input_error();
 
 	                 c = new razionale(sign*tn,1);
 	                 segno = false;
@@ -406,7 +405,7 @@ class retta extends inputitem {
 	        }
 	    }
 	    if( a.getnum() == 0 && b.getnum()== 0) {
-	        System.out.println("xy_error");
+	        throw new input_error();
 	    }
 
 	}
