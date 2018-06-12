@@ -46,7 +46,6 @@ private slots: //private o public slots ?
     void intersezione();
     void saveResult();
     void showResult();
-protected slots:
     void rect2Points();
     void dist2item();
     void area();
