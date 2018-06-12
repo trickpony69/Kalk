@@ -25,8 +25,6 @@ public abstract class inputitem{
 		p.pars_point(s);
 		p1.pars_point(s1);
 
-		System.out.println(p + " e " + p1 + " dist : " + p.distance(p1) + "\n");
-
 		Vector<punto> v = new Vector<punto>();
 		v = p.intersect(p1);
 		if(v.size() == 0) System.out.println("non si intersecano \n");
@@ -55,6 +53,13 @@ public abstract class inputitem{
 			    System.out.print("intersezione: " + o );
 			}	
 		}
+
+		String polprova = new String("(1;8)(2;0)(1;2)");
+
+		poligono pol1 = new quadrato();
+		pol1 = pol1.pars_pol(polprova);
+		System.out.println("\npol : " + pol1);
+
 	}
 
 

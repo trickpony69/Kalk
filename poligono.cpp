@@ -11,6 +11,7 @@ poligono::poligono(int l , vector<punto*> p):lati(l){
     while(num && it != p.end()){
         pt.push_back(*it);
         ++it;
+        num--
     }
 }
 
@@ -203,7 +204,6 @@ poligono* poligono::pars_pol(string s){
                 //invoco il costruttore di copia standard
                 temp.push_back(new punto(point));
             }
-            --pv;
 
         }
 
