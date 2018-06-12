@@ -4,6 +4,7 @@
 #include<iostream>
 #include <cmath>
 using std::istream;
+using std::string;
 
 
 using std::abs;
@@ -19,7 +20,7 @@ private:
     double num, den; //den != 0
 public:
     razionale() { num = 0 ; den = 1; }
-    razionale(double , double );// agisce anche da convertitore int => Raz
+
     double GetNum() const;
     double GetDen() const;
     razionale(const double&);
@@ -27,7 +28,7 @@ public:
     void riduzione();
     int conteggio(double);
     razionale inverso() const;//gira la frazione
-    operator double() const; //cast operatore double
+    razionale(double , double );// agisce anche da convertitore int => Raz
     razionale operator+(const razionale&) const;
     razionale operator*(const razionale&) const;
     razionale operator*(const double&) const;
@@ -37,6 +38,10 @@ public:
     bool operator==(const double&) const;
     bool operator==(const int&) const;
     double converti() const;
+    razionale operator-(const razionale&) const;
+    razionale operator/(const razionale&) const;
+    string tostring() const;
+    operator double() const; //cast operatore double
 };
 
 #endif

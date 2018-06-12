@@ -82,8 +82,8 @@ void punto::pars_point(string p){
 
 
         if(p[cont] != '('){
-            if(p[cont] == '-'){
-                sign = -1;
+            if(p[cont] == '-' || p[cont] == '+'){
+                if(p[cont] == '-' )sign = -1;
             }
             else if(p[cont] == '/'){
                 if(s.length() == 0) throw num_error();
@@ -187,16 +187,17 @@ double punto::yToDouble() const{
 
 //serve per la gui
 QString punto::toString(){
-    x.riduzione();
-    y.riduzione();
-    QString c ;
-    c = c + QString::number(x.GetNum()) ;
-    if(x.GetDen() != 1 ) c = c +'/'+QString::number(x.GetDen());
-    c = c + ';' + QString::number(y.GetNum()) ;
-    if(y.GetDen() != 1 ) c = c +'/'+QString::number(y.GetDen());
 
-    return c;
-}//(4;4)(-4;4)(4;-4)(-4;-4)  (-2;0)(4;4)(3;0)
+    /*x.riduzione();
+    y.riduzione();*/
+
+    std::string st ;
+
+    st = st + x.tostring() + ";" + y.tostring();
+
+    QString qstr = QString::fromStdString(st);
+    return qstr;
+}
 
 vector<punto> punto::intersect( inputitem* i ) const {
     vector<punto> punt;

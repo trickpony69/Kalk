@@ -61,10 +61,10 @@ class retta extends inputitem {
 		razionale neg = new razionale(-1,1);
 		razionale zero = new razionale();
 
-		if(r.a.equals(0)){
+		if(r.a.getnum() == 0){
 	        x = new punto(zero,neg.multiply(r.c.multiply(r.b.inverso())));
 	    }
-	    else if(r.b.equals(0) ){
+	    else if(r.b.getnum() == 0 ){
 	        x = new punto(((r.c.multiply(r.a.inverso())).multiply(neg)),zero);
 	    }
 	    else{
@@ -81,7 +81,8 @@ class retta extends inputitem {
 
 	    double coeffA = neg.multiply((this.a.multiply(this.b.inverso()))).converti();
 	    double coeffB = neg.multiply((r2.a.multiply(r2.b.inverso()))).converti();
-	    return coeffA == coeffB;
+	    if(coeffA == coeffB) return true;
+	    else return false;
 	}
 
 	public boolean isPerpendicolari( retta r2){
@@ -91,18 +92,19 @@ class retta extends inputitem {
 	    else return false;
 	}
 
-	/*public retta rettaperpendicolare(punto p ){
+	//retta perpendicolare a un altra e passante per un punto
+	public retta rettaperpendicolare(punto p ){
 		razionale neg = new razionale(-1,1);
 		razionale zero = new razionale();
 
-	    if( !(b.equals(0)) && !(a.equals(0)) ){
+	    if( b.getnum() != 0 && a.getnum() != 0 ){
 	        //trovo il coefficente angolare
 	        razionale m = new razionale(a.multiply(neg),b);
 	        //trovo l'antireciproco del coefficente angolare
-	        razionale new_m = new razionale((m.inverso()).multiply(neg) , 1);
+	        razionale new_m =  (m.inverso()).multiply(neg);
 	        //trovo c => y1 + m*x1
-	        razionale c = new razionale( new_m.multiply(p.getx()) );
-	        c = new razionale(c.multiply(neg).converti() + p.gety().converti());
+	        razionale c = new_m.multiply(p.getx());
+	        c = new razionale( (c.multiply(neg)).converti() + (p.gety()).converti());
 	        return new retta(new_m,neg,c);
 	    }else{
 	        if( a.equals(0) ){
@@ -110,32 +112,114 @@ class retta extends inputitem {
 	        }
 	        else return new retta( zero,neg,p.gety() );
 	    }
-	}*/
+	}
 
-	/*public retta rettaparallela(punto p){
-		if( !(b.equals(0)) && !(a.equals(0)) ){
+	public retta rettaparallela(punto p){
+		razionale neg = new razionale(-1,1);
+		razionale zero = new razionale();
+
+		if( b.getnum() != 0 && a.getnum() != 0){ //disuguaglianza double ==> primitivi
 	        //trovo il coefficente angolare
 	        razionale m = new razionale( a.multiply(neg),b );
 	        //trovo c => y1 + m*x1
-	        razionale c = new razionale( m.multiply(p.getx()) );
-	        c = new razionale(c*(razionale(-1,1)))+p.getY();
-	        return retta(m,-1,c);
+	        razionale c = m.multiply(p.getx()) ;
+
+	        c = (c.multiply(neg)).add(p.gety());
+
+	        return new retta(m,neg,c);
 	    }
 	    else{
-	        if(r.GetA() == 0){
-	            return retta(0,-1,p.getY());
+	        if(getA().getnum() == 0){
+	            return new retta(zero,neg,p.gety());
 	        }
-	        else return retta(-1,0,p.getX());
+	        else return new retta(neg,zero,p.getx());
 	    }
+	}
+
+
+	//dato una x ritorna il punto rispettivo 
+	public punto printCoord_x(razionale x){
+		razionale neg = new razionale(-1,1);
+
+		razionale y = new razionale(1,1);
+
+		if(getB().getnum() == 0 && getA().getnum() == 0){
+	       System.out.println("not_implicit");
+	    }
+	    else if(getB().getnum() == 0){
+	        x = new razionale ( getC().multiply(neg) , getA() );
+
+	    }
+	    else{
+	        y = new razionale( (getA().multiply(neg)).multiply(x).add(getC().multiply(neg)) ,getB());
+	    }
+
+	    return new punto(x,y);
+	}
+
+	//mi serve per disegnare... la facciooo ?
+	/*public Vector<punto> print_rect() {
+
 	}*/
 
+	public Vector<punto> intersectretta(retta r1){
+		Vector<punto> p = new Vector<punto>();
+		razionale neg = new razionale(-1,1);
+
+		if(isParallels(r1) == true) return p;
+
+		razionale det = new razionale ( getA().multiply(r1.getB()).add( neg.multiply(r1.getA().multiply(getB()) ) ));
+
+		if(det.getnum() != 0){
+
+			razionale detx = new razionale(((getC().multiply(neg)).multiply(r1.getB())).add(neg.multiply((r1.getC().multiply(neg)).multiply(getB()))),det) ;
+
+	        razionale dety = new razionale(((getA().multiply(neg)).multiply(r1.getC())).add(neg.multiply((r1.getA().multiply(neg)).multiply(getC()))),det) ;
+
+	        System.out.println(detx + " - " + dety);
+
+	        p.add(new punto(detx,dety));	        
+		}
+		else{
+			razionale x = new razionale( ((getC().multiply((r1.getB()).multiply(getB().inverso()))).add(neg.multiply(r1.getC()))),(r1.getA()).add(neg.multiply(getA().multiply((r1.getB()).multiply(getB().inverso())))));
+	        razionale y = new razionale((getA().multiply(x)).multiply(neg.multiply(getB())).add(getC().multiply((neg.multiply(getB())).inverso())));
+	        p.add(new punto(x,y));
+		}
+		return p;
+	}
+
 	public double distance(inputitem i){
-		return 0;
+		if(i instanceof retta){
+			if((this.intersect(i)).size() == 1) return 0;
+			retta r = (retta)i;
+			return distanceRettaRetta(r);
+		}
+		else if(i instanceof punto){
+			punto p = (punto)i;
+			return distancePuntoRetta(p);
+		}
+		else{
+			return i.distance(this);
+		}
 	}
 
 	public Vector<punto> intersect(inputitem i){
 		Vector<punto> v = new Vector<punto>();
 		
+		if(i instanceof retta){
+			retta r = (retta)i;
+			return intersectretta(r);
+		}
+		else if(i instanceof punto){
+			punto p = (punto)i ;
+			if(distancePuntoRetta(p) == 0) {
+				v.add(p);
+			}
+		}
+		else{
+			return i.intersect(this);
+		}
+
 		return v;//i.intersect(this);
 	}
 

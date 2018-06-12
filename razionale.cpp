@@ -8,6 +8,14 @@ double razionale::GetDen() const {
     return den;
 }
 
+razionale::razionale(const razionale& r1 , const razionale& r2) : num(r1.num*r2.den) , den(r2.num*r1.den){
+    if((den < 0 && num > 0) || (den < 0 && num < 0)){
+        den = den*(-1);
+        num = num*(-1);
+    }
+    riduzione();
+}
+
 razionale::razionale(double n, double d): num(n), den(d) {
   if(den==0) {num=0; den=1;} //eccezione
   else{
@@ -19,13 +27,7 @@ razionale::razionale(double n, double d): num(n), den(d) {
   }
 }
 
-razionale::razionale(const razionale& r1 , const razionale& r2) : num(r1.num*r2.den) , den(r2.num*r1.den){
-    if((den < 0 && num > 0) || (den < 0 && num < 0)){
-        den = den*(-1);
-        num = num*(-1);
-    }
-    riduzione();
-}
+
 
 int razionale::conteggio(double d){
     int i=0;
@@ -40,9 +42,10 @@ void razionale::riduzione(){
     else if(num!=0){
 
         double aux=abs(num)<abs(den)?abs(num):abs(den);
-
+        //fmod ritorna il resto della divisione di num/den con i
+        //se è ==0 allora è multiplo
         for(int i=2; i<=aux; i++){
-            if(std::fmod(num,i) && std::fmod(den,i)){
+            if(!std::fmod(num,i) && !std::fmod(den,i)){
                 num=num/i;
                 den=den/i;
                 aux=abs(num)<abs(den)?abs(num):abs(den);
@@ -55,7 +58,6 @@ void razionale::riduzione(){
 }
 
 razionale::razionale(const double& d): num(d*pow(10,conteggio(d))),den(pow(10,conteggio(d))) {
-    //std::cout<<num<<" "<<den;
     riduzione();
     if(num<0 && den <0){
         num=abs(num);
@@ -109,6 +111,33 @@ bool razionale::operator==(const int& i) const{
 
 double razionale::converti()const {
     return (this)->operator double();
+}
+
+razionale razionale::operator -(const razionale& r) const {
+    return *this + (razionale(-1,1)*r) ;
+}
+
+razionale razionale::operator /(const razionale& r) const {
+    return *this * (r.inverso()) ;
+}
+
+string razionale::tostring() const {
+    string st;
+    if(num > 0) st = st + "+";
+    if(!std::fmod(num,1)){
+        int n = num;
+        st = st + std::to_string(n);
+    }
+    else st = st + std::to_string(num) ;
+
+    if(!std::fmod(den,1)){
+        int d = den;
+        if(d != 1)
+            st = st + '/' + std::to_string(d);
+    }
+    else st = st + '/' + std::to_string(den) ;
+
+    return st;
 }
 
 std::ostream& operator<<(std::ostream& os, const razionale& r) {

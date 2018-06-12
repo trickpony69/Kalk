@@ -10,9 +10,9 @@ public class razionale {
 	public razionale(double n , double d ) {
 		if(d == 0) { den = 1; num = 0; }
 		else{
-			riduzione();
 			num = n;
 			den = d;
+			riduzione();
 		}
 		
 	}
@@ -44,6 +44,12 @@ public class razionale {
     	
     	riduzione();
  	}
+
+ 	public razionale(razionale r1){
+ 		num = r1.num;
+ 		den = r1.den;
+ 	}
+
 
  	//--------------------------------------------------
 
@@ -109,10 +115,12 @@ public class razionale {
 		riduzione();
 	}
 
-	public void add_one(razionale r){
-		this.num = this.num * r.den + this.den*r.num ;
-		this.den = this.den * r.den ;
-		riduzione();
+	public razionale add(razionale r){
+		razionale n = new razionale();
+		n.num = this.num * r.den + this.den*r.num ;
+		n.den = this.den * r.den ;
+		n.riduzione();
+		return n;
 	}
 
 	public razionale multiply(double d) {

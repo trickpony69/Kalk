@@ -110,26 +110,28 @@ retta retta::RettaParallela( retta& r , punto& p ){
 }
 
 vector<punto> retta::Intersect(const retta& r1,const retta& r2) {
-    razionale Det = r1.GetA()*r2.GetB() - r2.GetA()*r1.GetB();
+    razionale Det = (r1.GetA()*r2.GetB()) - (r2.GetA()*r1.GetB());
     vector<punto> p;
 
     if(retta::isParallels(const_cast<retta&>(r1),const_cast<retta&>(r2))) return p;
 
+    
+
     if(Det != 0){
-        razionale DetX = r1.GetC()*(razionale(-1,1))*r2.GetB() - r2.GetC()*(razionale(-1,1))*r1.GetB();
-        razionale DetY = r1.GetA()*(razionale(-1,1))*r2.GetC() - r2.GetA()*(razionale(-1,1))*r1.GetC();
-        p.push_back(punto(razionale(DetX,Det),razionale(DetY,Det)));
+        razionale DetX = razionale( r1.GetC()*(razionale(-1,1))*r2.GetB() + razionale(-1,1)*(r2.GetC()*(razionale(-1,1))*r1.GetB()) , Det);
+        razionale DetY = razionale(r1.GetA()*(razionale(-1,1))*r2.GetC() + razionale(-1,1)*(r2.GetA()*(razionale(-1,1))*r1.GetC() ) , Det);
+        p.push_back(punto(DetX,DetY));
         return p;
     }
     else
     {
         razionale x((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
-        double coordY = (r1.GetA()*x)/((-1)*(r1.GetB())) + r1.GetC()/((-1)*(r1.GetB()));
-        razionale y(coordY,1);
+        razionale y = razionale((r1.GetA()*x)/(razionale(-1,1)*(r1.GetB())) + r1.GetC()/(razionale(-1,1)*(r1.GetB())));
         p.push_back(punto(x,y));
         return p;
     }
 }
+// 2x+6y+7 5x+3y-29
 
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
 punto retta::printCoord_x(razionale x) const{
@@ -182,7 +184,15 @@ vector<punto> retta::intersect( inputitem *i ) const {
 }
 
 QString retta::toString()const{
-    return QString(QString::number(a)+'x'+'+'+QString::number(b)+'y'+'+'+QString::number(c));
+    std::string st;
+
+    if(a.GetNum() != 0) st = st + a.tostring() + "x ";
+    if(b.GetNum() != 0) st = st + b.tostring() + "y ";
+    if(c.GetNum() != 0) st = st + c.tostring();
+
+    QString qstr = QString::fromStdString(st);
+
+    return qstr;
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------

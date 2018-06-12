@@ -32,11 +32,29 @@ public abstract class inputitem{
 		if(v.size() == 0) System.out.println("non si intersecano \n");
 		else System.out.println("si intersecano \n");
 
-		String ret = new String("1/5x+3y-2/6");
-		retta r = new retta();
-		r.pars_rect(ret);
+		String ret1 = new String("2x+6y+7");
+		String ret2 = new String("5x+3y-29");
+		retta r1 = new retta();
+		r1.pars_rect(ret1);
+		retta r2 = new retta();
+		r2.pars_rect(ret2);
 
-		System.out.println(r +"\n");
+		System.out.println(r1 +"\n");
+		System.out.println(r2 +"\n");
+
+		System.out.println("distanza : " + r1.distance(r2));
+
+		System.out.println("perp : " + r1.rettaperpendicolare(p));
+		System.out.println("parall : " + r1.rettaparallela(p));
+
+		Vector<punto> v1 = r1.intersect(r2);
+
+		if(v1.size() == 0) System.out.println("non si intersecano \n");
+		else {
+			for (Object o : v1) {
+			    System.out.print("intersezione: " + o );
+			}	
+		}
 	}
 
 

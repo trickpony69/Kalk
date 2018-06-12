@@ -12,6 +12,10 @@ public class punto extends inputitem {
 		y = b;
 	}
 
+	public punto( razionale a ){
+		this(a,new razionale(1,1));
+	}
+
 	public punto() { 
 		this(new razionale(),new razionale());
 	}
