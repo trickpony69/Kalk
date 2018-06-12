@@ -11,7 +11,7 @@ poligono::poligono(int l , vector<punto*> p):lati(l){
     while(num && it != p.end()){
         pt.push_back(*it);
         ++it;
-        num--
+        num--;
     }
 }
 
