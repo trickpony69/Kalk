@@ -1,10 +1,10 @@
 #ifndef MIACLASSE_H
 #define MIACLASSE_H
 
-#include "grafico.h"
+#include "view/grafico.h"
 #include "model/poligono.h"
-#include "myqline.h"
-#include "wizard.h"
+#include "view/myqline.h"
+#include "view/wizard.h"
 
 class mainGui: public QWidget{
     friend class finestra;
