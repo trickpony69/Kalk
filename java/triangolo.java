@@ -16,7 +16,7 @@ public class triangolo extends poligono{
 	}
 
 	public double perimetro(){
-		return (pt.get(0)).distancefromtwopoints(pt.get(1)) + (pt.get(1)).distancefromtwopoints(pt.get(2)) + (pt.get(0)).distancefromtwopoints(pt.get(2))
+		return (pt.get(0)).distancefromtwopoints(pt.get(1)) + (pt.get(1)).distancefromtwopoints(pt.get(2)) + (pt.get(0)).distancefromtwopoints(pt.get(2));
 	}
 
 	public double area(){
@@ -26,10 +26,15 @@ public class triangolo extends poligono{
 	}
 
 	public double lato(){
-	    if( (pt.get(1)).distancefromtwopoints(pt.get(2)) == (pt.get(0)).distancefromtwopoints(pt.get(1)) == (pt.get(0)).distancefromtwopoints(pt.get(2)) ){
-	        return (pt.get(1)).distancefromtwopoints(pt.get(2));
+		double a = ((pt.get(1)).distancefromtwopoints(pt.get(2)));
+		double b = ((pt.get(0)).distancefromtwopoints(pt.get(2)));
+		double c = ((pt.get(0)).distancefromtwopoints(pt.get(1)));
+
+	    if(a == b ){
+	    	if(a == c)
+	        	return (pt.get(1)).distancefromtwopoints(pt.get(2));
 	    }
-	    else return 0; //non regolare
+	    return 0; //non regolare
 	}
 
 

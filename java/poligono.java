@@ -153,6 +153,188 @@ public abstract class poligono extends inputitem {
 	    }
 	}
 
+	//su triangolo è overloadato
+	public double perimetro(){
+		return getlati()*lato();
+	}
+
+	public abstract double getfisso();
+
+	//su triangolo è overloadato
+	public double area() {
+	    double apotema = getlati() * getfisso();
+	    return (perimetro()*apotema)/2;
+	}
+
+	//---------------INTERSEZIONI------------------------
+
+	//retta - poligono
+	public Vector<punto> rettapol(retta r , Vector<punto> range ){ //if(range.size() > 0 ) arrivo da polipoli()
+		Vector<punto> rit = new Vector<punto>(); 
+		Vector<punto> punti = getpoint();
+		
+		double lat = 0;
+		if(punti.size() > 3){
+			lat = lato();
+		}
+
+
+		for( int i = 0 ; i < punti.size() - 1 ; i++ ){
+			for( int j = i+1 ; j < punti.size() ; j++ ){
+				if( punti.size() == 3 || (punti.get(i)).distancefromtwopoints(punti.get(j)) == lat){
+					retta temp = (punti.get(i)).rettafromtwopoints(punti.get(j));
+					Vector<punto> inter = temp.intersectretta(r);
+
+					if(inter.size() > 0){
+						if( ( ((punti.get(i)).getx()).converti() <= (inter.get(0)).getx().converti()  &&  (punti.get(j)).getx().converti()  >= (inter.get(0)).getx().converti()  )
+							|| ( (punti.get(i)).getx().converti()  >= (inter.get(0)).getx().converti()  &&  (punti.get(j)).getx().converti()  <= (inter.get(0)).getx().converti()  ) )
+						{
+							if( ( (punti.get(i)).gety().converti()  <= (inter.get(0)).gety().converti()  &&  (punti.get(j)).gety().converti()  >= (inter.get(0)).gety().converti()  )
+								|| ( (punti.get(i)).gety().converti()  >= (inter.get(0)).gety().converti()  &&  (punti.get(j)).gety().converti()  <= (inter.get(0)).gety().converti()  ) )
+						
+							{
+								if(range.size() > 0 ){
+									 if( ( ((range.get(0)).getx().converti()  <= (inter.get(0)).getx().converti()  && (range.get(1)).getx().converti()  >= (inter.get(0)).getx().converti()  )
+                                        || ((range.get(0)).getx().converti()  >= (inter.get(0)).getx().converti()  && (range.get(1)).getx().converti()  <= (inter.get(0)).getx().converti()  ) )
+                                        && ( ((range.get(0)).gety().converti()  <= (inter.get(0)).gety().converti()  && (range.get(1)).gety().converti()  >= (inter.get(0)).gety().converti()  )
+                                        || ((range.get(0)).gety().converti()  >= (inter.get(0)).gety().converti()  && (range.get(1)).gety().converti()  <= (inter.get(0)).gety().converti()  ) ) )
+										{
+											rit.add(inter.get(0));
+										}
+										
+								}
+								else rit.add(inter.get(0));
+							}
+						}
+					}
+				}
+			}
+		}
+
+		//verifico i doppioni
+		if( rit.size() > 1 ){
+	        for(int i = 0 ; i < rit.size() - 1 ; ++i ){
+	            for(int j = i + 1 ; j < rit.size() ; ++j ){
+	                if( rit.get(i).equals(rit.get(j)) ){
+	                    rit.remove(j);
+	                    --j;
+	                }
+
+	            }
+	        }
+    	}
+
+    	return rit;
+
+	}
+
+	//poligono-punto
+	public boolean polipunto(punto p){
+
+		Vector<punto> pnt = getpoint();
+
+		for(int i= 0 ; i < pnt.size() ; i++){
+			if(pnt.get(i).equals(p)){
+				return true; //il punto è uno dei vertici
+			}
+		}
+
+		//creo retta parallela all'asse x e passante per p (rperp)
+		retta paralx = new retta(0.0,1.0,-3.0);
+		retta rperp = paralx.rettaparallela(p);
+
+		Vector<punto> inter = new Vector<punto>();
+		inter = rettapol(rperp,inter);
+
+		//>= 2 perchè se fosse uno sarebbe un vertice o esterno
+		if(inter.size() >= 2){
+
+			//verifico sia uno a destra e uno a sinistra
+			if((inter.get(0).getx().converti() <= p.getx().converti() && inter.get(1).getx().converti() >= p.getx().converti())
+               || (inter.get(0).getx().converti() >= p.getx().converti() && inter.get(1).getx().converti() <= p.getx().converti() ) )
+		       {
+		           return true;
+		       }
+		}
+		return false;
+
+	}
+
+	//punti interni tra poligoni
+	public Vector<punto> puntint(poligono p){
+		Vector<punto> punti1 = p.getpoint();
+		Vector<punto> inter = new Vector<punto>();
+
+		for(int i = 0 ;  i < punti1.size() ; i++){
+			if(this.polipunto(punti1.get(i))){
+	            inter.add(punti1.get(i));
+	        }
+		}
+		//se ho n elementi nel vector e il poligono ha n vertici allora è interno e non vado a fare un ulteriore controllo
+
+		if(inter.size() != p.getlati()){
+			Vector<punto> punti2 = this.getpoint();
+			for(int i = 0 ;  i < punti2.size() ; i++){
+				if(p.polipunto(punti2.get(i))){
+		            inter.add(punti2.get(i));
+		        }
+			}
+		}
+
+		return inter;
+	}
+
+	public Vector<punto> polipoli(poligono p) {
+		Vector<punto> puntinterni = puntint(p);
+		Vector<punto> inter = new Vector<punto>();
+
+		if( puntinterni.size() > 0 ){
+			inter = (Vector<punto>)puntinterni.clone();
+		}
+
+		Vector<punto> punti = getpoint();
+
+		for(int i = 0; i < punti.size() - 1; i++){
+	        for(int j = i + 1; j<punti.size(); j++){
+	             if(punti.get(i).distancefromtwopoints(punti.get(j)) == lato() || punti.size() == 3){
+                 	retta prova = punti.get(i).rettafromtwopoints(punti.get(j));
+                 
+	                //contiene i due punti per il range da rispettare (vedi rettapol)
+	                Vector<punto> temp = new Vector<punto>();
+	                temp.add(punti.get(i));
+	                temp.add(punti.get(j));
+
+	                Vector<punto> single = p.rettapol(prova,temp);
+
+                 	int cont=0;
+           
+                 	while(cont<single.size()){
+                 		
+                 		inter.add(single.get(cont));
+                 		++cont;
+                 	}
+	            }
+	        }
+	    }
+	    if( inter.size() > 1 ){
+	        for(int i = 0 ; i < inter.size() - 1 ; ++i ){
+	            for(int j = i + 1 ; j < inter.size() ; ++j ){
+	                if( inter.get(i).equals(inter.get(j)) ){
+	                    inter.remove(j);
+	                    --j;
+	                }
+
+	            }
+	        }
+    	}
+
+
+    	return inter;
+	}
+
+
+
+
 	public final double distance(inputitem i){
 		return 0;
 	}
@@ -161,17 +343,6 @@ public abstract class poligono extends inputitem {
 		Vector<punto> temp = new Vector<punto>();
 		return temp;
 	} 
-
-	//su triangolo è overloadato
-	public double perimetro(){
-		return getlati()*lato();
-	}
-
-	//su triangolo è overloadato
-	public double area() {
-	    double apotema = getlati() * getfisso();
-	    return (perimetro()*apotema)/2;
-	}
 
 
 

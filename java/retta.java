@@ -14,6 +14,10 @@ class retta extends inputitem {
 		this(new razionale(),new razionale(),new razionale());	
 	}
 
+	public retta(double n, double m,double o){
+		this(new razionale(n),new razionale(m),new razionale(o));
+	}
+
 	public razionale getA(){
 		return a;
 	}
@@ -138,13 +142,13 @@ class retta extends inputitem {
 
 
 	//dato una x ritorna il punto rispettivo 
-	public punto printCoord_x(razionale x){
+	public punto printCoord_x(razionale x) throws eccezioni{
 		razionale neg = new razionale(-1,1);
 
 		razionale y = new razionale(1,1);
 
 		if(getB().getnum() == 0 && getA().getnum() == 0){
-	       System.out.println("not_implicit");
+	       throw new implicit();
 	    }
 	    else if(getB().getnum() == 0){
 	        x = new razionale ( getC().multiply(neg) , getA() );
@@ -175,8 +179,6 @@ class retta extends inputitem {
 			razionale detx = new razionale(((getC().multiply(neg)).multiply(r1.getB())).add(neg.multiply((r1.getC().multiply(neg)).multiply(getB()))),det) ;
 
 	        razionale dety = new razionale(((getA().multiply(neg)).multiply(r1.getC())).add(neg.multiply((r1.getA().multiply(neg)).multiply(getC()))),det) ;
-
-	        System.out.println(detx + " - " + dety);
 
 	        p.add(new punto(detx,dety));	        
 		}

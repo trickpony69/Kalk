@@ -59,8 +59,8 @@ public class punto extends inputitem {
 	        return new retta(zero,neg,this.y);
 	    }
 	    else{
-	        razionale a = new razionale(p2.x.converti() - this.x.converti());
-	        razionale b = new razionale(p2.y.converti() - this.y.converti());
+	        razionale b = new razionale(p2.x.converti() - this.x.converti());
+	        razionale a = new razionale(p2.y.converti() - this.y.converti());
 	        razionale c = new razionale( (a.multiply(this.x.multiply(neg))).converti() + (b.multiply(this.y)).converti());
 	        return new retta(a,b.multiply(neg),c);
 	    }	
