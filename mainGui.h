@@ -29,7 +29,6 @@ private:
     QVector<inputitem*> inputElemento;
     grafico* graficoElementi;
     QLineEdit* display;
-    void loadSettings();
     void loadColor(QString,int);
     void clearInput();
 public:
