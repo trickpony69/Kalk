@@ -300,7 +300,6 @@ void mainGui::showResult(){
 }
 
 //------------------Funzionalità barra laterale------------------
-//(0;0)(3;3)(0;3)(3;0) 3x + y -8
 
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
