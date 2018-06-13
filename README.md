@@ -1,4 +1,4 @@
 # Kalk
 
-Diagramma
+Finestra principale
 ![](Kalk.png)
