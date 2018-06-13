@@ -1,7 +1,7 @@
 #include "retta.h"
 #include "razionale.h"
 #include <QApplication>
-#include <finestra.h>
+#include <view/finestra.h>
 #include "eccezioni.h"
 #include "quadrato.h"
 #include "triangolo.h"

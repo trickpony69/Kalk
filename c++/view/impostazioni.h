@@ -2,7 +2,7 @@
 #define IMPOSTAZIONI_H
 
 #include <QSettings>
-#include <mainGui.h>
+#include <view/mainGui.h>
 
 class impostazioni : public QWidget{
     Q_OBJECT

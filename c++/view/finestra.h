@@ -1,7 +1,7 @@
 #ifndef FINESTRA_H
 #define FINESTRA_H
 
-#include <mainGui.h>
+#include <view/mainGui.h>
 #include <QAction>
 #include "impostazioni.h"
 #include <QMessageBox>

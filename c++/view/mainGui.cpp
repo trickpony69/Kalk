@@ -1,4 +1,4 @@
-#include <mainGui.h>
+#include <view/mainGui.h>
 
 mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("Aggiungi")), remove(new QPushButton("Rimuovi funzione")), enter(new QPushButton("        Disegna")), cancel(new QPushButton("Resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
     QHBoxLayout* superLayout = new QHBoxLayout();

@@ -2,7 +2,7 @@
 #define MIACLASSE_H
 
 #include "grafico.h"
-#include "poligono.h"
+#include "model/poligono.h"
 #include "myqline.h"
 #include "wizard.h"
 
