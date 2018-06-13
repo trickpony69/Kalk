@@ -13,7 +13,7 @@ void myQline::dropEvent(QDropEvent *e){
     QDataStream strm(&encoded, QIODevice::ReadOnly);
     while(!strm.atEnd()){
         int row, col;
-        QMap<int,  QVariant> data;
+        QMap<int,QVariant> data;
         strm >> row >> col >> data;
         this->setText(data[0].toString());
     }

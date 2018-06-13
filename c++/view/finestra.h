@@ -1,11 +1,7 @@
 #ifndef FINESTRA_H
 #define FINESTRA_H
 
-#include <view/mainGui.h>
-#include <QAction>
-#include "impostazioni.h"
-#include <QMessageBox>
-#include "wizard.h"
+#include "view/impostazioni.h"
 
 class finestra : public QMainWindow{
     Q_OBJECT
@@ -17,7 +13,7 @@ private:
     void closeEvent(QCloseEvent*);
 public:    
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
-    ~finestra();
+    virtual ~finestra();
 private slots:
     void showOption();
 };

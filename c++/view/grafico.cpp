@@ -20,13 +20,12 @@ void grafico::writeSegmenti(int slot,QCPItemLine* line){
 
 void grafico::deletePol(int slot){
     for(int i=segmenti[slot].size()-1; i>=0;i--){
-        removeItem(segmenti[slot][i]);
+        removeItem(segmenti[slot][i]); //la documentazione di QcustomPlot dice di rimuovere gli elementi grafici con removeItem
         segmenti[slot].remove(i);
     }
 }
 
 void grafico::pulisci(){
-    /*****ci devo pensare non so se lascia garbage*****/
         for(int i=0; i<segmenti.size(); i++)
             deletePol(i);
         if(!segmenti.isEmpty())

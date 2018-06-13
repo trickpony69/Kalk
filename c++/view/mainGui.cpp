@@ -49,7 +49,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     separatorLayoutUp->addWidget(myFrame0);
     separatorLayoutDown->addWidget(myFrame1);
     myQline* qle = new myQline();
-    qle->setPlaceholderText("Inserisci la funzione");
+    qle->setPlaceholderText("Slot "+QString::number(funVec.size()));
     qle->setAcceptDrops(true);
     funVec.push_back(qle);
     display = new QLineEdit(this);
@@ -79,6 +79,7 @@ mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPus
     QObject::connect(cancel, SIGNAL(clicked(bool)), this, SLOT(clearEntry()));
     QObject::connect(save, SIGNAL(clicked(bool)), this, SLOT(saveResult()));
     QObject::connect(showSavedResult, SIGNAL(clicked(bool)), this, SLOT(showResult()));
+
     mainLayout->addLayout(layoutDisplay);
     mainLayout->addLayout(separatorLayoutUp);
     mainLayout->addLayout(griglia);
@@ -96,7 +97,7 @@ void mainGui::push_qle(){
 
     if(funVec.size() <= 2){
         myQline* myQle = new myQline();
-        myQle->setPlaceholderText("Inserisci la funzione");
+        myQle->setPlaceholderText("Slot "+QString::number(funVec.size()));
         funVec.push_back(myQle);
         hFunLay->addWidget(myQle);
         myQle->setFixedSize(300,40);
@@ -111,17 +112,16 @@ void mainGui::push_qle(){
     }
     else
         add->setDisabled(true);
-    //------da migliorare-----
+
     if(funVec.size()==3)
         funVec[2]->setPlaceholderText("Slot solo per disegno");
-    //-------------------------
 }
 
 void mainGui::remove_qle(){
     if(!funVec.isEmpty()){
         hFunLay->removeWidget(funVec[funVec.size()-1]);
-        if(graficoElementi->graph(funVec.size()-1)){
-            graficoElementi->graph(funVec.size()-1)->data()->clear();
+        if(graficoElementi->graph()){
+            graficoElementi->graph()->data()->clear();
             if(dynamic_cast<inputitem*>(inputElemento[inputElemento.size()-1]))
                 graficoElementi->deletePol(funVec.size()-1);
         }
@@ -152,7 +152,11 @@ void mainGui::clearEntry(){
 
 void mainGui::clearInput(){
     returnToParse.clear();
-    inputElemento.clear();
+    for(int i=0; i<inputElemento.size(); i++){
+        delete inputElemento[i];
+        inputElemento.remove(i);
+        i--;
+    }
     graficoElementi->pulisci();
     graficoElementi->clearGraphs();//non so se serva ancora
     display->setText("      seleziona una funzione nella barra laterale");
