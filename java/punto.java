@@ -179,7 +179,7 @@ public class punto extends inputitem {
 	}
 
 	//------------------------- virtuali puri -----------------------
-	public double distance(inputitem i){
+	public double distance(inputitem i) throws eccezioni{
 		if(i instanceof punto){
 			punto p = (punto)i;
 			return distancefromtwopoints(p);

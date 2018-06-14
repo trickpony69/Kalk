@@ -190,7 +190,7 @@ class retta extends inputitem {
 		return p;
 	}
 
-	public double distance(inputitem i){
+	public double distance(inputitem i) throws eccezioni{
 		if(i instanceof retta){
 			if((this.intersect(i)).size() == 1) return 0;
 			retta r = (retta)i;
