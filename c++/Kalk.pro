@@ -17,7 +17,6 @@ HEADERS += \
     model/quadrato.h \
     model/razionale.h \
     model/retta.h \
-    model/rettangolo.h \
     model/triangolo.h \
     view/finestra.h \
     view/grafico.h \
@@ -35,7 +34,6 @@ SOURCES += \
     model/quadrato.cpp \
     model/razionale.cpp \
     model/retta.cpp \
-    model/rettangolo.cpp \
     model/triangolo.cpp \
     view/finestra.cpp \
     view/grafico.cpp \
