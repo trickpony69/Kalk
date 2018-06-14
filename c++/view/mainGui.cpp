@@ -252,10 +252,10 @@ void mainGui::drawAndReturn(){
          vectorLabel[k]->clear();
         }
 
-        catch(input_error e){vectorLabel[k]->setText(slotString+e.to_string_error());}
-        catch(irregular_pol e){vectorLabel[k]->setText(slotString+e.to_string_error());}
-        catch(not_implicit e){vectorLabel[k]->setText(slotString+e.to_string_error());}
-        catch(num_lati e){vectorLabel[k]->setText(slotString+e.to_string_error());}
+        catch(input_error e){vectorLabel[k]->setText(slotString+QString::fromStdString(e.to_string_error()));}
+        catch(irregular_pol e){vectorLabel[k]->setText(slotString+QString::fromStdString(e.to_string_error()));}
+        catch(not_implicit e){vectorLabel[k]->setText(slotString+QString::fromStdString(e.to_string_error()));}
+        catch(num_lati e){vectorLabel[k]->setText(slotString+QString::fromStdString(e.to_string_error()));}
         catch(...){vectorLabel[k]->setText(slotString+"Errore input.");}
     }
 }
@@ -366,7 +366,7 @@ void mainGui::perimetro(){
 }
 
 void mainGui::paralsrettapunt() {
-    if(inputElemento.size() > 0 )
+    if(inputElemento.size() > 1 )
     {
         punto * p;
         retta* ret = dynamic_cast<retta*>(inputElemento[0]);
@@ -387,7 +387,7 @@ void mainGui::paralsrettapunt() {
 }
 
 void mainGui::perppuntoretta() {
-    if(inputElemento.size() > 0 )
+    if(inputElemento.size() > 1 )
     {
         punto * p;
         retta* ret = dynamic_cast<retta*>(inputElemento[0]);

@@ -5,7 +5,6 @@
 #include "eccezioni.h"
 #include "quadrato.h"
 #include "triangolo.h"
-#include "pentagono.h"
 #include "inputitem.h"
 #include <typeinfo>
 

@@ -25,12 +25,6 @@ inputitem* inputitem::iniz_input (string st) {
         catch(input_error){
             throw;
         }
-        catch(num_error){
-            throw;
-        }
-        catch(den_error){
-            throw;
-        }
         catch(int){
             return new punto(point);
         }

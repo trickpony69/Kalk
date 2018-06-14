@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 using std::istream;
+using std::ostream;
 using std::string;
 using std::vector;
 
