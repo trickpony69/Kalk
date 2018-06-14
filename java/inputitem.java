@@ -27,13 +27,13 @@ public abstract class inputitem{
 	    }
 	}
 
-	public static inputitem iniz_input(String b) throws eccezioni{
+	public inputitem iniz_input(String b) throws eccezioni{
 		if(pars_start(b) instanceof retta){
 			retta r = new retta();
 			try{r.pars_rect(b);}
 			catch(eccezioni e){
 				System.out.println(e.message);
-				throw new input_error();
+				throw e;
 			}
 
 			return r;
@@ -44,7 +44,7 @@ public abstract class inputitem{
 			try{p.pars_point(b);}
 			catch(eccezioni e){
 				System.out.println(e.message);
-				throw new input_error();
+				throw e;
 			}
 
 			return p;
@@ -54,11 +54,13 @@ public abstract class inputitem{
 			try{p.pars_pol(b);}
 			catch(eccezioni e){
 				System.out.println(e.message);
-				throw new input_error();
+				throw e;
 			}
 
 			return p;
 		}
+
+
 	}
 
 	public abstract double distance(inputitem i) throws eccezioni;

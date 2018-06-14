@@ -1,67 +1,56 @@
+import java.util.Vector;
+
+
 public class use {
 	public static void main(String[] args) {
-				inputitem i1 = new punto();
+
+		inputitem i1 = new punto();
 		inputitem i2 = new punto();
 
-		String polprova = new String("(3;0)(0;1)(0;0)");
-		String polprova2 = new String("(0;2)(2;0)(1;2)");
+		inputitem i3 = new retta();
+		inputitem i4 = new retta();
+		inputitem i5 = new retta();
 
-		boolean reinserisci1 = false;
-		poligono pol1 = new triangolo();
-		poligono pol2 = new triangolo();
+		inputitem i6 = new quadrato();
+		inputitem i7 = new triangolo();
+		inputitem i8 = new triangolo();
 
+		String triangolo = new String("(3;0)(0;1)(5;7)");
+		String quadrato1 = new String("(0;2)(2;0)(2;2)(0;0)");
+		String quadrato2 = new String("(0;-5)(4;-1)(0;-1)");
+		String punto1 = new String("(1;1)");
+		String punto2 = new String("(-3;5)");
+		String retta1 = new String("3x + 6y - 3 ");
+		String retta2 = new String("2x - 6y + 2 ");
+		String retta3 = new String("2x - 6y + 4 ");
+
+
+		boolean insert = true;
+		try{
+			i1 = i1.iniz_input(punto1);
+			i2 = i2.iniz_input(punto2);
+			/*i3 = i1.iniz_input(retta1);
+			i4 = i2.iniz_input(retta2);
+			i5 = i1.iniz_input(retta3);
+			i6 = i2.iniz_input(triangolo);
+			i7 = i1.iniz_input(quadrato1);
+			i8 = i2.iniz_input(quadrato2);*/
+		}
+		catch(eccezioni i){
+			insert = false;
+		}
+
+		if(insert == true){
+			System.out.println("Inserimento giusto.");
+		}
+		else System.out.println("Inserimento errato.");
+
+/*	
 		try{pol1 = pol1.pars_pol(polprova);}
 		catch(eccezioni i){
 			reinserisci1 = true;
 			System.out.println(i.message);
 		}
-
-		if(reinserisci1 == false)
-			System.out.println("\npol1 : " + pol1);
-
-		boolean reinserisci2 = false;
-
-		try{pol2 = pol2.pars_pol(polprova2);}
-		catch(eccezioni i){
-			reinserisci2 = true;
-			System.out.println(i.message);
-		}
-
-		if(reinserisci2 == false)
-			System.out.println("\npol2 : " + pol2);
-
-		if(reinserisci1 == false && reinserisci2 == false){
-			Vector<punto> temp = pol1.polipoli(pol2);
-			if(temp.size() == 0) System.out.println("non si intersecano \n");
-			else {
-				System.out.print("\npolipoli: ");
-				for (Object o : temp) {
-				    System.out.print("\n" + o );
-				}	
-			}
-
-
-		}
-
-		String ret1 = new String("2x+6y-6");
-		retta r1 = new retta();
-		try{r1.pars_rect(ret1);}
-		catch(eccezioni i){
-			reinserisci1 = true;
-			System.out.println(i.message);
-		}
-		System.out.println("\n\nret:\n" + r1 +"\n");
-		Vector<punto> t = new Vector<punto>();
-		Vector<punto> intersez = pol2.rettapol(r1,t);
-		if(intersez.size() == 0) System.out.println("non si intersecano \n");
-		else {
-			System.out.print("\nrettapol: ");
-			for (Object o : intersez) {
-			    System.out.print("\n" + o );
-			}	
-		}
-
-
 
 
 		String punto1 = new String("(1;1.5)");
@@ -77,6 +66,6 @@ public class use {
 			reinserisci1 = true;
 			System.out.println(i.message);
 		}
-		
+		*/
 	}
 }

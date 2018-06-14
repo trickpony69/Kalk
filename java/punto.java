@@ -78,22 +78,24 @@ public class punto extends inputitem {
 	    
     	int sign=1;
 
+    	String point[] = new String[p.length()];
+	    point = p.split("");
+
     	if( !(p.substring(0,1).equals("(") ) && !(p.substring(p.length()-1,p.length()).equals(")") ) ) {
 	        throw new input_error();
 	    }
 
 
 
-	    for(int cont = 1 ; cont < p.length() +1 ; ++cont){
 
-	    	String c = p.substring(cont-1,cont);
+	    for(int cont = 0 ; cont < point.length ; cont++){
 
-	        if(!c.equals( "(" ) ){
+	        if(!point[cont].equals( "(" ) ){
 
-	            if(c == "-"){
-	                sign = -1;
+	            if(point[cont].equals("-") || point[cont].equals("+")){
+	                if(point[cont] == "-" ) sign = -1;
 	            }
-	            else if(c.equals( "/" )){
+	            else if(point[cont].equals( "/" )){
 	                if(s.length() == 0) throw new input_error();
 
                     n1 = Integer.parseInt(s);
@@ -104,19 +106,18 @@ public class punto extends inputitem {
 
 
 	                if( n == 0 ){
-	                    while( !c.equals( ";" ) && !c.equals( ")" ) )
+	                    while( !point[cont].equals( ";" ) && !point[cont].equals( ")" ) )
 	                    {
 	                    	cont++;
-	                    	c = p.substring(cont-1,cont) ;
 	                    }   
-	                    if(c == ";")
+	                    if(point[cont].equals(";"))
 	                        x = new razionale(0,1);
 	                    else
 	                        y = new razionale(0,1);
 	                }
 	                s = "";
 	            }
-	            else if( c.equals( ";" ) || c.equals( ")" ) ){
+	            else if( point[cont].equals( ";" ) || point[cont].equals( ")" ) ){
 	                if(s.length() == 0){
 	                    throw new input_error(); 
 	                }
@@ -143,7 +144,7 @@ public class punto extends inputitem {
 
 	                    d = 1;
 	                }
-	                if(c.equals( ";" ) ){
+	                if(point[cont].equals( ";" ) ){
 	                    x = new razionale(n*sign,d);
 	                }
 	                else{
@@ -157,19 +158,20 @@ public class punto extends inputitem {
 	                sign = 1;
 	            }
 	            else{
-	                if(c.equals( "." ) ){
+	                if(point[cont].equals( "." ) ){
 	                    doub = true;
 	                }
 	                else{
 	                	try{
-	                		Integer.parseInt(p.substring(cont-1,cont));
+
+	                		Integer.parseInt(point[cont]);
 		                }
 		                catch(java.lang.NumberFormatException nfe){
 		                	throw new not_numeric();
 		                }
 
 		                if(doub) virgola = virgola * 10 ;
-		                s = s+p.substring(cont-1,cont);
+		                s = s+point[cont];
 	                }
 	                
 	            }
