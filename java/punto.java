@@ -23,7 +23,7 @@ public class punto extends inputitem {
 	//--------------------------------------------------------------
 
 	public String toString(){
-		return "(" + x.toString() + " ; " + y.toString() + ") ";
+		return "(" + x.toString() + ";" + y.toString() + ")";
 	}
 
 	public razionale getx(){
@@ -93,7 +93,7 @@ public class punto extends inputitem {
 	        if(!point[cont].equals( "(" ) ){
 
 	            if(point[cont].equals("-") || point[cont].equals("+")){
-	                if(point[cont] == "-" ) sign = -1;
+	                if(point[cont].equals("-") ) sign = -1;
 	            }
 	            else if(point[cont].equals( "/" )){
 	                if(s.length() == 0) throw new input_error();
@@ -201,6 +201,6 @@ public class punto extends inputitem {
 			}
 			return v;
 		}
-		return v;//i.intersect(this);
+		else return i.intersect(this);//i.intersect(this);
 	}
 }

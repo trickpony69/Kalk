@@ -96,7 +96,7 @@ public class razionale {
 	
 	//operator <<: overriding di tostring() della classe object
 	public String toString() {
-		return num + " / " + den ; 
+		return num + "/" + den ; 
 	}
 
 	//operator == ----------------------
@@ -150,18 +150,6 @@ public class razionale {
 		else return false;
 	}
 
-
- 	/*public static void main(String[] args) {
-		razionale r1 = new razionale(3,4);
-		razionale r2 = new razionale(5,10);
-		double d1 = 8.9 ;	
-		System.out.print(r1.show());
-		System.out.print(r2.show());
-		r1.multiply(d1);
-		System.out.print(r1.show());
-		r1.inverso();
-		System.out.print(r1.show());
-	}*/
 
 }
 

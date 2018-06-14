@@ -98,7 +98,7 @@ public abstract class poligono extends inputitem {
 		String ret = new String();
 
 		for(Object o : pt){
-			ret = ret + o.toString() ;
+			ret = ret + o.toString() + " " ;
 		}
 
 		return ret;
@@ -342,26 +342,38 @@ public abstract class poligono extends inputitem {
 		//la distanza tra i due punti (p e intersezione).
 		//4: salvo la distanza anche tra i vertici del poligono e il punto
 		//5: Verifico la distanza minima e la ritorno
+
 		for(int i = 0 ; i < punti.size() - 1 ; ++i ){
             for(int j = i + 1 ; j < punti.size() ; ++j ){
-                if( punti.size() == 3 || (punti.get(i)).distancefromtwopoints(punti.get(j)) == lato()){
+
+                if( (punti.size() == 3) || ((punti.get(i)).distancefromtwopoints(punti.get(j)) == lato())){
+
                     retta latopol =  (punti.get(i)).rettafromtwopoints((punti.get(j)));
-	                retta perp = latopol.rettaperpendicolare(p);
+	                retta perp = latopol.rettaperpendicolare(p); //qua è il problema
+	                //System.out.println("c: ");
 	                Vector<punto> inter = perp.intersectretta(latopol);
-	                if( (punti.get(i)).getx() == (punti.get(j)).getx() ){
-	                	if( ( (inter.get(0)).gety().converti() <= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() >= (punti.get(j)).gety().converti() )
-	                    || ((inter.get(0)).gety().converti() >= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() <= (punti.get(j)).gety().converti() ) )
-	                		distanza.add(p.distancefromtwopoints(inter.get(0)));
-	                }
-	                if( ((inter.get(0)).getx().converti() <= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() >= (punti.get(j)).getx().converti() )
-	                    || ((inter.get(0)).getx().converti() >= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() <= (punti.get(j)).getx().converti()) )
-	                {
-	                    distanza.add(p.distancefromtwopoints(inter.get(0)));
-	                }
+	                
+	                if(inter.size() > 0){
+		                if( (punti.get(i)).getx().converti() == (punti.get(j)).getx().converti() ) {
+		                	if( ( (inter.get(0)).gety().converti() <= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() >= (punti.get(j)).gety().converti() )
+		                    || ((inter.get(0)).gety().converti() >= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() <= (punti.get(j)).gety().converti() ) )
+		                		distanza.add(p.distancefromtwopoints(inter.get(0)));
+		                }
+		                else{
+			                if( ((inter.get(0)).getx().converti() <= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() >= (punti.get(j)).getx().converti() )
+			                    || ((inter.get(0)).getx().converti() >= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() <= (punti.get(j)).getx().converti()) )
+			                {
+			                    distanza.add(p.distancefromtwopoints(inter.get(0)));
+			                }
+			            }
+			        }
+		            	
                 }
 
             }
+
             distanza.add(p.distancefromtwopoints(punti.get(i)));
+
         }
         distanza.add(p.distancefromtwopoints(punti.get(punti.size()-1)));
 	

@@ -105,7 +105,7 @@ class retta extends inputitem {
 	        //trovo il coefficente angolare
 	        razionale m = new razionale(a.multiply(neg),b);
 	        //trovo l'antireciproco del coefficente angolare
-	        razionale new_m =  (m.inverso()).multiply(neg);
+	        razionale new_m = (m.inverso()).multiply(neg);
 	        //trovo c => y1 + m*x1
 	        razionale c = new_m.multiply(p.getx());
 	        c = new razionale( (c.multiply(neg)).converti() + (p.gety()).converti());

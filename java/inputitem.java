@@ -51,12 +51,11 @@ public abstract class inputitem{
 		}
 		else{
 			poligono p = new quadrato();
-			try{p.pars_pol(b);}
+			try{p = p.pars_pol(b);}
 			catch(eccezioni e){
 				System.out.println(e.message);
 				throw e;
 			}
-
 			return p;
 		}
 
