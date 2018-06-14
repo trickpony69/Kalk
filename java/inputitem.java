@@ -2,15 +2,66 @@ import java.util.Vector;
 
 public abstract class inputitem{
 	
-	public static inputitem pars_start(String a){
-		return new punto();
+	public static inputitem pars_start(String b){
+		String input[] = new String[b.length()];
+	    input = b.split("");
+
+	    //parsing iniziale per verifica la figura.
+	    //- se ci sono n. "(" > 1 è chiaramente un poligono
+	    //- se è presente una volta "(" allora è un punto
+	    //- altrimenti è una retta
+
+	    int len = input.length;
+		if(input[0].equals("(")){
+	        int cont = 0;
+	        for (int i = 0; i < len; ++i) {
+	            if(input[i].equals("(")){
+	                cont++;
+	            }
+	        }
+	        if( cont > 1 ) return new quadrato();
+	        else return new punto();
+	    }
+	    else{
+	        return new retta();
+	    }
 	}
 
-	public static inputitem iniz_input(String a){
-		return new punto();
+	public static inputitem iniz_input(String b) throws eccezioni{
+		if(pars_start(b) instanceof retta){
+			retta r = new retta();
+			try{r.pars_rect(b);}
+			catch(eccezioni e){
+				System.out.println(e.message);
+				throw new input_error();
+			}
+
+			return r;
+		}
+		else if(pars_start(b) instanceof punto){
+			punto p = new punto();
+
+			try{p.pars_point(b);}
+			catch(eccezioni e){
+				System.out.println(e.message);
+				throw new input_error();
+			}
+
+			return p;
+		}
+		else{
+			poligono p = new quadrato();
+			try{p.pars_pol(b);}
+			catch(eccezioni e){
+				System.out.println(e.message);
+				throw new input_error();
+			}
+
+			return p;
+		}
 	}
 
-	public abstract double distance(inputitem i);
+	public abstract double distance(inputitem i) throws eccezioni;
 
 	public abstract Vector<punto> intersect(inputitem i);
 
@@ -112,8 +163,10 @@ public abstract class inputitem{
 			}	
 		}
 
-/*
-		String punto1 = new String("(2;1)");
+
+
+
+		String punto1 = new String("(1;1.5)");
 		punto p1 = new punto();
 		try{p1.pars_point(punto1);}
 		catch(eccezioni i){
@@ -121,8 +174,12 @@ public abstract class inputitem{
 			System.out.println(i.message);
 		}
 
-		if(pol1.polipunto(p1) == true) System.out.print(p1 + " interno ");
-		else System.out.print("\n"+ p1 + " esterno ");
+		try{System.out.print("\ndist"+pol2.distancepuntopol(p1));}
+		catch(eccezioni i){
+			reinserisci1 = true;
+			System.out.println(i.message);
+		}
+		
 
 
 		//copia

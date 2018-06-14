@@ -1,25 +1,37 @@
 #ifndef ECCEZIONI_H
 #define ECCEZIONI_H
 
-#include <exception>
-using namespace std;
+#include <string>
+using std::string;
 
-class input_error : public exception{
-public :
-    input_error() {};
+
+
+class eccezioni {
+private:
+    string error;
+protected:
+    eccezioni(string a): error(a) {}
+public:
+    string to_string_error() const;
 };
 
-class den_error : public exception{};
+class input_error : public eccezioni{
+public :
+    input_error(a = "Errore input."): eccezioni(a) {}
+};
 
-class num_error : public exception{};
+class not_implicit : public eccezioni{
+    not_implicit(a = "Retta non nella forma prevista.") : eccezioni(a) {}
+};
 
-class irregular_pol : public exception {};
+class irregular_pol : public eccezioni {
+    irregular_pol(a = "Poligono non regolare."):eccezioni(a) {}
+};
 
-class not_implicit : public exception {};
+class num_lati : public eccezioni{
+    num_lati(a = "Numero punti non gestibile.\n Rappresenta un punto alla volta."):eccezioni(a) {}
+};
 
-class num_lati : public exception{};
-
-class two_point : public exception{};
 
 
 #endif // ECCEZIONI_H

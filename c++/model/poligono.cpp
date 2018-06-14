@@ -2,7 +2,7 @@
 #include "triangolo.h"
 #include "quadrato.h"
 #include <algorithm>
-#include <iomanip> //arrotonda
+#include <iomanip> 
 
 
 poligono::poligono(int l , vector<punto*> p):lati(l){
@@ -210,13 +210,7 @@ poligono* poligono::pars_pol(string s){
 
             catch(input_error){
                 //rimando l'eccezione al chiamante
-                throw input_error();
-            }
-            catch(num_error){
-                throw input_error();
-            }
-            catch(den_error){
-                throw input_error();
+                throw ;
             }
             catch(int){
                 //invoco il costruttore di copia standard
@@ -242,7 +236,6 @@ poligono* poligono::pars_pol(string s){
                 throw irregular_pol();
         }
         else {
-            /* se avanza tempo creare classe poligono irregolare che disegna i punti*/
             throw num_lati();
         }
 
@@ -262,12 +255,9 @@ double poligono::area() const {
     return (perimetro()*apotema)/2;
 }
 
+//p1 e p2 sono diversi da nullptr nel momento in cui viene invocata all'interno di polipoli()
 vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 = nullptr) const{
     vector<punto> p;
-
-    /*double d = 1;
-    int digits = 3;
-    std::cout << "d (rounded to " << digits << " digits) = "<< std::setprecision(digits) << d <<endl;*/
 
     vector<punto*> vCoord0 = getpoint();
 
@@ -280,7 +270,11 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
                 //intersezione tra due rette è al massimo un punto
                 if(intr.size() > 0){
 
-                    //devo verificare che le x della retta coincidono in qualche range con le x del poligono
+                    //- devo verificare che il punto trovato sia compreso tra i due vertici presi in considerazione :
+                    //- quindi primo controllo verifico che la x dell'intersezione sia compreso tra le x di vCoord0[i] e vCoord0[j]
+                    //  poi avviene lo stesso controllo sulle y
+                    //- se vCoord0[i] e vCoord0[j] hanno la stessa x (lato parallelo all'asse y) allora vado a verificare direttamente le y
+                    //  (vale il contrario con le y)
                     if( (vCoord0[i]->getX() <= intr[0].getX() && vCoord0[j]->getX() >= intr[0].getX() )
                             || (vCoord0[i]->getX() >= intr[0].getX() && vCoord0[j]->getX() <= intr[0].getX() ) || (vCoord0[i]->getX() == vCoord0[j]->getX() ) ) //se ho la stessa x non la verifico
                     {
@@ -309,6 +303,7 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
 
     distruggi(vCoord0);
 
+    //verifico non ci siano ridondanze nel vector
     if( p.size() > 1 ){
         for( unsigned int i = 0 ; i < p.size() - 1 ; ++i ){
             for( unsigned int j = i + 1 ; j < p.size() ; ++j ){
@@ -427,6 +422,10 @@ bool poligono::polipunto( punto * p ) const{
     return false;
 }
 
+/*
+NB: il controllo delle ridondanze dei punti sul vector avviene all'interno di più funzioni, l'obiettivo è renderle indipendenti
+    per un eventuale modifica futura.
+*/
 
 vector<punto> poligono::intersect(inputitem* i) const {
     if( typeid(punto) == typeid(*i) ){
@@ -443,9 +442,12 @@ vector<punto> poligono::intersect(inputitem* i) const {
     }
 }
 
-//--------distance (0;0)(5;5)(3;0) (7;0)(13;0)(13;6)(7;6)
+//--------distance------------------------------------------
 
 double poligono::distance(inputitem * i) const {
+    //verifico che i due elementi non si intersecano, cosi eventualmente evitare calcoli inutii
+    if( (intersect(i)).size() > 0 ) return 0;
+
     if( typeid(retta) == typeid(*i) ){
         return poligono::distrettapol(dynamic_cast<retta*>(i),const_cast<poligono*>(this));
     }
@@ -454,8 +456,6 @@ double poligono::distance(inputitem * i) const {
     }
     else return poligono::distpolipoli(dynamic_cast<poligono*>(i),const_cast<poligono*>(this));
 }
-
-//voglio le tre funzioni siano indipendenti (avrei potuto fare il controllo sul vector su distance() )
 
 double poligono::distpuntopol(punto * p , poligono * pol){
     vector<punto*> punti = pol->getpoint();
@@ -467,65 +467,61 @@ double poligono::distpuntopol(punto * p , poligono * pol){
                 retta latopol =  retta::rettaFromTwoPoints(*punti[i],*punti[j]);
                 retta perp = retta::RettaPerpendicolare(latopol,*p);
                 vector<punto> inter = retta::Intersect(perp,latopol);
-                if( (inter[0].getX() <= punti[i]->getX() && inter[0].getX() >= punti[j]->getX() )
-                    || (inter[0].getX() >= punti[i]->getX() && inter[0].getX() <= punti[j]->getX()) )
-                {
-                    distanza.push_back(punto::distanceTwoPoints(*p,inter[0]));
+                if( punti[i]->getX() == punti[j]->getX() ){
+                    if( (inter[0].getY() <= punti[i]->getY() && inter[0].getY() >= punti[j]->getY() )
+                    || (inter[0].getY() >= punti[i]->getY() && inter[0].getY() <= punti[j]->getY()) )
+                        distanza.push_back(punto::distanceTwoPoints(*p,inter[0]));
                 }
+                else{
+                    if( (inter[0].getX() <= punti[i]->getX() && inter[0].getX() >= punti[j]->getX() )
+                    || (inter[0].getX() >= punti[i]->getX() && inter[0].getX() <= punti[j]->getX()) )
+                    {
+                        distanza.push_back(punto::distanceTwoPoints(*p,inter[0]));
+                    }
+                }
+                
             }
         }
         distanza.push_back(punto::distanceTwoPoints(*punti[i],*p));
     }
     distanza.push_back(punto::distanceTwoPoints(*punti[punti.size()-1],*p));
 
-    if(distanza.size() == 0) throw input_error();
+    if(distanza.size() == 0) throw input_error("Errore.");
     vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
     distruggi(punti);
     return *result;
 }
 
 double poligono::distrettapol(retta * r , poligono * pol){
+    vector<punto*> punti = pol->getpoint();
+    vector<double> distanza;
 
-    vector<punto> inter = pol->rettapol(r);
-    if( inter.size() == 0 ){
-
-        vector<punto*> punti = pol->getpoint();
-        vector<double> distanza;
-
-        for(unsigned int i = 0 ; i < punti.size() ; ++i ){
-            distanza.push_back(retta::distancePuntoRetta(*punti[i],*r));
-        }
-
-        vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
-        distruggi(punti);
-        return *result;
+    for(unsigned int i = 0 ; i < punti.size() ; ++i ){
+        distanza.push_back(retta::distancePuntoRetta(*punti[i],*r));
     }
-    else return 0;
+
+    vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
+    distruggi(punti);
+    return *result;
 }
 
 double poligono::distpolipoli(poligono * pol1, poligono * pol2){
-    vector<punto> inter = pol1->polipoli(pol2);
-    if( inter.size() > 0 ){
-        return 0;
+    vector<punto*> punti1 = pol1->getpoint();
+    vector<double> distanza;
+
+    for(unsigned int i = 0 ;  i< punti1.size() ; ++i ){
+        distanza.push_back(distpuntopol(punti1[i],pol2));
     }
-    else{
-        vector<punto*> punti1 = pol1->getpoint();
-        vector<double> distanza;
 
-        for(unsigned int i = 0 ;  i< punti1.size() ; ++i ){
-            distanza.push_back(distpuntopol(punti1[i],pol2));
-        }
-
-        vector<punto*> punti2 = pol2->getpoint();
-        for(unsigned int i = 0 ;  i< punti2.size() ; ++i ){
-            distanza.push_back(distpuntopol(punti2[i],pol1));
-        }
-
-        vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
-        distruggi(punti1);
-        distruggi(punti2);
-        return *result;
+    vector<punto*> punti2 = pol2->getpoint();
+    for(unsigned int i = 0 ;  i< punti2.size() ; ++i ){
+        distanza.push_back(distpuntopol(punti2[i],pol1));
     }
+
+    vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
+    distruggi(punti1);
+    distruggi(punti2);
+    return *result;
 }
 
 

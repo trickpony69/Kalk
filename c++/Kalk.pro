@@ -12,7 +12,6 @@ INCLUDEPATH += .
 HEADERS += \
     model/eccezioni.h \
     model/inputitem.h \
-    model/pentagono.h \
     model/poligono.h \
     model/punto.h \
     model/quadrato.h \
@@ -31,7 +30,6 @@ HEADERS += \
 SOURCES += \
     model/inputitem.cpp \
     model/main.cpp \
-    model/pentagono.cpp \
     model/poligono.cpp \
     model/punto.cpp \
     model/quadrato.cpp \
@@ -45,7 +43,8 @@ SOURCES += \
     view/mainGui.cpp \
     view/myqline.cpp \
     view/qcustomplot.cpp \
-    view/wizard.cpp
+    view/wizard.cpp \
+    model/eccezioni.cpp
 
 RESOURCES += \
     view/icons.qrc

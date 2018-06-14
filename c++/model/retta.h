@@ -9,11 +9,6 @@ using std::istream;
 using std::string;
 using std::vector;
 
-
-class retta;
-
-//ostream& operator<<(ostream&, const retta&); non serve, come mai ??
-
 class retta : public inputitem {
     friend istream& operator>>(istream&,retta&);
     friend ostream& operator<<(ostream&, const retta&);

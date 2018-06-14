@@ -251,16 +251,12 @@ void mainGui::drawAndReturn(){
          graficoElementi->replot();
          vectorLabel[k]->clear();
         }
-        catch(two_point){
-            //disegno i due punti
-        }
-        catch(input_error){vectorLabel[k]->setText(slotString+"Errore input");}
-        catch(irregular_pol){vectorLabel[k]->setText(slotString+"Errore poligono irregolare");}
-        catch(not_implicit){vectorLabel[k]->setText(slotString+"Non e' nella forma prevista");}
-        catch(den_error){vectorLabel[k]->setText(slotString+"Errore den");}
-        catch(num_error){vectorLabel[k]->setText(slotString+"Errore num");}
-        catch(num_lati){vectorLabel[k]->setText(slotString+"Puoi inserire solamente /n 1 , 3, 4 punti");}
-        catch(...){vectorLabel[k]->setText(slotString+"Errore input");}
+
+        catch(input_error e){vectorLabel[k]->setText(slotString+e.to_string_error());}
+        catch(irregular_pol e){vectorLabel[k]->setText(slotString+e.to_string_error());}
+        catch(not_implicit e){vectorLabel[k]->setText(slotString+e.to_string_error());}
+        catch(num_lati e){vectorLabel[k]->setText(slotString+e.to_string_error());}
+        catch(...){vectorLabel[k]->setText(slotString+"Errore input.");}
     }
 }
 

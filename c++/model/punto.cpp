@@ -46,12 +46,6 @@ istream& operator>>(istream& is, punto& p){
 	    catch(input_error){
             std::cerr<<"errore inserimento input";
 	    }
-	    catch(num_error){
-            std::cerr<<"errore numeratore";
-	    }
-	    catch(den_error){
-            std::cerr<<"errore denominatore";
-	    }
 	    catch(int){
 	        ok = false;
 	    }
@@ -86,7 +80,7 @@ void punto::pars_point(string p){
                 if(p[cont] == '-' )sign = -1;
             }
             else if(p[cont] == '/'){
-                if(s.length() == 0) throw num_error();
+                if(s.length() == 0) throw input_error("Manca il numeratore.");
 
                 if(doub) {
                     n1 = std::stoi( s );
@@ -110,7 +104,7 @@ void punto::pars_point(string p){
             }
             else if(p[cont] == ';' || p[cont] == ')'){
                 if(s.length() == 0){
-                    throw input_error();
+                    throw input_error("Errore: manca un input.");
                 }
 
                 if(n != 0){
@@ -126,7 +120,7 @@ void punto::pars_point(string p){
                     doub = false;
                     virgola = 1;
 
-                    if( d == 0 ) throw den_error();
+                    if( d == 0 ) throw input_error("Errore al denominatore.");
 
                 }else{
 
@@ -166,7 +160,7 @@ void punto::pars_point(string p){
                   s = s+p[cont];
                 }
                 else {
-                    throw input_error();
+                    throw input_error("Errore: valore non numerico.");
                 }
             }
         }
@@ -174,7 +168,7 @@ void punto::pars_point(string p){
     if(p[0] == '(' && p[p.length()-1] == ')') {
         throw 1;
     }
-    else throw input_error();
+    else throw input_error("Errore: mancano le parentesi.");
 }
 
 double punto::xToDouble() const{

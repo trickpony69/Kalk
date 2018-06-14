@@ -62,8 +62,13 @@ retta retta::rettaFromTwoPoints(const punto& p1,const punto& p2){
 }
 
 bool retta::isParallels(retta& r1 , retta& r2 ){
-    double coeffA = (-1)*(r1.GetA()/r1.GetB());
-    double coeffB = (-1)*(r2.GetA()/r2.GetB());
+    razionale coeffA = razionale((razionale(-1,1))*(r1.GetA()/r1.GetB()));
+    razionale coeffB = razionale((razionale(-1,1))*(r2.GetA()/r2.GetB()));
+
+    if( (r1.GetA() == 0 && r2.GetB() == 0) || (r1.GetB() == 0 && r2.GetA() == 0) ){
+        return false;
+    }
+
     return coeffA == coeffB;
 }
 
@@ -131,7 +136,6 @@ vector<punto> retta::Intersect(const retta& r1,const retta& r2) {
         return p;
     }
 }
-// 2x+6y+7 5x+3y-29
 
 //ritorna un vector di razionali: indice dispari = x , indice pari = y
 punto retta::printCoord_x(razionale x) const{
@@ -315,7 +319,7 @@ void retta::pars_rect(string rect)
             else {
                 //caso in cui ci sia un x o y al denominatore
                 if( (rect[i] == 'x' || rect[i] == 'y') && raz == true )
-                    throw input_error();
+                    throw input_error("x/y non può essere a denominatore");
 
                 if(rect[i] == 'x'){
                     if(s.length() == 0) s='1';
@@ -400,7 +404,7 @@ void retta::pars_rect(string rect)
                           if(doub) virgola *= 10 ;
                           s = s+rect[i];
                         }
-                        else throw input_error();
+                        else throw input_error("Carattere non riconosciuto.");
                         //inserito un input errato: carattere non riconosciuto
                     }
                 }
@@ -430,7 +434,7 @@ void retta::pars_rect(string rect)
         }
     }
     if(a.GetNum() == 0 && b.GetNum() == 0){
-        throw input_error();
+        throw input_error("Mancano le incognite x y .");
     }
     else{
         throw 1;

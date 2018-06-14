@@ -1,6 +1,6 @@
 import java.util.Vector;
+import java.util.Collections;
 
-import java.util.Iterator;
 
 
 public abstract class poligono extends inputitem {
@@ -332,16 +332,103 @@ public abstract class poligono extends inputitem {
     	return inter;
 	}
 
+	public double distancepuntopol(punto p ) throws eccezioni{
+		Vector<punto> punti = getpoint();
+		Vector<Double> distanza = new Vector<Double>();
 
+		//1: creo retta r per ogni coppia di vertice che forma un lato
+		//2: creo retta perpendicolare alla retta r passante per il punto p.
+		//3: se l'intersezione tra le due rette è compresa tra i due punti che fromano il lato allora salvo 
+		//la distanza tra i due punti (p e intersezione).
+		//4: salvo la distanza anche tra i vertici del poligono e il punto
+		//5: Verifico la distanza minima e la ritorno
+		for(int i = 0 ; i < punti.size() - 1 ; ++i ){
+            for(int j = i + 1 ; j < punti.size() ; ++j ){
+                if( punti.size() == 3 || (punti.get(i)).distancefromtwopoints(punti.get(j)) == lato()){
+                    retta latopol =  (punti.get(i)).rettafromtwopoints((punti.get(j)));
+	                retta perp = latopol.rettaperpendicolare(p);
+	                Vector<punto> inter = perp.intersectretta(latopol);
+	                if( (punti.get(i)).getx() == (punti.get(j)).getx() ){
+	                	if( ( (inter.get(0)).gety().converti() <= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() >= (punti.get(j)).gety().converti() )
+	                    || ((inter.get(0)).gety().converti() >= (punti.get(i)).gety().converti() && (inter.get(0)).gety().converti() <= (punti.get(j)).gety().converti() ) )
+	                		distanza.add(p.distancefromtwopoints(inter.get(0)));
+	                }
+	                if( ((inter.get(0)).getx().converti() <= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() >= (punti.get(j)).getx().converti() )
+	                    || ((inter.get(0)).getx().converti() >= (punti.get(i)).getx().converti() && (inter.get(0)).getx().converti() <= (punti.get(j)).getx().converti()) )
+	                {
+	                    distanza.add(p.distancefromtwopoints(inter.get(0)));
+	                }
+                }
 
+            }
+            distanza.add(p.distancefromtwopoints(punti.get(i)));
+        }
+        distanza.add(p.distancefromtwopoints(punti.get(punti.size()-1)));
+	
+        if(distanza.size() == 0) throw new input_error();
+	    Double result = (Double)Collections.min(distanza);
+	    return result;
+	}
 
-	public final double distance(inputitem i){
-		return 0;
+	public double distrettapol(retta r){
+        Vector<punto> punti = getpoint();
+        Vector<Double> distanza = new Vector<Double>();
+
+        for(int i = 0 ; i < punti.size() ; ++i ){
+            distanza.add(r.distancePuntoRetta(punti.get(i)));
+        }
+
+        Double result = (Double)Collections.min(distanza);
+	    return result;
+	}
+
+	public double distpolipoli( poligono pol ) throws eccezioni{
+        Vector<punto> punti = getpoint();
+        Vector<Double> distanza = new Vector<Double>();
+
+        for(int i = 0 ;  i< punti.size() ; ++i ){
+            distanza.add(pol.distancepuntopol(punti.get(i)));
+        }
+
+        Vector<punto> punti2 = pol.getpoint();
+        for(int i = 0 ;  i< punti2.size() ; ++i ){
+            distanza.add(this.distancepuntopol(punti2.get(i)));
+        }
+
+        return (Double)Collections.min(distanza);
+
+    }
+
+	public final double distance(inputitem i) throws eccezioni{
+		if(i instanceof retta){
+			return distrettapol((retta)i);
+		}
+		else if(i instanceof punto){
+			return distancepuntopol((punto)i);
+		}
+		else{
+			return distpolipoli((poligono)i);
+		}
 	}
 
 	public final Vector<punto> intersect(inputitem i){
+		
 		Vector<punto> temp = new Vector<punto>();
-		return temp;
+		if(i instanceof retta){
+			return rettapol((retta)i,temp);
+		}
+		else if(i instanceof punto){
+			
+			if(polipunto((punto)i) == true){
+				temp.add((punto)i);
+			}
+			return temp;
+		}
+		else{
+			return polipoli((poligono)i);
+		}
+
+		
 	} 
 
 
