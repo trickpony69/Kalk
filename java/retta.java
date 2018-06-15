@@ -5,9 +5,10 @@ class retta extends inputitem {
 	private razionale a, b , c ;
 
 	public retta(razionale x,razionale y, razionale l){
-		a = x;
-		b = y;
-		c = l;
+		a = new razionale(x);
+		b = new razionale(y);
+		c = new razionale(l);
+		//chiamo i costruttori per garantire il controllo sui segni
 	}
 
 	public retta(){
@@ -33,23 +34,20 @@ class retta extends inputitem {
 	public String toString(){
 		String ret = new String();
 
-		ret = ret + "( ";
 		
-		if( a.getnum() != 0 ) ret = ret + a + " x " ;
+		if( a.getnum() != 0 ) ret = ret + a + " x" ;
 
 		if( b.getnum() != 0 ) {
-			if( b.sign() == true ) ret = ret + " + ";
+			if( b.sign() == true ) ret = ret + " +";
 
-			ret = ret + b  + " y " ;
+			ret = ret + b  + " y" ;
 		}
 
 		if( c.getnum() != 0 ){
-			if( c.sign() == true ) ret = ret + " + ";
+			if( c.sign() == true ) ret = ret + " +";
 
 		    ret = ret + c ;
 		}
-
-		ret = ret + " )";
 
 
 		return ret;
@@ -105,10 +103,10 @@ class retta extends inputitem {
 	        //trovo il coefficente angolare
 	        razionale m = new razionale(a.multiply(neg),b);
 	        //trovo l'antireciproco del coefficente angolare
-	        razionale new_m = (m.inverso()).multiply(neg);
+	        razionale new_m = new razionale(m.inverso()).multiply(neg);
 	        //trovo c => y1 + m*x1
-	        razionale c = new_m.multiply(p.getx());
-	        c = new razionale( (c.multiply(neg)).converti() + (p.gety()).converti());
+	        razionale c = new razionale(new_m.multiply(p.getx()));
+	        c = new razionale( (c.multiply(neg)).add(p.gety()));
 	        return new retta(new_m,neg,c);
 	    }else{
 	        if( a.equals(0) ){

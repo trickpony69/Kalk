@@ -16,8 +16,8 @@ public class quadrato extends poligono{
 	}
 
 
-	/*public area(){
+	public double area(){
 		return lato()*lato();
-	}*/
+	}
 
 }

@@ -2,7 +2,7 @@ import static java.lang.Math.*; //serve per pow() , abs () , ecc
  
 
 
-public class razionale {
+class razionale {
 	private double num , den ;
 
 	//--------COSTRUTTORI-------------------------------
@@ -14,6 +14,11 @@ public class razionale {
 			den = d;
 			riduzione();
 		}
+
+		if((den < 0 && num > 0) || (den < 0 && num < 0)){
+	        den = den*(-1);
+	        num = num*(-1);
+    	}
 		
 	}
 
@@ -46,8 +51,7 @@ public class razionale {
  	}
 
  	public razionale(razionale r1){
- 		num = r1.num;
- 		den = r1.den;
+ 		this(r1.num,r1.den);
  	}
 
 
@@ -94,9 +98,31 @@ public class razionale {
  		return tr;
  	}
 	
-	//operator <<: overriding di tostring() della classe object
+	//tostring()  classe object
 	public String toString() {
-		return num + "/" + den ; 
+
+		String ret = new String() ;
+
+		if((num % 1) == 0){
+			int convnum = (int)num;
+			ret = ret + convnum ; 
+		}
+		else{
+			ret = ret + num;
+		}
+		
+
+		if(den != 1){ 
+			if((den % 1) == 0){
+				int convden = (int)den;
+				ret = ret + "/" + convden ;
+			}
+			else{
+				ret = ret + "/" + den ;
+			}
+		}
+		
+		return ret ;
 	}
 
 	//operator == ----------------------
