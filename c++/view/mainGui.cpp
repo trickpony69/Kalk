@@ -158,7 +158,6 @@ void mainGui::clearInput(){
         i--;
     }
     graficoElementi->pulisci();
-    graficoElementi->clearGraphs();//non so se serva ancora
     display->setText("      seleziona una funzione nella barra laterale");
 }
 
