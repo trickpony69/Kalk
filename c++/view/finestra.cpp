@@ -92,7 +92,7 @@ void finestra::loadSettings(){
 }
 
 void finestra::closeEvent (QCloseEvent *event){
-    QMessageBox::StandardButton exitBtn = QMessageBox::question( this,"",tr("Vuoi veramente uscire ?"),QMessageBox::No | QMessageBox::Yes);
+    QMessageBox::StandardButton exitBtn = QMessageBox::question(this,"",tr("Vuoi veramente uscire ?"),QMessageBox::No | QMessageBox::Yes);
     if (exitBtn != QMessageBox::Yes)
         event->ignore();
     else{

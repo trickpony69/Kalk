@@ -25,8 +25,9 @@ wizard::wizard(){
                                "L'icona a destra del floppy mostra tutti i risultati salvati i quali possono essere rappresentati con un semplice drag and drop su uno slot a tua scelta \n\n"
 
                                "L'icona alto a destra serve per accedere alle impostazioni che permettono di cambiare i colori del grafico e di modificare il range di disegno delle rette. \n\n"
-                               "INPUT: puoi inserire rette rigorosamente in questa forma 'ax + by + c = 0' (implicita), punti nella forma (x;y) , quadrati e triangoli mettendo in sequenza i punti , es. (x1;y1)(x2;y2) ecc.. \n");
+                               "INPUT: puoi inserire rette rigorosamente in questa forma 'ax + by + c = 0' (implicita), punti nella forma (x;y) , quadrati e triangoli mettendo in sequenza i punti , es. (x1;y1)(x2;y2) ecc.. \n"
 
+                               "ATTENZIONE: Gli slot vanno riempiti in ordine crescente");
                                /*"Alla tua destra vedrai tre slot, con i primi due puoi usare le funzioni che troverai nella barra di sinistra mentre con l'ultimo puoi soltanto disegnare.\n"
                                 "In Alto a destra troverai le impostAzioni dove potrai cambiare il colore degli slot e settare il range del grafico.\n"
                                 "Con l'icona 'mostra/nascondi risultati' potrai vedere i tuoi risultati salvati dal display e potrai riusarli con un semplice drag and drop su uno slot a tua scelta.\n"

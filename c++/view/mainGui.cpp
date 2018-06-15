@@ -118,7 +118,7 @@ void mainGui::push_qle(){
 }
 
 void mainGui::remove_qle(){
-    if(!funVec.isEmpty()){
+    if(funVec.size()-1>=1){
         hFunLay->removeWidget(funVec[funVec.size()-1]);
         if(graficoElementi->graph()){
             graficoElementi->graph()->data()->clear();
@@ -137,7 +137,7 @@ void mainGui::remove_qle(){
     if(funVec.size() <= 2)
         add->setDisabled(false);
 
-    if(funVec.size() == 0)
+    if(funVec.size() == 1)
         remove->setDisabled(true);
 }
 
@@ -287,7 +287,7 @@ void mainGui::loadColor(QString slot,int index){
 }
 
 void mainGui::saveResult(){
-    QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText());
+    QListWidgetItem* itemList1 =new QListWidgetItem(display->displayText(),savedResultWindow);
     savedResultWindow->insertItem(0,itemList1);
 }
 
