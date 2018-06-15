@@ -15,7 +15,7 @@ public class use {
 		inputitem i7 = new triangolo();
 		inputitem i8 = new triangolo();
 
-		String triangolo = new String("(3;0)(0;1)(5;7)");
+		String triangolo = new String("(3/4;0)(0;1)(5;7)");
 		String quadrato1 = new String("(0;2)(2;0)(2;2)(0;0)");
 		String triangolo1 = new String("(0;-5)(4;-1)(0;-1)");
 		String punto1 = new String("(1;1)");
@@ -47,6 +47,7 @@ public class use {
 			System.out.println(i8);
 
 			//------ INTERSEZIONE ------ \\
+			System.out.println("\nINTERSEZIONI   ------------------------------------------------------");
 
 			System.out.println("\nIntersezione tra " + i1 + " e " + i3 + " : \n");
 			Vector<punto> p = i1.intersect(i3);
@@ -119,6 +120,8 @@ public class use {
 
 			//--------- RETTA FROM TWO POINTS ----------------\\
 
+			System.out.println("\nRETTA PER DUE PUNTI   ----------------------------------------------");
+
 			System.out.println("\nRetta passante per " + i1 + " e " + i2 + " : \n");
 			if( (i1 instanceof punto) && (i2 instanceof punto) ){
 				punto p1 = (punto)i1;
@@ -129,6 +132,7 @@ public class use {
 			else System.out.println("Non sono stati inseriti due punti.");
 			
 			//---------- DISTANZA TRA INPUT -------------\\
+			System.out.println("\nDISTANZA   ------------------------------------------------------");
 
 			//distanza punto punto
 			System.out.println("\nDistanza tra "+ i1 + " e " + i2 + " = " +i1.distance(i2));
@@ -137,7 +141,7 @@ public class use {
 			System.out.println("\nDistanza tra "+ i2 + " e " + i3 + " = " +i2.distance(i3));
 
 			//distanza punto poligono
-			//System.out.println("\nDistanza tra "+ i2 + " e " + i6 + " = " +i2.distance(i6));
+			System.out.println("\nDistanza tra "+ i2 + " e " + i6 + " = " +i2.distance(i6));
 
 			//distanza retta poligono
 			System.out.println("\nDistanza tra "+ i3 + " e " + i6 + " = " +i3.distance(i6));
@@ -146,6 +150,7 @@ public class use {
 			System.out.println("\nDistanza tra "+ i7 + " e " + i8 + " = " +i7.distance(i8));	
 
 			//--------------------AREA PERIMETRO---------------------------\\
+			System.out.println("\nAREA  PERIMETRO------------------------------------------------------");
 			if(i7 instanceof poligono){
 				poligono pol1 = (poligono)i7;
 				System.out.println("\nPerimetro"+ i7 + " = " +pol1.perimetro());
@@ -160,6 +165,7 @@ public class use {
 			}
 
 			//---------------------- RETTA PERPENDICOLARE A UN ALTRA E PASSANTE PER UN PUNTO ----------------\\
+			System.out.println("\nRETTA PASSANTE PER UN PUNTO E PARALLELA/PERPENDICOLARE  ----------------");
 
 			if((i1 instanceof punto) && (i3 instanceof retta)){
 				punto p1 = (punto)i1;
@@ -178,31 +184,8 @@ public class use {
 			
 		}
 		catch(eccezioni i){
-			insert = false;
+			System.out.println("\nErrore. ");
 
 		}
-
-/*	
-		try{pol1 = pol1.pars_pol(polprova);}
-		catch(eccezioni i){
-			reinserisci1 = true;
-			System.out.println(i.message);
-		}
-
-
-		String punto1 = new String("(1;1.5)");
-		punto p1 = new punto();
-		try{p1.pars_point(punto1);}
-		catch(eccezioni i){
-			reinserisci1 = true;
-			System.out.println(i.message);
-		}
-
-		try{System.out.print("\ndist"+pol2.distancepuntopol(p1));}
-		catch(eccezioni i){
-			reinserisci1 = true;
-			System.out.println(i.message);
-		}
-		*/
 	}
 }

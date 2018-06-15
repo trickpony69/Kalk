@@ -349,8 +349,7 @@ public abstract class poligono extends inputitem {
                 if( (punti.size() == 3) || ((punti.get(i)).distancefromtwopoints(punti.get(j)) == lato())){
 
                     retta latopol =  (punti.get(i)).rettafromtwopoints((punti.get(j)));
-	                retta perp = latopol.rettaperpendicolare(p); //qua è il problema
-	                //System.out.println("c: ");
+   	                retta perp = latopol.rettaperpendicolare(p); 
 	                Vector<punto> inter = perp.intersectretta(latopol);
 	                
 	                if(inter.size() > 0){
