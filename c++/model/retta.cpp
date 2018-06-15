@@ -299,7 +299,8 @@ void retta::pars_rect(string rect)
                     segno = false;
                     s.erase(s.begin(),s.end());
                 }
-                if(rect[i] == '-') sign = -1;
+                if(rect[i] == '-' && sign == 1) sign = -1;
+                else sign = 1;
 
                 segno = true;
 

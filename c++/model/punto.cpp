@@ -77,7 +77,11 @@ void punto::pars_point(string p){
 
         if(p[cont] != '('){
             if(p[cont] == '-' || p[cont] == '+'){
-                if(p[cont] == '-' )sign = -1;
+                if(p[cont] == '-' && sign == -1 )
+                    sign = 1;
+                else
+                    sign = -1;
+
             }
             else if(p[cont] == '/'){
                 if(s.length() == 0) throw input_error("Manca il numeratore.");
