@@ -14,8 +14,8 @@ bool punto::operator ==(const punto& p){
     else return false;
 }
 
-double punto::distanceTwoPoints(const punto& p1,const punto& p2){
-    return sqrt(pow((p2.x-p1.x),2)+pow((p2.y-p1.y),2));
+double punto::distanceTwoPoints(const punto& p1) const{
+    return sqrt(pow((x-p1.x),2)+pow((y-p1.y),2));
 }
 
 double punto::distance(inputitem * i) const {
@@ -23,7 +23,7 @@ double punto::distance(inputitem * i) const {
         return i->distance(const_cast<punto*>(this));
     }
     else if( typeid(punto) == typeid(*i) ){
-        return punto::distanceTwoPoints(*(dynamic_cast<punto*>(i)),*this);
+        return distanceTwoPoints(*(dynamic_cast<punto*>(i)));
     }
     else return i->distance(const_cast<punto*>(this));
 }
@@ -176,18 +176,16 @@ void punto::pars_point(string p){
 }
 
 double punto::xToDouble() const{
-    return x.GetNum()/x.GetDen();
+    return x.converti();
 }
 
 double punto::yToDouble() const{
-    return y.GetNum()/y.GetDen();
+    return y.converti();
 }
 
 //serve per la gui
 QString punto::toString(){
 
-    /*x.riduzione();
-    y.riduzione();*/
 
     std::string st ;
 
@@ -201,7 +199,7 @@ vector<punto> punto::intersect( inputitem* i ) const {
     vector<punto> punt;
     if(typeid(*i) == typeid(punto)){
         punto * p = dynamic_cast<punto*>(i);
-        if( punto::distanceTwoPoints(*p,*this) == 0 ) {
+        if( distanceTwoPoints(*p) == 0 ) {
             punt.push_back(*p);
         }
         return punt;

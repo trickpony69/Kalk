@@ -28,11 +28,11 @@ vector<punto*> poligono::getpoint() const {
 //capire qual'e' il lato del poligono
 double poligono::lato() const{
 
-    double lat = punto::distanceTwoPoints(*pt[1],*pt[0]);
+    double lat = pt[0]->distanceTwoPoints(*pt[1]);
 
     //il lato e' la distanza minima tra i punti inseriti
     for(int i = 2 ; i < 4 ; i ++ ){
-       double p = punto::distanceTwoPoints(*pt[i],*pt[0]);
+       double p = pt[0]->distanceTwoPoints(*pt[i]);
        if(p < lat) lat = p ;
 
     }
@@ -63,7 +63,7 @@ bool poligono::isRegular() const {
         unsigned int check = 0 ;
         for(unsigned int i = 0 ; i < pt.size()-1 ; ++i ){
             for(unsigned int j = i+1 ; j < pt.size() ; ++j ){
-                if(punto::distanceTwoPoints(*pt[i],*pt[j]) == conf) {
+                if(pt[i]->distanceTwoPoints(*pt[j]) == conf) {
                     check++; //verifico di avere  n lati uguali al lato()
                 }
             }
@@ -263,7 +263,7 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
 
     for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
         for(unsigned int j = i + 1; j<vCoord0.size(); j++){
-           if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
+           if(vCoord0[i]->distanceTwoPoints(*vCoord0[j]) == lato() || vCoord0.size() == 3){
                 retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
                 vector<punto> intr = retta::Intersect(prova,*r);
 
@@ -357,7 +357,7 @@ vector<punto> poligono::polipoli(poligono * pol) const{
 
     for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
         for(unsigned int j = i + 1; j<vCoord0.size(); j++){
-             if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == lato() || vCoord0.size() == 3){
+             if(vCoord0[i]->distanceTwoPoints(*vCoord0[j]) == lato() || vCoord0.size() == 3){
                  retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
                  vector<punto> single = pol->rettapol(&prova,vCoord0[i],vCoord0[j]);
                  p.vector::insert(p.end(), single.begin(), single.end());
@@ -463,28 +463,28 @@ double poligono::distpuntopol(punto * p , poligono * pol){
 
     for(unsigned int i = 0 ; i < punti.size() - 1 ; ++i ){
         for(unsigned int j = i + 1 ; j < punti.size() ; ++j ){
-            if(punti.size() == 3 || punto::distanceTwoPoints(*punti[i],*punti[j]) == pol->lato() ){
+            if(punti.size() == 3 || punti[i]->distanceTwoPoints(*punti[j]) == pol->lato() ){
                 retta latopol =  retta::rettaFromTwoPoints(*punti[i],*punti[j]);
                 retta perp = retta::RettaPerpendicolare(latopol,*p);
                 vector<punto> inter = retta::Intersect(perp,latopol);
                 if( punti[i]->getX() == punti[j]->getX() ){
                     if( (inter[0].getY() <= punti[i]->getY() && inter[0].getY() >= punti[j]->getY() )
                     || (inter[0].getY() >= punti[i]->getY() && inter[0].getY() <= punti[j]->getY()) )
-                        distanza.push_back(punto::distanceTwoPoints(*p,inter[0]));
+                        distanza.push_back(inter[0].distanceTwoPoints(*p));
                 }
                 else{
                     if( (inter[0].getX() <= punti[i]->getX() && inter[0].getX() >= punti[j]->getX() )
                     || (inter[0].getX() >= punti[i]->getX() && inter[0].getX() <= punti[j]->getX()) )
                     {
-                        distanza.push_back(punto::distanceTwoPoints(*p,inter[0]));
+                        distanza.push_back(inter[0].distanceTwoPoints(*p));
                     }
                 }
                 
             }
         }
-        distanza.push_back(punto::distanceTwoPoints(*punti[i],*p));
+        distanza.push_back(p->distanceTwoPoints(*punti[i]));
     }
-    distanza.push_back(punto::distanceTwoPoints(*punti[punti.size()-1],*p));
+    distanza.push_back(p->distanceTwoPoints(*punti[punti.size()-1]));
 
     if(distanza.size() == 0) throw input_error("Errore.");
     vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));

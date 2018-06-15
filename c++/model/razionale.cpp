@@ -57,7 +57,7 @@ void razionale::riduzione(){
         den=1;
 }
 
-razionale::razionale(const double& d): num(d*pow(10,conteggio(d))),den(pow(10,conteggio(d))) {
+razionale::razionale(const double& d): num(d*pow(10,razionale::conteggio(d))),den(pow(10,razionale::conteggio(d))) {
     riduzione();
     if(num<0 && den <0){
         num=abs(num);

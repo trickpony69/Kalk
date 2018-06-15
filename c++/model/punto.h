@@ -29,7 +29,7 @@ public:
     punto( razionale a , razionale b ) : x(a),y(b) {}
     razionale getX() const;
     razionale getY() const;
-    static double distanceTwoPoints(const punto&,const punto&);
+    double distanceTwoPoints(const punto&) const;
     void pars_point(string);
     double xToDouble() const;
     double yToDouble() const;
