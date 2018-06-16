@@ -11,7 +11,7 @@ using std::string;
 using std::vector;
 
 class retta : public inputitem {
-    friend istream& operator>>(istream&,retta&);
+    //friend istream& operator>>(istream&,retta&);
     friend ostream& operator<<(ostream&, const retta&);
 private:
     razionale a;
@@ -23,15 +23,15 @@ public:
     razionale GetA() const;
     razionale GetB() const;
     razionale GetC() const;
-    static double distancePuntoRetta(const punto&,const retta&);
+    double distancePuntoRetta(const punto&) const;
     static retta rettaFromTwoPoints(const punto&,const punto&);
     punto printCoord_x(razionale) const;
     double distanceRettaRetta(retta&) const;
-    static bool isParallels(retta&,retta&);
-    static bool isPerpendicolari(retta&,retta&);
-    static retta RettaPerpendicolare(retta&,punto&);
-    static retta RettaParallela(retta&,punto&);
-    static vector<punto> Intersect(const retta&,const retta&);
+    bool isParallels(retta&) const;
+    bool isPerpendicolari(retta&) const;
+    retta RettaPerpendicolare(punto&) const;//
+    retta RettaParallela(punto&) const;//
+    vector<punto> Intersect_rette(const retta&) const;//
     void pars_rect(string);
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;

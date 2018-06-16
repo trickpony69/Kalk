@@ -121,9 +121,9 @@ poligono::poligono(const poligono & p){
 
 poligono& poligono::operator=( const poligono& p ) {
     if(this != &p){
-
         distruggi(pt);
         pt = copia(p.pt);
+        lati = p.lati;
     }
     return *this;
 }
@@ -138,10 +138,13 @@ bool poligono::operator !=(const poligono& p ){
                 if( *p1[i] == *p2[j] ) cont ++;
             }
         }
+
+        distruggi(p1);
+        distruggi(p2);
+
         if(cont == lati) return true;
 
-        distruggi(p1);// p1 e p2 sono copie e non i veri punti
-        distruggi(p2);
+
     }
     return false;
 }
@@ -265,7 +268,7 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
         for(unsigned int j = i + 1; j<vCoord0.size(); j++){
            if(vCoord0[i]->distanceTwoPoints(*vCoord0[j]) == lato() || vCoord0.size() == 3){
                 retta prova = retta::rettaFromTwoPoints(*vCoord0[i],*vCoord0[j]);
-                vector<punto> intr = retta::Intersect(prova,*r);
+                vector<punto> intr = prova.Intersect_rette(*r);
 
                 //intersezione tra due rette è al massimo un punto
                 if(intr.size() > 0){
@@ -404,7 +407,7 @@ bool poligono::polipunto( punto * p ) const{
     }
 
     retta paralx(0,1,-3);
-    retta r = retta::RettaParallela(paralx,*p);
+    retta r = paralx.RettaParallela(*p);
     //r è una retta parallela all'asse x passante per p
 
     vector<punto> inter = rettapol(&r);
@@ -465,8 +468,8 @@ double poligono::distpuntopol(punto * p , poligono * pol){
         for(unsigned int j = i + 1 ; j < punti.size() ; ++j ){
             if(punti.size() == 3 || punti[i]->distanceTwoPoints(*punti[j]) == pol->lato() ){
                 retta latopol =  retta::rettaFromTwoPoints(*punti[i],*punti[j]);
-                retta perp = retta::RettaPerpendicolare(latopol,*p);
-                vector<punto> inter = retta::Intersect(perp,latopol);
+                retta perp = latopol.RettaPerpendicolare(*p);
+                vector<punto> inter = perp.Intersect_rette(latopol);
                 if( punti[i]->getX() == punti[j]->getX() ){
                     if( (inter[0].getY() <= punti[i]->getY() && inter[0].getY() >= punti[j]->getY() )
                     || (inter[0].getY() >= punti[i]->getY() && inter[0].getY() <= punti[j]->getY()) )
@@ -497,7 +500,7 @@ double poligono::distrettapol(retta * r , poligono * pol){
     vector<double> distanza;
 
     for(unsigned int i = 0 ; i < punti.size() ; ++i ){
-        distanza.push_back(retta::distancePuntoRetta(*punti[i],*r));
+        distanza.push_back(r->distancePuntoRetta(*punti[i]));
     }
 
     vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));

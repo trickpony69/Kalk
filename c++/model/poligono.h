@@ -10,7 +10,6 @@ using std::vector;
 using std::istream;
 
 class poligono : public inputitem{
-    friend istream& operator>>(istream&,poligono*);
     friend ostream& operator<<(ostream&,poligono*);
 private:
     unsigned int lati;
@@ -22,10 +21,10 @@ private:
 protected:
     vector<punto*> pt; //perchè mi serve solo nelle derivate di poligono
 public:
-    virtual ~poligono(); //distruttore profondo
+    virtual ~poligono(); //distruttore
     poligono(int, vector<punto*>); //costruttore
     poligono() {} //costruttore di default
-    poligono(const poligono&); //costr copia profondo
+    poligono(const poligono&); //costr copia profonda
     unsigned int getlati() const;
     vector<punto*> getpoint() const;
     virtual double area() const;
@@ -49,8 +48,6 @@ public:
     poligono& operator=(const poligono&); //assegnazione profonda
     bool operator !=(const poligono&);
 
-
-    //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 
 #endif // POLIGONO_H

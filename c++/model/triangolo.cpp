@@ -24,7 +24,7 @@ double triangolo::lato() const {
 double triangolo::area( ) const {
     double base = pt[0]->distanceTwoPoints(*pt[1]) ;
 
-    double h = retta::distancePuntoRetta(*pt[2],retta::rettaFromTwoPoints(*pt[0],*pt[1]));
+    double h = retta::rettaFromTwoPoints(*pt[0],*pt[1]).distancePuntoRetta(*pt[2]);
 
     return (base*h)/2;
 }

@@ -377,7 +377,7 @@ void mainGui::paralsrettapunt() {
             p = dynamic_cast<punto*>(inputElemento[0]);
         }
         if(ret && p){
-            retta par = retta::RettaParallela(*ret,*p);
+            retta par = ret->RettaParallela(*p);
             display->setText(par.toString());
         }
         else display->setText("Non sono stati inseriti retta e punto");
@@ -398,7 +398,7 @@ void mainGui::perppuntoretta() {
             p = dynamic_cast<punto*>(inputElemento[0]);
         }
         if(ret && p){
-            retta perp = retta::RettaPerpendicolare(*ret,*p);
+            retta perp = ret->RettaPerpendicolare(*p);
             display->setText(perp.toString());
         }
         else display->setText("Non sono stati inseriti retta e punto");

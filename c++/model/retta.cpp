@@ -10,23 +10,23 @@ razionale retta::GetB() const { return b; }
 
 razionale retta::GetC() const { return c; }
 
-double retta::distancePuntoRetta(const punto& p, const retta& r){
-    return ((abs(r.a * p.getX() + r.b * p.getY() + r.c))/(sqrt(pow(r.a,2)+pow(r.b,2))));
+double retta::distancePuntoRetta(const punto& p) const{
+    return ((abs(a * p.getX() + b * p.getY() + c))/(sqrt(pow(a,2)+pow(b,2))));
 }
 
 double retta::distanceRettaRetta(retta& r2) const {
     //trovo il punto con x = 0 di r2:
     if(r2.GetA() == 0){
         punto x (0,(-1)*(r2.GetC()/r2.GetB()));
-        return distancePuntoRetta(x,*this);
+        return distancePuntoRetta(x);
     }
     else if(r2.GetB() == 0){
         punto x ((r2.GetC()/r2.GetA())*(razionale(-1,1)),0);
-        return distancePuntoRetta(x,*this);
+        return distancePuntoRetta(x);
     }
     else{
         punto x (0,(-1)*(r2.GetA()/r2.GetB())*(0) - r2.GetC()/r2.GetB());
-        return distancePuntoRetta(x,*this);
+        return distancePuntoRetta(x);
     }
 
 }
@@ -39,7 +39,7 @@ double retta::distance(inputitem * i) const {
         return distanceRettaRetta(*(dynamic_cast<retta*>(i)));
     }
     else if( typeid(punto) == typeid(*i) ){
-        return distancePuntoRetta(*(dynamic_cast<punto*>(i)),*this);
+        return distancePuntoRetta(*(dynamic_cast<punto*>(i)));
     }
     else return i->distance(const_cast<retta*>(this));
 }
@@ -61,28 +61,28 @@ retta retta::rettaFromTwoPoints(const punto& p1,const punto& p2){
     }
 }
 
-bool retta::isParallels(retta& r1 , retta& r2 ){
+bool retta::isParallels(retta& r1 ) const{
     razionale coeffA = razionale((razionale(-1,1))*(r1.GetA()/r1.GetB()));
-    razionale coeffB = razionale((razionale(-1,1))*(r2.GetA()/r2.GetB()));
+    razionale coeffB = razionale((razionale(-1,1))*(GetA()/GetB()));
 
-    if( (r1.GetA() == 0 && r2.GetB() == 0) || (r1.GetB() == 0 && r2.GetA() == 0) ){
+    if( (r1.GetA() == 0 && GetB() == 0) || (r1.GetB() == 0 && GetA() == 0) ){
         return false;
     }
 
     return coeffA == coeffB;
 }
 
-bool retta::isPerpendicolari(retta& r1 , retta& r2){
-    if((-1)*(r1.GetA()/r1.GetB()) == -1/((-1)*(r2.GetA()/r2.GetB())))
+bool retta::isPerpendicolari(retta& r1 ) const{
+    if((-1)*(r1.GetA()/r1.GetB()) == -1/((-1)*(GetA()/GetB())))
         return true;
     else return false;
 }
 
-retta retta::RettaPerpendicolare( retta& r , punto& p ){
+retta retta::RettaPerpendicolare( punto& p ) const{
     //m è già il nuovo coefficente angolare
-    if(r.GetB() != 0 && r.GetA() != 0){
+    if(GetB() != 0 && GetA() != 0){
         //trovo il coefficente angolare
-        razionale m(r.GetA()*(razionale(-1,1)),r.GetB());
+        razionale m(GetA()*(razionale(-1,1)),GetB());
         //trovo l'antireciproco del coefficente angolare
         razionale new_m = m.inverso()*(razionale(-1,1));
         //trovo c => y1 + m*x1
@@ -90,48 +90,48 @@ retta retta::RettaPerpendicolare( retta& r , punto& p ){
         c=(c*(razionale(-1,1)))+p.getY();
         return retta(new_m,-1,c);
     }else{
-        if(r.GetA() == 0){
+        if(GetA() == 0){
            return retta(-1,0,p.getX());
         }
         else return retta(0,-1,p.getY());
     }
 }
 
-retta retta::RettaParallela( retta& r , punto& p ){
-    if(r.GetB() != 0 && r.GetA() != 0){
+retta retta::RettaParallela(punto& p ) const{
+    if(GetB() != 0 && GetA() != 0){
         //trovo il coefficente angolare
-        razionale m(r.GetA()*(razionale(-1,1)),r.GetB());
+        razionale m(GetA()*(razionale(-1,1)),GetB());
         //trovo c => y1 + m*x1
         razionale c(m*p.getX());
         c=(c*(razionale(-1,1)))+p.getY();
         return retta(m,-1,c);
     }
     else{
-        if(r.GetA() == 0){
+        if(GetA() == 0){
             return retta(0,-1,p.getY());
         }
         else return retta(-1,0,p.getX());
     }
 }
 
-vector<punto> retta::Intersect(const retta& r1,const retta& r2) {
-    razionale Det = (r1.GetA()*r2.GetB()) - (r2.GetA()*r1.GetB());
+vector<punto> retta::Intersect_rette(const retta& r2) const {
+    razionale Det = (GetA()*r2.GetB()) - (r2.GetA()*GetB());
     vector<punto> p;
 
-    if(retta::isParallels(const_cast<retta&>(r1),const_cast<retta&>(r2))) return p;
+    if(r2.isParallels(const_cast<retta&>(*this))) return p;
 
     
 
     if(Det != 0){
-        razionale DetX = razionale( r1.GetC()*(razionale(-1,1))*r2.GetB() + razionale(-1,1)*(r2.GetC()*(razionale(-1,1))*r1.GetB()) , Det);
-        razionale DetY = razionale(r1.GetA()*(razionale(-1,1))*r2.GetC() + razionale(-1,1)*(r2.GetA()*(razionale(-1,1))*r1.GetC() ) , Det);
+        razionale DetX = razionale( GetC()*(razionale(-1,1))*r2.GetB() + razionale(-1,1)*(r2.GetC()*(razionale(-1,1))*GetB()) , Det);
+        razionale DetY = razionale(GetA()*(razionale(-1,1))*r2.GetC() + razionale(-1,1)*(r2.GetA()*(razionale(-1,1))*GetC() ) , Det);
         p.push_back(punto(DetX,DetY));
         return p;
     }
     else
     {
-        razionale x((((r1.GetC()*r2.GetB())/r1.GetB()) - r2.GetC()),((r2.GetA()-(r1.GetA()*r2.GetB())/r1.GetB())));
-        razionale y = razionale((r1.GetA()*x)/(razionale(-1,1)*(r1.GetB())) + r1.GetC()/(razionale(-1,1)*(r1.GetB())));
+        razionale x((((GetC()*r2.GetB())/GetB()) - r2.GetC()),((r2.GetA()-(GetA()*r2.GetB())/GetB())));
+        razionale y = razionale((GetA()*x)/(razionale(-1,1)*(GetB())) + GetC()/(razionale(-1,1)*(GetB())));
         p.push_back(punto(x,y));
         return p;
     }
@@ -173,11 +173,11 @@ vector<punto> retta::intersect( inputitem *i ) const {
 
     if( typeid(*i) == typeid(retta) ){
         retta * r = dynamic_cast<retta*>(i);
-        return retta::Intersect(*r,*this);
+        return r->Intersect_rette(*this);
 
     }else if( typeid(*i) == typeid(punto) ){
         punto * p = dynamic_cast<punto*>(i);
-        if( retta::distancePuntoRetta(*p,*this) == 0 ){
+        if(distancePuntoRetta(*p) == 0 ){
             punt.push_back(*p);
         }
         return punt;
@@ -222,27 +222,27 @@ ostream& operator<<(ostream& buffer, const retta& r){
 
 
 
-istream& operator>>(istream& is, retta& r){
-    std::string rect;
-    bool ok = true;
-    //input per prendere anche gli spazi
-    while(ok == true){
-        std::cout<<"dai:"<<std::endl;
-        std::getline(is, rect);
+//istream& operator>>(istream& is, retta& r){
+//    std::string rect;
+//    bool ok = true;
+//    //input per prendere anche gli spazi
+//    while(ok == true){
+//        std::cout<<"dai:"<<std::endl;
+//        std::getline(is, rect);
 
-        try{r.pars_rect(rect);}
-        catch(int){
-	//inserito con successo
-	    ok = false;
-        }
-        catch(...){
-            ok = true;
-        }
+//        try{r.pars_rect(rect);}
+//        catch(int){
+//	//inserito con successo
+//	    ok = false;
+//        }
+//        catch(...){
+//            ok = true;
+//        }
 	
-    }
+//    }
 
-    return is;
-}
+//    return is;
+//}
 
 void retta::pars_rect(string rect)
 {

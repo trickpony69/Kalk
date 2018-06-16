@@ -32,26 +32,26 @@ ostream& operator<<(ostream& buffer, const punto& p){
     return buffer<<"("<<p.x<<";"<<p.y<<")";
 }
 
-istream& operator>>(istream& is, punto& p){
-    std::string point;
-    bool ok = true;
+//istream& operator>>(istream& is, punto& p){
+//    std::string point;
+//    bool ok = true;
 
-    while(ok == true){
-	    //input per prendere anche gli spazi
-	    cout<<"dai:";
-	    std::getline(is, point);
+//    while(ok == true){
+//	    //input per prendere anche gli spazi
+//	    cout<<"dai:";
+//	    std::getline(is, point);
 
-	    try{p.pars_point(point);}
+//	    try{p.pars_point(point);}
 
-	    catch(input_error){
-            std::cerr<<"errore inserimento input";
-	    }
-	    catch(int){
-	        ok = false;
-	    }
-    }
-    return is;
-}
+//	    catch(input_error){
+//            std::cerr<<"errore inserimento input";
+//	    }
+//	    catch(int){
+//	        ok = false;
+//	    }
+//    }
+//    return is;
+//}
 
 void punto::pars_point(string p){
     //rimuove gli spazi
