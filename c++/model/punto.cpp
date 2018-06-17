@@ -79,7 +79,7 @@ void punto::pars_point(string p){
             if(p[cont] == '-' || p[cont] == '+'){
                 if(p[cont] == '-' && sign == -1 )
                     sign = 1;
-                else
+                else if(p[cont] == '-')
                     sign = -1;
 
             }

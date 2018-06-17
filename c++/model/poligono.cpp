@@ -531,11 +531,6 @@ double poligono::distpolipoli(poligono * pol1, poligono * pol2){
 
 
 
-// se ritorno un vector di size == 1 è un vertice del poligono
-
-
-
-
 
 
 

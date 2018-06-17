@@ -3,7 +3,6 @@
 
 #include "retta.h"
 #include "inputitem.h"
-//#include <QPolygonF>
 #include <vector>
 
 using std::vector;
@@ -14,28 +13,28 @@ class poligono : public inputitem{
 private:
     unsigned int lati;
     static void distruggi(vector<punto*>);
-    static vector<punto*> copia(vector<punto*>); //(clone)
+    static vector<punto*> copia(vector<punto*>); 
     static double distrettapol(retta*,poligono*);
     static double distpuntopol(punto*,poligono*);
     static double distpolipoli(poligono*,poligono*);
 protected:
-    vector<punto*> pt; //perchè mi serve solo nelle derivate di poligono
+    vector<punto*> pt; 
 public:
-    virtual ~poligono(); //distruttore
-    poligono(int, vector<punto*>); //costruttore
-    poligono() {} //costruttore di default
-    poligono(const poligono&); //costr copia profonda
+    virtual ~poligono();
+    poligono(int, vector<punto*>);
+    poligono() {} 
+    poligono(const poligono&);
     unsigned int getlati() const;
     vector<punto*> getpoint() const;
     virtual double area() const;
     virtual double perimetro() const ;
-    virtual double lato() const; //ritorna la lunghezza del lato
+    virtual double lato() const; 
     bool isRegular() const;
     static poligono* pars_pol(string);
     virtual double getfisso() const =0;
 
     //distanza
-    double distance(inputitem*) const; //funzione virtuale ereditata da inputitem
+    double distance(inputitem*) const; 
 
     //intersezione
     static vector<punto> puntint(const poligono& ,const poligono&);
@@ -45,9 +44,9 @@ public:
     vector<punto> intersect(inputitem*) const ;
 
     //overload operator
-    poligono& operator=(const poligono&); //assegnazione profonda
+    poligono& operator=(const poligono&); 
     bool operator !=(const poligono&);
 
 };
 
-#endif // POLIGONO_H
+#endif 
