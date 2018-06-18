@@ -56,7 +56,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     max->setPlaceholderText("max");
     mainlayout->addLayout(impostazione1);
 
-    //setAttribute(Qt::WA_DeleteOnClose);
+    setAttribute(Qt::WA_DeleteOnClose);
 
 }
 
