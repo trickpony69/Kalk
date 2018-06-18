@@ -4,14 +4,15 @@ wizard::wizard(){
     QWizardPage* welcome = new QWizardPage;
     QVBoxLayout* mainLayout=new QVBoxLayout;
     QLabel* label = new QLabel("GUIDA UTILIZZO KALK \n"
-                                ""
+                                "Il corretto utilizzo della calcolatrice e' garantito se l'utente esegue la seguente scaletta di operazioni: \n1) Scrive sullo slot di inserimento. \n2) Preme 'Disegna' "
+                                "\n3) Esegue una operazione dalla barra di sinistra.\n"
                                 "I bottoni in fondo alla pagina hanno le seguenti funzioni:\n"
                                 "'Aggiungi' inserisce uno slot di inserimento (max 3 slot) \n"
                                 "NB: I primi due slot sono utilizzati per le funzioni su cui sono applicati i calcoli, mentre il terzo e ultimo è sfruttato per la verifica del risultato. \n"
                                 "'Rimuovi' elimina l'ultimo slot inserito. Se lo slot era non vuoto verrà eliminato dal grafico il dato inserito. \n"
                                 "'Disegna' rappresenta nel grafico le funzioni inserite negli slot. \n"
                                 "'Resetta input' azzera tutti gli slot e il grafico. \n\n"
-                                "La barra laterale di sinistra contiene ordinatamente le seguenti operazioni: \n"
+                                "La barra laterale di sinistra contiene ordinatamente le seguenti OPERAZIONI: \n"
                                 "- Intersezione tra due elementi qualsiasi; \n"
                                 "- Retta passante per due punti; \n"
                                 "- Distanza tra due elementi qualsiasi; \n"
@@ -29,8 +30,7 @@ wizard::wizard(){
 
                                "ATTENZIONE: Gli slot vanno riempiti in ordine crescente."
 
-                               "\n\nEsempio utilizzo: \n-Scrivere nello slot: 3x+7/5y-7=0\n-Premere 'Disegna'\n-Inserire un nuovo slot con 'Aggiungi'\n-Scrivere nel secondo slot: 5/7x-y\n-Premere 'Disegna' "
-                               "e successivamente 'intersezione'(icona alto a sinistra).");
+                               "\n\nESEMPIO INPUT :  \n3x+7/5y-7=0 \n5/7x-y  \n(0;9) \n(2/5;6)(5;9)(4;0) \n");
 
     label->setWordWrap(true);
     mainLayout->addWidget(label);

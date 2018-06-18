@@ -9,9 +9,7 @@
 #include "retta.h"
 
 using std::ostream;
-using std::istream;
 using std::cout;
-//using std::cin;
 using std::string;
 
 class punto;
@@ -20,7 +18,6 @@ ostream& operator<<(ostream&, const punto&);
 
 class punto : public inputitem {
     friend ostream& operator<<(ostream&, const punto&);
-    //friend istream& operator>>(istream&, punto&);
 private:
     razionale x,y;
 public:
@@ -37,7 +34,6 @@ public:
     vector<punto> intersect(inputitem *) const ;
     bool operator==( const punto& );
     double distance(inputitem *) const;
-
 };
 
 #endif // PUNTO_H

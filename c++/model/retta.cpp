@@ -221,29 +221,6 @@ ostream& operator<<(ostream& buffer, const retta& r){
 }
 
 
-
-//istream& operator>>(istream& is, retta& r){
-//    std::string rect;
-//    bool ok = true;
-//    //input per prendere anche gli spazi
-//    while(ok == true){
-//        std::cout<<"dai:"<<std::endl;
-//        std::getline(is, rect);
-
-//        try{r.pars_rect(rect);}
-//        catch(int){
-//	//inserito con successo
-//	    ok = false;
-//        }
-//        catch(...){
-//            ok = true;
-//        }
-	
-//    }
-
-//    return is;
-//}
-
 void retta::pars_rect(string rect)
 {
     unsigned int len = rect.length();

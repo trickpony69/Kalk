@@ -5,13 +5,11 @@
 #include "inputitem.h"
 #include <string>
 #include <vector>
-using std::istream;
 using std::ostream;
 using std::string;
 using std::vector;
 
 class retta : public inputitem {
-    //friend istream& operator>>(istream&,retta&);
     friend ostream& operator<<(ostream&, const retta&);
 private:
     razionale a;
@@ -29,15 +27,14 @@ public:
     double distanceRettaRetta(retta&) const;
     bool isParallels(retta&) const;
     bool isPerpendicolari(retta&) const;
-    retta RettaPerpendicolare(punto&) const;//
-    retta RettaParallela(punto&) const;//
-    vector<punto> Intersect_rette(const retta&) const;//
+    retta RettaPerpendicolare(punto&) const;
+    retta RettaParallela(punto&) const;
+    vector<punto> Intersect_rette(const retta&) const;
     void pars_rect(string);
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;
     QString toString()const;
     double distance(inputitem *) const;
-
 };
 
 #endif // RETTA_H

@@ -1,8 +1,7 @@
 #include "poligono.h"
 #include "triangolo.h"
 #include "quadrato.h"
-#include <algorithm>
-#include <iomanip> 
+
 
 
 poligono::poligono(int l , const vector<punto*>& p):lati(l){
@@ -18,8 +17,8 @@ vector<punto*> poligono::getpoint() const {
     return copia(pt); //ritorno la copia dei puntatori a punto
 }
 
-//massimo tre controlli : visto che utilizziamo poligoni regolari fino a 5 lati quindi prendendo tre segmenti posso
-//capire qual'e' il lato del poligono
+//massimo tre controlli : visto che utilizziamo poligoni regolari fino a 4 lati
+//quindi prendendo tre segmenti posso capire qual'e' il lato del poligono
 double poligono::lato() const{
 
     double lat = pt[0]->distanceTwoPoints(*pt[1]);

@@ -6,7 +6,6 @@
 #include <vector>
 
 using std::vector;
-using std::istream;
 
 class poligono : public inputitem{
     friend ostream& operator<<(ostream&,poligono*);
