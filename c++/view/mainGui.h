@@ -11,11 +11,6 @@ class mainGui: public QWidget{
     Q_OBJECT
 private:
     QHBoxLayout* griglia;
-    QHBoxLayout* hLay;
-    QHBoxLayout* funEGrafico;
-    QVBoxLayout* hFunLay;
-    QVBoxLayout *mainLayout;
-    QHBoxLayout* layoutDisplay;
     QPushButton* add;
     QPushButton* remove;
     QPushButton* enter;
@@ -23,11 +18,16 @@ private:
     QPushButton* save;
     QPushButton* showSavedResult;
     QListWidget* savedResultWindow;
+    QHBoxLayout* hLay;
+    QVBoxLayout* hFunLay;
+    QVBoxLayout *mainLayout;
+    QHBoxLayout* layoutDisplay;
     QVector<QLineEdit*> funVec;
     QVector<QLabel*> vectorLabel;
     QVector<QString> returnToParse;
     QVector<inputitem*> inputElemento;
     grafico* graficoElementi;
+    QHBoxLayout* funEGrafico;
     QLineEdit* display;
     void loadColor(QString,int);
     void clearInput();

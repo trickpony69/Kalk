@@ -227,7 +227,7 @@ void mainGui::drawAndReturn(){
 
                  for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
                      for(unsigned int j = i + 1; j<vCoord0.size(); j++){
-                        if(punto::distanceTwoPoints(*vCoord0[i],*vCoord0[j]) == pol->lato() || vCoord0.size() == 3){
+                        if(vCoord0[j]->distanceTwoPoints(*vCoord0[i]) == pol->lato() || vCoord0.size() == 3){
                             graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
                             graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
                             ++p;
@@ -377,7 +377,7 @@ void mainGui::paralsrettapunt() {
             p = dynamic_cast<punto*>(inputElemento[0]);
         }
         if(ret && p){
-            retta par = retta::RettaParallela(*ret,*p);
+            retta par = ret->RettaParallela(*p);
             display->setText(par.toString());
         }
         else display->setText("Non sono stati inseriti retta e punto");
@@ -398,7 +398,7 @@ void mainGui::perppuntoretta() {
             p = dynamic_cast<punto*>(inputElemento[0]);
         }
         if(ret && p){
-            retta perp = retta::RettaPerpendicolare(*ret,*p);
+            retta perp = ret->RettaPerpendicolare(*p);
             display->setText(perp.toString());
         }
         else display->setText("Non sono stati inseriti retta e punto");

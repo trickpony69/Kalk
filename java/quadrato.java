@@ -1,7 +1,7 @@
 import java.util.Vector;
 
 public class quadrato extends poligono{
-	private static double numeroFisso;
+	private static double numeroFisso = 0.5;
 
 	public quadrato(int i , Vector<punto> p){
 		super(i,p);

@@ -3,54 +3,45 @@
 
 #include "retta.h"
 #include "inputitem.h"
-//#include <QPolygonF>
 #include <vector>
 
 using std::vector;
-using std::istream;
 
 class poligono : public inputitem{
-    friend istream& operator>>(istream&,poligono*);
     friend ostream& operator<<(ostream&,poligono*);
 private:
     unsigned int lati;
-    static void distruggi(vector<punto*>);
-    static vector<punto*> copia(vector<punto*>); //(clone)
-    static double distrettapol(retta*,poligono*);
-    static double distpuntopol(punto*,poligono*);
-    static double distpolipoli(poligono*,poligono*);
+    static void distruggi(vector<punto*>&);
+    static vector<punto*> copia(const vector<punto*>&);
+    bool isRegular() const;
 protected:
-    vector<punto*> pt; //perchè mi serve solo nelle derivate di poligono
+    vector<punto*> pt; 
+    double distrettapol(retta*) const;
+    double distpuntopol(punto*) const;
+    double distpolipoli(poligono*) const;
+    vector<punto> rettapol(retta*,punto*,punto*) const;
+    vector<punto> polipoli(poligono*) const;
+    bool polipunto(punto*) const;
+    vector<punto> puntint(const poligono&) const;
 public:
-    virtual ~poligono(); //distruttore profondo
-    poligono(int, vector<punto*>); //costruttore
-    poligono() {} //costruttore di default
-    poligono(const poligono&); //costr copia profondo
+    ~poligono();
+    poligono(int, const vector<punto*>&);
+    poligono() {} 
+    poligono(const poligono&);
     unsigned int getlati() const;
     vector<punto*> getpoint() const;
     virtual double area() const;
     virtual double perimetro() const ;
-    virtual double lato() const; //ritorna la lunghezza del lato
-    bool isRegular() const;
     static poligono* pars_pol(string);
     virtual double getfisso() const =0;
-
-    //distanza
-    double distance(inputitem*) const; //funzione virtuale ereditata da inputitem
-
-    //intersezione
-    static vector<punto> puntint(const poligono& ,const poligono&);
-    vector<punto> rettapol(retta*,punto*,punto*) const;
-    vector<punto> polipoli(poligono*) const;
-    bool polipunto(punto*) const;
+    double distance(inputitem*) const; 
     vector<punto> intersect(inputitem*) const ;
+    virtual double lato() const;
 
     //overload operator
-    poligono& operator=(const poligono&); //assegnazione profonda
+    poligono& operator=(const poligono&); 
     bool operator !=(const poligono&);
 
-
-    //virtual QPolygonF formatToQtPainter() = 0;//virtuale pura
 };
 
-#endif // POLIGONO_H
+#endif 

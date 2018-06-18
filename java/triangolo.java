@@ -1,7 +1,7 @@
 import java.util.Vector;
 
 public class triangolo extends poligono{
-	private static double numeroFisso;
+	private static double numeroFisso = 0.289;
 
 	public triangolo(int i , Vector<punto> p){
 		super(i,p);

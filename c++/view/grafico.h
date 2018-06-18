@@ -14,7 +14,7 @@ public:
     void deletePol(int);
 
 private:
-    QVector<QVector<QCPItemLine*>> segmenti;
+    QVector<QVector<QCPItemLine*>> segmenti; //segmenti.size puo' essere max = 3 cioe' il massimo numero di slot
 
 public slots:
     void pulisci();

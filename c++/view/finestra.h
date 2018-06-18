@@ -13,7 +13,6 @@ private:
     void closeEvent(QCloseEvent*);
 public:    
     explicit finestra(QWidget *parent = NULL);//explicit o no ?
-    virtual ~finestra();
 private slots:
     void showOption();
 };

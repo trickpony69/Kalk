@@ -3,13 +3,12 @@
 
 #include "poligono.h"
 
-class triangolo : public poligono
-{
+class triangolo : public poligono{
 private:
     static double numeroFisso;
 public:
     triangolo(int l,vector<punto*> p): poligono(l,p) {}
-    triangolo() {}
+    triangolo(){}
     double perimetro() const;
     double getfisso() const;
     double area() const;

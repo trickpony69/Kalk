@@ -4,8 +4,6 @@
 #include "poligono.h"
 
 
-inputitem::~inputitem() {}
-
 inputitem* inputitem::iniz_input (string st) {
 
     if(dynamic_cast<retta*>(inputitem::pars_start(st))){

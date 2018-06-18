@@ -60,9 +60,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
 
 }
 
-impostazioni::~impostazioni(){
-    qDebug("Impostazioni distrutte");
-}
 
 void impostazioni::closeEvent(QCloseEvent *event){
     saveSettings();

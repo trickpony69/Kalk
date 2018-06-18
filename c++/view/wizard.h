@@ -6,7 +6,6 @@
 class wizard : public QWizard{
 public:
     wizard();
-    virtual ~wizard();
 };
 
 #endif // WIZARD_H

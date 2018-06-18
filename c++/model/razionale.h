@@ -5,8 +5,6 @@
 #include <cmath>
 using std::istream;
 using std::string;
-
-
 using std::abs;
 
 class razionale;
@@ -14,19 +12,17 @@ class razionale;
 std::ostream& operator<<(std::ostream&, const razionale&);
 
 class razionale {
-    friend istream& operator>>(istream&,razionale&);
     friend std::ostream& operator<<(std::ostream&, const razionale&);
 private:
-    double num, den; //den != 0
+    double num, den; 
 public:
     razionale() { num = 0 ; den = 1; }
-
     double GetNum() const;
     double GetDen() const;
     razionale(const double&);
     razionale(const razionale&,const razionale&);
     void riduzione();
-    int conteggio(double);
+    static int conteggio(double);
     razionale inverso() const;//gira la frazione
     razionale(double , double );// agisce anche da convertitore int => Raz
     razionale operator+(const razionale&) const;

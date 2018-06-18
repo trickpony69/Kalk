@@ -7,7 +7,6 @@
 #include <vector>
 
 class quadrato : public poligono{
-
 private:
     static double numeroFisso;
 public:
