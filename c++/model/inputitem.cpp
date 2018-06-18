@@ -20,23 +20,17 @@ inputitem* inputitem::iniz_input (string st) {
     {
         punto point;
         try{point.pars_point(st);}
-        catch(input_error){
-            throw;
-        }
         catch(int){
             input = new punto(point);
+        }
+        catch(...){
+            throw;
         }
     }
     else{
         poligono* p;
         try{ p = poligono::pars_pol(st); }
-        catch( input_error ){
-            throw;
-        }
-        catch( irregular_pol ){
-            throw;
-        }
-        catch( num_lati ){
+        catch(...){
             throw;
         }
         input = p;
