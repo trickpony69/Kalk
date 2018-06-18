@@ -1,6 +1,6 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()),finestraBenvenuto(new wizard){
+finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()),finestraBenvenuto(new wizard()){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     QWidget* spaziatore1 = new QWidget(this);
@@ -58,12 +58,6 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     connect(perimetro,SIGNAL(triggered()),widgetCentrale,SLOT(perimetro()));
     connect(paral,SIGNAL(triggered()),widgetCentrale,SLOT(paralsrettapunt()));
     connect(perp,SIGNAL(triggered()),widgetCentrale,SLOT(perppuntoretta()));
-
-
-}
-
-finestra::~finestra(){
-    qDebug("Kalk distrutta");
 }
 
 void finestra::showOption(){

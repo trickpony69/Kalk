@@ -147,8 +147,3 @@ std::ostream& operator<<(std::ostream& os, const razionale& r) {
 
     return os;
 }
-
-istream& operator>>(istream& is,razionale& r){
-    is >> r.num >> r.den;
-    return is;
-}

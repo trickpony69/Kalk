@@ -24,7 +24,7 @@ private:
     void saveSettings();
 public:
     explicit impostazioni(QWidget *parent = nullptr);
-    virtual ~impostazioni();
+    virtual ~impostazioni(){}
     void closeEvent(QCloseEvent*);
 
 };

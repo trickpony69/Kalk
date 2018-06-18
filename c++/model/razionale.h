@@ -5,8 +5,6 @@
 #include <cmath>
 using std::istream;
 using std::string;
-
-
 using std::abs;
 
 class razionale;
@@ -14,13 +12,11 @@ class razionale;
 std::ostream& operator<<(std::ostream&, const razionale&);
 
 class razionale {
-    friend istream& operator>>(istream&,razionale&);
     friend std::ostream& operator<<(std::ostream&, const razionale&);
 private:
     double num, den; 
 public:
     razionale() { num = 0 ; den = 1; }
-
     double GetNum() const;
     double GetDen() const;
     razionale(const double&);

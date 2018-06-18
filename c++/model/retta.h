@@ -16,7 +16,6 @@ private:
     razionale b;
     razionale c;
 public:
-    virtual ~retta() {}
     retta(razionale x = 0 , razionale y = 0  , razionale l = 0 ) : a(x),b(y),c(l) {}
     razionale GetA() const;
     razionale GetB() const;

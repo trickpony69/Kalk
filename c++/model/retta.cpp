@@ -223,9 +223,9 @@ ostream& operator<<(ostream& buffer, const retta& r){
 
 void retta::pars_rect(string rect)
 {
-    unsigned int len = rect.length();
+    int len = rect.length();
     bool trovato = false ;
-    for (unsigned int var = 0; var < len; ++var) {
+    for (int var = 0; var < len; ++var) {
         if(rect[var] == ' '){
             rect.erase(rect.begin()+var);
             var--;

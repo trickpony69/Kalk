@@ -42,7 +42,3 @@ wizard::wizard(){
     setAttribute(Qt::WA_DeleteOnClose);
     setOption(QWizard::NoBackButtonOnStartPage);
 }
-
-wizard::~wizard(){
-    qDebug("wizard distrutto");
-}
