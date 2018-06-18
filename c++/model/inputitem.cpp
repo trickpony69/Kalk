@@ -5,42 +5,37 @@
 
 
 inputitem* inputitem::iniz_input (string st) {
-
-    if(dynamic_cast<retta*>(inputitem::pars_start(st))){
+    inputitem* input = inputitem::pars_start(st);
+    if(dynamic_cast<retta*>(input)){
         retta ret;
         try{ret.pars_rect(st);}
         catch(int){
-            return new retta(ret);
+            input = new retta(ret);
         }
         catch(...){
             throw;
         }
     }
-    else if(dynamic_cast<punto*>(inputitem::pars_start(st)))
+    else if(dynamic_cast<punto*>(input))
     {
         punto point;
         try{point.pars_point(st);}
-        catch(input_error){
-            throw;
-        }
         catch(int){
-            return new punto(point);
+            input = new punto(point);
+        }
+        catch(...){
+            throw;
         }
     }
     else{
         poligono* p;
         try{ p = poligono::pars_pol(st); }
-        catch( input_error ){
+        catch(...){
             throw;
         }
-        catch( irregular_pol ){
-            throw;
-        }
-        catch( num_lati ){
-            throw;
-        }
-        return p;
+        input = p;
     }
+    return input;
 }
 
 

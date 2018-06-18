@@ -26,7 +26,6 @@ public:
     razionale getX() const;
     razionale getY() const;
     double distanceTwoPoints(const punto&) const;
-
     void pars_point(string);
     double xToDouble() const;
     double yToDouble() const;

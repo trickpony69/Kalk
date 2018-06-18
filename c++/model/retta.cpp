@@ -337,6 +337,8 @@ void retta::pars_rect(string rect)
                             if(rect[i] == '.'){
                                 doub = true;
                             }
+                            else if(rect[i] == '0' && s.length() == 0)
+                                throw input_error("0 al denominatore");
                             else s = s+rect[i];
                             i++;
                         }
