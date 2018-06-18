@@ -20,6 +20,10 @@ public class punto extends inputitem {
 		this(new razionale(),new razionale());
 	}
 
+	public punto( punto p ){
+		this(p.getx(),p.gety());
+	}
+
 	//--------------------------------------------------------------
 
 	public String toString(){

@@ -21,7 +21,7 @@ wizard::wizard(){
                                 "- Perimetro di un poligono; \n"
                                 "- Area di un poligono; \n"
                                 "- Retta perpendicolare a un altra e passante per un punto; \n"
-                                "- Retta parallela a un altra e passante per un punto. \n\n");
+                                "- Retta parallela a un altra e passante per un punto.");
 
     QLabel* label1 = new QLabel( "La barra sfondo nero e testo bianco contiene il risultato dell'operazione che può essere salvato tramite l'icona alla sua destra (floppy). "
                                  "L'icona a destra del floppy mostra tutti i risultati salvati, possono essere rappresentati con un semplice drag and drop su uno slot a tua scelta \n\n"
@@ -30,7 +30,8 @@ wizard::wizard(){
                                  "INPUT: si possono inserire rette rigorosamente in questa forma 'ax + by + c = 0' (implicita), punti nella forma (x;y) , quadrati e triangoli mettendo in sequenza i punti , es. (x1;y1)(x2;y2) ecc.. \n"
                                  "I coefficenti delle rette e i valori dei punti possono essere interi, razionali(es. 3/4 oppure 5/8) o double (es. 3.67 e non 3,67). \n"
 
-                                 "ATTENZIONE: Gli slot vanno riempiti in ordine crescente."
+                                 "\nATTENZIONE: Gli slot vanno riempiti in ordine crescente. \nPurtroppo il coefficente della x o della y, nel caso razioanle, è stato considerato"
+                                 "(anche se in maniera matematicamente sbagliato) in questa maniera: 6/7x rappresenta (6/7)x. "
 
                                  "\n\nESEMPIO INPUT :  \n3x+7/5y-7=0 \n5/7x-y  \n(0;9) \n(2/5;6)(5;9)(4;0) \n");
     label0->setWordWrap(true);

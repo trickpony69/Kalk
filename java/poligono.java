@@ -226,6 +226,7 @@ public abstract class poligono extends inputitem {
 	            inter.add(punti1.get(i));
 	        }
 		}
+
 		//se ho n elementi nel vector e il poligono ha n vertici allora è interno e non vado a fare un ulteriore controllo
 
 		if(inter.size() != p.getlati()){
@@ -242,11 +243,15 @@ public abstract class poligono extends inputitem {
 
 	protected Vector<punto> polipoli(poligono p) {
 		Vector<punto> puntinterni = puntint(p);
-		Vector<punto> inter = new Vector<punto>();
+		Vector<punto> inter = new Vector<punto>();;
 
 		if( puntinterni.size() > 0 ){
-			inter = (Vector<punto>)puntinterni.clone();
+			for(Object o : puntinterni){
+				inter.add((punto)o);
+			}
 		}
+
+		
 
 		Vector<punto> punti = getpoint();
 
@@ -305,7 +310,11 @@ public abstract class poligono extends inputitem {
 	}
 
 	public Vector<punto> getpoint(){
-		Vector<punto> p = (Vector<punto>)pt.clone();
+		Vector<punto> p = new Vector<punto>();
+		for(Object o : pt){
+			p.add(new punto((punto)o));
+		}
+		
 		return p;
 	}
 
