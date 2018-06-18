@@ -5,9 +5,9 @@ class retta extends inputitem {
 	private razionale a, b , c ;
 
 	public retta(razionale x,razionale y, razionale l){
-		a = new razionale(x);
-		b = new razionale(y);
-		c = new razionale(l);
+		a = x;
+		b = y;
+		c = l;
 		//chiamo i costruttori per garantire il controllo sui segni
 	}
 
