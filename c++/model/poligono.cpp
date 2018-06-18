@@ -5,14 +5,8 @@
 #include <iomanip> 
 
 
-poligono::poligono(int l , vector<punto*> p):lati(l){
-    int num = l ;
-    vector<punto*>::iterator it = p.begin();
-    while(num && it != p.end()){
-        pt.push_back(*it);
-        ++it;
-        num--;
-    }
+poligono::poligono(int l , const vector<punto*>& p):lati(l){
+    pt = copia(p);
 }
 
 
@@ -84,23 +78,18 @@ poligono::~poligono(){
     distruggi(pt);
 }
 
-void poligono::distruggi(vector<punto*> v) {
+void poligono::distruggi(vector<punto*>& v) {
     vector<punto*>::iterator it = v.begin();
-    for( ; it != v.end() ; ++it ){
-        //cout<<"esiste  "<<**it<<endl;
+    for( ; it != v.end() ; ++it ){;
         delete *it;
-        /*if(*it) cout<<"esiste  "<<**it<<endl<<endl;
-        else cout<<"non esiste";*/
         v.erase(it);
         --it;
     }
-
-    if(v.size() == 0) cout<<"distrutto";
 }
 
 //---------------COPIA PROFONDA-------------
 
-vector<punto*> poligono::copia(vector<punto*> v){
+vector<punto*> poligono::copia(const vector<punto*>& v){
     vector<punto*> n ;
     for( unsigned int i = 0 ; i < v.size() ; ++i ){
         n.push_back(new punto(*v[i]));
@@ -323,8 +312,8 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
     return p;
 }
 
-vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
-    vector<punto*> punti = p2.getpoint();
+vector<punto> poligono::puntint(const poligono & p1) const{
+    vector<punto*> punti = getpoint();
     vector<punto> inter;
     for(unsigned int i = 0; i < punti.size(); i++){
         if(p1.polipunto(punti[i])){
@@ -333,10 +322,10 @@ vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
     }
 
     //se il ho n elementi nel vector e il poligono ha n vertici allora è interno e non vado a fare un ulteriore controllo
-    if(inter.size() != p2.getlati()){
+    if(inter.size() != getlati()){
         vector<punto*> punti2 = p1.getpoint();
         for(unsigned int i = 0; i < punti2.size(); i++){
-            if(p2.polipunto(punti2[i])) inter.push_back(*(punti2[i]));
+            if(polipunto(punti2[i])) inter.push_back(*(punti2[i]));
         }
         distruggi(punti2);
     }
@@ -350,7 +339,7 @@ vector<punto> poligono::puntint(const poligono & p1,const poligono & p2){
 vector<punto> poligono::polipoli(poligono * pol) const{
     vector<punto> p,puntinterni;
 
-    puntinterni = poligono::puntint(*this,*pol);
+    puntinterni = puntint(*pol);
 
     if( puntinterni.size() > 0 ){
         p.vector::insert(p.end(), puntinterni.begin(), puntinterni.end());
@@ -452,21 +441,21 @@ double poligono::distance(inputitem * i) const {
     if( (intersect(i)).size() > 0 ) return 0;
 
     if( typeid(retta) == typeid(*i) ){
-        return poligono::distrettapol(dynamic_cast<retta*>(i),const_cast<poligono*>(this));
+        return distrettapol(dynamic_cast<retta*>(i));
     }
     else if( typeid(punto) == typeid(*i) ){
-        return poligono::distpuntopol(dynamic_cast<punto*>(i),const_cast<poligono*>(this));
+        return distpuntopol(dynamic_cast<punto*>(i));
     }
-    else return poligono::distpolipoli(dynamic_cast<poligono*>(i),const_cast<poligono*>(this));
+    else return distpolipoli(dynamic_cast<poligono*>(i));
 }
 
-double poligono::distpuntopol(punto * p , poligono * pol){
-    vector<punto*> punti = pol->getpoint();
+double poligono::distpuntopol(punto * p ) const{
+    vector<punto*> punti = getpoint();
     vector<double> distanza;
 
     for(unsigned int i = 0 ; i < punti.size() - 1 ; ++i ){
         for(unsigned int j = i + 1 ; j < punti.size() ; ++j ){
-            if(punti.size() == 3 || punti[i]->distanceTwoPoints(*punti[j]) == pol->lato() ){
+            if(punti.size() == 3 || punti[i]->distanceTwoPoints(*punti[j]) == lato() ){
                 retta latopol =  retta::rettaFromTwoPoints(*punti[i],*punti[j]);
                 retta perp = latopol.RettaPerpendicolare(*p);
                 vector<punto> inter = perp.Intersect_rette(latopol);
@@ -495,8 +484,8 @@ double poligono::distpuntopol(punto * p , poligono * pol){
     return *result;
 }
 
-double poligono::distrettapol(retta * r , poligono * pol){
-    vector<punto*> punti = pol->getpoint();
+double poligono::distrettapol(retta * r ) const{
+    vector<punto*> punti = getpoint();
     vector<double> distanza;
 
     for(unsigned int i = 0 ; i < punti.size() ; ++i ){
@@ -508,17 +497,17 @@ double poligono::distrettapol(retta * r , poligono * pol){
     return *result;
 }
 
-double poligono::distpolipoli(poligono * pol1, poligono * pol2){
+double poligono::distpolipoli(poligono * pol1) const{
     vector<punto*> punti1 = pol1->getpoint();
     vector<double> distanza;
 
     for(unsigned int i = 0 ;  i< punti1.size() ; ++i ){
-        distanza.push_back(distpuntopol(punti1[i],pol2));
+        distanza.push_back(distpuntopol(punti1[i]));
     }
 
-    vector<punto*> punti2 = pol2->getpoint();
+    vector<punto*> punti2 = getpoint();
     for(unsigned int i = 0 ;  i< punti2.size() ; ++i ){
-        distanza.push_back(distpuntopol(punti2[i],pol1));
+        distanza.push_back(pol1->distpuntopol(punti2[i]));
     }
 
     vector<double>::iterator result = std::min_element(std::begin(distanza), std::end(distanza));
