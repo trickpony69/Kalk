@@ -77,7 +77,7 @@ class retta extends inputitem {
 	}
 
 
-	public boolean isParallels(retta r2 ){
+	private boolean isParallels(retta r2 ){
 		razionale neg = new razionale(-1,1);
 		razionale zero = new razionale();
 
@@ -87,7 +87,7 @@ class retta extends inputitem {
 	    else return false;
 	}
 
-	public boolean isPerpendicolari( retta r2){
+	private boolean isPerpendicolari( retta r2){
 		razionale neg = new razionale(-1,1);
 	    if( neg.multiply((this.a.multiply(this.b.inverso()))).equals(neg.multiply(neg.multiply((r2.a.multiply(r2.b.inverso())).inverso()))) )
 	        return true;
@@ -324,7 +324,9 @@ class retta extends inputitem {
 	                            if( rect[i].equals(".") ){
 	                                doub = true;
 	                            }
-	                            else s = s + rect[i];
+	                            else if(rect[i].equals("0") && s.length() == 0)
+	                            	throw new input_error();
+	                           	else s = s + rect[i];
 	                            i++;
 	                        }
 
