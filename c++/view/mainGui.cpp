@@ -1,6 +1,10 @@
 #include <view/mainGui.h>
 
-mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout), add(new QPushButton("Aggiungi")), remove(new QPushButton("Rimuovi funzione")), enter(new QPushButton("        Disegna")), cancel(new QPushButton("Resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()), mainLayout(new QVBoxLayout()), graficoElementi(new grafico()), funEGrafico(new QHBoxLayout){
+mainGui::mainGui(QWidget* p): QWidget(p), griglia(new QHBoxLayout()), add(new QPushButton("Aggiungi")), remove(new QPushButton("Rimuovi funzione")),
+    enter(new QPushButton("        Disegna")), cancel(new QPushButton("Resetta input")),save(new QPushButton()),showSavedResult(new QPushButton()),
+    savedResultWindow(new QListWidget()),hLay(new QHBoxLayout()), hFunLay(new QVBoxLayout()),graficoElementi(new grafico()), funEGrafico(new QHBoxLayout()){
+
+    QVBoxLayout* mainLayout = new QVBoxLayout();
     QHBoxLayout* superLayout = new QHBoxLayout();
     remove->setDisabled(true);
     cancel->setDisabled(true);
@@ -305,9 +309,9 @@ void mainGui::intersezione(){
         vector<punto> inter = inputElemento[0]->intersect(inputElemento[1]);
 
         if( inter.size() > 0 ){
-            QString c = '('+inter[0].toString()+')';
+            QString c = '('+QString::fromStdString(inter[0].toString())+')';
             for(unsigned int i = 1 ; i < inter.size() ; ++i){
-                c = c+'('+inter[i].toString()+')';
+                c = c+'('+QString::fromStdString(inter[i].toString())+')';
             }
             display->setText(c);
 
@@ -323,7 +327,7 @@ void mainGui::rect2Points(){
         if(punto* punto0 = dynamic_cast<punto*>(inputElemento[0])){
             if(punto* punto1 = dynamic_cast<punto*>(inputElemento[1])){
                 retta risultato = risultato.rettaFromTwoPoints(*punto0,*punto1);
-                display->setText(risultato.toString());
+                display->setText(QString::fromStdString(risultato.toString()));
             }
         }
     }
@@ -378,7 +382,7 @@ void mainGui::paralsrettapunt() {
         }
         if(ret && p){
             retta par = ret->RettaParallela(*p);
-            display->setText(par.toString());
+            display->setText(QString::fromStdString(par.toString()));
         }
         else display->setText("Non sono stati inseriti retta e punto");
     }
@@ -399,7 +403,7 @@ void mainGui::perppuntoretta() {
         }
         if(ret && p){
             retta perp = ret->RettaPerpendicolare(*p);
-            display->setText(perp.toString());
+            display->setText(QString::fromStdString(perp.toString()));
         }
         else display->setText("Non sono stati inseriti retta e punto");
 

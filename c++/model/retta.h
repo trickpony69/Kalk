@@ -1,10 +1,11 @@
 #ifndef RETTA_H
 #define RETTA_H
-#include "eccezioni.h"
+
 #include "punto.h"
-#include "inputitem.h"
 #include <string>
-#include <vector>
+#include <locale>
+#include <sstream>
+
 using std::ostream;
 using std::string;
 using std::vector;
@@ -34,8 +35,9 @@ public:
     void pars_rect(string);
     vector<punto> print_rect(const razionale&,const razionale&);
     vector<punto> intersect(inputitem*) const ;
-    QString toString()const;
+    string toString()const;
     double distance(inputitem *) const;
 };
+
 
 #endif // RETTA_H

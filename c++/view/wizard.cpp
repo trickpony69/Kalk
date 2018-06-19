@@ -1,12 +1,12 @@
 #include "wizard.h"
 
-wizard::wizard(){
+wizard::wizard(QWidget *parent, Qt::WindowFlags flags): QWizard(parent,flags){
     QWizardPage* page0 = new QWizardPage();
     QWizardPage* page1 = new QWizardPage();
     QVBoxLayout* layoutPage0=new QVBoxLayout();
     QVBoxLayout* layoutPage1=new QVBoxLayout();
     QLabel* label0 = new QLabel("GUIDA UTILIZZO KALK \n"
-                                "Il corretto utilizzo della calcolatrice e' garantito se l'utente esegue la seguente scaletta di operazioni: \n1) Scrive sullo slot di inserimento. \n2) Preme 'Disegna' "
+                                "\nIl corretto utilizzo della calcolatrice e' garantito se l'utente esegue la seguente scaletta di operazioni: \n1) Scrive sullo slot di inserimento. \n2) Preme 'Disegna' "
                                 "\n3) Esegue una operazione dalla barra di sinistra.\n"
                                 "I bottoni in fondo alla pagina hanno le seguenti funzioni:\n"
                                 "'Aggiungi' inserisce uno slot di inserimento (max 3 slot) \n"
@@ -43,8 +43,6 @@ wizard::wizard(){
     setWindowTitle("Benvenuto");
     addPage(page0);
     addPage(page1);
-//    setFixedSize(770,780);
     setWindowFlags(Qt::WindowStaysOnTopHint);
     setAttribute(Qt::WA_DeleteOnClose);
-    setOption(QWizard::NoBackButtonOnStartPage);
 }

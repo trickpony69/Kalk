@@ -27,6 +27,7 @@ HEADERS += \
     view/wizard.h
 
 SOURCES += \
+    model/eccezioni.cpp \
     model/inputitem.cpp \
     model/main.cpp \
     model/poligono.cpp \
@@ -41,8 +42,7 @@ SOURCES += \
     view/mainGui.cpp \
     view/myqline.cpp \
     view/qcustomplot.cpp \
-    view/wizard.cpp \
-    model/eccezioni.cpp
+    view/wizard.cpp
 
 RESOURCES += \
     view/icons.qrc

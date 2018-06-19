@@ -1,8 +1,6 @@
 #include "inputitem.h"
-
 #include "retta.h"
 #include "poligono.h"
-
 
 inputitem* inputitem::iniz_input (string st) {
     inputitem* input = inputitem::pars_start(st);

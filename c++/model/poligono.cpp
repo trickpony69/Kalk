@@ -1,6 +1,5 @@
 #include "poligono.h"
-#include "triangolo.h"
-#include "quadrato.h"
+
 
 
 
@@ -247,6 +246,7 @@ double poligono::area() const {
 }
 
 //p1 e p2 sono diversi da nullptr nel momento in cui viene invocata all'interno di polipoli()
+//questo perche' bisogna verificare che il punto trovato sia all'interno dei range dei due lati e non solo di uno
 vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 = nullptr) const{
     vector<punto> p;
 
@@ -272,7 +272,7 @@ vector<punto> poligono::rettapol(retta * r , punto * p1 = nullptr  ,punto * p2 =
                         if( (vCoord0[i]->getY() <= intr[0].getY() && vCoord0[j]->getY() >= intr[0].getY() )
                                 || (vCoord0[i]->getY() >= intr[0].getY() && vCoord0[j]->getY() <= intr[0].getY() ) || (vCoord0[i]->getY() == vCoord0[j]->getY() ) )
                         {
-                            if(p1 && p2){ //invocata in polipoli quindi passo i punti e verifico i "range"
+                            if(p1 && p2){ //invocata in polipoli: p1 e p2 sono i punti che formano la retta r, quindi vado a veridfica che il punto sia tra quelle x e y.x
                                 if( ( (p1->getX() <= intr[0].getX() && p2->getX() >= intr[0].getX() )
                                         || (p1->getX() >= intr[0].getX() && p2->getX() <= intr[0].getX() ) ) && ( (p1->getY() <= intr[0].getY() && p2->getY() >= intr[0].getY() )
                                         || (p1->getY() >= intr[0].getY() && p2->getY() <= intr[0].getY() ) ) )

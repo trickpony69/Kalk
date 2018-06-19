@@ -2,9 +2,11 @@
 #define POLIGONO_H
 
 #include "retta.h"
-#include "inputitem.h"
 #include <vector>
+#include <algorithm>
+#include <iostream>
 
+using std::ostream;
 using std::vector;
 
 class poligono : public inputitem{
@@ -43,5 +45,8 @@ public:
     bool operator !=(const poligono&);
 
 };
+
+#include "triangolo.h"
+#include "quadrato.h"
 
 #endif 

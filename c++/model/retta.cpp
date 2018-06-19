@@ -1,7 +1,6 @@
 #include "retta.h"
-#include <iostream>
-#include <locale>
-#include <sstream>
+
+
 using std::vector;
 
 razionale retta::GetA() const { return a; }
@@ -187,16 +186,15 @@ vector<punto> retta::intersect( inputitem *i ) const {
     return i->intersect(const_cast<retta*>(this));
 }
 
-QString retta::toString()const{
+string retta::toString()const{
     std::string st;
 
     if(a.GetNum() != 0) st = st + a.tostring() + "x ";
     if(b.GetNum() != 0) st = st + b.tostring() + "y ";
     if(c.GetNum() != 0) st = st + c.tostring();
 
-    QString qstr = QString::fromStdString(st);
 
-    return qstr;
+    return st;
 }
 
 //-----------------------OVERLOAD OPERATORI---------------------------------------------------

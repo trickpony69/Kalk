@@ -22,10 +22,9 @@ private:
     QLineEdit* max;
     //----------------------------------------
     void saveSettings();
+    void closeEvent(QCloseEvent*);
 public:
     explicit impostazioni(QWidget *parent = nullptr);
-    void closeEvent(QCloseEvent*);
-
 };
 
 #endif // IMPOSTAZIONI_H

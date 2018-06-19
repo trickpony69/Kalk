@@ -20,7 +20,6 @@ private:
     QListWidget* savedResultWindow;
     QHBoxLayout* hLay;
     QVBoxLayout* hFunLay;
-    QVBoxLayout *mainLayout;
     QHBoxLayout* layoutDisplay;
     QVector<QLineEdit*> funVec;
     QVector<QLabel*> vectorLabel;
@@ -33,9 +32,6 @@ private:
     void clearInput();
 public:
     mainGui(QWidget* =0);
-    virtual ~mainGui(){}
-    // i due razionali passati per riferimento sono rideriti al range di stampa delle coordinate
-    static vector<punto> print_rect(retta&,razionale&,razionale&);
 
 private slots: //private o public slots ?
     void push_qle();

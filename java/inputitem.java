@@ -6,8 +6,8 @@ public abstract class inputitem{
 		String input[] = new String[b.length()];
 	    input = b.split("");
 
-	    //parsing iniziale per verifica la figura.
-	    //- se ci sono n. "(" > 1 è chiaramente un poligono
+	    //parsing iniziale per verificare la figura.
+	    //- se ci sono "(" > 1 è chiaramente un poligono
 	    //- se è presente una volta "(" allora è un punto
 	    //- altrimenti è una retta
 

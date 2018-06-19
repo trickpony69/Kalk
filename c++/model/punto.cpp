@@ -1,7 +1,6 @@
 #include "punto.h"
-#include <locale> //serve per verificare char == numero
-#include <sstream> //serve per verificare char == numero
-#include <stdlib.h>
+
+
 
 razionale punto::getX() const {return x;}
 
@@ -134,6 +133,7 @@ void punto::pars_point(string p){
                 sign = 1;
             }
             else{
+                //p[cont] e' un valore numerico
                 std::locale loc;
                 if(p[cont] == '.'){
                     doub = true;
@@ -164,15 +164,14 @@ double punto::yToDouble() const{
 }
 
 //serve per la gui
-QString punto::toString(){
+string punto::toString(){
 
 
     std::string st ;
 
     st = st + x.tostring() + ";" + y.tostring();
 
-    QString qstr = QString::fromStdString(st);
-    return qstr;
+    return st;
 }
 
 vector<punto> punto::intersect( inputitem* i ) const {

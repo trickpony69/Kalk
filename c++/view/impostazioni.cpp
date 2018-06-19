@@ -1,16 +1,13 @@
 #include "impostazioni.h"
 
-impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
+impostazioni::impostazioni(QWidget *parent) : QWidget(parent),mainlayout(new QVBoxLayout(this)),titoloImpostazione0(new QHBoxLayout),settaggi(new QHBoxLayout()),titoloImpostazione1(new QHBoxLayout()),
+   impostazione1(new QHBoxLayout()),min(new QLineEdit()),max(new QLineEdit()){
+
     setFixedSize(430,300);
-    setWindowTitle("Impostazioni");
-    titoloImpostazione0 = new QHBoxLayout();
-    titoloImpostazione1 = new QHBoxLayout();
-    settaggi = new QHBoxLayout();
-    mainlayout = new QVBoxLayout(this);
+    setWindowTitle("Impostazioni");    
     QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra");
     QLabel* scritta0 = new QLabel("                              Scegli i colori del grafico");
     QLabel* scritta1 = new QLabel("                              Cambia il range del grafico");
-
     QVector<QVector<QLabel*>> vectorColors(3);
     for(int i=0; i<3;++i){
         vectorColors[i].push_back(new QLabel("blu"));
@@ -27,7 +24,7 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     QVector<QVBoxLayout*> vectorSettings;
     setLayout(mainlayout);
 
-    for(int i=0; i<3;++i){
+    for(int i=0; i<3;++i){  //max slot = 3
         vectorSettings.push_back(new QVBoxLayout());
         vectorSettings[i]->addWidget(new QLabel(QString("SLOT "+ QString::number(i))));
         vectorChangeColor.push_back(QVector<QRadioButton*>());
@@ -45,9 +42,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     mainlayout->addLayout(settaggi);
     mainlayout->addLayout(titoloImpostazione1);
 
-    impostazione1 = new QHBoxLayout();
-    min = new QLineEdit();
-    max = new QLineEdit();
     impostazione1->addWidget(min);
     impostazione1->addWidget(max);
     min->setFixedWidth(50);
@@ -59,7 +53,6 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent){
     setAttribute(Qt::WA_DeleteOnClose);
 
 }
-
 
 void impostazioni::closeEvent(QCloseEvent *event){
     saveSettings();
@@ -89,8 +82,6 @@ void impostazioni::saveSettings(){
     settings.setValue("max",max->text());
 
     settings.endGroup();
-
-    qDebug("impostazioni salvate");
 }
 
 

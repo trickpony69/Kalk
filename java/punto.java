@@ -97,7 +97,8 @@ public class punto extends inputitem {
 	        if(!point[cont].equals( "(" ) ){
 
 	            if(point[cont].equals("-") || point[cont].equals("+")){
-	                if(point[cont].equals("-") ) sign = -1;
+	                if(point[cont].equals("-") && sign == -1 ) sign = 1;
+			else if(point[cont].equals("-") && sign == 1 ) sign = -1;
 	            }
 	            else if(point[cont].equals( "/" )){
 	                if(s.length() == 0) throw new input_error();
@@ -135,7 +136,7 @@ public class punto extends inputitem {
 	                    doub = false;
 	                    virgola = 1;
 
-	                    //if( d == 0 ) throw den_error();
+	                    if( d == 0 ) throw new input_error();
 
 	                }else{
 

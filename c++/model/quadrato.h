@@ -2,8 +2,7 @@
 #define QUADRATO_H
 
 #include "poligono.h"
-#include "punto.h"
-#include "razionale.h"
+
 #include <vector>
 
 class quadrato : public poligono{

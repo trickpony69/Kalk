@@ -9,7 +9,7 @@
 class myQline : public QLineEdit{
 public:
     myQline(QWidget * =0);
-    virtual ~myQline(){}
+protected:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 };

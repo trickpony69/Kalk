@@ -21,4 +21,6 @@ public:
     virtual double distance(inputitem*) const =0 ;
 };
 
+
+
 #endif // INPUTITEM_H

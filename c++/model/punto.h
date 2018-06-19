@@ -1,12 +1,11 @@
 #ifndef PUNTO_H
 #define PUNTO_H
 
-#include <QVector>
 #include "math.h"
 #include "razionale.h"
 #include "eccezioni.h"
 #include "inputitem.h"
-#include "retta.h"
+
 
 using std::ostream;
 using std::cout;
@@ -29,10 +28,15 @@ public:
     void pars_point(string);
     double xToDouble() const;
     double yToDouble() const;
-    QString toString();
+    string toString();
     vector<punto> intersect(inputitem *) const ;
     bool operator==( const punto& );
     double distance(inputitem *) const;
 };
+
+#include "retta.h"
+#include <locale> //serve per verificare char == numero
+#include <sstream> //serve per verificare char == numero
+#include <stdlib.h>
 
 #endif // PUNTO_H
