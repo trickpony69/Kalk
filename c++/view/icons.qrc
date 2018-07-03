@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon/add.png</file>
+        <file>icon/apply.png</file>
+        <file>icon/delete.png</file>
+        <file>icon/reset.png</file>
+        <file>icon/intersect.png</file>
+        <file>icon/draw.png</file>
+        <file>icon/save.png</file>
+        <file>icon/pasted.png</file>
+        <file>icon/rect2Points.png</file>
+        <file>icon/dist2Points.png</file>
+        <file>icon/config.png</file>
+        <file>icon/dist2Rect.png</file>
+        <file>icon/distRectPoint.png</file>
+        <file>icon/area.png</file>
+        <file>icon/perimeter.png</file>
+        <file>icon/parallels.png</file>
+        <file>icon/perpendicular.png</file>
+    </qresource>
+</RCC>
