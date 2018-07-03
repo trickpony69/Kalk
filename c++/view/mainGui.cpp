@@ -209,16 +209,10 @@ void mainGui::drawAndReturn(){
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
 
-                 QVector<double> x, y;
 
-                 x.append(pun->xToDouble());
-                 y.append(pun->yToDouble());
+                inputElemento.push_back(pun);
 
-                 graficoElementi->graph(k)->setData(x,y);
-                 graficoElementi->graph(k)->setLineStyle(QCPGraph::lsNone);
-                 graficoElementi->graph(k)->setScatterStyle(QCPScatterStyle::ssDisc);
-                 graficoElementi->replot();
-                 inputElemento.push_back(pun);
+
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 

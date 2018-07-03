@@ -24,7 +24,9 @@ HEADERS += \
     view/mainGui.h \
     view/myqline.h \
     view/qcustomplot.h \
-    view/wizard.h
+    view/wizard.h \
+    view/graficelement.h \
+    puntograph.h
 
 SOURCES += \
     model/eccezioni.cpp \
@@ -42,7 +44,9 @@ SOURCES += \
     view/mainGui.cpp \
     view/myqline.cpp \
     view/qcustomplot.cpp \
-    view/wizard.cpp
+    view/wizard.cpp \
+    view/graficelement.cpp \
+    view/puntograph.cpp
 
 RESOURCES += \
     view/icons.qrc
