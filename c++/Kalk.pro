@@ -26,7 +26,8 @@ HEADERS += \
     view/qcustomplot.h \
     view/wizard.h \
     view/graficelement.h \
-    puntograph.h
+    view/puntograph.h \
+    view/rettagraph.h
 
 SOURCES += \
     model/eccezioni.cpp \
@@ -46,7 +47,8 @@ SOURCES += \
     view/qcustomplot.cpp \
     view/wizard.cpp \
     view/graficelement.cpp \
-    view/puntograph.cpp
+    view/puntograph.cpp \
+    view/rettagraph.cpp
 
 RESOURCES += \
     view/icons.qrc

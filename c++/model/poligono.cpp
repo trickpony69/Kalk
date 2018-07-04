@@ -89,7 +89,7 @@ void poligono::distruggi(vector<punto*>& v) {
 
 vector<punto*> poligono::copia(const vector<punto*>& v){
     vector<punto*> n ;
-    for( unsigned int i = 0 ; i < v.size() ; ++i ){
+    for(unsigned int i = 0 ; i < v.size() ; ++i ){
         n.push_back(new punto(*v[i]));
     }
     return n;

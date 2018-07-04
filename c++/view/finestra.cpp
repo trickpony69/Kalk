@@ -82,7 +82,6 @@ void finestra::loadSettings(){
     finestraOpzioni->max->setText(settings.value("max").toString());
     settings.endGroup();
 
-    qDebug("impostazioni caricate");
 }
 
 void finestra::closeEvent (QCloseEvent *event){

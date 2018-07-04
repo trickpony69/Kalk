@@ -199,20 +199,21 @@ void mainGui::drawAndReturn(){
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
              if(retta* pol = dynamic_cast<retta*>(inp)){
-
+                //--------------inizio refactor----------------------
                  auto pointRetta = pol->print_rect(min,max);
-                 graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
-                 graficoElementi->readSegmenti(k,0)->start->setCoords(QPointF(pointRetta[0].getX(),pointRetta[0].getY()));
-                 graficoElementi->readSegmenti(k,0)->end->setCoords(QPointF(pointRetta[1].getX(),pointRetta[1].getY()));
+                 rettaGraph rettaRappr(graficoElementi,pointRetta[0],pointRetta[1]);
+                 rettaRappr.drawing(k);
 
                  inputElemento.push_back(pol);
              }
              else if(punto* pun = dynamic_cast<punto*>(inp)){
 
+                puntoGraph puntoRappr(graficoElementi,pun);
+                puntoRappr.drawing(k);
 
-                inputElemento.push_back(pun);
+                inputElemento.push_back(pun); //serve ancora ??
 
-
+                //---------------------------------------------------
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 
@@ -231,6 +232,10 @@ void mainGui::drawAndReturn(){
                             ++p;
                         }
                      }
+                 }
+
+                 for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
+                     delete vCoord0[i];  //aggiunto nel remake, nessuno si occupava del garbage di VCoord0 mi pare
                  }
 
                 graficoElementi->replot();

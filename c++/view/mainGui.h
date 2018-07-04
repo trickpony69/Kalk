@@ -5,6 +5,9 @@
 #include "model/poligono.h"
 #include "view/myqline.h"
 #include "view/wizard.h"
+#include "view/graficelement.h"
+#include "view/puntograph.h"
+#include "view/rettagraph.h"
 
 class mainGui: public QWidget{
     friend class finestra;

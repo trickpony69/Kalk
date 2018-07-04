@@ -6,9 +6,10 @@
 class graficElement{
 public:
     graficElement(grafico*);
-    virtual void draw(unsigned)const =0;
+    virtual void drawing(unsigned)=0;
 protected:
     grafico* graficoEl;
+    virtual void draw(unsigned) =0;
 };
 
 #endif // GRAFICELEMENT_H
