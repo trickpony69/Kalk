@@ -4,7 +4,6 @@ puntoGraph::puntoGraph(grafico* g,punto* p): graficElement(g){
 
     x.append(p->xToDouble());
     y.append(p->yToDouble());
-
 }
 
 void puntoGraph::draw(unsigned k){

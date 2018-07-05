@@ -174,8 +174,7 @@ void mainGui::drawAndReturn(){
     for(int i = 0; i <funVec.size(); i++){
         QString input = funVec[i]->text();
         if(!input.isEmpty()){
-            QString entry(funVec[i]->text());
-            returnToParse.push_back(entry);
+            returnToParse.push_back(input);
         }
     }
 
@@ -219,26 +218,10 @@ void mainGui::drawAndReturn(){
 
                  vector<punto*> vCoord0 = pol->getpoint(); //copia profonda del vector
 
-                 int p = 0 ;
-
-                 for(unsigned int i=0; i<vCoord0.size(); i++)
-                    graficoElementi->writeSegmenti(k,new QCPItemLine(graficoElementi));
-
-                 for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
-                     for(unsigned int j = i + 1; j<vCoord0.size(); j++){
-                        if(vCoord0[j]->distanceTwoPoints(*vCoord0[i]) == pol->lato() || vCoord0.size() == 3){
-                            graficoElementi->readSegmenti(k,p)->start->setCoords(QPointF(vCoord0[i]->getX(),vCoord0[i]->getY()));
-                            graficoElementi->readSegmenti(k,p)->end->setCoords(QPointF(vCoord0[j]->getX(),vCoord0[j]->getY()));
-                            ++p;
-                        }
-                     }
+                 if(vCoord0.size() == 3){
+                     triangoloGraph triangoloRappr(graficoElementi,pol);
+                     triangoloRappr.drawing(k);
                  }
-
-                 for(unsigned int i = 0; i<vCoord0.size() - 1; i++){
-                     delete vCoord0[i];  //aggiunto nel remake, nessuno si occupava del garbage di VCoord0 mi pare
-                 }
-
-                graficoElementi->replot();
 
                 inputElemento.push_back(pol);
             }
@@ -302,7 +285,7 @@ void mainGui::showResult(){
 }
 
 //------------------Funzionalità barra laterale------------------
-
+//-questi metodi usano il modello perchè non ritornano soluzioni grafiche-
 void mainGui::intersezione(){
     if(inputElemento.size() > 1){
         vector<punto> inter = inputElemento[0]->intersect(inputElemento[1]);

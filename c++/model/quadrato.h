@@ -2,7 +2,6 @@
 #define QUADRATO_H
 
 #include "poligono.h"
-
 #include <vector>
 
 class quadrato : public poligono{
