@@ -15,7 +15,7 @@ private:
 protected:
     vector<punto*> vCoord0;
     poligono* pol;
-    void draw(unsigned k);
+    void draw(unsigned k)=0;
 };
 
 #endif // POLIGONGRAPH_H

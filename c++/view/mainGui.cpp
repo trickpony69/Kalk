@@ -222,6 +222,10 @@ void mainGui::drawAndReturn(){
                      triangoloGraph triangoloRappr(graficoElementi,pol);
                      triangoloRappr.drawing(k);
                  }
+                 else if(vCoord0.size() == 4){
+                     quadratoGraph quadratoRappr(graficoElementi,pol);
+                     quadratoRappr.drawing(k);
+                 }
 
                 inputElemento.push_back(pol);
             }

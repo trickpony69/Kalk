@@ -1,10 +1,10 @@
-#include "triangolograph.h"
+#include "quadratograph.h"
 
-triangoloGraph::triangoloGraph(grafico* g,poligono* pol) : poligonGraph(g,pol){
+quadratoGraph::quadratoGraph(grafico* g, poligono* p): poligonGraph(g,p){
 
 }
 
-void triangoloGraph::draw(unsigned k){
+void quadratoGraph::draw(unsigned k){
 
     int p = 0 ;
 
@@ -17,7 +17,7 @@ void triangoloGraph::draw(unsigned k){
                graficoEl->readSegmenti(k,p)->start->setCoords(QPointF(poligonGraph::vCoord0[i]->getX(),poligonGraph::vCoord0[i]->getY()));
                graficoEl->readSegmenti(k,p)->end->setCoords(QPointF(poligonGraph::vCoord0[j]->getX(),poligonGraph::vCoord0[j]->getY()));
                ++p;
-               qDebug("creato e disegnato lato triangolo");
+               qDebug("creato e disegnato lato quadrato");
            }
         }
     }
@@ -28,7 +28,7 @@ void triangoloGraph::draw(unsigned k){
 
 }
 
-void triangoloGraph::drawing(unsigned k) {
+void quadratoGraph::drawing(unsigned k) {
 
     this->draw(k);
     graficoEl->replot();

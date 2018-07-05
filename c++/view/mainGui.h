@@ -10,6 +10,7 @@
 #include "view/rettagraph.h"
 #include "view/triangolograph.h"
 #include "view/poligongraph.h"
+#include "view/quadratograph.h"
 
 class mainGui: public QWidget{
     friend class finestra;
