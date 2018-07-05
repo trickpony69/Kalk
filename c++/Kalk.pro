@@ -29,8 +29,8 @@ HEADERS += \
     view/puntograph.h \
     view/rettagraph.h \
     view/poligongraph.h \
-    view/triangolograph.h \
-    view/quadratograph.h
+#    view/triangolograph.h \
+#    view/quadratograph.h
 
 SOURCES += \
     model/eccezioni.cpp \
@@ -53,8 +53,8 @@ SOURCES += \
     view/puntograph.cpp \
     view/rettagraph.cpp \
     view/poligongraph.cpp \
-    view/triangolograph.cpp \
-    view/quadratograph.cpp
+#    view/triangolograph.cpp \
+#    view/quadratograph.cpp
 
 RESOURCES += \
     view/icons.qrc

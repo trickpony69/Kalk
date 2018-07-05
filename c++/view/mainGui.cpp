@@ -198,7 +198,6 @@ void mainGui::drawAndReturn(){
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
              if(retta* pol = dynamic_cast<retta*>(inp)){
-                //--------------inizio refactor----------------------
                  auto pointRetta = pol->print_rect(min,max);
                  rettaGraph rettaRappr(graficoElementi,pointRetta[0],pointRetta[1]);
                  rettaRappr.drawing(k);
@@ -210,25 +209,17 @@ void mainGui::drawAndReturn(){
                 puntoGraph puntoRappr(graficoElementi,pun);
                 puntoRappr.drawing(k);
 
-                inputElemento.push_back(pun); //serve ancora ??
-
-                //---------------------------------------------------
+                inputElemento.push_back(pun);
              }
              else if(poligono* pol = dynamic_cast<poligono*>(inp)){
 
                  vector<punto*> vCoord0 = pol->getpoint(); //copia profonda del vector
 
-                 if(vCoord0.size() == 3){
-                     triangoloGraph triangoloRappr(graficoElementi,pol);
-                     triangoloRappr.drawing(k);
-                 }
-                 else if(vCoord0.size() == 4){
-                     quadratoGraph quadratoRappr(graficoElementi,pol);
-                     quadratoRappr.drawing(k);
-                 }
+                 poligonGraph poligonoRappr(graficoElementi,pol);
+                 poligonoRappr.drawing(k);
 
-                inputElemento.push_back(pol);
-            }
+                 inputElemento.push_back(pol);
+             }
 
          if(k==0)
             loadColor("primoSlot",k);

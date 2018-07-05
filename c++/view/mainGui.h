@@ -8,9 +8,9 @@
 #include "view/graficelement.h"
 #include "view/puntograph.h"
 #include "view/rettagraph.h"
-#include "view/triangolograph.h"
 #include "view/poligongraph.h"
-#include "view/quadratograph.h"
+//#include "view/quadratograph.h"
+//#include "view/triangolograph.h"
 
 class mainGui: public QWidget{
     friend class finestra;

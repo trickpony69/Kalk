@@ -8,14 +8,14 @@
 class poligonGraph : public graficElement{
 public:
     poligonGraph(grafico*,poligono*);
-    virtual void drawing(unsigned k) =0;
+    virtual void drawing(unsigned k);
 private:
 
 
 protected:
     vector<punto*> vCoord0;
     poligono* pol;
-    void draw(unsigned k)=0;
+    void draw(unsigned k);
 };
 
 #endif // POLIGONGRAPH_H
