@@ -6,12 +6,12 @@
 
 class puntoGraph : public graficElement{
 public:
-    puntoGraph(grafico*,punto*);
-    virtual void drawing(unsigned);
+    puntoGraph(punto*);
+    virtual void drawing(grafico*,unsigned);
 private:
     QVector<double> x,y;
 protected:
-    virtual void draw(unsigned);
+    virtual void draw(grafico*,unsigned);
 };
 
 #endif // PUNTOGRAPH_H

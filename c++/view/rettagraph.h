@@ -6,12 +6,12 @@
 
 class rettaGraph : public graficElement{
 public:
-    rettaGraph(grafico*,punto,punto);
-    virtual void drawing(unsigned);
+    rettaGraph(punto,punto);
+    virtual void drawing(grafico*,unsigned);
 private:
     punto min,max;
 protected:
-    virtual void draw(unsigned);
+    virtual void draw(grafico*,unsigned);
 
 };
 

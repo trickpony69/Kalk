@@ -7,15 +7,15 @@
 
 class poligonGraph : public graficElement{
 public:
-    poligonGraph(grafico*,poligono*);
-    virtual void drawing(unsigned k);
+    poligonGraph(poligono*);
+    virtual void drawing(grafico*,unsigned k);
 private:
 
 
 protected:
     vector<punto*> vCoord0;
     poligono* pol;
-    void draw(unsigned k);
+    void draw(grafico*,unsigned k);
 };
 
 #endif // POLIGONGRAPH_H

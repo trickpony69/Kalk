@@ -2,14 +2,14 @@
 #define GRAFICELEMENT_H
 
 #include "view/grafico.h"
+#include "model/inputitem.h"
 
 class graficElement{
 public:
-    graficElement(grafico*);
-    virtual void drawing(unsigned) =0;
+    virtual void drawing(grafico*,unsigned)=0;
+    static graficElement* parsGraphicEl(inputitem*);
 protected:
-    grafico* graficoEl;
-    virtual void draw(unsigned) =0;
+    virtual void draw(grafico*,unsigned)=0;
 };
 
 #endif // GRAFICELEMENT_H

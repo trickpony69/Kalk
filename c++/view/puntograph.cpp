@@ -1,21 +1,21 @@
 #include "view/puntograph.h"
 
-puntoGraph::puntoGraph(grafico* g,punto* p): graficElement(g){
+puntoGraph::puntoGraph(punto* p){
 
     x.append(p->xToDouble());
     y.append(p->yToDouble());
 }
 
-void puntoGraph::draw(unsigned k){
+void puntoGraph::draw(grafico* g,unsigned k){
 
-    graficElement::graficoEl->graph(k)->setData(x,y);
-    graficElement::graficoEl->graph(k)->setLineStyle(QCPGraph::lsNone);
-    graficElement::graficoEl->graph(k)->setScatterStyle(QCPScatterStyle::ssDisc);
-    graficElement::graficoEl->replot();
+    g->graph(k)->setData(x,y);
+    g->graph(k)->setLineStyle(QCPGraph::lsNone);
+    g->graph(k)->setScatterStyle(QCPScatterStyle::ssDisc);
+    g->replot();
 
 }
 
-void puntoGraph::drawing(unsigned k){ //solo per poter rendere protected il metodo draw
+void puntoGraph::drawing(grafico* g,unsigned k){ //solo per poter rendere protected il metodo draw
 
-    this->draw(k);
+    this->draw(g,k);
 }

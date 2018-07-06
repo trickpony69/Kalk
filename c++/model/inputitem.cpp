@@ -8,6 +8,7 @@ inputitem* inputitem::iniz_input (string st) {
         retta ret;
         try{ret.pars_rect(st);}
         catch(int){
+            delete input;
             input = new retta(ret);
         }
         catch(...){
@@ -19,6 +20,7 @@ inputitem* inputitem::iniz_input (string st) {
         punto point;
         try{point.pars_point(st);}
         catch(int){
+            delete input;
             input = new punto(point);
         }
         catch(...){
@@ -31,6 +33,7 @@ inputitem* inputitem::iniz_input (string st) {
         catch(...){
             throw;
         }
+        delete input;
         input = p;
     }
     return input;
@@ -39,7 +42,7 @@ inputitem* inputitem::iniz_input (string st) {
 
 
 //data una string ritorna se è un punto , retta o poligono
-//ha senso creare un oggetto e ritornarlo  esfruttare il polimorfisomo? altrimenti stringa
+//ha senso creare un oggetto e ritornarlo e sfruttare il polimorfisomo? altrimenti stringa
 inputitem* inputitem::pars_start(string s){
     unsigned int len = s.length();
 

@@ -1,16 +1,16 @@
 #include "rettagraph.h"
 
-rettaGraph::rettaGraph(grafico* g,punto mi,punto ma): graficElement(g), min(mi), max(ma){}
+rettaGraph::rettaGraph(punto mi,punto ma) : min(mi), max(ma){}
 
 
-void rettaGraph::drawing(unsigned int k){
+void rettaGraph::drawing(grafico* g,unsigned int k){
 
-    graficElement::graficoEl->writeSegmenti(k,new QCPItemLine(graficElement::graficoEl));
-    graficElement::graficoEl->readSegmenti(k,0)->start->setCoords(QPointF(min.getX(),min.getY()));
-    graficElement::graficoEl->readSegmenti(k,0)->end->setCoords(QPointF(max.getX(),max.getY()));
+    g->writeSegmenti(k,new QCPItemLine(g));
+    g->readSegmenti(k,0)->start->setCoords(QPointF(min.getX(),min.getY()));
+    g->readSegmenti(k,0)->end->setCoords(QPointF(max.getX(),max.getY()));
 }
 
-void rettaGraph::draw(unsigned int k){
+void rettaGraph::draw(grafico* g,unsigned int k){
 
-    this->drawing(k);
+    this->drawing(g,k);
 }

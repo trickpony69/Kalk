@@ -178,48 +178,17 @@ void mainGui::drawAndReturn(){
         }
     }
 
-    QSettings settings("Kalk","configKalk");
-    settings.beginGroup("cambioRange");
-
-    razionale min(-30,1);
-    razionale max(30,1);
-
-    if(settings.value("min").toInt())
-        min=razionale(settings.value("min").toInt(),1);
-    if(settings.value("max").toInt())
-        max=razionale(settings.value("max").toInt(),1);
-
-    settings.endGroup();
 
     for(int k=0; k < returnToParse.size(); k++){
         inputitem* inp;
+        graficElement* elGraph;
         QString slotString("(Slot:"+QString::number(k)+") ");
         try{
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
-             if(retta* pol = dynamic_cast<retta*>(inp)){
-                 auto pointRetta = pol->print_rect(min,max);
-                 rettaGraph rettaRappr(graficoElementi,pointRetta[0],pointRetta[1]);
-                 rettaRappr.drawing(k);
-
-                 inputElemento.push_back(pol);
-             }
-             else if(punto* pun = dynamic_cast<punto*>(inp)){
-
-                puntoGraph puntoRappr(graficoElementi,pun);
-                puntoRappr.drawing(k);
-
-                inputElemento.push_back(pun);
-             }
-             else if(poligono* pol = dynamic_cast<poligono*>(inp)){
-
-                 vector<punto*> vCoord0 = pol->getpoint(); //copia profonda del vector
-
-                 poligonGraph poligonoRappr(graficoElementi,pol);
-                 poligonoRappr.drawing(k);
-
-                 inputElemento.push_back(pol);
-             }
+             elGraph = graficElement::parsGraphicEl(inp);
+             elGraph->drawing(graficoElementi,k);
+             inputElemento.push_back(inp);
 
          if(k==0)
             loadColor("primoSlot",k);
