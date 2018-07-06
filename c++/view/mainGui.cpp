@@ -190,12 +190,17 @@ void mainGui::drawAndReturn(){
              elGraph->drawing(graficoElementi,k);
              inputElemento.push_back(inp);
 
-         if(k==0)
-            loadColor("primoSlot",k);
-         else if(k==1)
-            loadColor("secondoSlot",k);
-         else if(k==2)
-            loadColor("terzoSlot",k);
+             for(int i=0; i<3; i++)
+                 if(k==i)
+                     loadColor(QString::number(i),k);
+
+
+//         if(k==0)
+//            loadColor("primoSlot",k);
+//         else if(k==1)
+//            loadColor("secondoSlot",k);
+//         else if(k==2)
+//            loadColor("terzoSlot",k);
 
          graficoElementi->replot();
          vectorLabel[k]->clear();

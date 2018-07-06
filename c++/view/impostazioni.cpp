@@ -64,15 +64,13 @@ void impostazioni::saveSettings(){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
 
-    for(int i=0; i<vectorChangeColor.size(); i++)
-        if(vectorChangeColor[0][i]->isChecked())
-            settings.setValue("primoSlot",i);
-    for(int i=0; i<vectorChangeColor.size(); i++)
-        if(vectorChangeColor[1][i]->isChecked())
-            settings.setValue("secondoSlot",i);
-    for(int i=0; i<vectorChangeColor.size(); i++)
-        if(vectorChangeColor[2][i]->isChecked())
-            settings.setValue("terzoSlot",i);
+    for(int k=0; k<3; k++){
+        for(int i=0; i<vectorChangeColor.size(); i++){
+            if(vectorChangeColor[k][i]->isChecked()){
+                settings.setValue(QString::number(k),i);
+            }
+        }
+    }
 
     settings.endGroup();
 

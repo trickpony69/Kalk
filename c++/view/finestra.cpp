@@ -69,12 +69,10 @@ void finestra::showOption(){
 void finestra::loadSettings(){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
-    int ind0 = settings.value("primoSlot").toInt();
-    finestraOpzioni->vectorChangeColor[0][ind0]->setChecked(true);
-    int ind1 = settings.value("secondoSlot").toInt();
-    finestraOpzioni->vectorChangeColor[1][ind1]->setChecked(true);
-    int ind2 = settings.value("terzoSlot").toInt();
-    finestraOpzioni->vectorChangeColor[2][ind2]->setChecked(true);
+
+    for(int i=0; i<3; i++)
+        finestraOpzioni->vectorChangeColor[i][settings.value(QString::number(i)).toInt()]->setChecked(true);
+
     settings.endGroup();
 
     settings.beginGroup("cambioRange");

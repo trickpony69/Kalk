@@ -6,10 +6,9 @@
 
 graficElement* graficElement::parsGraphicEl(inputitem* in){
 
-
-
     if(retta* ret = dynamic_cast<retta*>(in)){
         QSettings settings("Kalk","configKalk");
+
         settings.beginGroup("cambioRange");
 
         razionale min(-30,1);
