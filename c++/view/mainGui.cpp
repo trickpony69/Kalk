@@ -178,15 +178,14 @@ void mainGui::drawAndReturn(){
         }
     }
 
-
     for(int k=0; k < returnToParse.size(); k++){
-        inputitem* inp;
-        graficElement* elGraph;
+        inputitem* inp = NULL;
+        graphicElement* elGraph = NULL;
         QString slotString("(Slot:"+QString::number(k)+") ");
         try{
              graficoElementi->addGraph();
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
-             elGraph = graficElement::parsGraphicEl(inp);
+             elGraph = graphicElement::parsGraphicEl(inp);
              elGraph->drawing(graficoElementi,k);
              inputElemento.push_back(inp);
 

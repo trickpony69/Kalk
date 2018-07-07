@@ -1,10 +1,9 @@
-#include "graficelement.h"
+#include "graphicelement.h"
 #include "view/rettagraph.h"
 #include "view/puntograph.h"
-#include "model/poligono.h"
 #include "view/poligongraph.h"
 
-graficElement* graficElement::parsGraphicEl(inputitem* in){
+graphicElement* graphicElement::parsGraphicEl(inputitem* in){
 
     if(retta* ret = dynamic_cast<retta*>(in)){
         QSettings settings("Kalk","configKalk");

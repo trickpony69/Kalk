@@ -1,10 +1,10 @@
 #ifndef PUNTOGRAPH_H
 #define PUNTOGRAPH_H
 
-#include "view/graficelement.h"
+#include "view/graphicelement.h"
 #include "model/punto.h"
 
-class puntoGraph : public graficElement{
+class puntoGraph : public graphicElement{
 public:
     puntoGraph(punto*);
     virtual void drawing(grafico*,unsigned);

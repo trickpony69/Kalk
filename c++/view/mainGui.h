@@ -6,7 +6,7 @@
 #include "model/poligono.h"
 #include "view/myqline.h"
 #include "view/wizard.h"
-#include "view/graficelement.h"
+#include "view/graphicelement.h"
 #include "view/puntograph.h"
 #include "view/rettagraph.h"
 #include "view/poligongraph.h"

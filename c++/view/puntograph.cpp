@@ -14,7 +14,7 @@ void puntoGraph::draw(grafico* g,unsigned k){
     g->replot();
 }
 
-void puntoGraph::drawing(grafico* g,unsigned k){ //solo per poter rendere protected il metodo draw
+void puntoGraph::drawing(grafico* g,unsigned k){
 
     this->draw(g,k);
 }

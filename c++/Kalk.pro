@@ -25,12 +25,12 @@ HEADERS += \
     view/myqline.h \
     view/qcustomplot.h \
     view/wizard.h \
-    view/graficelement.h \
     view/puntograph.h \
     view/rettagraph.h \
     view/poligongraph.h \
 #    view/triangolograph.h \
 #    view/quadratograph.h
+    view/graphicelement.h
 
 SOURCES += \
     model/eccezioni.cpp \
@@ -49,12 +49,12 @@ SOURCES += \
     view/myqline.cpp \
     view/qcustomplot.cpp \
     view/wizard.cpp \
-    view/graficelement.cpp \
     view/puntograph.cpp \
     view/rettagraph.cpp \
     view/poligongraph.cpp \
 #    view/triangolograph.cpp \
 #    view/quadratograph.cpp
+    view/graphicelement.cpp
 
 RESOURCES += \
     view/icons.qrc

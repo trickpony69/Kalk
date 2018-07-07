@@ -1,14 +1,15 @@
 #ifndef POLIGONGRAPH_H
 #define POLIGONGRAPH_H
 
-#include "view/graficelement.h"
+#include "view/graphicelement.h"
 #include "model/poligono.h"
 #include "model/punto.h"
 
-class poligonGraph : public graficElement{
+class poligonGraph : public graphicElement{
 public:
     poligonGraph(poligono*);
     virtual void drawing(grafico*,unsigned k);
+    ~poligonGraph();
 private:
 
 

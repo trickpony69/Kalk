@@ -1,15 +1,17 @@
-#ifndef GRAFICELEMENT_H
-#define GRAFICELEMENT_H
+#ifndef GRAPHICELEMENT_H
+#define GRAPHICELEMENT_H
 
 #include "view/grafico.h"
 #include "model/inputitem.h"
 
-class graficElement{
+class graphicElement{
 public:
     virtual void drawing(grafico*,unsigned)=0;
-    static graficElement* parsGraphicEl(inputitem*);
+    static graphicElement* parsGraphicEl(inputitem*);
+    virtual ~graphicElement(){}
 protected:
     virtual void draw(grafico*,unsigned)=0;
 };
 
 #endif // GRAFICELEMENT_H
+
