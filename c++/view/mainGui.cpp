@@ -194,14 +194,6 @@ void mainGui::drawAndReturn(){
                  if(k==i)
                      loadColor(QString::number(i),k);
 
-
-//         if(k==0)
-//            loadColor("primoSlot",k);
-//         else if(k==1)
-//            loadColor("secondoSlot",k);
-//         else if(k==2)
-//            loadColor("terzoSlot",k);
-
          graficoElementi->replot();
          vectorLabel[k]->clear();
         }
@@ -218,23 +210,17 @@ void mainGui::loadColor(QString slot,int index){
     QSettings settings("Kalk","configKalk");
     settings.beginGroup("cambioColore");
 
-    if(settings.value(slot).toInt() == 0){
-        graficoElementi->graph(index)->setPen(QPen(Qt::blue));
-        for(int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::blue)));
-        }
-    }
+    QMap<int,QPen> mappaColori;
+    mappaColori.insert(0,QPen(Qt::blue));
+    mappaColori.insert(1,QPen(Qt::red));
+    mappaColori.insert(2,QPen(Qt::green));
 
-    else if(settings.value(slot).toInt() == 1){
-        graficoElementi->graph(index)->setPen((QPen(Qt::red)));
-        for(int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::red)));
-        }
-    }
-    else if(settings.value(slot).toInt() == 2){
-        graficoElementi->graph(index)->setPen((QPen(Qt::green)));
-        for(int i=0; i<graficoElementi->getSize(index); i++){
-            graficoElementi->readSegmenti(index,i)->setPen((QPen(Qt::green)));
+    for(int k=0; k<3; k++){
+        if(settings.value(slot).toInt() == k){
+            graficoElementi->graph(index)->setPen(mappaColori[k]);
+            for(int i=0; i<graficoElementi->getSize(index); i++){
+                graficoElementi->readSegmenti(index,i)->setPen(mappaColori[k]);
+            }
         }
     }
     settings.endGroup();

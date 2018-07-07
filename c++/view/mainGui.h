@@ -1,6 +1,7 @@
 #ifndef MIACLASSE_H
 #define MIACLASSE_H
 
+
 #include "view/grafico.h"
 #include "model/poligono.h"
 #include "view/myqline.h"
@@ -9,8 +10,6 @@
 #include "view/puntograph.h"
 #include "view/rettagraph.h"
 #include "view/poligongraph.h"
-//#include "view/quadratograph.h"
-//#include "view/triangolograph.h"
 
 class mainGui: public QWidget{
     friend class finestra;

@@ -21,7 +21,8 @@ graficElement* graficElement::parsGraphicEl(inputitem* in){
 
         settings.endGroup();
 
-        return new rettaGraph(ret->print_rect(min,max)[0],ret->print_rect(min,max)[1]);
+        vector<punto> range = ret->print_rect(min,max);
+        return new rettaGraph(range[0],range[1]);
     }
     else if(punto* pt = dynamic_cast<punto*>(in)){
 
