@@ -37,6 +37,7 @@ private:
     void clearInput();
 public:
     mainGui(QWidget* =0);
+    ~mainGui();
 
 private slots: //private o public slots ?
     void push_qle();

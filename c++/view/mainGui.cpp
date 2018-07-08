@@ -124,10 +124,11 @@ void mainGui::push_qle(){
 void mainGui::remove_qle(){
     if(funVec.size()-1>=1){
         hFunLay->removeWidget(funVec[funVec.size()-1]);
-        if(graficoElementi->graph()){
+        if(graficoElementi->graph() && inputElemento.size()!=0){
             graficoElementi->graph()->data()->clear();
-            if(dynamic_cast<inputitem*>(inputElemento[inputElemento.size()-1]))
-                graficoElementi->deletePol(funVec.size()-1);
+            graficoElementi->deletePol(funVec.size()-1);
+            delete inputElemento[inputElemento.size()-1];
+            inputElemento.remove(inputElemento.size()-1);
         }
         graficoElementi->replot();
         vectorLabel[funVec.size()-1]->clear();
@@ -238,6 +239,13 @@ void mainGui::showResult(){
     }
 }
 
+mainGui::~mainGui(){
+    for(int i=0; i<inputElemento.size(); i++){
+        delete inputElemento[i];
+        qDebug("inputElemento* rimosso");
+    }
+}
+
 //------------------Funzionalità barra laterale------------------
 //-questi metodi usano il modello perchè non ritornano soluzioni grafiche-
 void mainGui::intersezione(){
@@ -277,7 +285,7 @@ void mainGui::dist2item(){
         double dist = inputElemento[0]->distance(inputElemento[1]);
         display->setText(QString::number(dist));
     }
-    else display->setText("Non sono stati inseitri due elementi");
+    else display->setText("Non sono stati inseriti due elementi");
 }
 
 void mainGui::area(){
