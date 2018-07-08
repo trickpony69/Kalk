@@ -1,6 +1,6 @@
 #include "finestra.h"
 
-finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()),finestraBenvenuto(new wizard()){
+finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mainGui()),finestraOpzioni(nullptr),finestraBenvenuto(new wizard()){
     setWindowTitle("Kalk");
     setCentralWidget(widgetCentrale);
     QWidget* spaziatore1 = new QWidget(this);
@@ -26,9 +26,11 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
 }
 
 void finestra::showOption(){
-    finestraOpzioni = new impostazioni;
-    loadSettings();
-    finestraOpzioni->show();
+    if(finestraOpzioni==nullptr){
+        finestraOpzioni = new impostazioni;
+        loadSettings();
+        finestraOpzioni->show();
+    }
 }
 
 void finestra::loadSettings(){

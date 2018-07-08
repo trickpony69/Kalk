@@ -5,7 +5,8 @@ impostazioni::impostazioni(QWidget *parent) : QWidget(parent),mainlayout(new QVB
 
     setFixedSize(430,300);
     setWindowTitle("Impostazioni");    
-    QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra");
+    QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra \n"
+                                 "                       Ridisegna per vedere i cambiamenti");
     QLabel* scritta0 = new QLabel("                              Scegli i colori del grafico");
     QLabel* scritta1 = new QLabel("                              Cambia il range del grafico");
     QVector<QVector<QLabel*>> vectorColors(3);
