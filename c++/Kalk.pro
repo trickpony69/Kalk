@@ -28,8 +28,6 @@ HEADERS += \
     view/puntograph.h \
     view/rettagraph.h \
     view/poligongraph.h \
-#    view/triangolograph.h \
-#    view/quadratograph.h
     view/graphicelement.h \
     view/barrafunzionalita.h
 
@@ -53,8 +51,6 @@ SOURCES += \
     view/puntograph.cpp \
     view/rettagraph.cpp \
     view/poligongraph.cpp \
-#    view/triangolograph.cpp \
-#    view/quadratograph.cpp
     view/graphicelement.cpp \
     view/barrafunzionalita.cpp
 
