@@ -3,7 +3,7 @@
 impostazioni::impostazioni(QWidget *parent) : QWidget(parent),mainlayout(new QVBoxLayout(this)),titoloImpostazione0(new QHBoxLayout),settaggi(new QHBoxLayout()),titoloImpostazione1(new QHBoxLayout()),
    impostazione1(new QHBoxLayout()),min(new QLineEdit()),max(new QLineEdit()){
 
-    setFixedSize(430,300);
+    setFixedSize(460,300);
     setWindowTitle("Impostazioni");    
     QLabel* scritta = new QLabel("Le impostazioni verranno salvate alla chiusura di questa finestra \n"
                                  "                       Ridisegna per vedere i cambiamenti");
