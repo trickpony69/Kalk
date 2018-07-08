@@ -1,7 +1,6 @@
 #ifndef MIACLASSE_H
 #define MIACLASSE_H
 
-
 #include "view/grafico.h"
 #include "model/poligono.h"
 #include "view/myqline.h"
@@ -13,6 +12,7 @@
 
 class mainGui: public QWidget{
     friend class finestra;
+    friend class barraFunzionalita;
     Q_OBJECT
 private:
     QHBoxLayout* griglia;
@@ -39,21 +39,13 @@ public:
     mainGui(QWidget* =0);
     ~mainGui();
 
-private slots: //private o public slots ?
+private slots:
     void push_qle();
     void remove_qle();
     void drawAndReturn();
     void clearEntry();
-    void intersezione();
     void saveResult();
     void showResult();
-    void rect2Points();
-    void dist2item();
-    void area();
-    void perimetro();
-    void paralsrettapunt();
-    void perppuntoretta();
-
 };
 
 #endif // MIACLASSE_H

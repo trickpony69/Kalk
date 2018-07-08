@@ -2,6 +2,8 @@
 #define FINESTRA_H
 
 #include "view/impostazioni.h"
+#include "view/mainGui.h"
+#include <view/barrafunzionalita.h>
 
 class finestra : public QMainWindow{
     Q_OBJECT
@@ -12,7 +14,7 @@ private:
     void loadSettings();
     void closeEvent(QCloseEvent*);
 public:    
-    explicit finestra(QWidget *parent = NULL);//explicit o no ?
+    explicit finestra(QWidget* parent = NULL);
 private slots:
     void showOption();
 };

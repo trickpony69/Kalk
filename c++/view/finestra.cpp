@@ -6,58 +6,21 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     QWidget* spaziatore1 = new QWidget(this);
     spaziatore1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     QToolBar* tb = new QToolBar(this);
-    QToolBar* tbL = new QToolBar(this);
-    QAction* spaziatoreTab = new QAction("",this);
+    barraFunzionalita* tbL = new barraFunzionalita(this,widgetCentrale);
     QAction* opzioni = new QAction("Opzioni",this);
-    QAction* inter = new QAction("Intersezione",this);
-    QAction* rect2Points = new QAction("Retta passante tra due punti",this);
-    QAction* dist2item = new QAction("Distanza tra due elementi",this);
-    QAction* area = new QAction("Area",this);
-    QAction* perimetro = new QAction("Perimetro",this);
-    QAction* perp = new QAction("Retta perpendicolare dato punto e retta",this);
-    QAction* paral = new QAction("Retta parallela dato punto e retta",this);
-
-    spaziatoreTab->setDisabled(true);
 
     opzioni->setIcon(QIcon(":/icon/config.png"));
-    inter->setIcon(QIcon(":/icon/intersect.png"));
-    rect2Points->setIcon(QIcon(":/icon/rect2Points.png"));
-    dist2item->setIcon(QIcon(":/icon/dist2Rect.png"));
-    area->setIcon(QIcon(":/icon/area.png"));
-    perimetro->setIcon(QIcon(":/icon/perimeter.png"));
-    perp->setIcon(QIcon(":/icon/perpendicular.png"));
-    paral->setIcon(QIcon(":/icon/parallels.png"));
 
     tb->addWidget(spaziatore1);
     tb->addAction(opzioni);
     tb->setFloatable(false);
     tb->setMovable(false);
 
-    tbL->addAction(spaziatoreTab);
-    tbL->addAction(inter);
-    tbL->addAction(rect2Points);
-    tbL->addAction(dist2item);
-    tbL->addAction(perimetro);
-    tbL->addAction(area);
-    tbL->addAction(perp);
-    tbL->addAction(paral);
-    tbL->setFloatable(false);
-    tbL->setMovable(false);
-
     addToolBar(Qt::LeftToolBarArea, tbL);
     addToolBar(tb);
     resize(700,500);
     finestraBenvenuto->show();
     finestraBenvenuto->resize(660,600);
-
-    connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
-    connect(inter,SIGNAL(triggered()),widgetCentrale,SLOT(intersezione()));
-    connect(rect2Points,SIGNAL(triggered()),widgetCentrale,SLOT(rect2Points()));
-    connect(dist2item,SIGNAL(triggered()),widgetCentrale,SLOT(dist2item()));
-    connect(area,SIGNAL(triggered()),widgetCentrale,SLOT(area()));
-    connect(perimetro,SIGNAL(triggered()),widgetCentrale,SLOT(perimetro()));
-    connect(paral,SIGNAL(triggered()),widgetCentrale,SLOT(paralsrettapunt()));
-    connect(perp,SIGNAL(triggered()),widgetCentrale,SLOT(perppuntoretta()));
 }
 
 void finestra::showOption(){
