@@ -2,16 +2,11 @@
 #define MIACLASSE_H
 
 #include "view/grafico.h"
-#include "model/poligono.h"
 #include "view/myqline.h"
-#include "view/wizard.h"
 #include "view/graphicelement.h"
-#include "view/puntograph.h"
-#include "view/rettagraph.h"
-#include "view/poligongraph.h"
+#include "model/eccezioni.h"
 
 class mainGui: public QWidget{
-    friend class finestra;
     friend class barraFunzionalita;
     Q_OBJECT
 private:
@@ -38,7 +33,6 @@ private:
 public:
     mainGui(QWidget* =0);
     ~mainGui();
-
 private slots:
     void push_qle();
     void remove_qle();

@@ -3,7 +3,10 @@
 
 #include <QToolBar>
 #include <QAction>
-#include <view/finestra.h>
+#include "view/finestra.h"
+#include "model/punto.h"
+#include "model/retta.h"
+#include "model/poligono.h"
 
 class barraFunzionalita : public QToolBar{
     Q_OBJECT

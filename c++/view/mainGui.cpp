@@ -105,7 +105,7 @@ void mainGui::push_qle(){
         funVec.push_back(myQle);
         hFunLay->addWidget(myQle);
         myQle->setFixedSize(300,40);
-        myQle->setFont(QFont("Arial", 15));
+        myQle->setFont(QFont("Verdana",15));
 
         if(funVec.size() <= 1)
             remove->setDisabled(true);
@@ -185,9 +185,11 @@ void mainGui::drawAndReturn(){
         QString slotString("(Slot:"+QString::number(k)+") ");
         try{
              graficoElementi->addGraph();
+
              inp = inputitem::iniz_input(returnToParse[k].toStdString());
              elGraph = graphicElement::parsGraphicEl(inp);
              elGraph->drawing(graficoElementi,k);
+
              inputElemento.push_back(inp);
 
              for(int i=0; i<3; i++)
@@ -196,6 +198,7 @@ void mainGui::drawAndReturn(){
 
          graficoElementi->replot();
          vectorLabel[k]->clear();
+         delete elGraph;
         }
 
         catch(input_error e){vectorLabel[k]->setText(slotString+QString::fromStdString(e.to_string_error()));}
@@ -241,7 +244,7 @@ void mainGui::showResult(){
 
 mainGui::~mainGui(){
     for(int i=0; i<inputElemento.size(); i++){
-        delete inputElemento[i];
-        qDebug("inputElemento* rimosso");
+        delete inputElemento[i];   
     }
+    graficoElementi->pulisci();
 }

@@ -4,6 +4,7 @@
 #include "view/impostazioni.h"
 #include "view/mainGui.h"
 #include <view/barrafunzionalita.h>
+#include "view/wizard.h"
 
 class finestra : public QMainWindow{
     Q_OBJECT

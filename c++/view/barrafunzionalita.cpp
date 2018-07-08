@@ -24,6 +24,7 @@ barraFunzionalita::barraFunzionalita(QWidget* parent,mainGui* g): QToolBar(paren
     addAction(areaGener);
     addAction(perp);
     addAction(paral);
+
     setFloatable(false);
     setMovable(false);
 
@@ -36,9 +37,8 @@ barraFunzionalita::barraFunzionalita(QWidget* parent,mainGui* g): QToolBar(paren
     connect(perp,SIGNAL(triggered()),this,SLOT(perpuntoretta()));
 }
 
-
-//------------------Funzionalità barra laterale------------------
-//-questi slot fanno uso el modello perchè non ritornano soluzioni grafiche-
+//--------------------------Funzionalità barra laterale--------------------------
+//---questi slot fanno uso del modello perchè non ritornano soluzioni grafiche---
 void barraFunzionalita::intersezione(){
     if(gui->inputElemento.size() > 1){
         vector<punto> inter = gui->inputElemento[0]->intersect(gui->inputElemento[1]);

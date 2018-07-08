@@ -21,6 +21,8 @@ finestra::finestra(QWidget *parent) : QMainWindow(parent),widgetCentrale(new mai
     resize(700,500);
     finestraBenvenuto->show();
     finestraBenvenuto->resize(660,600);
+
+    connect(opzioni,SIGNAL(triggered()),this,SLOT(showOption()));
 }
 
 void finestra::showOption(){

@@ -31,7 +31,7 @@ void grafico::pulisci(){
         if(!segmenti.isEmpty())
             segmenti.clear();
 
-        //ripopola il vettore più esterno
+        //ripopola il vettore più esterno pronto per un nuovo input
         for(int i=0; i<3; i++){
             QVector<QCPItemLine*> f;
             segmenti.push_back(f);
